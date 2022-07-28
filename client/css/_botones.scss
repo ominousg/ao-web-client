@@ -1,0 +1,152 @@
+.defaults_boton {
+  @extend .buttonFont;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.botonNormal  {
+  //@extend .botonTransition;
+  @extend .defaults_boton;
+  background-image: url('../imagenes/botones/boton_normal.png');
+  background-size: 100% 100%;
+  text-decoration: none;
+  color: $boton_normal_texto;
+  margin-top: 3px;
+  margin-bottom: 3px;
+
+  text-shadow: 1px 1px 1px #000;
+
+  cursor: pointer;
+  text-align: center;
+  width: 121px;
+  height:44px;
+
+  outline:none !important;
+  border: none !important;
+}
+
+.botonNormal:hover {
+  background: url('../imagenes/botones/boton_normal.png') no-repeat; /* fallback */
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/boton_normal.png') no-repeat;
+  background-size: 100% 100%;
+
+  color: $boton_normal_texto_hover;
+  /* background-color: #FFFFFF;*/
+}
+
+.botonNormal:active {
+  //background: url('../imagenes/botones/boton_normal.png') no-repeat; /* fallback */
+  //background: url('../imagenes/darken.png') repeat, url('../imagenes/botones/boton_normal.png') no-repeat;
+  color: $boton_normal_texto_pressed ;
+  /*text-shadow: none;*/
+}
+
+.botonCuadrado {
+  @extend .botonNormal;
+  background-image: url('../imagenes/botones/bg_square_button.png');
+}
+
+.botonCuadrado:hover {
+  background: url('../imagenes/botones/bg_square_button.png') no-repeat; /* fallback */
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/bg_square_button.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+//.botonTest  {
+//  //@extend .botonTransition;
+//  //@extend .defaults_boton;
+//  background-color: hsl(36, 34%, 40%) !important;
+//  background-repeat: repeat-x;
+//  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#bb9f76", endColorstr="#886c43");
+//  background-image: linear-gradient(#bb9f76, #886c43);
+//  border-color: #886c43 #886c43 hsl(36, 34%, 35%);
+//  color: $boton_normal_texto !important;
+//  text-shadow: 1px 1px 1px #000;
+//  -webkit-font-smoothing: antialiased;
+//}
+
+.botonTest  {
+  //@extend .botonTransition;
+  //@extend .defaults_boton;
+  box-shadow:inset 0px 1px 0px 0px #a6827e;
+  background:linear-gradient(to bottom, #7d5d3b 5%, #634b30 100%);
+  background-color:#7d5d3b;
+  border-radius:2px;
+  border:1px solid #54381e;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  padding:3px 12px;
+  text-shadow:0px 1px 0px #4d3534;
+}
+
+.botonTest:hover {
+  background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
+  background-color:#634b30;
+}
+
+.botonTest:active {
+  position:relative;
+  top:1px;
+}
+
+
+
+.botonInvisible {
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+
+  /*DEBUG:*/
+  outline: dashed 2px green;
+}
+
+.botonImagen {
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  background: Transparent no-repeat;
+  background-size: contain;
+  border: none;
+}
+
+/*
+.botonCerrar {
+    background-size: 100% 100%;
+    width: 28px;
+    height: 26px;
+    cursor: pointer;
+    background-color: Transparent;
+    border: none;
+    outline: none;
+    background-image: url("../imagenes/botonX.jpg");
+    display: inline-block;
+}
+.botonCerrar:active {
+    background-image: url("../imagenes/botonX-pressed.jpg");
+}
+.botonCerrar:hover {
+    background-image: url("../imagenes/botonX-hover.png");
+}
+.botonNormal {
+    background-image: url(../imagenes/boton-normal.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    height: 35px;
+    width: 160px;
+    text-align: center;
+    text-decoration: none;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 1px #333;
+}
+.botonNormal:active {
+    background-image: url(../imagenes/boton-normal-pressed.png);
+    color: grey;
+}*/

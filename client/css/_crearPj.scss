@@ -1,0 +1,115 @@
+#crearPjDiv select{
+  @extend .horizontal_center;
+  max-width:180px;
+  text-align: center;
+  text-align-last:center;
+}
+
+#crearBotonTirarDados{
+  width: 100px;
+  height: 100px;
+  background-position: center;
+  background-image: url('../imagenes/interfaz/iconos/dice.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  border:none;
+  outline:none;
+}
+
+#crearBotonTirarDados:hover{
+  background-image: url('../imagenes/interfaz/iconos/dice_hover.png');
+}
+
+#crearBotonGeneroFemenino {
+  @extend .selected_border;
+  width: 60px;
+  height: 60px;
+  background-position: center;
+  background-image: url('../imagenes/interfaz/iconos/gender_icon_female.png'), url('../imagenes/botones/bg_square_button.png');
+  background-repeat: no-repeat;
+  background-size: 60%, contain;
+
+  border-color: transparent;
+}
+
+#crearBotonGeneroFemenino.selected {
+  @extend .selected_border;
+}
+
+#crearBotonGeneroMasculino {
+  @extend .selected_border;
+  width: 60px;
+  height: 60px;
+  background-position: center;
+  background-image: url('../imagenes/interfaz/iconos/gender_icon_male.png'), url('../imagenes/botones/bg_square_button.png');
+  background-repeat: no-repeat;
+  background-size: 70%, contain;
+  border-color: transparent;
+}
+
+#crearBotonGeneroMasculino.selected {
+  @extend .selected_border;
+}
+
+#crearPjSeleccionCabezaBotonIzq {
+  display:inline-block;
+  vertical-align:top;
+  width: 40px;
+  height: 40px;
+  background-image: url('../imagenes/botones/arrow_left.png');
+}
+
+#crearPjSeleccionCabezaBotonDer {
+  display:inline-block;
+  vertical-align: top;
+  width: 40px;
+  height: 40px;
+  background-image: url('../imagenes/botones/arrow_right.png');
+}
+
+#crearPjSeleccionCabezaImagenIzq {
+  box-sizing:content-box;
+  display:inline-block;
+  margin-top:6px;
+  width: 28px;
+  height: 33px;
+  background-size: 400%;
+}
+
+#crearPjSeleccionCabezaImagenCenter {
+  box-sizing:content-box; // no tomar al borde como parte del tamaño total
+  display:inline-block;
+  width: 34px;
+  height: 40px;
+  background-size: 400%;
+}
+
+#crearPjSeleccionCabezaImagenDer {
+  box-sizing:content-box;
+  display:inline-block;
+  margin-top:6px;
+  width: 28px;
+  height: 33px;
+  background-size: 400%;
+}
+
+#crearPjImagenPersonaje { // 30x 45
+  display:inline-block;
+  width: 50px;
+  height: 90px;
+  background-size: 600%;
+  margin-top:11px;
+}
+
+#crearPjImagenCabezaPersonaje { // 17x16
+  display:inline-block;
+  position:absolute;
+  right:11px;
+  width: 28px;;
+  height: 33px;
+  background-size: 400%;
+}
+
+#crearPjImagenCabezaPersonaje.petizo {
+  margin-top:19px;
+}

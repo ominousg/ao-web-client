@@ -1,0 +1,51 @@
+#popUpSkillsContenedorPuntosLibres {
+  margin: 10px;
+  color: white;
+  text-align: center;
+}
+
+
+#popUpSkillsContenedorSkills {
+  margin: 10px auto;
+  text-align: center;
+}
+
+.botonMasSkill {
+  @extend .botonImagen;
+  margin-left: 4px;
+  position: relative;
+  display: inline-block;
+  background: url('../imagenes/botonMas.png');
+  width: 16px;
+  height: 16px;
+}
+
+.botonMasSkill:active {
+  background-image: url("../imagenes/botonMasApretado.png");
+}
+
+.botonMenosSkill {
+  @extend .botonImagen;
+  margin-left: 1px;
+  position: relative;
+  display: inline-block;
+  background: url('../imagenes/botonMenos.png');
+  width: 16px;
+  height: 16px;
+}
+
+.botonMenosSkill:active {
+  background-image: url("../imagenes/botonMenosApretado.png");
+}
+
+#skillsBotonAceptar {
+  width: 40%;
+  float: right;
+  margin: auto;
+}
+
+#skillsBotonCancelar {
+  width: 40%;
+  float: left;
+  margin: auto;
+}

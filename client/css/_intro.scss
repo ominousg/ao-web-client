@@ -1,0 +1,44 @@
+#intro {
+  display: none;
+}
+
+#loadingBar {
+  display:block;
+  width:600px;
+  height:37px;
+  background: url('../imagenes/barras/barra_cargando_vacia.png') no-repeat;
+  background-size:cover;
+
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
+}
+
+#loadingBarUsada {
+  transition: width 1s;
+  background: url('../imagenes/barras/barra_cargando_llena.png') no-repeat;
+  background-size:cover;
+  width:0%;
+  height:100%;
+  float:left;
+}
+
+.intro #intro {
+  display: block;
+}
+
+.intro #conectar {
+  display: none;
+}
+
+.intro #crearPJ {
+  display: none;
+}
+
+.intro #juego {
+  display: none;
+}

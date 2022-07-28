@@ -1,0 +1,36 @@
+.margenBoton {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.margenInput {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/*input {
+  @extend .form-control;
+}*/
+
+
+/*.form_element_base {
+  @extend .activeColor, .everywhereFont;
+  border-width: 2px ;
+  border-style: solid ;
+  border-color: $form_elements_border_color ;
+  border-radius: 2px ;
+  background: $form_elements_background_color;
+  box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.75);
+}
+
+input {
+  @extend .form_element_base;
+}
+
+ul {
+  cursor: default;
+}
+
+span {
+  user-select: none;
+}*/

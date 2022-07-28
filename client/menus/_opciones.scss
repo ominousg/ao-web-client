@@ -1,0 +1,34 @@
+#configurarTeclasContenedor {
+  margin: 10px auto;
+  text-align: center;
+}
+
+#configurarTeclasContenedor{
+  input{
+    text-align:center;
+  }
+}
+
+#opcionesIconoMenuWrench{
+  background-image: url('../imagenes/interfaz/iconos/wrench.png');
+}
+
+#opcionesIconoMenuWrench.active{
+  background-image: url('../imagenes/interfaz/iconos/wrench_active.png');
+}
+
+#opcionesIconoMenuAudio{
+  background-image: url('../imagenes/interfaz/iconos/speaker.png');
+}
+
+#opcionesIconoMenuAudio.active{
+  background-image: url('../imagenes/interfaz/iconos/speaker_active.png');
+}
+
+#opcionesIconoMenuTeclado{
+  background-image: url('../imagenes/interfaz/iconos/keyboard.png');
+}
+
+#opcionesIconoMenuTeclado.active{
+  background-image: url('../imagenes/interfaz/iconos/keyboard_active.png');
+}

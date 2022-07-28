@@ -1,0 +1,436 @@
+/*Interfaz: elementos dentro de la pantalla de juego (inventario, etc)*/
+
+$left_align_percentage: 8%;
+
+#gamecanvas {
+  display: inline-block;
+}
+
+/* esto deberia estar en otro lado */
+#gamecanvas.crosshair {
+  cursor: crosshair;
+}
+
+#chatbox {
+  border-bottom: 0;
+  height: 50px;
+  width: 63%;
+  position: absolute;
+  left: 5%;
+  bottom: -2px;
+  z-index: 1;
+  //transition: 0.2s top ease;
+  display: none;
+}
+
+#chatbox.active {
+  display: inline-block;
+}
+
+#chatinputContainer {
+  border-bottom: 0;
+}
+
+#chatinput {
+  flex: 1;
+  margin-right: 2px;
+  display: inline-block;
+  color: white;
+  font-weight: normal;
+  //stroke:
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important;
+}
+
+#botonChatInput {
+  height: 27px;
+  width: 52px;
+  margin-right: 5px;
+  background-image: url('../imagenes/botones/chat_send_btn.png');
+  background-size: 100% 100%;
+  display: inline-block;
+}
+
+#botonChatInput:hover{
+  background: url('../imagenes/botones/chat_send_btn.png') no-repeat; /* fallback */
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/chat_send_btn.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+#menuJuego span {
+  cursor: default;
+  font-weight: bold;
+}
+
+#menuJuego {
+  @extend .exterior_border_default;
+  background-size: 100% 100%;
+  background-image: url('../imagenes/menuJuego_background.png');
+  border-right-width: 0px;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+  flex: 1;
+  display: inline-block;
+  position: relative;
+
+  font-size:1.5vh;
+}
+
+$width_inv_h: 44%;
+$height_inv_h: 5.4%;
+$top_inv_h: 7.5%;
+$separacion_botones: 0.7%;
+$left_inv_h : $left_align_percentage - 2.2%;
+
+#botonInventario {
+  background: url('../imagenes/botones/boton_inventario.png') no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  left: $left_inv_h ;
+  top: $top_inv_h;
+  width: $width_inv_h;
+  height: $height_inv_h;
+}
+
+#botonInventario:hover {
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/boton_inventario.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+#botonHechizos {
+  background: url('../imagenes/botones/boton_hechizos.png') no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  left: $left_inv_h  + $width_inv_h + $separacion_botones;
+  top: $top_inv_h;
+  width: $width_inv_h;
+  height: $height_inv_h;
+}
+
+#botonHechizos:hover{
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/boton_hechizos.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+#imagenTabActiva {
+  position: absolute;
+  background-size: contain;
+  background-image: url('../imagenes/active_tab.png');
+  height: 3%;
+  width: $width_inv_h;
+  top: $top_inv_h +  $height_inv_h - 0.7%;
+  left: $left_inv_h  + $width_inv_h + $separacion_botones;
+}
+
+.inventarioActivo #imagenTabActiva {
+  left: $left_inv_h;
+}
+
+
+#botonLanzar {
+  position: absolute;
+  left: $left_align_percentage + 2.2%;
+  top: 50%;
+  width: 60%;
+  height: $height_inv_h;
+}
+
+#botonInfo {
+  position: absolute;
+  left: $left_align_percentage + 2.2% + 60% + $separacion_botones;
+  top: 50%;
+  width: 10%;
+  height: $height_inv_h;
+}
+
+#botonMoverHechizoArriba{
+  background: url('../imagenes/botones/boton_arriba_inventario.png') no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  left: $left_align_percentage + 2.2% + 60% + $separacion_botones + 10% + $separacion_botones/2;
+  top: 50%;
+  width: 10%;
+  height: $height_inv_h/2 - 0.1%;
+}
+
+#botonMoverHechizoArriba:hover{
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/boton_arriba_inventario.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+#botonMoverHechizoAbajo{
+  background: url('../imagenes/botones/boton_abajo_inventario.png') no-repeat;
+  background-size: 100% 100% ;
+  position: absolute;
+  left: $left_align_percentage + 2.2% + 60% + $separacion_botones + 10% + $separacion_botones/2;
+  top: 50% + $height_inv_h/2;
+  width: 10%;
+  height: $height_inv_h/2 - 0.1%;
+}
+
+#botonMoverHechizoAbajo:hover{
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/boton_abajo_inventario.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+#itemsGrid {
+  position: absolute;
+  left: $left_align_percentage + 2.3%;
+  top: 15.5%;
+  width: 85%;
+  height: 45%;
+  margin: 0;
+  padding: 0;
+  border:none;
+  display: none;
+}
+
+#itemsGrid > li {
+  margin: 1.25%; //3px;
+  width: 21%;
+  height: 13.36%;
+}
+
+#hechizos {
+  color: white;
+  background: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  left: $left_align_percentage + 2.2%;
+  top: 15.5%;
+  width: 81%;
+  height: 33%;
+}
+
+.inventarioActivo #botonInfo {
+  display: none;
+}
+
+.inventarioActivo #botonLanzar {
+  display: none;
+}
+
+.inventarioActivo #hechizos {
+  display: none;
+}
+
+.inventarioActivo #botonMoverHechizoArriba {
+  display:none;
+}
+.inventarioActivo #botonMoverHechizoAbajo{
+  display:none;
+}
+
+.inventarioActivo #itemsGrid {
+  display: inline-block;
+}
+
+#barras span {
+  display: inline-block;
+  position: absolute;
+  margin: auto;
+  text-align: center;
+}
+
+#barraEnergiaTexto, #barraExpTexto, #barraHambreTexto, #barraManaTexto, #barraSaludTexto, #barraSedTexto {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+}
+
+#barraEnergia, #barraMana, #barraSalud, #barraHambre, #barraSed, #barraExp {
+  @extend .divImagen;
+  position: absolute;
+  left: $left_align_percentage;
+  width: 84.6%;
+  height: 2.5%;
+  background-size: 100% 100%;
+}
+
+$top_primer_barra: 67.6%;
+$separacion_barras: 5.2%;
+#barraEnergia {
+  background-image: url('../imagenes/interfaz/barras/barra_energia.png');
+  top: $top_primer_barra;
+}
+
+#barraMana {
+  background-image: url('../imagenes/interfaz/barras/barra_mana.png');
+  top: $top_primer_barra + $separacion_barras;
+}
+
+#barraSalud {
+  background-image: url('../imagenes/interfaz/barras/barra_vida.png');
+  top: $top_primer_barra + $separacion_barras*2;
+}
+
+#barraHambre {
+  background-image: url('../imagenes/interfaz/barras/barra_hambre.png');
+  top: $top_primer_barra + $separacion_barras*3;
+}
+
+#barraSed {
+  background-image: url('../imagenes/interfaz/barras/barra_sed.png');
+  top: $top_primer_barra + $separacion_barras*4;
+}
+
+#barraExp {
+  background-image: url('../imagenes/interfaz/barras/barra_experiencia.png');
+  top: 4%;
+}
+
+#barraEnergiaUsada, #barraManaUsada, #barraSaludUsada, #barraHambreUsada, #barraSedUsada, #barraExpUsada {
+  @extend .divImagen;
+  background-size: 100% 100%;
+  transition: width 0.5s;
+  float: right;
+  height: 100%;
+  width: 30%;
+  background-image: url('../imagenes/interfaz/barras/barra_background.png');
+}
+
+#labelEnergia, #labelHambre, #labelMana, #labelSalud, #labelSed{
+  color: $menu_background_color !important;
+  position: absolute;
+  top: -90%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+
+#indicadorAgilidad, #indicadorFuerza, #indicadorOro, #indicadorNivel {
+  position: absolute;
+  text-align: center;
+}
+
+#indicadorNivel{
+  top:1%;
+  left:40% ;
+}
+
+$ind_top: 62%;
+
+#indicadorOro { //TODO: corregir esto, ponerlo con la imagen en una div y posicionar absolutamente esa div
+  left: 17%;
+  top: $ind_top;
+  color: $gold_currency_color;
+  text-align: left;
+}
+
+#indicadorFuerza {
+  left: 60.5%;
+  top: $ind_top;
+  color: #79a660;
+}
+
+#indicadorAgilidad {
+  left: 78% ;
+  top: $ind_top;
+  color: #B8860B;
+}
+
+#botonTirarOro {
+  border: none !important;
+  outline: none !important;
+
+  position: absolute;
+  left: $left_align_percentage;
+  top: 61.4%;
+  width: 11%;
+  height: 3.5%;
+  background-image: url("../imagenes/interfaz/iconos/coin.png");
+}
+
+#botonAsignarSkills {
+  position: absolute;
+  background-image: url("../imagenes/interfaz/botonAsignarSkills.png");
+  left: 64%;
+  top: 1.2%;
+  width: 10%;
+  height: 2%
+}
+
+$separacion_botenes_bottom: 17%;
+#menuJuegoBotonMenu, #botonSeguroResucitar, #botonSeguroAtacar, #botonMacroHechizos, #botonMacroTrabajo {
+  position: absolute;
+  width: 15%;
+  height: 5%;
+  top: 93%;
+  border: 2px transparent solid !important;
+}
+
+#menuJuegoBotonMenu {
+  background: url('../imagenes/botones/menu.png') no-repeat;
+  background-size: 100% 100%;
+  left: $left_align_percentage;
+}
+
+#menuJuegoBotonMenu:hover{
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/menu.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+#botonSeguroAtacar {
+  left: $left_align_percentage + $separacion_botenes_bottom;
+  background: url('../imagenes/botones/seguroAtaque.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+#botonSeguroAtacar:hover{
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/seguroAtaque.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+#botonSeguroResucitar {
+  left: $left_align_percentage + $separacion_botenes_bottom*2;
+  background: url('../imagenes/botones/seguroResucitacion.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+#botonSeguroResucitar:hover{
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/seguroResucitacion.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+
+#botonMacroTrabajo {
+  left: $left_align_percentage + $separacion_botenes_bottom*3;
+  background: url('../imagenes/botones/macroTrabajo.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+
+#botonMacroTrabajo:hover{
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/macroTrabajo.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+#botonMacroHechizos {
+  left: $left_align_percentage + $separacion_botenes_bottom*4;
+  background: url('../imagenes/botones/macroHechizos.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+#botonMacroHechizos:hover {
+  background: url('../imagenes/lighten.png') repeat, url('../imagenes/botones/macroHechizos.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+$activo_border: 2px #a8524c solid !important;
+
+#botonSeguroResucitar.seguroOff {
+  border: $activo_border;
+}
+
+#botonSeguroAtacar.seguroOff {
+  border: $activo_border;
+}
+
+#botonMacroHechizos.macroActivado {
+  border: $activo_border;
+}
+
+#botonMacroTrabajo.macroActivado{
+  border: $activo_border;
+}

@@ -1,0 +1,44 @@
+//#comerciar {
+//  display: flex;
+//  flex-direction: column;
+//}
+#comerciarGridComprar {
+  flex: 1;
+  margin-right: 10px;
+}
+
+#comerciarGridVender {
+  flex: 1;
+}
+
+#comerciarPrecio {
+  display: inline-block;
+  float: right;
+  margin: auto 5px;
+}
+
+#comerciarPrecioValor {
+  display: inline-block;
+  float: right;
+}
+
+#comerciarMax {
+  float: right;
+  margin: auto 5px;
+}
+
+#comerciarMaxValor {
+  float: right;
+}
+
+#comerciarNombre {
+  margin-right: 5px;
+}
+
+#comerciarMin {
+  margin-right: 5px;
+}
+
+#comerciarInputCantidad {
+  width:100px;
+}

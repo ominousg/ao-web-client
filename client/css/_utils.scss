@@ -1,0 +1,45 @@
+.horizontal_center {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+
+.vertical_center_container { // lo que este dentro de esto queda centrado verticalmente
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  flex-direction: column;
+}
+
+.noselect {
+  user-select: none;
+  /* DEJAR PREFIJOS DE BROWSERS EN ESTO */
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  -ms-user-select: none;
+  /* ********************************** */
+}
+
+.divImagen {
+  width: auto;
+  height: auto;
+  background: Transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
+}
+
+/* elemento que estando en un container flex se expande y al haber overflow se scrollea (por ej grids items comerciar) */
+.scrollFlex {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.justifiedContainer {
+  display: flex;
+  justify-content: space-around;
+}

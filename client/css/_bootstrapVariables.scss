@@ -1,0 +1,26 @@
+@import "variables";
+
+//$component-active-bg: #c54337;
+
+$font-family-base: 'Myriad Pro', arial, serif;
+$brand-primary: #de8b47; // ??
+$text-color: $color_texto;
+
+$padding-base-vertical: 3px;
+$padding-base-horizontal: 12px;
+
+$border-radius-base: 2px;
+
+$input-color: $color_texto_input;
+$input-bg: $form_elements_background_color;
+$input-border: $form_elements_border_color;
+$input-border-focus: $border_focus_color;
+$input-color-placeholder: $background_font;
+
+// botones:
+$btn-default-color: #fff;
+$btn-default-bg: #694f41;
+$btn-default-border: darken($btn-default-bg, 5%);
+
+//panels:
+$panel-bg: rgba(150, 122, 99, 0.2);
