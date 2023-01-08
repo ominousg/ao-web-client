@@ -68,7 +68,7 @@ define(['font', 'lib/pixi', 'view/textstyle'], function (Font, PIXI, TextStyle) 
 
             this.addChild(this._chat);
             this._chat.x = Math.round(32 * this._escala / 2 - this._chat.width / 2);
-            this._chat.y = Math.round(-28 * this._escala - this._chat.height);
+            this._chat.y = Math.round(-19 * this._escala - this._chat.height);
         }
 
         removerChat() {
@@ -107,9 +107,13 @@ define(['font', 'lib/pixi', 'view/textstyle'], function (Font, PIXI, TextStyle) 
         }
 
         _updateChat(delta) {
-            if (!this._chat)
-                return;
+            if (!this._chat) return;
+
             this._chat.tiempoPasado += delta;
+            const limit = Math.round(-24 * this._escala - this._chat.height);
+            const speed = delta / 10;
+            this._chat.y = Math.max(limit, this._chat.y - speed);
+
             if (this._chat.tiempoPasado > this.DURACION_CHAT) {
                 this.removerChat();
             }
