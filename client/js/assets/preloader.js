@@ -2,8 +2,8 @@
  * Created by horacio on 3/22/16.
  */
 
-define(['lib/pixi', 'json!../../preload_config/preload_sounds.json','json!../../preload_config/preload_graficos.json'],
-    function (PIXI, PreloadSounds, PreloadGraficos) {
+define(['lib/pixi', 'json!../../preload_config/preload_sounds.json','json!../../preload_config/preload_graficos.json', 'json!../../preload_config/preload_mapas.json'],
+    function (PIXI, PreloadSounds, PreloadGraficos, PreloadMapas) {
 
         class Preloader {
             constructor(assetManager) {
@@ -38,6 +38,10 @@ define(['lib/pixi', 'json!../../preload_config/preload_sounds.json','json!../../
 
                 loader.add("indices", "indices/graficos.json");
 
+                for (let mapas of PreloadMapas) {
+                    loader.add(mapas, "mapas/mapa" + mapas + ".json");
+                }
+                
                 for (let grafico of PreloadGraficos) {
                     loader.add(grafico, "graficos/" + grafico + ".png");
                 }
