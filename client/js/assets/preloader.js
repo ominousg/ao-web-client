@@ -38,8 +38,8 @@ define(['lib/pixi', 'json!../../preload_config/preload_sounds.json','json!../../
 
                 loader.add("indices", "indices/graficos.json");
 
-                for (let mapas of PreloadMapas) {
-                    loader.add(mapas, "mapas/mapa" + mapas + ".json");
+                for (let mapa of PreloadMapas) {
+                    loader.add(mapa, "mapas/mapa" + mapa + ".json");
                 }
                 
                 for (let grafico of PreloadGraficos) {
