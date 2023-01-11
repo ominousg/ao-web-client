@@ -22,6 +22,7 @@ define(['enums', 'lib/pixi', 'view/camera', 'view/consola', 'view/containerorden
                 this.entityRenderer = null;
                 this.mapaRenderer = null;
                 this.climaRenderer = null;
+                this.fadeInterval = null;
 
                 this._inicializarPixi();
                 this.rescale(escala);
@@ -180,7 +181,23 @@ define(['enums', 'lib/pixi', 'view/camera', 'view/consola', 'view/containerorden
             }
 
             setBajoTecho(bajoT) {
-                this.layer4.visible = !bajoT;
+                if (this.fadeInterval) clearInterval(this.fadeInterval);
+                this.layer4.visible = true;
+                let targetAlpha = bajoT ? 0 : 1;
+                let currentAlpha = this.layer4.alpha;
+                let alphaDelta = (targetAlpha - currentAlpha) / 10;
+                let count = 0;
+                this.fadeInterval = setInterval(() => {
+                  if (this.layer4.alpha !== targetAlpha) {
+                    this.layer4.alpha += alphaDelta;
+                    if (count === 10) {
+                      this.layer4.alpha = targetAlpha;
+                      this.layer4.visible = true;
+                      clearInterval(this.fadeInterval);
+                    }
+                    count++;
+                  }
+                }, 50);
             }
 
             updateBeforeMovementBegins(dir,entities) {
