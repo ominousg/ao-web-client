@@ -17,7 +17,7 @@ define(['enums', 'lib/howler', 'assets/audioclima'], function (Enums, Howler, Au
 
             this.MUSIC_PATH = 'audio/musica/';
             this.SOUND_PATH = 'audio/sonidos/';
-            this.MAIN_EXTENSION = '.webm';
+            this.MAIN_EXTENSION = '.ogg';
             this.SECONDARY_EXTENSION = '.mp3';
 
             this.currentMusicName = null;
