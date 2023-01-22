@@ -1,6 +1,12 @@
-# Changelog: ao-web-client
+# Argentum Online Web - Cliente 
+![License](https://img.shields.io/github/license/ominousg/ao-web-client.svg) ![Issues](https://img.shields.io/github/issues/ominousg/ao-web-client.svg) [![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/)
 
-- 08/01/2023: Agregando animación vertical del texto over head. [(8ff70b7)](https://github.com/ominousg/ao-web-client/commit/8ff70b78662c7aede9d128eed5d62907ce92a03e)
-- 10/01/2023: Implementando preloader de mapas. [(3724dda)](https://github.com/ominousg/ao-web-client/commit/3724ddab6711dc4c94308e79ed1f47e6c0657434)
-- 11/01/2023: Efecto fade-out al estar bajo techo y fade-in al salir, similar a AlphaBlending. [(6da8193)](https://github.com/ominousg/ao-web-client/commit/6da81936f480b179f327823f42d5a8ed60f7b4dc)
-- 22/01/2023: Agregando comandos de GM. [(ffe8544)](https://github.com/ominousg/ao-web-client/commit/ffe85441a80496c3bc20ee0711503a66c5edfc03)
+Cliente AOWeb usando como base el [dakara-client](https://github.com/horacioMartinez/dakara-client) creado por horacioMartinez. Usa [Pixi JS](https://github.com/pixijs/pixijs), que es un renderizador de WebGL y Canvas. Este repositorio va de la mano con [ao-web-server](https://github.com/ominousg/ao-web-server).
+
+La idea es ir completandolo y agregandole cosas nuevas, como por ejemplo deferred shading, VFXs con shaders, texturas comprimidas (KTX), animación esquelética con Spine/DragonBones, etc como se ve en [este video](https://www.youtube.com/watch?v=LJuugcE5viE). Para saber mas recomiendo chequear los [issues](https://github.com/ominousg/ao-web-client/issues). Se aceptan pull requests!
+
+Funciona con el [dakara-server](https://github.com/DakaraOnline/dakara-server) en C++ creado por AlejoLP y el [servidor convencional](https://www.gs-zone.org/temas/cliente-y-servidor-v0-13-3.86279/) (13.3) en VB6.
+
+[Tutorial sobre cómo conectar el cliente con el dakara-server en Ubuntu](https://www.youtube.com/watch?v=Xm2XIWiqPvs)
+
+[Explicación de Websockify por horacioMartinez](https://github.com/horacioMartinez/dakara-client/wiki/Hostear-servidor-propio)
