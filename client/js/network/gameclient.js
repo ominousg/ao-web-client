@@ -1957,13 +1957,13 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
             p.serialize(this.byteQueue);
         }
 
-        sendChangeMapInfoLand(Data) {
-            var p = this.protocolo.BuildChangeMapInfoLand(Data);
+        sendChangeMapInfoLand(Land) {
+            var p = this.protocolo.BuildChangeMapInfoLand(Land);
             p.serialize(this.byteQueue);
         }
 
-        sendChangeMapInfoZone(Data) {
-            var p = this.protocolo.BuildChangeMapInfoZone(Data);
+        sendChangeMapInfoZone(Zone) {
+            var p = this.protocolo.BuildChangeMapInfoZone(Zone);
             p.serialize(this.byteQueue);
         }
 
