@@ -6,28 +6,28 @@ define([], function () {
     class Storage {
         constructor() {
             this.cache = {};
-            this.available = Modernizr.localstorage;
+            this.available = typeof(Storage) !== "undefined";
         }
-
+    
         isAvailable() {
             return this.available;
         }
-
+    
         // devuelve los valores defaults cambiando a (o sumandole) los que esten el storage
         getItem(key, defaultValue) {
             let userData;
             if (!this.cache.hasOwnProperty(key) && this.available) {
-                if (localStorage[key]) {
-                    this.cache[key] = JSON.parse(localStorage[key]);
+                if (localStorage.getItem(key)) {
+                    this.cache[key] = JSON.parse(localStorage.getItem(key));
                     userData = this.cache[key];
                 }
             }
-            return $.extend(true, {}, defaultValue, userData);
+            return Object.assign({}, defaultValue, userData);
         }
-
+    
         setItem(key, value) {
             value = value || {};
-            this.cache[key] = $.extend(true, {}, value);
+            this.cache[key] = Object.assign({}, value);
             if (this.available) {
                 try {
                     localStorage.setItem(key, JSON.stringify(value));
@@ -36,7 +36,7 @@ define([], function () {
                 }
             }
         }
-
+    
         removeItem(key) {
             if (this.cache.hasOwnProperty(key))
                 delete this.cache[key];
@@ -44,8 +44,8 @@ define([], function () {
                 localStorage.removeItem(key);
             }
         }
-
-    }
+    
+    }    
 
     return Storage;
 });
