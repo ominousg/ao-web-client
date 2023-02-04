@@ -4,6 +4,7 @@ import Camera from './camera';
 import Consola from './consola';
 import ContainerOrdenado from './containerordenado';
 import IndicadorMapa from './indicadormapa';
+import IndicadorFPS from './indicadorFPS';
 import EntityRenderer from './entityrenderer';
 import ClimaRenderer from './climarenderer';
 import MapaRenderer from './maparenderer';
@@ -59,10 +60,12 @@ import RendererUtils from './rendererutils';
                 this.gameChat = new PIXI.Container();
                 this.consola = new Consola(this.escala);
                 this.indicadorMapa = new IndicadorMapa(this.escala);
+                this.indicadorFPS = new IndicadorFPS(this.escala);
                 this.stage.addChild(this.gameStage);
                 this.stage.addChild(this.climaContainer);
                 this.stage.addChild(this.consola);
                 this.stage.addChild(this.indicadorMapa);
+                this.stage.addChild(this.indicadorFPS);
                 this.gameStage.addChild(this.layer1);
                 this.gameStage.addChild(this.layer2);
                 this.gameStage.addChild(this.gameNames);
@@ -89,6 +92,10 @@ import RendererUtils from './rendererutils';
 
             actualizarIndicadorMapa(numMap, x, y) {
                 this.indicadorMapa.actualizar(numMap, x, y);
+            }
+
+            actualizarIndicadorFPS(numMap, x, y) {
+                this.indicadorFPS.actualizar(numMap, x, y);
             }
 
             agregarItem(item, numGrh) {
@@ -165,6 +172,10 @@ import RendererUtils from './rendererutils';
                 this.indicadorMapa.x = Math.floor((17 * 32 - 75) * escala);
                 this.indicadorMapa.y = Math.floor((13 * 32 - 12) * escala);
                 this.indicadorMapa.setEscala(escala);
+
+                this.indicadorFPS.x = Math.floor((18 * 32 - 62) * escala);
+                this.indicadorFPS.y = Math.floor((1 * 32 - 32) * escala);
+                this.indicadorFPS.setEscala(escala);
 
                 /* TEMPORAL */
                 if (this.entityRenderer) {

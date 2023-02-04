@@ -17,6 +17,10 @@ import * as PIXI from 'pixi.js';
             constructor(assetManager) {
                 this.POSICIONES_EXTRA_SONIDO = {norte: 0, sur: 0, este: 3, oeste: 3};
                 this.init(assetManager);
+                this._fps = 0;
+                this._fpsCounter = 0;
+                this._fpsTime = 0;
+                this._lastTick = performance.now();
             }
 
             init(assetManager) { // temporal
@@ -381,6 +385,10 @@ import * as PIXI from 'pixi.js';
                 this.renderer.actualizarIndicadorMapa(this.map.numero, this.player.gridX, this.player.gridY);
             }
 
+            actualizarIndicadorFPS() {
+                this.renderer.actualizarIndicadorFPS(this._fps);
+            }
+
             cambiarArea(gridX, gridY) {
 
                 var MinLimiteX = Math.floor(gridX / 9 - 1) * 9;
@@ -547,13 +555,27 @@ import * as PIXI from 'pixi.js';
                 PIXI.ticker.shared.add(this._gameTick, this);
             }
 
-            _gameTick(delta) {
+            _gameTick() {
                 if (this.started && !this.isStopped) {
-                    this.renderer.renderFrame();
-                    if (!this.isPaused) {
-                        var deltaMS = delta * (1 / 60) * 1000;
-                        this.updater.update(deltaMS);
-                    }
+                  this.renderer.renderFrame();
+    
+                  // calculating FPS
+                  this._fpsCounter++;
+                  const currentTime = performance.now();
+                  const deltaMS = (currentTime - this._lastTick);
+                  this._fpsTime += (deltaMS / 1000);
+                  this._lastTick = currentTime;
+                  if (this._fpsTime >= 3) {
+                    this._fps = Math.round(this._fpsCounter / this._fpsTime);
+                    this._fpsCounter = 0;
+                    this._fpsTime = 0;
+                    // console.log("FPS: " + this._fps);
+                    this.actualizarIndicadorFPS(this._fps)
+                  }
+            
+                  if (!this.isPaused) {
+                    this.updater.update(deltaMS);
+                  }
                 }
             }
 
