@@ -2,7 +2,6 @@
  * Created by horacio on 2/27/16.
  */
 
-define([], function () {
     class IntroUI {
         constructor(assetManager, showMensajeCb) {
             this.loadingBarUsada = $("#loadingBarUsada");
@@ -14,5 +13,4 @@ define([], function () {
 
     }
 
-    return IntroUI;
-});
+    export default IntroUI;

@@ -2,8 +2,6 @@
  * Created by horacio on 2/21/16.
  */
 
-define(['jquery-ui'], function () {
-
     class ItemGrid {
         constructor(gridID, cantidadSlots, dragAndDropable) {
             this.cantidadSlots = cantidadSlots;
@@ -163,5 +161,5 @@ define(['jquery-ui'], function () {
         }
     }
 
-    return ItemGrid;
-});
+    export default ItemGrid;
+;

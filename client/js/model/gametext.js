@@ -1,9 +1,9 @@
 /**
  * Created by horacio on 02/08/2016.
  */
+import { Enums } from '../enums';
+import Font from '../font';
 
-define(['enums', 'font'],
-    function (Enums, Font) {
         class GameText {
             constructor(renderer) {
                 this.renderer = renderer;
@@ -124,5 +124,4 @@ define(['enums', 'font'],
             }
         }
 
-        return GameText;
-    });
+        export default GameText;

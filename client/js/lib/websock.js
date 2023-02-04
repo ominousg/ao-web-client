@@ -973,3 +973,4 @@ function Websock() {
     return constructor();
 
 }
+module.exports = Websock;

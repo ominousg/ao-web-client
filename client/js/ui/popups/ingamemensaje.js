@@ -2,7 +2,27 @@
  * Created by horacio on 4/19/16.
  */
 
-define(["text!../../../menus/inGameMensaje.html!strip", 'ui/popups/popup'], function (DOMdata, PopUp) {
+import PopUp from "./popup";
+
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+</head>
+<body>
+
+<article id="inGameMensaje" title="MENSAJE">
+    <div class="dialogContent">
+        <div id="inGameMensajeContenido" class="activeColor everywhereFont">
+        </div>
+        <button id="inGameMensajeBotonOk" class="btn btn-default btn-block">OK</button>
+    </div>
+</article>
+
+</body>
+</html>
+`;
 
     class InGameMensaje extends PopUp {
         constructor() {
@@ -12,7 +32,8 @@ define(["text!../../../menus/inGameMensaje.html!strip", 'ui/popups/popup'], func
                 minWidth: 200,
                 minHeight: 150
             };
-            super(DOMdata, options);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options);
             this.initCallbacks();
         }
 
@@ -30,5 +51,4 @@ define(["text!../../../menus/inGameMensaje.html!strip", 'ui/popups/popup'], func
         }
     }
 
-    return InGameMensaje;
-});
+    export default InGameMensaje;

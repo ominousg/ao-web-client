@@ -2,7 +2,51 @@
  * Created by horacio on 7/9/16.
  */
 
-define(["text!../../../menus/detallesPersonaje.html!strip", 'ui/popups/popup'], function (DOMdata, PopUp) {
+import PopUp from "./popup";
+
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+</head>
+<body>
+
+<article id="detallesPersonaje" title="DETALLES PERSONAJE">
+    <div class="dialogContent">
+        <div class="panel panel-default">
+            <div class="panel-heading">Informacion</div>
+            <div class="panel-body">
+                Nombre:<span id="detallesPersonaje_nombre"></span><br>
+                Raza:<span id="detallesPersonaje_raza"></span><br>
+                Clase:<span id="detallesPersonaje_clase"></span><br>
+                Genero:<span id="detallesPersonaje_genero"></span><br>
+                Nivel:<span id="detallesPersonaje_nivel"></span><br>
+                Oro:<span id="detallesPersonaje_oro"></span><br>
+                Banco:<span id="detallesPersonaje_banco"></span><br>
+                Clan:<span id="detallesPersonaje_clan"></span><br>
+                Facción:<span id="detallesPersonaje_faccion"></span><br>
+                Ciudadanos asesinados:<span id="detallesPersonaje_ciudadanosAsesinados"></span><br>
+                Criminales asesinados:<span id="detallesPersonaje_criminalesAsesinados"></span><br>
+                Reputación:<span id="detallesPersonaje_reputacion"></span><br>
+                Alineación:<span id="detallesPersonaje_alineacion"></span><br>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Ultimas solicitudes de ingreso</div>
+            <div id="detallesPersonaje_SolicitudesIngreso" class="panel-body"></div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Ultimos clanes que integró</div>
+            <div id="detallesPersonaje_clanesIntegrados" class="panel-body"></div>
+        </div>
+        <button id="detallesPersonaje_botonCerrar" class="btn btn-default">Cerrar</button>
+    </div>
+</article>
+
+</body>
+</html>
+`;
 
     class DetallesPersonaje extends PopUp {
         constructor(game) {
@@ -13,7 +57,8 @@ define(["text!../../../menus/detallesPersonaje.html!strip", 'ui/popups/popup'], 
                 minWidth: 250,
                 minHeight: 300
             };
-            super(DOMdata, options);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options);
 
             this.game = game;
             this.clan = "";
@@ -56,5 +101,4 @@ define(["text!../../../menus/detallesPersonaje.html!strip", 'ui/popups/popup'], 
 
     }
 
-    return DetallesPersonaje;
-});
+    export default DetallesPersonaje;

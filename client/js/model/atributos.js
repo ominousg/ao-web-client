@@ -2,8 +2,6 @@
  * Created by horacio on 4/9/16.
  */
 
-define([], function () {
-
     class Atributos {
         constructor(game) {
             this.game = game;
@@ -108,5 +106,4 @@ define([], function () {
 
     }
 
-    return Atributos;
-});
+    export default Atributos;

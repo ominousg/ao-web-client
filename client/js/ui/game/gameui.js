@@ -2,14 +2,29 @@
  * Created by horacio on 2/21/16.
  */
 
-define(['enums', 'ui/game/keymouselistener', 'ui/popups/popupskills', 'ui/popups/comerciar', 'ui/popups/ingamemensaje',
-        'ui/game/interfaz', 'ui/popups/tirar', 'ui/popups/boveda', 'ui/popups/guiamapa', 'ui/popups/opciones', 'ui/popups/carpinteria',
-        'ui/popups/herreria', 'ui/popups/clanes', 'ui/popups/detallesclan', 'ui/popups/solicitudclan', 'ui/popups/eleccionfaccionclan',
-        'ui/popups/crearclan', 'ui/popups/noticiasclan', 'ui/popups/detallespersonaje', 'ui/popups/estadisticas', 'ui/popups/partylider',
-        'ui/popups/partymiembro', 'ui/popups/menu'],
-    function (Enums, KeyMouseListener, popUpSkills, Comerciar, InGameMensaje, Interfaz, Tirar, Boveda, GuiaMapa, Opciones,
-              Carpinteria, Herreria, Clanes, DetallesClan, SolicitudClan, EleccionFaccionClan, CrearClan, NoticiasClan,
-              DetallesPersonaje, Estadisticas, PartyLider, PartyMiembro, Menu) {
+import { Enums } from '../../enums';
+import KeyMouseListener from './keymouselistener';
+import popUpSkills from '../popups/popupskills';
+import Comerciar from '../popups/comerciar';
+import InGameMensaje from '../popups/ingamemensaje';
+import Interfaz from './interfaz';
+import Tirar from '../popups/tirar';
+import Boveda from '../popups/boveda';
+import GuiaMapa from '../popups/guiamapa';
+import Opciones from '../popups/opciones';
+import Carpinteria from '../popups/carpinteria';
+import Herreria from '../popups/herreria';
+import Clanes from '../popups/clanes';
+import DetallesClan from '../popups/detallesclan';
+import SolicitudClan from '../popups/solicitudclan';
+import EleccionFaccionClan from '../popups/eleccionfaccionclan';
+import CrearClan from '../popups/crearclan';
+import NoticiasClan from '../popups/noticiasclan';
+import DetallesPersonaje from '../popups/detallespersonaje';
+import Estadisticas from '../popups/estadisticas';
+import PartyLider from '../popups/partylider';
+import PartyMiembro from '../popups/partymiembro';
+import Menu from '../popups/menu';
 
         class GameUI {
             constructor(gameManager, settings, playSonidoClickCb) {
@@ -325,5 +340,4 @@ define(['enums', 'ui/game/keymouselistener', 'ui/popups/popupskills', 'ui/popups
             }
         }
 
-        return GameUI;
-    });
+      export default GameUI;

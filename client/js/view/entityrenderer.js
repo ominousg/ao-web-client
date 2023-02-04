@@ -2,9 +2,15 @@
  * Created by horacio on 8/20/16.
  */
 
-define(['enums', 'utils/util', 'font', 'lib/pixi', 'view/charactersprites', 'view/charactername',
-        'view/charactertext', 'view/spritegrh', 'view/rendererutils'],
-    function (Enums, Utils, Font, PIXI, CharacterSprites, CharacterName, CharacterText, SpriteGrh, RendererUtils) {
+import { Enums } from '../enums';
+import Utils from '../utils/util';
+import Font from '../font';
+import * as PIXI from 'pixi.js';
+import CharacterSprites from './charactersprites';
+import CharacterName from './charactername';
+import CharacterText from './charactertext';
+import SpriteGrh from './spritegrh';
+import RendererUtils from './rendererutils';
 
         class EntityRenderer {
             constructor(escala, entityContainer, entityNamesContainer, entityChatContainer, camera, assetManager) {
@@ -58,7 +64,7 @@ define(['enums', 'utils/util', 'font', 'lib/pixi', 'view/charactersprites', 'vie
 
             agregarItem(item, numGrh) {
                 if (!this.assetManager.getGrh(numGrh)) {
-                    log.error("grh de item invalido!");
+                    console.log("grh de item invalido!");
                     return;
                 }
                 item.sprite = this._crearSprite(this.entityContainer, numGrh, Math.round(item.x), Math.round(item.y), -50);
@@ -285,5 +291,4 @@ define(['enums', 'utils/util', 'font', 'lib/pixi', 'view/charactersprites', 'vie
             }
 
         }
-        return EntityRenderer;
-    });
+        export default EntityRenderer;

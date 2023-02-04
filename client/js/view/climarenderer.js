@@ -1,8 +1,9 @@
 /**
  * Created by horacio on 8/20/16.
  */
-
-define(['enums', 'lib/pixi','view/spritegrh'], function (Enums, PIXI, SpriteGrh) {
+import { Enums } from '../enums';
+import PIXI from 'pixi.js';
+import SpriteGrh from './spritegrh';
     
     class ClimaRenderer {
         constructor(escala, parentContainer, assetManager, /*TEMPORAL*/ pixiRenderer /*TEMPORAL*/) {
@@ -82,5 +83,4 @@ define(['enums', 'lib/pixi','view/spritegrh'], function (Enums, PIXI, SpriteGrh)
         }
 
     }
-    return ClimaRenderer;
-});
+    export default ClimaRenderer;

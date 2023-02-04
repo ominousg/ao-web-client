@@ -1,4 +1,9 @@
-define(['model/gamemanager', 'view/renderer', 'network/gameclient'], function (GameManager, Renderer, GameClient) {
+const $ = require('jquery');
+const jQuery = require('jquery');
+const jQueryUI = require('jquery-ui');
+import GameManager from './model/gamemanager';
+import Renderer from './view/renderer';
+import GameClient from './network/gameclient';
 
     class App {
         constructor(assetManager, uiManager, settings) {
@@ -81,7 +86,7 @@ define(['model/gamemanager', 'view/renderer', 'network/gameclient'], function (G
                 return;
             }
 
-            log.info(" Trying to start game...");
+            console.log(" Trying to start game...");
 
             var username = this.uiManager.loginUI.getUsername();
             var userpw = this.uiManager.loginUI.getPassword();
@@ -113,7 +118,7 @@ define(['model/gamemanager', 'view/renderer', 'network/gameclient'], function (G
             this.uiManager.hideIntro();
             this.inicializarGame();
 
-            log.info("App initialized.");
+            console.log("App initialized.");
         }
 
         validarLogin(username, userpw) {
@@ -131,5 +136,4 @@ define(['model/gamemanager', 'view/renderer', 'network/gameclient'], function (G
         }
 
     }
-    return App;
-});
+    export default App;

@@ -1,8 +1,8 @@
 /**
  * Created by horacio on 4/6/16.
  */
+import CharcodeMap from '../utils/charcodemap';
 
-define(['utils/charcodemap'], function (CharcodeMap) {
     class LoginUI {
         constructor() {
             this.enableLoginPressingEnter();
@@ -70,5 +70,5 @@ define(['utils/charcodemap'], function (CharcodeMap) {
             return $('#loginContrasenia').val();
         }
     }
-    return LoginUI;
-});
+    export default LoginUI;
+

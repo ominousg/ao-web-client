@@ -1,4 +1,5 @@
-define(['enums', 'lib/pixi'], function (Enums, PIXI) {
+import { Enums } from '../enums';
+import PIXI from 'pixi.js';
 
     class Entity extends PIXI.utils.EventEmitter{
         constructor(gridX, gridY) {
@@ -61,5 +62,4 @@ define(['enums', 'lib/pixi'], function (Enums, PIXI) {
         }
     }
 
-    return Entity;
-});
+    export default Entity;

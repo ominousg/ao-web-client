@@ -1,8 +1,7 @@
 /**
  * Created by horacio on 3/14/16.
  */
-
-define(['lib/pixi'], function (PIXI) {
+import PIXI from 'pixi.js'
 
     function ContainerOrdenado(mapWidth) {
         PIXI.Container.call(this);
@@ -39,5 +38,4 @@ define(['lib/pixi'], function (PIXI) {
         });
     };
 
-    return ContainerOrdenado;
-});
+    export default ContainerOrdenado;

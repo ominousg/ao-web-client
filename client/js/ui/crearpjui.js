@@ -1,8 +1,10 @@
 /**
  * Created by horacio on 2/27/16.
  */
+import { Enums } from '../enums';
+import * as Utils from '../utils/util';
+import DialogCrearPersonaje from './popups/crearpersonaje';
 
-define(['enums', 'utils/util', 'ui/popups/crearpersonaje'], function (Enums, Utils, DialogCrearPersonaje) {
     class CrearPjUI {
         constructor(assetManager, showMensajeCb) {
             this.assetManager = assetManager;
@@ -247,7 +249,7 @@ define(['enums', 'utils/util', 'ui/popups/crearpersonaje'], function (Enums, Uti
                         return {primera: GNOMO_H_PRIMER_CABEZA, ultima: GNOMO_H_ULTIMA_CABEZA};
                         break;
                     default:
-                        log.error("raza invalida");
+                        console.log("raza invalida");
                 }
             }
             if (genero === Enums.Genero.mujer) {
@@ -268,7 +270,7 @@ define(['enums', 'utils/util', 'ui/popups/crearpersonaje'], function (Enums, Uti
                         return {primera: GNOMO_M_PRIMER_CABEZA, ultima: GNOMO_M_ULTIMA_CABEZA};
                         break;
                     default:
-                        log.error("raza invalida");
+                        console.log("raza invalida");
                 }
             }
         }
@@ -306,7 +308,7 @@ define(['enums', 'utils/util', 'ui/popups/crearpersonaje'], function (Enums, Uti
                         return GNOMO_H_CUERPO_DESNUDO;
                         break;
                     default:
-                        log.error("raza invalida");
+                        console.log("raza invalida");
                 }
             }
             if (genero === Enums.Genero.mujer) {
@@ -327,13 +329,12 @@ define(['enums', 'utils/util', 'ui/popups/crearpersonaje'], function (Enums, Uti
                         return GNOMO_M_CUERPO_DESNUDO;
                         break;
                     default:
-                        log.error("raza invalida");
+                        console.log("raza invalida");
                 }
             }
 
         }
     }
 
-    return CrearPjUI;
-});
+    export default CrearPjUI;
 

@@ -1,4 +1,10 @@
-define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue', 'lib/websock', 'json!../../config.json'], function (Utils, Enums, Font, Protocolo, ByteQueue, __websock, config) {
+import config from '../../config.json';
+import Utils from '../utils/util';
+import { Enums } from '../enums';
+import Font from '../font';
+import Protocolo from './protocol';
+import ByteQueue from './bytequeue';
+import Websock from '../lib/websock';
 
     class GameClient {
         constructor(game, uiManager, gameUI) {
@@ -15,7 +21,6 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
             this.protocolo = new Protocolo();
             this.ws = new Websock();
             this.byteQueue = new ByteQueue(this.ws);
-
         }
 
         _connect(conectarse_callback) {
@@ -35,7 +40,7 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
                     }
                 } catch (e) {
                     alert(' Reporte de error - ' + e.name + ': ' + e.message + " - " + e.stack); // TODO: DESCOMENTAR
-                    log.error(' Reporte de error - ' + e.name + ': ' + e.message + " - " + e.stack);
+                    console.log(' Reporte de error - ' + e.name + ': ' + e.message + " - " + e.stack);
                 }
             });
             this.ws.on('close', function () {
@@ -129,27 +134,27 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleUserCommerceInit(DestUserName) {
-            log.network("TODO: handleUserCommerceInit ");
+            console.log("TODO: handleUserCommerceInit ");
         }
 
         handleUserCommerceEnd() {
-            log.network("TODO: handleUserCommerceEnd ");
+            console.log("TODO: handleUserCommerceEnd ");
         }
 
         handleUserOfferConfirm() {
-            log.network("TODO: handleUserOfferConfirm ");
+            console.log("TODO: handleUserOfferConfirm ");
         }
 
         handleCommerceChat(Chat, FontIndex) {
-            log.network("TODO: handleCommerceChat ");
+            console.log("TODO: handleCommerceChat ");
         }
 
         handleShowBlacksmithForm() {
-            log.network("TODO: handleShowBlacksmithForm ");
+            console.log("TODO: handleShowBlacksmithForm ");
         }
 
         handleShowCarpenterForm() {
-            log.network("TODO: handleShowCarpenterForm ");
+            console.log("TODO: handleShowCarpenterForm ");
         }
 
         handleUpdateSta(Value) {
@@ -215,14 +220,14 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         handleCharacterRemove(CharIndex) {
             let c = this.game.world.getCharacter(CharIndex);
             if (!c) {
-                log.error("trato de sacar character inexistente");
+                console.log("trato de sacar character inexistente");
             } else {
                 this.game.sacarEntity(c);
             }
         }
 
         handleCharacterChangeNick(CharIndex, NewName) {
-            log.network("TODO: handleCharacterChangeNick ");
+            console.log("TODO: handleCharacterChangeNick ");
         }
 
         handleCharacterMove(CharIndex, X, Y) {
@@ -346,7 +351,7 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleRestOK() {
-            log.network("TODO: handleRestOK ");
+            console.log("TODO: handleRestOK ");
         }
 
         handleErrorMsg(Message) {
@@ -355,15 +360,15 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleBlind() {
-            log.network("TODO: handleBlind ");
+            console.log("TODO: handleBlind ");
         }
 
         handleDumb() {
-            log.network("TODO: handleDumb ");
+            console.log("TODO: handleDumb ");
         }
 
         handleShowSignal(Texto, Grh) {
-            log.network("TODO: handleShowSignal ");
+            console.log("TODO: handleShowSignal ");
         }
 
         handleChangeNPCInventorySlot(Slot, ObjName, Amount, Price, GrhIndex, ObjIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef) {
@@ -388,11 +393,11 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleAddForumMsg(ForumType, Title, Author, Message) {
-            log.network("TODO: handleAddForumMsg ");
+            console.log("TODO: handleAddForumMsg ");
         }
 
         handleShowForumForm(Visibilidad, CanMakeSticky) {
-            log.network("TODO: handleShowForumForm ");
+            console.log("TODO: handleShowForumForm ");
         }
 
         handleSetInvisible(charIndex, invisible) {
@@ -411,11 +416,11 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleBlindNoMore() {
-            log.network("TODO: handleBlindNoMore ");
+            console.log("TODO: handleBlindNoMore ");
         }
 
         handleDumbNoMore() {
-            log.network("TODO: handleDumbNoMore ");
+            console.log("TODO: handleDumbNoMore ");
         }
 
         handleSendSkills(Skills) {
@@ -424,7 +429,7 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleTrainerCreatureList(Data) {
-            log.network("TODO: handleTrainerCreatureList ");
+            console.log("TODO: handleTrainerCreatureList ");
         }
 
         handleGuildNews(News, EnemiesList, AlliesList) {
@@ -434,15 +439,15 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleOfferDetails(Details) {
-            log.network("TODO: handleOfferDetails ");
+            console.log("TODO: handleOfferDetails ");
         }
 
         handleAlianceProposalsList(Data) {
-            log.network("TODO: handleAlianceProposalsList ");
+            console.log("TODO: handleAlianceProposalsList ");
         }
 
         handlePeaceProposalsList(Data) {
-            log.network("TODO: handlePeaceProposalsList ");
+            console.log("TODO: handlePeaceProposalsList ");
         }
 
         handleCharacterInfo(CharName, Race, Class, Gender, Level, Gold, Bank, Reputation, PreviousPetitions, CurrentGuild, PreviousGuilds, RoyalArmy, ChaosLegion, CiudadanosMatados, CriminalesMatados) {
@@ -454,7 +459,7 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         handleGuildLeaderInfo(GuildList, MemberList, GuildNews, JoinRequests) {
             //TODO: usar GuildNews
             this.handleGuildMemberInfo(GuildList, MemberList);
-            log.error(aspirantes);
+            console.log(aspirantes);
             var aspirantes = Utils.splitNullArray(JoinRequests);
             if (aspirantes[0]) {
                 this.game.gameUI.clanes.setNombresSolicitantes(aspirantes);
@@ -482,12 +487,12 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleShowUserRequest(Details) {
-            log.network("TODO: handleShowUserRequest ");
+            console.log("TODO: handleShowUserRequest ");
         }
 
         handleTradeOK() {
             //this.game.assetManager.audio.playSound(Enums.SONIDOS.comprar_vender);
-            log.network("TODO: handleTradeOK ");
+            console.log("TODO: handleTradeOK ");
         }
 
         handleBankOK() {
@@ -495,15 +500,15 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleChangeUserTradeSlot(OfferSlot, ObjIndex, Amount, GrhIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef, Price, ObjName) {
-            log.network("TODO: handleChangeUserTradeSlot ");
+            console.log("TODO: handleChangeUserTradeSlot ");
         }
 
         handleSendNight(Night) {
-            log.network("TODO: handleSendNight ");
+            console.log("TODO: handleSendNight ");
         }
 
         handlePong() {
-            log.network("TODO: handlePong ");
+            console.log("TODO: handlePong ");
         }
 
         handleUpdateTagAndStatus(CharIndex, NickColor, Tag) {
@@ -527,35 +532,35 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleSpawnList(Data) {
-            log.network("TODO: handleSpawnList ");
+            console.log("TODO: handleSpawnList ");
         }
 
         handleShowSOSForm(Data) {
-            log.network("TODO: handleShowSOSForm ");
+            console.log("TODO: handleShowSOSForm ");
         }
 
         handleShowMOTDEditionForm(Data) {
-            log.network("TODO: handleShowMOTDEditionForm ");
+            console.log("TODO: handleShowMOTDEditionForm ");
         }
 
         handleShowGMPanelForm() {
-            log.network("TODO: handleShowGMPanelForm ");
+            console.log("TODO: handleShowGMPanelForm ");
         }
 
         handleUserNameList(Data) {
-            log.network("TODO: handleUserNameList ");
+            console.log("TODO: handleUserNameList ");
         }
 
         handleShowDenounces(Data) {
-            log.network("TODO: handleShowDenounces ");
+            console.log("TODO: handleShowDenounces ");
         }
 
         handleRecordList(Items) {
-            log.network("TODO: handleRecordList ");
+            console.log("TODO: handleRecordList ");
         }
 
         handleRecordDetails(Creador, Motivo, Online, IP, OnlineTime, Obs) {
-            log.network("TODO: handleRecordDetails ");
+            console.log("TODO: handleRecordDetails ");
         }
 
         handleShowGuildAlign() {
@@ -581,7 +586,7 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleAddSlots(Mochila) {
-            log.network("TODO: handleAddSlots ");
+            console.log("TODO: handleAddSlots ");
         }
 
         handleNPCHitUser(parteCuerpo, danio) {
@@ -633,7 +638,7 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
                     this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_DOMAR, Font.SKILLINFO);
                     break;
                 default:
-                    log.error("Numero de skill invalido: " + skill);
+                    console.log("Numero de skill invalido: " + skill);
             }
             this.game.setTrabajoPendiente(skill);
         }
@@ -721,7 +726,7 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleEarnExp() {
-            log.network("TODO: handleEarnExp");
+            console.log("TODO: handleEarnExp");
         }
 
         handleFinishHome() {
@@ -735,11 +740,11 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
 
         handleStopWorking() {
-            log.network("TODO: handleStopWorking ");
+            console.log("TODO: handleStopWorking ");
         }
 
         handleCancelOfferItem(Slot) {
-            log.network("TODO: handleCancelOfferItem ");
+            console.log("TODO: handleCancelOfferItem ");
         }
 
         sendLoginExistingChar(UserName, Password) {
@@ -2133,5 +2138,4 @@ define(['../utils/util', 'enums', 'font', 'network/protocol', 'network/bytequeue
         }
     }
 
-    return GameClient;
-});
+    export default GameClient;

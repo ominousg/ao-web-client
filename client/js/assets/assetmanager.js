@@ -1,11 +1,12 @@
-define(['json!../../indices/armas.json',
-        'json!../../indices/cabezas.json',
-        'json!../../indices/cascos.json',
-        'json!../../indices/cuerpos.json',
-        'json!../../indices/escudos.json',
-        'json!../../indices/fxs.json',
-        'lib/pixi', 'assets/preloader', 'assets/audio'],
-    function (jsonArmas, jsonCabezas, jsonCascos, jsonCuerpos, jsonEscudos, jsonFxs, PIXI, Preloader, Audio) {
+import jsonArmas from '../../indices/armas.json';
+import jsonCabezas from '../../indices/cabezas.json';
+import jsonCascos from '../../indices/cascos.json';
+import jsonCuerpos from '../../indices/cuerpos.json';
+import jsonEscudos from '../../indices/escudos.json';
+import jsonFxs from '../../indices/fxs.json';
+import PIXI from 'pixi.js';
+import Preloader from './preloader';
+import Audio from './audio';
 
         class AssetManager {
             constructor() {
@@ -23,7 +24,7 @@ define(['json!../../indices/armas.json',
                 this.grhs = [];
                 this.dataMapas = [];
                 this.preloader = new Preloader(this);
-                
+
                 PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
                 PIXI.MIPMAP_TEXTURES = false;
                 PIXI.GC_MODES.DEFAULT = PIXI.GC_MODES.MANUAL;
@@ -158,5 +159,4 @@ define(['json!../../indices/armas.json',
             }
         }
 
-        return AssetManager;
-    });
+        export default AssetManager;

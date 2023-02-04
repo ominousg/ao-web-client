@@ -3,7 +3,7 @@
  */
 
 
-define(['utils/charcodemap', 'ui/popups/popup'], function (CharCodeMap, PopUp) {
+define(['../../../utils/charcodemap', '../popup'], function (CharCodeMap, PopUp) {
 
     class ConfigurarTeclas {
         constructor(settings, updateKeysCb, showMensajeCb) {
@@ -33,7 +33,7 @@ define(['utils/charcodemap', 'ui/popups/popup'], function (CharCodeMap, PopUp) {
                 var id = ($(this).attr('id'));
                 var accion = id.split('_')[1];
                 if (!accion || !(self.nuevasKeys[accion])) {
-                    log.error("Error con input element!");
+                    console.log("Error con input element!");
                     return;
                 }
                 $(this).val(CharCodeMap.keys[self.nuevasKeys[accion]]);
@@ -77,7 +77,7 @@ define(['utils/charcodemap', 'ui/popups/popup'], function (CharCodeMap, PopUp) {
                 var id = ($(this).attr('id'));
                 var accion = id.split('_')[1];
                 if (!accion || !(self.nuevasKeys[accion])) {
-                    log.error("Error con input element!");
+                    console.log("Error con input element!");
                     return;
                 }
                 var nuevaKey = event.which;

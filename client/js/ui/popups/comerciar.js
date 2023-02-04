@@ -2,7 +2,59 @@
  * Created by horacio on 2/22/16.
  */
 
-define(["text!../../../menus/comerciar.html!strip", 'ui/popups/popup', 'ui/game/itemgrid', 'jquery-ui'], function (DOMdata, PopUp, ItemGrid) {
+import PopUp from "./popup";
+import ItemGrid from "../game/itemgrid";
+
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+</head>
+
+<style>
+    // body {
+    //     background: green;
+    // }
+</style>
+
+<body>
+
+<article id="comerciar" title="COMERCIAR">
+    <div class="dialogContent">
+        <div class="styledDiv">
+            <div style="margin: 5px 25px;">
+                <span id="comerciarNombre" class="secondaryColor">NOMBRE</span>
+                <span id="comerciarNombreValor" class="activeColor">Pollo</span>
+                <span id="comerciarPrecioValor" class="everywhereBoldFont activeColor">343</span>
+                <span id="comerciarPrecio" class="secondaryColor">PRECIO</span>
+            </div>
+            <div style="margin: 5px 25px;">
+                <span id="comerciarMin" class="secondaryColor">MIN</span>
+                <span id="comerciarMinValor" class="everywhereBoldFont activeColor">1</span>
+                <span id="comerciarMaxValor" class="everywhereBoldFont activeColor">3</span>
+                <span id="comerciarMax" class="secondaryColor">MAX</span>
+            </div>
+        </div>
+        <div style="margin:10px auto; width:100%; display:flex; flex:1; overflow-y:auto;">
+            <ul id="comerciarGridComprar" class="itemgrid"></ul>
+            <ul id="comerciarGridVender" class="itemgrid"></ul>
+        </div>
+
+        <div class="modal-footer justifiedContainer">
+            <button id="comerciarBotonComprar" class="btn btn-default">Comprar</button>
+            <input id="comerciarInputCantidad" class="form-control" type="number" value="1">
+            <button id="comerciarBotonVender" class="btn btn-default">Vender</button>
+        </div>
+
+    </div>
+</article>
+
+
+</body>
+</html>
+`;
 
     class Comerciar extends PopUp {
         constructor(game, acciones) {
@@ -13,7 +65,8 @@ define(["text!../../../menus/comerciar.html!strip", 'ui/popups/popup', 'ui/game/
                 minWidth: 250,
                 minHeight: 200
             };
-            super(DOMdata, options);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options);
 
             this.game = game;
             this.acciones = acciones;
@@ -149,5 +202,4 @@ define(["text!../../../menus/comerciar.html!strip", 'ui/popups/popup', 'ui/game/
         }
     }
 
-    return Comerciar;
-});
+    export default Comerciar;

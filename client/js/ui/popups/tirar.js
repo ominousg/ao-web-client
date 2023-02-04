@@ -2,7 +2,31 @@
  * Created by horacio on 3/21/16.
  */
 
-define(["text!../../../menus/tirar.html!strip", 'ui/popups/popup', 'ui/popups/popup'], function (DOMdata, PopUp) {
+import PopUp from "./popup";
+
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+</head>
+<body>
+
+<article id="tirar" title="TIRAR">
+    <div class="dialogContent">
+        <div style="text-align: center; margin:11px auto">
+            <input id="tirarInputCantidad" class="form-control" type="number" max="10000">
+        </div>
+        <div>
+            <button id="tirarBotonTirar" class="btn btn-default">Tirar</button>
+            <button id="tirarBotonTirarTodo" class="btn btn-primary">Tirar todo</button>
+        </div>
+    </div>
+</article>
+
+</body>
+</html>
+`;
 
     class Tirar extends PopUp {
         constructor(game, acciones) {
@@ -12,7 +36,8 @@ define(["text!../../../menus/tirar.html!strip", 'ui/popups/popup', 'ui/popups/po
                 minWidth: 100,
                 minHeight: 200
             };
-            super(DOMdata, options);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options);
             this.game = game;
             this.acciones = acciones;
             this.initCallbacks();
@@ -50,5 +75,4 @@ define(["text!../../../menus/tirar.html!strip", 'ui/popups/popup', 'ui/popups/po
         }
     }
 
-    return Tirar;
-});
+    export default Tirar;

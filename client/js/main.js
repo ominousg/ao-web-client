@@ -1,6 +1,17 @@
+const $ = require('jquery');
+import 'bootstrap';
+const jQuery = require('jquery');
+const jQueryUI = require('jquery-ui');
 
-define(['app', 'assets/assetmanager', 'ui/uimanager', 'storage/settings', 'lib/lodash', 'lib/stacktrace', 'utils/log', 'detect'], function (App, AssetManager, UIManager, Settings, __globals__) {
-    var app, uiManager, assetManager, settings;
+// import 'webpack-jquery-ui';
+import App from './app';
+import AssetManager from './assets/assetmanager';
+import UIManager from './ui/uimanager';
+import Settings from './storage/settings';
+import _ from './lib/lodash';
+import stacktrace from './lib/stacktrace';
+
+let app, uiManager, assetManager, settings;
 
     function setupAudio(audio, settings) {
         audio.setSoundMuted(settings.getSoundMuted());
@@ -35,4 +46,4 @@ define(['app', 'assets/assetmanager', 'ui/uimanager', 'storage/settings', 'lib/l
 
     initApp();
 
-});
+;

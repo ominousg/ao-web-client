@@ -1,8 +1,43 @@
 /**
  * Created by horacio on 6/17/16.
  */
+import PopUp from "./popup";
 
-define(["text!../../../menus/carpinteria.html!strip", 'ui/popups/popup'], function (DOMdata, PopUp) {
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+</head>
+<body>
+
+<article id="carpinteria" title="CARPINTERIA">
+    <div class="dialogContent">
+        <h4>Construccion</h4>
+        <span id="carpinteriaTexto"></span>
+
+        <div class="scrollFlex">
+            <table id="carpinteriaContenedorItems" class="table table-striped">
+                <!-- Ejemplo de llenado
+                <tr>
+                    <td>[imagen] objeto</td>
+                    <td>requerimientos</td>
+                    <td>botons construir</td>
+                </tr>-->
+            </table>
+        </div>
+        <div class="form-inline modal-footer">
+            <label for="carpinteriaCantidadAConstruir">Cantidad:</label>
+            <div class="form-group">
+                <input id="carpinteriaCantidadAConstruir" style="width:100px;" type="number" class="form-control" min="1">
+            </div>
+        </div>
+    </div>
+</article>
+
+</body>
+</html>
+`;
 
     class Carpinteria extends PopUp {
         constructor(game) {
@@ -13,7 +48,8 @@ define(["text!../../../menus/carpinteria.html!strip", 'ui/popups/popup'], functi
                 minWidth: 250,
                 minHeight: 300
             };
-            super(DOMdata, options);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options);
 
             this.game = game;
             this.initCallbacks();
@@ -85,5 +121,4 @@ define(["text!../../../menus/carpinteria.html!strip", 'ui/popups/popup'], functi
         }
     }
 
-    return Carpinteria;
-});
+    export default Carpinteria;

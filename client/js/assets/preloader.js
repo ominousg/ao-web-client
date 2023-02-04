@@ -1,9 +1,10 @@
 /**
  * Created by horacio on 3/22/16.
  */
-
-define(['lib/pixi', 'json!../../preload_config/preload_sounds.json','json!../../preload_config/preload_graficos.json', 'json!../../preload_config/preload_mapas.json'],
-    function (PIXI, PreloadSounds, PreloadGraficos, PreloadMapas) {
+import PIXI from 'pixi.js';
+import PreloadSounds from '../../preload_config/preload_sounds.json';
+import PreloadGraficos from '../../preload_config/preload_graficos.json';
+import PreloadMapas from '../../preload_config/preload_mapas.json';
 
         class Preloader {
             constructor(assetManager) {
@@ -62,5 +63,4 @@ define(['lib/pixi', 'json!../../preload_config/preload_sounds.json','json!../../
 
         }
 
-        return Preloader;
-    });
+        export default Preloader;

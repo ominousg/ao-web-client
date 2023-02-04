@@ -1,4 +1,4 @@
-define({
+export const Enums = {
     /* valor default primer elemento enums en VB: 0 */
 
     Heading: {
@@ -235,4 +235,4 @@ define({
         LEGAL: 4,
         CRIMINAL: 5
     }
-});
+};

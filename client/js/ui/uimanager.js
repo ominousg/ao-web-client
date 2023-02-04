@@ -1,9 +1,14 @@
 /**
  * Created by horacio on 4/6/16.
  */
-define(['enums', 'ui/loginui', 'ui/crearpjui', 'ui/game/gameui', 'ui/popups/mensaje', 'ui/introui'], function (Enums, LoginUI, CrearPjUI, GameUI, Mensaje, IntroUI) {
+import { Enums } from '../enums';
+import LoginUI from './loginui';
+import CrearPjUI from './crearpjui';
+import GameUI from './game/gameui';
+import Mensaje from './popups/mensaje';
+import IntroUI from './introui';
 
-    class UIManager {
+class UIManager {
         constructor(assetManager) {
             this.assetManager = assetManager;
             this.mensaje = new Mensaje();
@@ -194,5 +199,4 @@ define(['enums', 'ui/loginui', 'ui/crearpjui', 'ui/game/gameui', 'ui/popups/mens
 
     }
 
-    return UIManager;
-});
+    export default UIManager;

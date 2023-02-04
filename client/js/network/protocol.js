@@ -1,7 +1,7 @@
 
 /* Automatically generated file */
+import { Enums } from '../enums';
 
-define(['enums'], function (Enums) {
 var ClientPacketID = { 
     LoginExistingChar : 0,
     ThrowDices : 1,
@@ -9763,5 +9763,4 @@ function ServerPacketDecodeAndDispatch(buffer, handler) {
     
     }
 
-    return Protocolo;
-}); 
+    export default Protocolo;

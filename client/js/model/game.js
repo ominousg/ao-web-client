@@ -1,7 +1,18 @@
-define(['model/mapa', 'updater', 'model/item', 'model/character', 'model/atributos', 'model/inventario', 'model/skills',
-        'model/playerstate', 'model/playermovement', 'enums', 'model/world', 'model/worldstate', 'model/gametext', 'lib/pixi'],
-    function (Mapa, Updater, Item, Character, Atributos, Inventario, Skills, PlayerState, PlayerMovement, Enums, World, WorldState,
-              GameText, PIXI) {
+import Mapa from './mapa';
+import Updater from '../updater';
+import Item from './item';
+import Character from './character';
+import Atributos from './atributos';
+import Inventario from './inventario';
+import Skills from './skills';
+import PlayerState from './playerstate';
+import PlayerMovement from './playermovement';
+import { Enums } from '../enums';
+import World from './world';
+import WorldState from './worldstate';
+import GameText from './gametext';
+import * as PIXI from 'pixi.js';
+
         class Game {
             constructor(assetManager) {
                 this.POSICIONES_EXTRA_SONIDO = {norte: 0, sur: 0, este: 3, oeste: 3};
@@ -120,7 +131,7 @@ define(['model/mapa', 'updater', 'model/item', 'model/character', 'model/atribut
                     this.world.sacarItem(entity);
                 }
                 else {
-                    log.error("Tipo de entity desconocido!");
+                    console.log("Error: Tipo de entity desconocido!");
                 }
             }
 
@@ -133,7 +144,7 @@ define(['model/mapa', 'updater', 'model/item', 'model/character', 'model/atribut
                 } else {
                     var c = this.world.getCharacter(CharIndex);
                     if (!c) {
-                        //log.error("mover character inexistente:");// + CharIndex);
+                        // console.log("mover character inexistente: " + CharIndex);
                         return;
                     }
                     var dir = c.esPosAdyacente(gridX, gridY);
@@ -180,7 +191,7 @@ define(['model/mapa', 'updater', 'model/item', 'model/character', 'model/atribut
                 var c = this.world.getCharacter(CharIndex);
 
                 if (!c) {
-                    //log.error(" cambiar character inexistente ");
+                    console.log("cambiar character inexistente");
                     return;
                 }
                 if ((c !== this.player) || (c === this.player && !c.estaMoviendose())) {
@@ -555,11 +566,11 @@ define(['model/mapa', 'updater', 'model/item', 'model/character', 'model/atribut
                 this.logeado = true;
                 this.started = true;
                 this.initGameTick();
-                log.info("Game loop started.");
+                console.log("Game loop started.");
             }
 
             stop() {
-                log.info("Game stopped.");
+                console.log("Game stopped.");
                 this.isStopped = true;
             }
 
@@ -603,5 +614,4 @@ define(['model/mapa', 'updater', 'model/item', 'model/character', 'model/atribut
 
         }
 
-        return Game;
-    });
+        export default Game;

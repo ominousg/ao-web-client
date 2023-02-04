@@ -1,8 +1,7 @@
 /**
  * Created by horacio on 3/10/16.
  */
-
-define(['lib/pixi'], function (PIXI) {
+import PIXI from 'pixi.js';
 
     class SpriteGrh extends PIXI.extras.MovieClip {
         constructor(grh, cantLoops) {
@@ -133,5 +132,4 @@ define(['lib/pixi'], function (PIXI) {
         }
     }
 
-    return SpriteGrh;
-});
+    export default SpriteGrh;

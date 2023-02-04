@@ -2,7 +2,41 @@
  * Created by horacio on 4/20/16.
  */
 
-define(["text!../../../menus/skills.html!strip", 'ui/popups/popup'], function (DOMdata, PopUp) {
+import PopUp from "./popup";
+
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+</head>
+<body>
+
+<article id="popUpSkills" title="SKILLS">
+    <div class="dialogContent">
+        <div id="popUpSkillsContenedorPuntosLibres" class="activeColor h4"></div>
+        <div class="scrollFlex">
+            <table id="popUpSkillsContenedorSkills">
+                <!-- Ejemplo de llenado
+                <tr>
+                    <td class="secondaryColor">LANZAR SUPER HECHIZOS</td>
+                    <td class="everywhereBoldFont activeColor">28</td>
+                    <td><button class="botonMenosSkill"></button></td>
+                    <td><button class="botonMasSkill"></button></td>
+                </tr>
+                -->
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button id="skillsBotonCancelar" class="btn btn-default">Cancelar</button>
+            <button id="skillsBotonAceptar" class="btn btn-primary">Aceptar</button>
+        </div>
+    </div>
+</article>
+
+</body>
+</html>
+`;
 
     class popUpSkills extends PopUp {
         constructor(game) {
@@ -12,7 +46,8 @@ define(["text!../../../menus/skills.html!strip", 'ui/popups/popup'], function (D
                 minWidth: 150,
                 minHeight: 250
             };
-            super(DOMdata, options);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options);
             this.game = game;
             this.initCallbacks();
             this.skills = null;
@@ -146,5 +181,4 @@ define(["text!../../../menus/skills.html!strip", 'ui/popups/popup'], function (D
         }
     }
 
-    return popUpSkills;
-});
+    export default popUpSkills;

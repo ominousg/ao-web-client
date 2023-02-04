@@ -1,8 +1,11 @@
 /**
  * Created by horacio on 5/3/16.
  */
+import Game from './game';
+import Intervalos from './intervalos';
+import Acciones from './acciones';
+import ComandosChat from './comandoschat';
 
-define(['model/game', 'model/intervalos', 'model/acciones', 'model/comandoschat'], function (Game, Intervalos, Acciones, ComandosChat) {
 
     class GameManager {
         constructor(assetManager, renderer) {
@@ -30,5 +33,4 @@ define(['model/game', 'model/intervalos', 'model/acciones', 'model/comandoschat'
         }
 
     }
-    return GameManager;
-});
+    export default GameManager;

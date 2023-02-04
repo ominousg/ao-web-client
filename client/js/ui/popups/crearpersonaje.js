@@ -2,7 +2,49 @@
  * Created by horacio on 09/08/2016.
  */
 
-define(["text!../../../menus/crearPersonaje.html!strip", 'ui/popups/popup'], function (DOMdata, PopUp) {
+import PopUp from "./popup";
+
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<article id="crearPersonaje" title="CREAR PERSONAJE">
+    <div class="dialogContent">
+        <div class="horizontal_center">
+            <div class="form-group">
+                <label for="crearNombreInput">Nombre</label>
+                <input id="crearNombreInput" class="form-control" type="text" autocomplete="off" maxlength="15">
+            </div>
+
+            <div class="form-group">
+                <label for="crearPasswordInput">Contraseña</label>
+                <input id="crearPasswordInput" class="form-control" type="password" autocomplete="off" maxlength="15">
+            </div>
+
+            <div class="form-group">
+                <label for="crearRepetirPasswordInput">Repetir Contraseña</label>
+                <input id="crearRepetirPasswordInput" class="form-control" type="password" autocomplete="off"
+                       maxlength="15">
+            </div>
+
+            <div class="form-group">
+                <label for="crearMailInput">E-Mail</label>
+                <input id="crearMailInput" class="form-control" type="email">
+            </div>
+
+            <button id="botonCrearPersonajeCrear" class="btn btn-primary horizontal_center margenBoton"
+                    style="margin-top:25px;">Crear personaje
+            </button>
+        </div>
+    </div>
+</article>
+</body>
+</html>
+`;
 
     class CrearPersonaje extends PopUp {
         constructor(showMensajeCb) {
@@ -12,7 +54,8 @@ define(["text!../../../menus/crearPersonaje.html!strip", 'ui/popups/popup'], fun
                 minWidth: 150,
                 minHeight: 280
             };
-            super(DOMdata, options, true);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options, true);
             this.LARGO_MINIMO_PASSWORD = 5;
 
             this.showMensajeCb = showMensajeCb;
@@ -79,6 +122,6 @@ define(["text!../../../menus/crearPersonaje.html!strip", 'ui/popups/popup'], fun
         }
     }
 
-    return CrearPersonaje;
-});
+    export default CrearPersonaje;
+
 

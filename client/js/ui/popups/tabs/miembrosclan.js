@@ -1,8 +1,7 @@
 /**
  * Created by horacio on 7/7/16.
  */
-
-define(['../../utils/searchinputfilter'], function (SearchInputFilter) {
+import SearchInputFilter from '../../utils/searchinputfilter';
 
     class MiembrosClan {
         constructor(game, showMensajeCb) {
@@ -60,5 +59,4 @@ define(['../../utils/searchinputfilter'], function (SearchInputFilter) {
         }
     }
 
-    return MiembrosClan;
-});
+    export default MiembrosClan;

@@ -1,7 +1,8 @@
 /**
  * Created by horacio on 2/9/16.
  */
-define(['enums'], function (Enums) {
+
+import { Enums } from '../enums';
 
     class Intervalos {
         constructor(time) {
@@ -131,5 +132,4 @@ define(['enums'], function (Enums) {
 
     }
 
-    return Intervalos;
-});
+    export default Intervalos;

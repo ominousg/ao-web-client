@@ -1,9 +1,11 @@
 /**
  * Created by horacio on 8/21/16.
  */
-
-define(['enums', 'utils/util', 'lib/pixi', 'view/spritegrh', 'view/rendererutils'],
-    function (Enums, Utils, PIXI, SpriteGrh, RendererUtils) {
+import { Enums } from '../enums';
+import Utils from '../utils/util';
+import PIXI from 'pixi.js';
+import SpriteGrh from './spritegrh';
+import RendererUtils from './rendererutils';
 
         class MapaRenderer {
             constructor(camera, assetManager, layer1Container, layer2Container, layer3Container, layer4Container) {
@@ -157,7 +159,7 @@ define(['enums', 'utils/util', 'lib/pixi', 'view/spritegrh', 'view/rendererutils
                         break;
 
                     default:
-                        log.error("character heading invalido");
+                        console.log("character heading invalido");
                         break;
                 }
             }
@@ -292,5 +294,4 @@ define(['enums', 'utils/util', 'lib/pixi', 'view/spritegrh', 'view/rendererutils
             }
 
         }
-        return MapaRenderer;
-    });
+        export default MapaRenderer;

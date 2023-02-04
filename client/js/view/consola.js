@@ -1,8 +1,10 @@
 /**
  * Created by horacio on 3/8/16.
  */
-
-define(['font', 'lib/pixi', 'view/rendererutils', 'view/textstyle'], function (Font, PIXI, rendererUtils, TextStyle) {
+import Font from '../font';
+import PIXI from 'pixi.js';
+import rendererUtils from './rendererutils';
+import TextStyle from './textstyle';
 
     function Consola(escala) {
         PIXI.Container.call(this);
@@ -71,5 +73,4 @@ define(['font', 'lib/pixi', 'view/rendererutils', 'view/textstyle'], function (F
         this.addChild(nuevoTexto);
     };
 
-    return Consola;
-});
+    export default Consola;

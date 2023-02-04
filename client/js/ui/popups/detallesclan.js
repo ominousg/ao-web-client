@@ -2,7 +2,56 @@
  * Created by horacio on 6/17/16.
  */
 
-define(["text!../../../menus/detallesClan.html!strip", 'ui/popups/popup'], function (DOMdata, PopUp) {
+import PopUp from "./popup";
+
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+</head>
+<body>
+
+<article id="detallesClan" title="CLANES">
+    <div class="dialogContent">
+        <div class="panel-group scrollFlex">
+            <div class="panel panel-default">
+                <div class="panel-heading">Informacion</div>
+                <div class="panel-body">
+                    Nombre:<span id="detallesClan_nombre"></span><br>
+                    Miembros:<span id="detallesClan_miembros"></span><br>
+                    Lider:<span id="detallesClan_lider"></span><br>
+                    Fundador:<span id="detallesClan_fundador"></span><br>
+                    Web site:<span id="detallesClan_web"></span><br>
+                    Clanes enemigos:<span id="detallesClan_enemigos"></span><br>
+                    Clanes aliados:<span id="detallesClan_aliados"></span><br>
+                    Puntos de antifaccion:<span id="detallesClan_puntosAntifaccion"></span><br>
+                    Fecha de creación:<span id="detallesClan_fechaCreacion"></span><br>
+                    Elecciones:<span id="detallesClan_elecciones"></span><br>
+                    Alineacion:<span id="detallesClan_alineacion"></span><br>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Codex</div>
+                <div id="detallesClan_codex" class="panel-body"></div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Descripcion</div>
+                <div id="detallesClan_descripcion" class="panel-body"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="btn-toolbar">
+                <button id="detallesClan_botonAplicarse" class="btn btn-primary pull-right">Aplicarse</button>
+                <button id="detallesClan_botonCerrar" class="btn btn-default pull-right">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</article>
+
+</body>
+</html>
+`;
 
     class DetallesClan extends PopUp {
         constructor(game,solicitudClanCb) {
@@ -13,7 +62,8 @@ define(["text!../../../menus/detallesClan.html!strip", 'ui/popups/popup'], funct
                 minWidth: 250,
                 minHeight: 300
             };
-            super(DOMdata, options);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options);
 
             this.game = game;
             this.clan = "";
@@ -61,5 +111,4 @@ define(["text!../../../menus/detallesClan.html!strip", 'ui/popups/popup'], funct
 
     }
 
-    return DetallesClan;
-});
+    export default DetallesClan;

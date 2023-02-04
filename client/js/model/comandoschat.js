@@ -1,8 +1,8 @@
 /**
  * Created by horacio on 3/9/16.
  */
-
-define(['enums', 'font'], function (Enums, Font) {
+import { Enums } from '../enums';
+import Font from '../font';
 
     class ComandosChat {
         constructor(game, acciones) {
@@ -1261,5 +1261,4 @@ define(['enums', 'font'], function (Enums, Font) {
 
     }
 
-    return ComandosChat;
-});
+    export default ComandosChat;

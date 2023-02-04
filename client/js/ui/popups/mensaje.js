@@ -2,33 +2,53 @@
  * Created by horacio on 4/3/16.
  */
 
-define(["text!../../../menus/mensajeGlobal.html!strip", 'ui/popups/popup'], function (DOMdata, PopUp) {
+import PopUp from "./popup";
 
-    class Mensaje extends PopUp {
-        constructor() {
-            var options = {
-                width: 300,
-                height: 280,
-                minWidth: 200,
-                minHeight: 150
-            };
-            super(DOMdata, options, true, true);
-            this.initCallbacks();
-        }
+const htmlString = `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <link rel="stylesheet" href="../css/main.css" type="text/css">
+  </head>
+  <body>
 
-        show(mensaje) {
-            super.show();
-            $("#mensajeContenido").text(mensaje);
-            $("#mensajeBotonOk").focus();
-        }
+  <article id="mensajeGlobal" title="MENSAJE">
+      <div class="dialogContent">
+          <div id="mensajeContenido" class="activeColor everywhereFont"></div>
+          <button id="mensajeBotonOk" class="btn btn-default btn-block">OK</button>
+      </div>
+  </article>
 
-        initCallbacks() {
-            var self = this;
-            $("#mensajeBotonOk").click(function () {
-                self.hide();
-            });
-        }
-    }
+  </body>
+  </html>
+`;
 
-    return Mensaje;
-});
+class Mensaje extends PopUp {
+  constructor() {
+      var options = {
+          width: 300,
+          height: 280,
+          minWidth: 200,
+          minHeight: 150
+      };
+      var $element = $(`<div>${htmlString}</div>`);
+      super($element, options, true, true);
+      this.initCallbacks();
+  }
+
+  show(mensaje) {
+      super.show();
+      $("#mensajeContenido").text(mensaje);
+      $("#mensajeBotonOk").focus();
+  }
+
+  initCallbacks() {
+      var self = this;
+      $("#mensajeBotonOk").click(function () {
+          self.hide();
+      });
+  }
+}
+
+export default Mensaje;
+

@@ -2,7 +2,34 @@
  * Created by horacio on 7/11/16.
  */
 
-define(["text!../../../menus/partyLider.html!strip", 'ui/popups/popup'], function (DOMdata, PopUp) {
+import PopUp from "./popup";
+
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<article id="partyLider" title="PARTY">
+    <div class="dialogContent">
+        <label for="partyLiderMensaje">Mensaje</label><input id="partyLiderMensaje">
+        <label for="partyLiderMembersList">Miembros</label><select id="partyLiderMembersList" class="form-control" size="4"></select>
+        Experiencia Total:<span id="partyLiderExperienciaTotal"></span>
+        <button id="partyLiderBotonExpulsar" class="btn btn-primary">Expulsar</button>
+        <button id="partyLiderBotonHacerLider" class="btn btn-primary">Transferir liderazgo</button>
+        <label for="partyLiderAgregarInput">Agregar personaje</label><input id="partyLiderAgregarInput">
+        <button id="partyLiderBotonAgregar" class="btn btn-primary">Agregar</button>
+        <button id="partyLiderBotonCerrar" class="btn btn-default">Cerrar</button>
+        <button id="partyLiderBotonDisolver" class="btn btn-primary">Disolver</button>
+    </div>
+</article>
+
+</body>
+</html>
+`;
 
     class PartyLider extends PopUp {
         constructor(game, showMensajeCb) {
@@ -13,7 +40,8 @@ define(["text!../../../menus/partyLider.html!strip", 'ui/popups/popup'], functio
                 minWidth: 250,
                 minHeight: 300
             };
-            super(DOMdata, options);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options);
 
             this.game = game;
             this.showMensajeCb = showMensajeCb;
@@ -98,5 +126,4 @@ define(["text!../../../menus/partyLider.html!strip", 'ui/popups/popup'], functio
 
     }
 
-    return PartyLider;
-});
+    export default PartyLider;

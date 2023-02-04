@@ -2,8 +2,9 @@
  * Created by horacio on 4/8/16.
  */
 
+import {Enums} from '../../enums';
+import CharcodeMap from '../../utils/charcodemap';
 
-define(['enums', 'utils/charcodemap'], function (Enums, CharcodeMap) {
     class KeyMouseInput {
         constructor(game, acciones) {
             this.acciones = acciones;
@@ -152,5 +153,4 @@ define(['enums', 'utils/charcodemap'], function (Enums, CharcodeMap) {
         }
     }
 
-    return KeyMouseInput;
-});
+    export default KeyMouseInput;

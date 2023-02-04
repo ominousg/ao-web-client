@@ -1,8 +1,9 @@
 /**
  * Created by horacio on 3/2/16.
  */
-
-define(['enums', 'lib/pixi', 'view/spritegrh'], function (Enums, PIXI, SpriteGrh) {
+import { Enums } from '../enums';
+import PIXI from 'pixi.js';
+import SpriteGrh from './spritegrh';
 
     class CharacterSprites extends PIXI.Container {
         constructor() {
@@ -155,7 +156,7 @@ define(['enums', 'lib/pixi', 'view/spritegrh'], function (Enums, PIXI, SpriteGrh
                         this.bodySprite.zIndex = 1;
                         break;
                     default:
-                        log.error("character heading invalido");
+                        console.log("character heading invalido");
                         break;
                 }
                 this._updateSombraSpriteSize();
@@ -189,7 +190,7 @@ define(['enums', 'lib/pixi', 'view/spritegrh'], function (Enums, PIXI, SpriteGrh
                         this.weaponSprite.zIndex = 2;
                         break;
                     default:
-                        log.error("character heading invalido");
+                        console.log("character heading invalido");
                         break;
                 }
             }
@@ -213,7 +214,7 @@ define(['enums', 'lib/pixi', 'view/spritegrh'], function (Enums, PIXI, SpriteGrh
                         this.shieldSprite.zIndex = 3;
                         break;
                     default:
-                        log.error("character heading invalido");
+                        console.log("character heading invalido");
                         break;
                 }
             }
@@ -311,5 +312,4 @@ define(['enums', 'lib/pixi', 'view/spritegrh'], function (Enums, PIXI, SpriteGrh
         }
     }
 
-    return CharacterSprites;
-});
+    export default CharacterSprites;

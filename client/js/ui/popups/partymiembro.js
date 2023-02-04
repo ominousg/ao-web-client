@@ -2,7 +2,30 @@
  * Created by horacio on 7/11/16.
  */
 
-define(["text!../../../menus/partyMiembro.html!strip", 'ui/popups/popup'], function (DOMdata, PopUp) {
+import PopUp from "./popup";
+
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<article id="partyMiembro" title="PARTY">
+    <div class="dialogContent">
+        <label for="partyMiembroMensaje">Mensaje</label><input id="partyMiembroMensaje">
+        <label for="partyMiembroMembersList">Miembros</label><select id="partyMiembroMembersList" class="form-control" size="4"></select>
+        Experiencia Total:<span id="partyMiembroExperienciaTotal"></span>
+        <button id="partyMiembroBotonCerrar" class="btn btn-default">Cerrar</button>
+        <button id="partyMiembroBotonAbandonar" class="btn btn-primary">Abandonar party</button>
+    </div>
+</article>
+
+</body>
+</html>
+`;
 
     class PartyMiembro extends PopUp {
         constructor(game, showMensajeCb) {
@@ -13,7 +36,8 @@ define(["text!../../../menus/partyMiembro.html!strip", 'ui/popups/popup'], funct
                 minWidth: 250,
                 minHeight: 300
             };
-            super(DOMdata, options);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options);
 
             this.game = game;
             this.showMensajeCb = showMensajeCb;
@@ -61,5 +85,4 @@ define(["text!../../../menus/partyMiembro.html!strip", 'ui/popups/popup'], funct
 
     }
 
-    return PartyMiembro;
-});
+    export default PartyMiembro;

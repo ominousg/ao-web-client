@@ -1,7 +1,13 @@
-define(['enums', 'lib/pixi', 'view/camera', 'view/consola', 'view/containerordenado', 'view/indicadormapa',
-        'view/entityrenderer', 'view/climarenderer', 'view/maparenderer','view/rendererutils'],
-    function (Enums, PIXI, Camera, Consola, ContainerOrdenado, IndicadorMapa, EntityRenderer, ClimaRenderer,
-              MapaRenderer, RendererUtils) {
+import { Enums } from '../enums';
+import PIXI from 'pixi.js';
+import Camera from './camera';
+import Consola from './consola';
+import ContainerOrdenado from './containerordenado';
+import IndicadorMapa from './indicadormapa';
+import EntityRenderer from './entityrenderer';
+import ClimaRenderer from './climarenderer';
+import MapaRenderer from './maparenderer';
+import RendererUtils from './rendererutils';
 
         class Renderer {
             constructor(assetManager, escala) {
@@ -259,5 +265,5 @@ define(['enums', 'lib/pixi', 'view/camera', 'view/consola', 'view/containerorden
 
 
         }
-        return Renderer;
-    });
+        export default Renderer;
+

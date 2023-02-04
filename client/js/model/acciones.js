@@ -1,8 +1,9 @@
 /**
  * Created by horacio on 4/9/16.
  */
-
-define(['enums', 'font', 'model/macros'], function (Enums, Font, Macros) {
+import { Enums } from '../enums';
+import Font from '../font';
+import Macros from './macros';
 
     class Acciones {
         constructor(game, intervalos) {
@@ -87,7 +88,7 @@ define(['enums', 'font', 'model/macros'], function (Enums, Font, Macros) {
                         y = this.game.player.gridY + 1;
                         break;
                     default:
-                        log.error(" Direccion de player invalida!");
+                        console.log(" Direccion de player invalida!");
                 }
                 this.game.playerState.lastAttackedTarget = this.game.world.getCharacterInGridPos(x, y);
             }
@@ -280,5 +281,4 @@ define(['enums', 'font', 'model/macros'], function (Enums, Font, Macros) {
         }
     }
 
-    return Acciones;
-});
+    export default Acciones;

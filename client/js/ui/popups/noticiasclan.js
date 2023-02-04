@@ -2,7 +2,35 @@
  * Created by horacio on 7/9/16.
  */
 
-define(["text!../../../menus/noticiasClan.html!strip", 'ui/popups/popup'], function (DOMdata, PopUp) {
+import PopUp from "./popup";
+
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+</head>
+<body>
+
+<article id="noticiasClan" title="NOTICIAS CLAN">
+    <div class="dialogContent">
+        <div style="width:100%;height:100%;display:flex; flex-direction: column;">
+            <h1>Noticias</h1>
+            <div id="noticiasClanNoticias"></div>
+            <h1>Clanes enemigos</h1>
+            <div id="noticiasClanEnemigos"></div>
+            <h1>Clanes aliados</h1>
+            <div id="noticiasClanAliados"></div>
+        </div>
+        <div class="modal-footer">
+            <button id="noticiasClanBotonAceptar" class="btn btn-default">Cerrar</button>
+        </div>
+    </div>
+</article>
+
+</body>
+</html>
+`;
 
     class NoticiasClan extends PopUp {
         constructor() {
@@ -13,7 +41,8 @@ define(["text!../../../menus/noticiasClan.html!strip", 'ui/popups/popup'], funct
                 minWidth: 250,
                 minHeight: 300
             };
-            super(DOMdata, options);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options);
 
             this.$noticias = $("#noticiasClanNoticias");
             this.$enemigos = $("#noticiasClanEnemigos");
@@ -40,5 +69,4 @@ define(["text!../../../menus/noticiasClan.html!strip", 'ui/popups/popup'], funct
 
     }
 
-    return NoticiasClan;
-});
+    export default NoticiasClan;

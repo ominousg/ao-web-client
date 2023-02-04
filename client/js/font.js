@@ -2,7 +2,7 @@
  * Created by horacio on 5/11/16.
  */
 
-define(["utils/palette"], function (Palette) {
+define(["./utils/palette"], function (Palette) {
 
     var FONT_FAMILY = 'Myriad Pro, Arial';
 

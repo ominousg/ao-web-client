@@ -2,8 +2,7 @@
  * Created by horacio on 4/23/16.
  */
 
-
-define(['enums'], function (Enums) {
+import { Enums } from '../enums';
 
     class Skills {
         constructor() {
@@ -93,7 +92,7 @@ define(['enums'], function (Enums) {
             nombres[Enums.Skill.fundirmetal] = "????";
         }
     }
-    return Skills;
-});
+    export default Skills;
+
 
 

@@ -2,7 +2,29 @@
  * Created by horacio on 07/08/2016.
  */
 
-define(["text!../../../menus/menu.html!strip", 'ui/popups/popup'], function (DOMdata, PopUp) {
+import PopUp from "./popup";
+
+const htmlString = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+</head>
+<body>
+<article id="menu" title="MENU">
+    <div class="dialogContent">
+        <div>
+            <button id="botonMapa1" class="btn btn-default margenBoton horizontal_center">Mapa</button>
+            <button id="botonEstadisticas1" class="btn btn-default margenBoton horizontal_center">Estadisticas</button>
+            <button id="botonClanes1" class="btn btn-default margenBoton horizontal_center">Clanes</button>
+            <button id="botonParty1" class="btn btn-default margenBoton horizontal_center">Party</button>
+            <button id="botonOpciones1" class="btn btn-default margenBoton horizontal_center">Ajustes</button>
+        </div>
+    </div>
+</article>
+</body>
+</html>
+`;
 
     class Menu extends PopUp {
         constructor(game, showMapaCb, showEstadisticasCb, showClanesCb, showOpcionesCb) {
@@ -12,7 +34,8 @@ define(["text!../../../menus/menu.html!strip", 'ui/popups/popup'], function (DOM
                 minWidth: 150,
                 minHeight: 280
             };
-            super(DOMdata, options);
+            var $element = $(`<div>${htmlString}</div>`);
+            super($element, options);
             this.game = game;
             this.showMapaCb = showMapaCb;
             this.showEstadisticasCb = showEstadisticasCb;
@@ -75,6 +98,5 @@ define(["text!../../../menus/menu.html!strip", 'ui/popups/popup'], function (DOM
         }
     }
 
-    return Menu;
-});
+    export default Menu;
 

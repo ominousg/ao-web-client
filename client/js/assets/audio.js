@@ -1,8 +1,9 @@
 /**
  * Created by horacio on 4/20/16.
  */
-
-define(['enums', 'lib/howler', 'assets/audioclima'], function (Enums, Howler, AudioClima) {
+import { Enums } from '../enums';
+import Howler from 'howler';
+import AudioClima from './audioclima';
 
     class Audio {
         constructor() {
@@ -149,5 +150,5 @@ define(['enums', 'lib/howler', 'assets/audioclima'], function (Enums, Howler, Au
         }
     }
 
-    return Audio;
-});
+    export default Audio;
+

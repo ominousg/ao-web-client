@@ -1,8 +1,8 @@
 /**
  * Created by horacio on 2/28/16.
  */
-
-define(['utils/charcodemap', 'ui/game/itemgrid'], function (CharCodeMap, ItemGrid) {
+import CharCodeMap from '../../utils/charcodemap';
+import ItemGrid from './itemgrid';
 
     class Interfaz {
         constructor(game, acciones) {
@@ -83,7 +83,7 @@ define(['utils/charcodemap', 'ui/game/itemgrid'], function (CharCodeMap, ItemGri
             });
 
             //FIX bug firefox que no previene movimiento scroll hehcizos
-            if (Detect.isFirefox()) {
+            if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
                 self.setHechizosScrollFirefoxFix(self);
             }
         }
@@ -265,5 +265,4 @@ define(['utils/charcodemap', 'ui/game/itemgrid'], function (CharCodeMap, ItemGri
 
     }
 
-    return Interfaz;
-});
+export default Interfaz;

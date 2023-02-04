@@ -1,5 +1,4 @@
-define(['enums'], function (Enums) {
-
+import { Enums } from '../enums';
     class Camera {
         constructor(tilesize) {
             this.DEFAULT_EXTRA_POSITIONS = {
@@ -226,5 +225,4 @@ define(['enums'], function (Enums) {
         }
     }
 
-    return Camera;
-});
+    export default Camera;
