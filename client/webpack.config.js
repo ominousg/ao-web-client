@@ -1,5 +1,5 @@
 /**
- * Migración de RequireJS a Webpack por ominousg - 03/03/2023.
+ * Migración de RequireJS a Webpack por ominousg - 04/02/2023.
 */
 
 const path = require('path');

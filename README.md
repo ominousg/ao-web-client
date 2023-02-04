@@ -10,3 +10,14 @@ Funciona con el [dakara-server](https://github.com/DakaraOnline/dakara-server) e
 [Tutorial sobre cómo conectar el cliente con el dakara-server en Ubuntu](https://www.youtube.com/watch?v=Xm2XIWiqPvs)
 
 [Explicación de Websockify por horacioMartinez](https://github.com/horacioMartinez/dakara-client/wiki/Hostear-servidor-propio)
+
+# Instrucciones
+
+Con la nueva migración de RequireJS a Webpack ya no es necesario usar npx http-server para el desarrollo: usamos webpack-dev-server en su lugar. Después para hostear el build en producción sí se puede usar http-server.
+
+Posicionarse en el mismo directorio que el package.json y correr los comandos:
+```
+npm i
+webpack
+webpack-dev-server
+```
