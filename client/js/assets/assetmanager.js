@@ -4,7 +4,7 @@ import jsonCascos from '../../indices/cascos.json';
 import jsonCuerpos from '../../indices/cuerpos.json';
 import jsonEscudos from '../../indices/escudos.json';
 import jsonFxs from '../../indices/fxs.json';
-import PIXI from 'pixi.js';
+import { settings, BaseTexture, Texture, Rectangle,SCALE_MODES, GC_MODES } from 'pixi.js';
 import Preloader from './preloader';
 import Audio from './audio';
 
@@ -25,9 +25,9 @@ import Audio from './audio';
                 this.dataMapas = [];
                 this.preloader = new Preloader(this);
 
-                PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
-                PIXI.MIPMAP_TEXTURES = false;
-                PIXI.GC_MODES.DEFAULT = PIXI.GC_MODES.MANUAL;
+                settings.SCALE_MODE = SCALE_MODES.NEAREST;
+                settings.MIPMAP_TEXTURES = false;
+                settings.GC_MODE = GC_MODES.MANUAL;
             }
 
             getNumCssGraficoFromGrh(grh) {
@@ -96,11 +96,11 @@ import Audio from './audio';
             _loadGrhGrafico(grh) {
                 var nombreGrafico = this.indices[grh].grafico;
                 if (!this._baseTextures[nombreGrafico]) { // cargar basetexture
-                    this._setBaseTexture(nombreGrafico,new PIXI.BaseTexture.fromImage("graficos/" + nombreGrafico + ".png"));
+                    this._setBaseTexture(nombreGrafico, new BaseTexture.from("graficos/" + nombreGrafico + ".png"));
                 }
-                this.grhs[grh] = new PIXI.Texture(this._baseTextures[nombreGrafico], new PIXI.Rectangle(this.indices[grh].offX, this.indices[grh].offY, this.indices[grh].width, this.indices[grh].height));
+                this.grhs[grh] = new Texture(this._baseTextures[nombreGrafico], new Rectangle(this.indices[grh].offX, this.indices[grh].offY, this.indices[grh].width, this.indices[grh].height));
             }
-
+            
             _setBaseTexture(nombreGrafico, baseTexture) {
                 this._baseTextures[nombreGrafico] = baseTexture;
             }

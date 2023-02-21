@@ -1,10 +1,10 @@
 import Font from '../font';
-import PIXI from 'pixi.js';
-import TextStyle from './textstyle';
+import { Text } from 'pixi.js';
+import GameTextStyle from './gametextstyle';
 
-    class IndicadorFPS extends PIXI.Text {
+    class IndicadorFPS extends Text {
         constructor(escala) {
-            let style = new TextStyle(Font.INDICADOR_MAPA,escala);
+            let style = new GameTextStyle(Font.INDICADOR_MAPA,escala);
             super(" ",style);
             this.setEscala(escala);
         }
