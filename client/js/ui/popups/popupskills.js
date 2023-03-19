@@ -12,7 +12,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="popUpSkills" title="SKILLS">
+<article id="popUpSkills">
     <div class="dialogContent">
         <div id="popUpSkillsContenedorPuntosLibres" class="activeColor h4"></div>
         <div class="scrollFlex">
@@ -41,6 +41,7 @@ const htmlString = `
     class popUpSkills extends PopUp {
         constructor(game) {
             var options = {
+                title: "SKILLS",
                 width: 300,
                 height: 600,
                 minWidth: 150,
@@ -98,12 +99,12 @@ const htmlString = `
             var puntosId = this._getSkillPointsDOMid(numSkill);
             var botonMasId = "popUpSkills_botonMasSkill_" + numSkill;
             var botonMenosId = "popUpSkills_botonMenosSkill_" + numSkill;
-
+            
             $("#popUpSkillsContenedorSkills").append('<tr>'
-                + '<td class="secondaryColor" id=' + textoId + '></td>'
-                + '<td class="everywhereBoldFont activeColor" id=' + puntosId + '></td>'
-                + '<td><button id=' + botonMenosId + ' class="botonMenosSkill"></button></td>'
-                + '<td><button id=' + botonMasId + ' class="botonMasSkill"></button></td>'
+            + '<td class="secondaryColor" id=' + textoId + '></td>'
+            + '<td class="everywhereBoldFont activeColor" id=' + puntosId + '></td>'
+            + '<td><button id=' + botonMenosId + ' class="botonMenosSkill"></button></td>'
+            + '<td><button id=' + botonMasId + ' class="botonMasSkill"></button></td>'
                 + '</tr>');
 
             var $botonMas = $("#" + botonMasId);

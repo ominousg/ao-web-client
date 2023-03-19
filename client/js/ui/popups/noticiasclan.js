@@ -12,7 +12,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="noticiasClan" title="NOTICIAS CLAN">
+<article id="noticiasClan">
     <div class="dialogContent">
         <div style="width:100%;height:100%;display:flex; flex-direction: column;">
             <h1>Noticias</h1>
@@ -36,6 +36,7 @@ const htmlString = `
         constructor() {
 
             var options = {
+                title: "NOTICIAS CLAN",
                 width: 500,
                 height: 400,
                 minWidth: 250,

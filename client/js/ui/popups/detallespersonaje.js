@@ -12,7 +12,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="detallesPersonaje" title="DETALLES PERSONAJE">
+<article id="detallesPersonaje">
     <div class="dialogContent">
         <div class="panel panel-default">
             <div class="panel-heading">Informacion</div>
@@ -52,6 +52,7 @@ const htmlString = `
         constructor(game) {
 
             var options = {
+                title: "DETALLES PERSONAJE",
                 width: 500,
                 height: 400,
                 minWidth: 250,

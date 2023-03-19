@@ -10,8 +10,9 @@ const htmlString = `
 <head>
     <link rel="stylesheet" href="../css/main.css" type="text/css">
 </head>
+
 <body>
-<article id="menu" title="MENU">
+<article id="menu">
     <div class="dialogContent">
         <div>
             <button id="botonMapa1" class="btn btn-default margenBoton horizontal_center">Mapa</button>
@@ -29,6 +30,7 @@ const htmlString = `
     class Menu extends PopUp {
         constructor(game, showMapaCb, showEstadisticasCb, showClanesCb, showOpcionesCb) {
             var options = {
+                title: "MENU",
                 width: 220,
                 height: 300,
                 minWidth: 150,

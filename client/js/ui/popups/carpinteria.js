@@ -11,12 +11,12 @@ const htmlString = `
 </head>
 <body>
 
-<article id="carpinteria" title="CARPINTERIA">
+<article id="carpinteria">
     <div class="dialogContent">
         <h4>Construccion</h4>
         <span id="carpinteriaTexto"></span>
 
-        <div class="scrollFlex">
+        <div class="scrollFlex" style="overflow-y:scroll;max-height:310px">
             <table id="carpinteriaContenedorItems" class="table table-striped">
                 <!-- Ejemplo de llenado
                 <tr>
@@ -29,7 +29,7 @@ const htmlString = `
         <div class="form-inline modal-footer">
             <label for="carpinteriaCantidadAConstruir">Cantidad:</label>
             <div class="form-group">
-                <input id="carpinteriaCantidadAConstruir" style="width:100px;" type="number" class="form-control" min="1">
+                <input id="carpinteriaCantidadAConstruir" style="width:100px;" type="number" class="form-control" min="1" max="3">
             </div>
         </div>
     </div>
@@ -43,10 +43,11 @@ const htmlString = `
         constructor(game) {
 
             var options = {
+                title: "CARPINTERIA",
                 width: 500,
-                height: 400,
+                height: 500,
                 minWidth: 250,
-                minHeight: 300
+                minHeight: 400
             };
             var $element = $(`<div>${htmlString}</div>`);
             super($element, options);
@@ -68,6 +69,7 @@ const htmlString = `
 
         show(items) {
             super.show();
+            this.$itemsContainer.empty();
             this.setItems(items);
         }
 
@@ -81,12 +83,15 @@ const htmlString = `
             }
 
             var self = this;
+            const renderedItems = new Set();
+        
             for (var item of items) {
-
+                renderedItems.add(item.Name);
+        
                 var $row = $('<tr></tr>');
 
                 var numGraf = this.game.assetManager.getNumCssGraficoFromGrh(item.GrhIndex);
-                var url = "url(graficos/" + numGraf + ".png)";
+                var url = "url(graficos/css/" + numGraf + ".png)";
 
                 var $cell = $('<td></td>');
                 var $imagenItem = $('<div class="divImagen" style="width: 50px; height:50px;"></div>');
@@ -106,7 +111,7 @@ const htmlString = `
                 $botonConstruir.data("itemIndex", item.ObjCarpinteroIndex);
                 $botonConstruir.click(function () {
                     var cantidadAConstruir = $('#carpinteriaCantidadAConstruir').val();
-                    self.game.client.sendInitCrafting(cantidadAConstruir, 1);//TODO: horrible esto, que se haga de 1 (cambiar sv)
+                    self.game.client.sendInitCrafting(cantidadAConstruir, cantidadAConstruir); //TODO: horrible esto, que se haga de 1 (cambiar sv)
                     var itemIndex = $(this).data("itemIndex");
                     self.game.client.sendCraftCarpenter(itemIndex);
                 });

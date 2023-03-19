@@ -15,7 +15,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="clanes" title="CLANES">
+<article id="clanes">
     <div style="height:100%; display: flex;  flex-direction: row;">
 
         <div class="tabsContainer" style="display: flex; flex-direction: column;">
@@ -105,6 +105,7 @@ const htmlString = `
         constructor(game, detallesClan, showMensajeCb, solicitudClanCb) {
 
             var options = {
+                title: "CLANES",
                 width: 550,
                 height: 500,
                 minWidth: 250,

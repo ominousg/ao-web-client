@@ -18,7 +18,7 @@ const htmlString = `
 
 <body>
 
-<article id="boveda" title="BOVEDA">
+<article id="boveda">
     <div class="dialogContent">
         <div class="styledDiv">
             <div class="horizontal_center" style="margin:8px 0;">
@@ -51,7 +51,7 @@ const htmlString = `
             </div>
         </div>
 
-        <div style="margin:10px auto; width:100%; display:flex; flex:1; overflow-y:auto;">
+        <div style="margin:10px auto; width:100%; display:flex; flex:1; overflow-y:scroll;max-height:210px">
             <ul id="bovedaGridComprar" class="itemgrid"></ul>
             <ul id="bovedaGridVender" class="itemgrid"></ul>
         </div>
@@ -71,6 +71,7 @@ const htmlString = `
     class Boveda extends PopUp {
         constructor(game, acciones) {
             var options = {
+                title: "BOVEDA",
                 width: 630,
                 height: 510,
                 minWidth: 250,

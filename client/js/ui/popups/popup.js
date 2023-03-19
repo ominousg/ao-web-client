@@ -3,7 +3,7 @@
  */
 
 class PopUp {
-  constructor(htmlString, addiotionalOptions, general, modal) { // los pop ups generales se ven en todas las pantallas (no solo juego) y estan centrados en el medio
+  constructor(htmlString, additionalOptions, general, modal) { // los pop ups generales se ven en todas las pantallas (no solo juego) y estan centrados en el medio
     if (!htmlString) {
       throw new Error("htmlString required");
     }
@@ -15,6 +15,9 @@ class PopUp {
       appendTo: self.parentID,
       autoOpen: false,
       modal: modal,
+      title: additionalOptions.title,
+      width: additionalOptions.width,
+      height: additionalOptions.height,
       dialogClass: 'dialog_default',
       close: function (event, ui) {
         self.hide();
@@ -28,7 +31,7 @@ class PopUp {
         $(this).width($(this).prev('.ui-dialog-titlebar').outerWidth(true) - widthPadding);
       },
     };
-    $.extend(this.options, addiotionalOptions);
+    $.extend(this.options, additionalOptions);
     if (!general) {
       var position = { position: { my: "center", at: "left+40%", of: "#container" } };
       $.extend(this.options, position);

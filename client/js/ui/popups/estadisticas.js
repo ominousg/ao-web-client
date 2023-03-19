@@ -14,7 +14,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="estadisticas" title="ESTADISTICAS">
+<article id="estadisticas">
     <div class="dialogContent">
         <div class="panel-group scrollFlex">
             <div class="panel panel-default">
@@ -74,6 +74,7 @@ const htmlString = `
         constructor(game) {
 
             var options = {
+                title: "ESTADISTICAS",
                 width: 500,
                 height: 400,
                 minWidth: 250,
@@ -99,6 +100,12 @@ const htmlString = `
             this.game.client.sendRequestSkills();
             this.game.client.sendRequestMiniStats();
             this.game.client.sendRequestFame();
+            this.updateData();
+        }
+
+        updateData() {
+            this.skills = this.game.skills;
+            this.updateSkillsData();
         }
 
         setAtributosInfo(Fuerza, Agilidad, Inteligencia, Carisma, Constitucion) {
@@ -139,7 +146,6 @@ const htmlString = `
                 self.$contenedorSkills.append('<tr>'
                     + '<td class="secondaryColor">'+nombre+'</td>'
                     + '<td class="everywhereBoldFont">'+puntos+'</td>'
-                    + '<td class="everywhereBoldFont">'+porcentaje+"%"+'</td>'
                     + '</tr>');
             });
         }

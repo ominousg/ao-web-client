@@ -12,7 +12,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="tirar" title="TIRAR">
+<article id="tirar">
     <div class="dialogContent">
         <div style="text-align: center; margin:11px auto">
             <input id="tirarInputCantidad" class="form-control" type="number" max="10000">
@@ -31,6 +31,7 @@ const htmlString = `
     class Tirar extends PopUp {
         constructor(game, acciones) {
             var options = {
+                title: "TIRAR",
                 width: 250,
                 height: 160,
                 minWidth: 100,

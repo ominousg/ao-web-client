@@ -13,7 +13,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="partyMiembro" title="PARTY">
+<article id="partyMiembro">
     <div class="dialogContent">
         <label for="partyMiembroMensaje">Mensaje</label><input id="partyMiembroMensaje">
         <label for="partyMiembroMembersList">Miembros</label><select id="partyMiembroMembersList" class="form-control" size="4"></select>
@@ -31,6 +31,7 @@ const htmlString = `
         constructor(game, showMensajeCb) {
 
             var options = {
+                title: "PARTY",
                 width: 500,
                 height: 400,
                 minWidth: 250,

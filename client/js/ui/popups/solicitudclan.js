@@ -12,7 +12,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="solicitudClan" title="CLANES">
+<article id="solicitudClan">
     <div class="dialogContent">
         <div class="form-group">
             <label for="comment">Comment:</label>
@@ -31,6 +31,7 @@ const htmlString = `
         constructor(game) {
 
             var options = {
+                title: "CLANES",
                 width: 500,
                 height: 400,
                 minWidth: 250,

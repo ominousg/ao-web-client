@@ -14,7 +14,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="crearClan" title="CLANES">
+<article id="crearClan">
     <div class="dialogContent">
         <div class="scrollFlex">
             <label for="crearClanNombre">Nombre clan:</label><input id="crearClanNombre" class="form-control">
@@ -48,6 +48,7 @@ const htmlString = `
         constructor(game, showMensajeCb) {
 
             var options = {
+                title: "CLANES",
                 width: 500,
                 height: 400,
                 minWidth: 250,

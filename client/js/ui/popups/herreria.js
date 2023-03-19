@@ -12,13 +12,14 @@ const htmlString = `
 </head>
 <body>
 
-<article id="herreria" title="HERRERIA">
+
+<article id="herreria">
     <div class="dialogContent">
         <h4>Construccion</h4>
         <p>Items disponibles para construir:</p>
 
-        <div class="scrollFlex">
-            <table id="herreriaContenedorItems" class="table table-striped table-hover">
+        <div class="scrollFlex" style="overflow-y:scroll;max-height:310px">
+            <table id="herreriaContenedorItems" class="table table-striped">
                 <!-- Ejemplo de llenado
                 <tr>
                     <td>[imagen] objeto</td>
@@ -46,14 +47,16 @@ const htmlString = `
         constructor(game) {
 
             var options = {
+                title: "HERRERIA",
                 width: 500,
-                height: 400,
+                height: 500,
                 minWidth: 250,
-                minHeight: 300
+                minHeight: 400
             };
             var $element = $(`<div>${htmlString}</div>`);
             super($element, options);
 
+            this.items = new Set();
             this.game = game;
             //this.initCallbacks();
             this.$itemsContainer = $("#herreriaContenedorItems");
@@ -73,10 +76,15 @@ const htmlString = `
 
             var self = this;
             for (var item of items) {
+                const isItemUnique = self.items.has(item.Name);
+                self.items.add(item.Name);
+    
+                if (isItemUnique) continue;
+
                 var $row = $('<tr></tr>');
 
                 var numGraf = this.game.assetManager.getNumCssGraficoFromGrh(item.GrhIndex);
-                var url = "url(graficos/" + numGraf + ".png)";
+                var url = "url(graficos/css/" + numGraf + ".png)";
 
                 var $cell = $('<td></td>');
                 var $imagenItem = $('<div class="divImagen" style="width: 50px; height:50px;"></div>');
@@ -96,7 +104,7 @@ const htmlString = `
                 $botonConstruir.data("itemIndex", item.ArmasHerreroIndex);
                 $botonConstruir.click(function () {
                     var cantidadAConstruir = $('#herreriaCantidadAConstruir').val();
-                    self.game.client.sendInitCrafting(cantidadAConstruir, 1);//TODO: horrible esto, que se haga de 1 (cambiar sv)
+                    self.game.client.sendInitCrafting(cantidadAConstruir, cantidadAConstruir);//TODO: horrible esto, que se haga de 1 (cambiar sv)
                     var itemIndex = $(this).data("itemIndex");
                     self.game.client.sendCraftBlacksmith(itemIndex);
                 });

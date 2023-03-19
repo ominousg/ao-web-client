@@ -12,7 +12,7 @@ const htmlString = `
   </head>
   <body>
 
-  <article id="mensajeGlobal" title="MENSAJE">
+  <article id="mensajeGlobal">
       <div class="dialogContent">
           <div id="mensajeContenido" class="activeColor everywhereFont"></div>
           <button id="mensajeBotonOk" class="btn btn-default btn-block">OK</button>
@@ -26,6 +26,7 @@ const htmlString = `
 class Mensaje extends PopUp {
   constructor() {
       var options = {
+          title: "MENSAJE",
           width: 300,
           height: 280,
           minWidth: 200,

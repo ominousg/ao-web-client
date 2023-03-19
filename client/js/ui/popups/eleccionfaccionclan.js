@@ -14,7 +14,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="eleccionFaccionClan" title="FACCIÓN CLAN">
+<article id="eleccionFaccionClan">
     <div class="dialogContent">
         <div style="width:100%;height:100%;display:flex; flex-direction: column;">
             <div class="scrollFlex">
@@ -78,6 +78,7 @@ const htmlString = `
         constructor(game) {
 
             var options = {
+                title: "FACCIÓN CLAN",
                 width: 550,
                 height: 500,
                 minWidth: 50,

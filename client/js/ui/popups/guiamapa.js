@@ -12,7 +12,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="popUpMapa" title="MAPA">
+<article id="popUpMapa">
     <div style="height:100%; display: flex;  flex-direction: row;">
 
         <div class="tabsContainer" style="display: flex; flex-direction: column;">
@@ -43,6 +43,7 @@ const htmlString = `
     class GuiaMapa extends PopUp {
         constructor(game, acciones) {
             var options = {
+                title: "MAPA",
                 width: 610,
                 height: 550,
             };

@@ -12,7 +12,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="detallesClan" title="CLANES">
+<article id="detallesClan">
     <div class="dialogContent">
         <div class="panel-group scrollFlex">
             <div class="panel panel-default">
@@ -57,6 +57,7 @@ const htmlString = `
         constructor(game,solicitudClanCb) {
 
             var options = {
+                title: "CLANES",
                 width: 500,
                 height: 400,
                 minWidth: 250,

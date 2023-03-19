@@ -15,7 +15,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="popUpOpciones" title="AJUSTES">
+<article id="popUpOpciones">
 
     <div style="height:100%; display: flex;  flex-direction: row;">
 
@@ -280,6 +280,7 @@ const htmlString = `
     class Opciones extends PopUp {
         constructor(game, storage, updateKeysCallback, showMensajeCallback) {
             var options = {
+                title: "AJUSTES",
                 width: 500,
                 height: 600,
                 minWidth: 250,

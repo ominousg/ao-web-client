@@ -12,7 +12,7 @@ const htmlString = `
 </head>
 <body>
 
-<article id="inGameMensaje" title="MENSAJE">
+<article id="inGameMensaje">
     <div class="dialogContent">
         <div id="inGameMensajeContenido" class="activeColor everywhereFont">
         </div>
@@ -27,6 +27,7 @@ const htmlString = `
     class InGameMensaje extends PopUp {
         constructor() {
             var options = {
+                title: "MENSAJE",
                 width: 300,
                 height: 280,
                 minWidth: 200,

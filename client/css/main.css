@@ -1656,6 +1656,9 @@ section,
 summary {
   display: block; }
 
+article {
+ height: 100%; }
+
 audio,
 canvas,
 progress,
@@ -3833,7 +3836,7 @@ th {
     padding: 8px;
     line-height: 1.42857;
     vertical-align: top;
-    border-top: 1px solid #ddd; }
+    border-top: 1px solid #FFFFFF1A; }
   .table > thead > tr > th {
     vertical-align: bottom;
     border-bottom: 2px solid #ddd; }
@@ -3871,7 +3874,10 @@ th {
     border-bottom-width: 2px; }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #f9f9f9; }
+  background-color: #28201e; }
+
+.table-striped > tbody > tr:hover {
+  background-color: #312b27; }
 
 .table-hover > tbody > tr:hover {
   background-color: #f5f5f5; }
@@ -6775,7 +6781,7 @@ button.close {
 .modal-footer {
   padding: 15px;
   text-align: right;
-  border-top: 1px solid #e5e5e5; }
+  border-top: 1px solid #FFFFFF1A; }
   .modal-footer:before, .modal-footer:after {
     content: " ";
     display: table; }

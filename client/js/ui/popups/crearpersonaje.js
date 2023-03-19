@@ -12,7 +12,7 @@ const htmlString = `
     <title>Title</title>
 </head>
 <body>
-<article id="crearPersonaje" title="CREAR PERSONAJE">
+<article id="crearPersonaje">
     <div class="dialogContent">
         <div class="horizontal_center">
             <div class="form-group">
@@ -49,6 +49,7 @@ const htmlString = `
     class CrearPersonaje extends PopUp {
         constructor(showMensajeCb) {
             var options = {
+                title: "CREAR PERSONAJE",
                 width: 280,
                 height: 400,
                 minWidth: 150,
