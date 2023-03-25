@@ -1,5 +1,5 @@
 import { Enums } from '../enums';
-import * as PIXI from 'pixi.js';
+import * as PIXI from 'pixi.js-legacy';
 import { Container } from 'pixi.js';
 import Camera from './camera';
 import Consola from './consola';

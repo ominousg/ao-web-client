@@ -5,7 +5,7 @@
 import { Enums } from '../enums';
 import Utils from '../utils/util';
 import Font from '../font';
-import * as PIXI from 'pixi.js';
+import * as PIXI from 'pixi.js-legacy';
 import CharacterSprites from './charactersprites';
 import CharacterName from './charactername';
 import CharacterText from './charactertext';
