@@ -21,3 +21,13 @@ npm i
 webpack
 webpack-dev-server
 ```
+
+## Galería
+
+![](https://i.imgur.com/BIpoHvE.png)
+[Loadtesting](https://www.youtube.com/watch?v=D8p-pyC8EhM)
+
+![](https://i.imgur.com/3g2XaXN.png)
+
+![](https://i.imgur.com/5FXT8ez.png)
+
