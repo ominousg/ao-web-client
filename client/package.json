@@ -24,7 +24,7 @@
     "babel-preset-env": "^1.7.0",
     "howler": "2.0.0",
     "html-webpack-plugin": "^5.5.0",
-    "pixi.js": "4.0.3",
+    "pixi.js-legacy": "^6.4.2",
     "style-loader": "^3.3.1"
   }
 }

@@ -1,5 +1,6 @@
 import { Enums } from '../enums';
-import PIXI from 'pixi.js';
+import * as PIXI from 'pixi.js-legacy';
+import { Container } from 'pixi.js';
 import Camera from './camera';
 import Consola from './consola';
 import ContainerOrdenado from './containerordenado';
@@ -36,9 +37,10 @@ import RendererUtils from './rendererutils';
             }
 
             _inicializarPixi() {
-                PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
-                PIXI.MIPMAP_TEXTURES = false;
-                PIXI.GC_MODES.DEFAULT = PIXI.GC_MODES.MANUAL;
+                PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+                // PIXI.MIPMAP_TEXTURES = false;
+                PIXI.settings.MIPMAP_TEXTURES = false;
+                PIXI.settings.GC_MODE = PIXI.GC_MODES.MANUAL;
 
                 this.pixiRenderer = new PIXI.autoDetectRenderer(this.camera.gridW * this.tilesize, this.camera.gridH * this.tilesize);
                 $(this.pixiRenderer.view).css('position', 'relative');
@@ -48,16 +50,16 @@ import RendererUtils from './rendererutils';
             }
 
             _initStage() {
-                this.stage = new PIXI.Container();
-                this.gameStage = new PIXI.Container();
-                this.climaContainer = new PIXI.Container();
-                this.layer1 = new PIXI.Container();
-                this.layer2 = new PIXI.Container();
-                this.gameNames = new PIXI.Container();
+                this.stage = new Container();
+                this.gameStage = new Container();
+                this.climaContainer = new Container();
+                this.layer1 = new Container();
+                this.layer2 = new Container();
+                this.gameNames = new Container();
                 this.layer3 = new ContainerOrdenado(this.MAPA_WIDTH);
                 this.layer3.ordenado = true;
-                this.layer4 = new PIXI.Container();
-                this.gameChat = new PIXI.Container();
+                this.layer4 = new Container();
+                this.gameChat = new Container();
                 this.consola = new Consola(this.escala);
                 this.indicadorMapa = new IndicadorMapa(this.escala);
                 this.indicadorFPS = new IndicadorFPS(this.escala);
@@ -278,3 +280,4 @@ import RendererUtils from './rendererutils';
         }
         export default Renderer;
 
+        

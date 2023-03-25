@@ -11,7 +11,7 @@ import { Enums } from '../enums';
 import World from './world';
 import WorldState from './worldstate';
 import GameText from './gametext';
-import * as PIXI from 'pixi.js';
+import { Ticker } from 'pixi.js';
 
         class Game {
             constructor(assetManager) {
@@ -551,8 +551,8 @@ import * as PIXI from 'pixi.js';
             }
 
             initGameTick() {
-                PIXI.ticker.shared.remove(this._gameTick, this);
-                PIXI.ticker.shared.add(this._gameTick, this);
+                Ticker.shared.remove(this._gameTick, this);
+                Ticker.shared.add(this._gameTick, this);
             }
 
             _gameTick() {
@@ -637,3 +637,4 @@ import * as PIXI from 'pixi.js';
         }
 
         export default Game;
+        
