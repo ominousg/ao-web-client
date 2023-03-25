@@ -1,12 +1,13 @@
 /**
  * Created by horacio on 3/10/16.
  */
- import { AnimatedSprite } from "pixi.js";
+ import { AnimatedSprite, Texture, RenderTexture } from "pixi.js";
  
  class SpriteGrh extends AnimatedSprite {
     constructor(grh, cantLoops) {
+        const placeholderTexture = RenderTexture.create({ width: 32, height: 32 });
         let nullFrames = [];
-        nullFrames[0] = {texture: null};
+        nullFrames[0] = {texture: placeholderTexture};
         super(nullFrames);
 
         cantLoops = cantLoops || 0;
@@ -16,12 +17,12 @@
         this._cantLoops = cantLoops;
         this._realOnComplete = null;
 
-        this.loop = ( cantLoops <= 0 ); // OJO; si loopea por default hace play apenas lo creas
+        this.loop = (cantLoops <= 0); // OJO; si loopea por default hace play apenas lo creas
 
         this.cambiarGrh(grh);
 
         var self = this;
-        this.animation.onComplete = function () {
+        this.onComplete = function () {
             if (self._playedLoops < self._cantLoops) {
                 self._playedLoops++;
                 self.gotoAndStop(0);
@@ -44,7 +45,7 @@
     }
 
     play() {
-        if (this.animation.textures.length > 1) {
+        if (this.textures && this.textures.length > 1) {
             this._playedLoops = 1;
             this._play();
         }
@@ -65,10 +66,14 @@
         } else {
             duracion = velocidad;
         }
-        var fps = (this.animation.textures.length / duracion) * 1000;
-        this.animationSpeed = fps / 60;
+        if (this.textures && this.textures.length > 0) {
+            var fps = (this.textures.length / duracion) * 1000;
+            this.animationSpeed = fps / 60;
+        } else {
+            this.animationSpeed = 0;
+        }
     }
-
+    
     setSpeed(vel) {
         this._velocidadSeteada = vel;
         this._setSpeed();
