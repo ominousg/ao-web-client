@@ -57,7 +57,7 @@ class Skills {
 	}
 
 	forEachSkill(callback) { // callback(numSkill,puntos,porcentaje,nombre)
-		_.each(this._skills, function (skill) {
+		this._skills.forEach(function (skill) {
 			if (skill) {
 				callback(skill.numSkill, skill.puntos, skill.porcentaje, skill.nombre);
 			}

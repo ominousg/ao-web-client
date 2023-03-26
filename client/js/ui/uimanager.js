@@ -29,9 +29,9 @@ class UIManager {
 	}
 
 	_createPlaySonidoCallback() {
-		var self = this;
-		var sonidoCb = function ($boton) {
-			if (!$boton.hasClass("noClickSound")) {
+		const self = this;
+		const sonidoCb = function (element) {
+			if (element && !element.classList.contains("noClickSound")) {
 				self.assetManager.audio.playSound(Enums.SONIDOS.click);
 			}
 		};
@@ -43,10 +43,10 @@ class UIManager {
 	}
 
 	setLoginScreen() {
-		var $body = $("body");
-		$body.removeClass("jugar");
-		$body.removeClass("crear");
-		$body.addClass("login");
+		const body = document.body;
+		body.classList.remove("jugar");
+		body.classList.remove("crear");
+		body.classList.add("login");
 		this.loginUI.setPlayButtonState(true);
 		this.loginUI.setCrearButtonState(true);
 		if (this.gameUI) {
@@ -55,115 +55,80 @@ class UIManager {
 	}
 
 	setCrearPJScreen() {
-		var $body = $("body");
-		$body.removeClass("login");
-		$body.removeClass("jugar");
-		$body.addClass("crear");
+		const body = document.body;
+		body.classList.remove("login");
+		body.classList.remove("jugar");
+		body.classList.add("crear");
 	}
 
 	setGameScreen() {
-		var $body = $("body");
-		$body.removeClass("login");
-		$body.removeClass("crear");
-		$body.addClass("jugar");
-	}
-
-	openPage(type, url) {
-
-		var h = $(window).height(),
-			w = $(window).width(),
-			popupHeight,
-			popupWidth,
-			top,
-			left;
-
-		switch (type) {
-		case "twitter":
-			popupHeight = h * 2 / 3;
-			popupWidth = Math.min(580, w / 2);
-			break;
-		case "facebook":
-			popupHeight = h * 3 / 4;
-			popupWidth = Math.min(980, w / 1.5);
-			break;
-		}
-
-		top = (h / 2) - (popupHeight / 2);
-		left = (w / 2) - (popupWidth / 2);
-
-		let newwindow = window.open(url, "name", "height=" + popupHeight + ",width=" + popupWidth + ",top=" + top + ",left=" + left);
-		if (window.focus) {
-			newwindow.focus();
-		}
+		const body = document.body;
+		body.classList.remove("login");
+		body.classList.remove("crear");
+		body.classList.add("jugar");
 	}
 
 	initDOM() {
 		this.resizeUi();
 
-		var self = this;
+		const self = this;
 
-		$(".clickable").click(function (event) {
-			event.stopPropagation();
-		});
-
-		$(".twitter").click(function () {
-			var url = $(this).attr("href");
-
-			self.openPage("twitter", url);
-			return false;
-		});
-
-		$(".facebook").click(function () {
-			var url = $(this).attr("href");
-
-			self.openPage("facebook", url);
-			return false;
+		const clickables = document.querySelectorAll(".clickable");
+		clickables.forEach(element => {
+			element.addEventListener("click", event => {
+				event.stopPropagation();
+			});
 		});
 
 		document.addEventListener("touchstart", function () {
 		}, false);
 
-		var resizeCallback = this.resizeUi.bind(this);
-		$(window).resize(_.throttle(function (event) {
-			resizeCallback();
-		}, 100));
+		const resizeCallback = this.resizeUi.bind(this);
+		window.addEventListener("resize", function (event) {
+			clearTimeout(this.resizeTimeout);
+			this.resizeTimeout = setTimeout(resizeCallback, 100);
+		});
 
-		$("button").click(function (event) {
-			self.playSonidoClick($(this));
+		const buttons = document.querySelectorAll("button");
+		buttons.forEach(element => {
+			element.addEventListener("click", (event) => {
+				self.playSonidoClick(element);
+			});
 		});
 	}
 
-	setFooterHiden(gameRatio, windowWidth, windowHeight) {
+	setFooterHidden(gameRatio, windowWidth, windowHeight) {
 
 		windowHeight -= this.FOOTER_HEIGHT;
 		let windowRatio = windowWidth / windowHeight;
 
 		if (gameRatio * 0.8 > windowRatio) { // limita el width
 			$("footer").show();
+			document.querySelector("footer").style.display = "none";
 			return false;
 		}
 		if (windowHeight < 600) {
-			$("footer").hide();
+			document.querySelector("footer").style.display = "none";
 			return true;
 		}
-		$("footer").show();
+		document.querySelector("footer").style.display = "none";
 		return false;
 
 	}
 
 	resizeUi() {
-		let menuBorderWidth = parseInt($("#menuJuego").css("border-left-width")); // solo borde izq, los demas valen 0
-		let containerBorderWidth = parseInt($("#container").css("border-left-width")); // 4 bordes iguales pero hay que pasar alguno para el ancho
+		let menuBorderWidth = parseInt(window.getComputedStyle(document.getElementById("menuJuego")).borderLeftWidth); // solo borde izq, los demas valen 0
+		let containerBorderWidth = parseInt(window.getComputedStyle(document.getElementById("container")).borderLeftWidth); // 4 bordes iguales pero hay que pasar alguno para el ancho
 		let gameWidth = this.widthMenuJuego + this.widthJuego + menuBorderWidth + containerBorderWidth * 2;
 		let gameHeight = this.heightJuego + containerBorderWidth * 2;
 
 		let gameRatio = gameWidth / gameHeight;
 
-		let windowWidth = parseInt($(window).width()) - 10;
-		let windowHeight = parseInt($(window).height()) - 30;
+		let windowWidth = parseInt(window.innerWidth) - 10;
+		let windowHeight = parseInt(window.innerHeight) - 30;
 		let windowRatio = windowWidth / windowHeight;
 
-		if (!this.setFooterHiden(gameRatio, windowWidth, windowHeight)) {
+		if (!this.setFooterHidden(gameRatio, windowWidth, windowHeight)) {
 			windowHeight -= this.FOOTER_HEIGHT;
 		}
 
@@ -173,10 +138,10 @@ class UIManager {
 			this.escala = windowHeight / gameHeight;
 		}
 
-		$("#container").width(Math.floor(this.escala * gameWidth));
-		$("#container").height(Math.floor(this.escala * gameHeight));
+		document.getElementById("container").style.width = Math.floor(this.escala * gameWidth) + "px";
+		document.getElementById("container").style.height = Math.floor(this.escala * gameHeight) + "px";
 
-		$("#chatbox input").css("font-size", Math.max(14,Math.floor(12 * this.escala)) + "px");
+		document.querySelector("#chatbox input").style.fontSize = Math.max(14, Math.floor(12 * this.escala)) + "px";
 
 		if (this.gameUI) {
 			this.gameUI.resize(this.escala);
@@ -184,7 +149,17 @@ class UIManager {
 	}
 
 	hideIntro() {
-		$("body").removeClass("intro");
+		const body = document.body;
+		const overlay = document.getElementById("overlay");
+		overlay.style.opacity = 1;
+
+
+		setTimeout(() => {
+			body.classList.remove("intro");
+			body.classList.add("login-background");
+			document.querySelector("footer").style.display = "block";
+			overlay.style.opacity = 0;
+		}, 1200); // bajar el valor en dev (para no perder mucho tiempo), y subirlo en prod. Idealmente traer el valor de una variable en el .env
 		this.setLoginScreen();
 	}
 

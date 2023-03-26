@@ -276,8 +276,8 @@ class MapaRenderer {
 	}
  
 	_removeChilds(padre, gridHijos) {
-		_.each(gridHijos, function (fila) {
-			_.each(fila, function (hijo) {
+		gridHijos.forEach(fila => {
+			fila.forEach(hijo => {
 				if (hijo) {
 					RendererUtils.removePixiChild(padre, hijo);
 				}

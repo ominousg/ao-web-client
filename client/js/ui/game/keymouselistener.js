@@ -4,6 +4,19 @@
 import KeyMouseInput from "./keymouseinput";
 import CharcodeMap from "../../utils/charcodemap";
 
+// ominousg: crear archivo vanilla.js en la carpeta utils que contenga un debounce reusable para evitar repetición + event listeners reusables para ir reemplazando algunas partes de jQuery sin generar mucho boilerplate
+function debounce(func, wait) {
+	let timeout;
+	return function () {
+		const context = this;
+		const args = arguments;
+		clearTimeout(timeout);
+		timeout = setTimeout(function () {
+			func.apply(context, args);
+		}, wait);
+	};
+}
+
 class KeyMouseListener {
 
 	constructor(game, acciones, keys, comandosChat) {
@@ -13,7 +26,7 @@ class KeyMouseListener {
 		this.comandosChat = comandosChat;
 
 		this._prevKeyDown = [];
-		this.$gameCanvas = $("#gamecanvas");
+		this.gameCanvas = document.getElementById("gamecanvas");
 		this.$chatButton = $("#botonChatInput");
 		this.$chatbox = $("#chatbox");
 		this.$chatinput = $("#chatinput");
@@ -38,9 +51,8 @@ class KeyMouseListener {
 		this.$chatinput.blur();
 	}
 
-	updateGameMouseCoordinates(game, event, $gameCanvas) {
-
-		var gamePos = $gameCanvas.offset(),
+	updateGameMouseCoordinates(game, event, gameCanvas) {
+		var gamePos = gameCanvas.getBoundingClientRect(),
 			width = game.renderer.pixiRenderer.width,
 			height = game.renderer.pixiRenderer.height,
 			mouse = game.mouse;
@@ -69,10 +81,9 @@ class KeyMouseListener {
 
 	upKeyTeclasCaminar() {
 		var teclasCaminar = this.inputHandler.getTeclasCaminar();
-		var self = this;
-		_.each(teclasCaminar, function (key) {
-			self._upKey(key);
-			self.inputHandler.keyUp(key);
+		teclasCaminar.forEach(key => {
+			this._upKey(key);
+			this.inputHandler.keyUp(key);
 		});
 	}
 
@@ -206,28 +217,26 @@ class KeyMouseListener {
 	}
 
 	_initMouseListeners() {
+		const self = this;
+		const gameCanvas = document.getElementById("gamecanvas");
 
-		var self = this;
-
-		self.$gameCanvas.click(function (event) {
+		gameCanvas.addEventListener("click", function (event) {
 			// TODO: si haces click afuera del menu pop up que lo cierre?
-
-			if (self.updateGameMouseCoordinates(self.game, event, self.$gameCanvas)) {
+			if (self.updateGameMouseCoordinates(self.game, event, gameCanvas)) {
 				self.inputHandler.click();
 			}
 		});
 
-		self.$gameCanvas.dblclick(function (event) {
+		gameCanvas.addEventListener("dblclick", function (event) {
 			// TODO: si haces click afuera del menu pop up que lo cierre?
-			if (self.updateGameMouseCoordinates(self.game, event, self.$gameCanvas)) {
+			if (self.updateGameMouseCoordinates(self.game, event, gameCanvas)) {
 				self.inputHandler.doubleClick();
 			}
 		});
 
-		self.$gameCanvas.mousemove(_.debounce(function (event) {
-			self.updateGameMouseCoordinates(self.game, event, self.$gameCanvas);
+		gameCanvas.addEventListener("mousemove", debounce(function (event) {
+			self.updateGameMouseCoordinates(self.game, event, gameCanvas);
 		}, 50));
-
 		// DEBUG------------------------------ NO SACAR----------------------------------- :
 		//  $(window).bind('mousewheel DOMMouseScroll', function (event) {
 		//  var escala;
@@ -245,12 +254,11 @@ class KeyMouseListener {
 		//  self.game.renderer.stage.y = ((self.game.renderer.stage.height * (1 - self.game.renderer.stage.scale.y)) / 2);
 		//  });
 		// ----------------------------------- NO SACAR----------------------------------- :
-
 	}
 
 	_isArrowKey(key) {
-		return ( key === CharcodeMap.keys.indexOf("LEFT") || key === CharcodeMap.keys.indexOf("UP") ||
-            key === CharcodeMap.keys.indexOf("DOWN") || key === CharcodeMap.keys.indexOf("RIGHT") );
+		return (key === CharcodeMap.keys.indexOf("LEFT") || key === CharcodeMap.keys.indexOf("UP") ||
+			key === CharcodeMap.keys.indexOf("DOWN") || key === CharcodeMap.keys.indexOf("RIGHT") );
 	}
 
 	_downKey(key) {

@@ -38,7 +38,7 @@ define([], function () {
 		}
 
 		forEachSlot(callback) {
-			_.each(this._slots, function (slot) {
+			this._slots.forEach(function (slot) {
 				if (slot) {
 					callback(slot);
 				}

@@ -59,7 +59,7 @@ class PopUp {
 
 	initButtonsSound(playSoundCallback) {
 		this.$this.find("button").click(function (event) {
-			playSoundCallback($(this));
+			playSoundCallback(this);
 		});
 	}
 
