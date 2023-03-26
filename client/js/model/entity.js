@@ -39,7 +39,7 @@ class Entity extends PIXI.utils.EventEmitter{
 		this._gridY = gridY;
 		this.emit("gridPositionChanged");
 	}
-        
+
 	setGridPosition(gridX, gridY) {
 		this.setGridPositionOnly(gridX,gridY);
 		this.setPosition(gridX*32,gridY*32);

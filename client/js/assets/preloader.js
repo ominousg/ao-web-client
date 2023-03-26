@@ -1,5 +1,6 @@
 /**
  * Created by horacio on 3/22/16.
+ * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
 
 import { Loader } from "pixi.js";

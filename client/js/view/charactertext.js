@@ -1,15 +1,16 @@
 /**
  * Created by horacio on 3/9/16.
+ * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
 import Font from "../font";
 import { Container, Text } from "pixi.js";
 import GameTextStyle from "./gametextstyle";
- 
+
 class CharacterText extends Container {
 	constructor(escala) {
 		super();
 		this.estiloChat = new GameTextStyle(Font.TALK_BASE_FONT,escala);
- 
+
 		this.infos = [];
 		this._chat = null;
 		this._escala = escala || 1;
@@ -18,10 +19,10 @@ class CharacterText extends Container {
 		this.DURACION_CHAT = 15000;
 		this.DURACION_INFO = 2000;
 	}
- 
+
 	setEscala(escala) {
 		this.estiloChat.setEscala(escala);
- 
+
 		if (this._chat) {
 			//this._chat.style = this.estiloChat;
 			this._chat.x = Math.round(this._chat.x * (escala / this._escala));
@@ -29,15 +30,15 @@ class CharacterText extends Container {
 		}
 		this.x = Math.round(this.x * (escala / this._escala));
 		this.y = Math.round(this.y * (escala / this._escala));
- 
+
 		this._escala = escala;
 	}
- 
+
 	setPosition(x, y) {
 		this.x = Math.round(x * this._escala);
 		this.y = Math.round(y * this._escala);
 	}
- 
+
 	_formatearChat(str) {
 		var resultado = [];
 		str = str.trim();
@@ -58,20 +59,20 @@ class CharacterText extends Container {
 		resultado.push(str);
 		return resultado;
 	}
- 
+
 	setChat(chat, color) {
 		this.removerChat();
 		chat = this._formatearChat(chat);
 		this.estiloChat.fill = color;
 		this._chat = new Text(chat.join("\n"), this.estiloChat);
- 
+
 		this._chat.tiempoPasado = 0;
- 
+
 		this.addChild(this._chat);
 		this._chat.x = Math.round(32 * this._escala / 2 - this._chat.width / 2);
 		this._chat.y = Math.round(-19 * this._escala - this._chat.height);
 	}
- 
+
 	removerChat() {
 		if (this._chat) {
 			this.removeChild(this._chat);
@@ -79,20 +80,20 @@ class CharacterText extends Container {
 		}
 		this._chat = null;
 	}
- 
- 
+
+
 	addHoveringInfo(value, font) {
 		var estilo = new GameTextStyle(Font.HOVERING_BASE_FONT,this._escala,font);
 		var info = new Text(value, estilo);
- 
+
 		info.tiempoPasado = 0;
 		this.addChild(info);
 		this.infos.push(info);
-             
+
 		info.y = -16 * this._escala - info.height;
 		info.x = 32 * this._escala / 2 - info.width / 2;
 	}
- 
+
 	_removerInfo(info) {
 		let index = this.infos.indexOf(info);
 		if (index > -1) {
@@ -101,25 +102,25 @@ class CharacterText extends Container {
 			info.destroy();
 		}
 	}
- 
+
 	update(delta) {
 		this._updateChat(delta);
 		this._updateInfos(delta);
 	}
- 
+
 	_updateChat(delta) {
 		if (!this._chat) return;
- 
+
 		this._chat.tiempoPasado += delta;
 		const limit = Math.round(-24 * this._escala - this._chat.height);
 		const speed = delta / 10;
 		this._chat.y = Math.max(limit, this._chat.y - speed);
- 
+
 		if (this._chat.tiempoPasado > this.DURACION_CHAT) {
 			this.removerChat();
 		}
 	}
- 
+
 	_updateInfos(delta) {
 		let i;
 		for (i = this.infos.length - 1; i >= 0; i--) {
@@ -135,7 +136,7 @@ class CharacterText extends Container {
 			}
 		}
 	}
- 
+
 	destroy(options) {
 		this.removerChat();
 		for (let i = this.infos.length - 1; i >= 0; i--) {
@@ -144,5 +145,5 @@ class CharacterText extends Container {
 		super.destroy(options);
 	}
 }
- 
+
 export default CharacterText;

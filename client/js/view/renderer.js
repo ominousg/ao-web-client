@@ -170,7 +170,7 @@ class Renderer {
 			name.setEscala(escala);
 		}
 		this.consola.setEscala(escala);
-                
+
 		this.indicadorMapa.x = Math.floor((17 * 32 - 75) * escala);
 		this.indicadorMapa.y = Math.floor((13 * 32 - 12) * escala);
 		this.indicadorMapa.setEscala(escala);
@@ -280,4 +280,3 @@ class Renderer {
 }
 export default Renderer;
 
-        

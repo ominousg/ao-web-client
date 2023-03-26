@@ -34,7 +34,7 @@ class MiembrosClan {
 		var self = this;
 
 		SearchInputFilter.makeInputFilterElement(this.$inputSearchMember, this.$miembrosNameList, "option" );
-            
+
 		this.$botonNoticias.click(function () {
 			self.game.client.sendShowGuildNews();
 		});

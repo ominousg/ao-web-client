@@ -1,37 +1,38 @@
 /**
  * Created by horacio on 3/2/16.
+ * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
 import { Enums } from "../enums";
 import { Container } from "pixi.js";
 import SpriteGrh from "./spritegrh";
- 
+
 class CharacterSprites extends Container {
 	constructor() {
 		/*
               Body, Head,Weapon,Shield,Helmet: vector con los grhs de los 4 headings. Cada uno de los headings puede contener un solo numero de grh frames de grhs + vel
               */
 		super();
-             
+
 		// charVisible solo incluye al personaje, la clase esta ademas incluye a los fxs, etc
 		this._charVisible = true;
 		this.OFFSET_HEAD = -34;
 		this._fxsInfinitos = [];
 	}
- 
+
 	get width(){ // ignoro tamaño de la cabeza, ver si hace diferencia
 		if (this.bodySprite){
 			return this.bodySprite.width;
 		}
 		return 0;
 	}
- 
+
 	get height(){
 		if (this.bodySprite){
 			return this.bodySprite.height;
 		}
 		return 0;
 	}
- 
+
 	setFX(grh, offX, offY, loops) {
 		var nuevoSprite = new SpriteGrh(grh, loops);
 		this.addChild(nuevoSprite);
@@ -49,7 +50,7 @@ class CharacterSprites extends Container {
 			this._fxsInfinitos.push(nuevoSprite);
 		}
 	}
- 
+
 	setSombraSprite(grh) {
 		if (this._sombraSprite) {
 			return;
@@ -60,7 +61,7 @@ class CharacterSprites extends Container {
 		this._updateOrdenHijos();
 		this._updateSombraSpriteSize();
 	}
- 
+
 	_updateSombraSpriteSize() {
 		if (this._sombraSprite) {
 			var w;
@@ -74,18 +75,18 @@ class CharacterSprites extends Container {
 			}
 		}
 	}
- 
+
 	removerFxsInfinitos() {
 		for (var i = 0; i < this._fxsInfinitos.length; i++) {
 			this.removeChild(this._fxsInfinitos[i]);
 		}
 		this._fxsInfinitos = [];
 	}
- 
+
 	setGridPositionChangeCallback(callback) {
 		this._onGridPositionChange = callback;
 	}
- 
+
 	setPosition(x, y) {
 		this.x = Math.round(x);
 		this.y = Math.round(y);
@@ -99,48 +100,48 @@ class CharacterSprites extends Container {
 			}
 		}
 	}
- 
+
 	setSpeed(vel) {
 		this._velocidad = vel;
 		this._forEachHeadingSprite(function (sprite) {
 			sprite.setSpeed(vel);
 		});
 	}
- 
+
 	play() {
 		this._forEachHeadingSprite(function (sprite) {
 			sprite.play();
 		});
 	}
- 
+
 	loop(loop) {
 		this._forEachHeadingSprite(function (sprite) {
 			sprite.loop = loop;
 		});
 	}
- 
+
 	cambiarHeading(heading) {
 		if (this.heading === heading) {
 			return;
 		}
- 
+
 		this.heading = heading;
 		this.setBodys(this.bodys, this.headOffX, this.headOffY, true);
 		this.setHeads(this.heads);
 		this.setWeapons(this.weapons);
 		this.setShields(this.shields);
 		this.setHelmets(this.helmets);
- 
+
 		this._updateOrdenHijos();
 		this._updateSombraSpriteSize();
 	}
- 
+
 	setBodys(bodys, headOffX, headOffY) {
 		this.bodys = bodys;
 		this._setHeadOffset(headOffX, headOffY);
- 
+
 		this.bodySprite = this._setHeadingSprite(this.bodySprite, bodys);
- 
+
 		if (this.bodySprite) {
 			switch (this.heading) {
 			case Enums.Heading.norte:
@@ -162,7 +163,7 @@ class CharacterSprites extends Container {
 			this._updateSombraSpriteSize();
 		}
 	}
- 
+
 	setHeads(heads) {
 		this.heads = heads;
 		this.headSprite = this._setHeadingSprite(this.headSprite, heads);
@@ -171,7 +172,7 @@ class CharacterSprites extends Container {
 			this.headSprite.setPosition(this.headOffX, this.headOffY);
 		}
 	}
- 
+
 	setWeapons(weapons) {
 		this.weapons = weapons;
 		this.weaponSprite = this._setHeadingSprite(this.weaponSprite, weapons);
@@ -195,7 +196,7 @@ class CharacterSprites extends Container {
 			}
 		}
 	}
- 
+
 	setShields(shields) {
 		this.shields = shields;
 		this.shieldSprite = this._setHeadingSprite(this.shieldSprite, shields);
@@ -219,7 +220,7 @@ class CharacterSprites extends Container {
 			}
 		}
 	}
- 
+
 	setHelmets(helmets) {
 		this.helmets = helmets;
 		this.helmetSprite = this._setHeadingSprite(this.helmetSprite, helmets);
@@ -228,8 +229,8 @@ class CharacterSprites extends Container {
 			this.helmetSprite.setPosition(this.headOffX, this.headOffY + this.OFFSET_HEAD);
 		}
 	}
- 
- 
+
+
 	setCharVisible(visible) {
 		this._charVisible = visible;
 		this._forEachHeadingSprite(function (sprite) {
@@ -240,7 +241,7 @@ class CharacterSprites extends Container {
 			this._nombre.visible = visible;
 		}
 	}
- 
+
 	_setHeadingSprite(varSprite, grhs) {
 		if (!grhs) {
 			if (varSprite) {
@@ -260,14 +261,14 @@ class CharacterSprites extends Container {
 		nuevoSprite.visible = this._charVisible;
 		return nuevoSprite;
 	}
- 
+
 	_setHeadOffset(headOffX, headOffY) {
 		if (this.headOffX) {
 			if ((this.headOffX === headOffX) && (this.headOffY === headOffY)) {
 				return;
 			}
 		}
- 
+
 		this.headOffX = headOffX || 0;
 		this.headOffY = headOffY || 0;
 		if (this.headSprite) {
@@ -276,9 +277,9 @@ class CharacterSprites extends Container {
 		if (this.helmetSprite) {
 			this.helmetSprite.setPosition(this.headOffX, this.headOffY + this.OFFSET_HEAD);
 		}
- 
+
 	}
- 
+
 	_updateOrdenHijos() { // TODO: al agregar en vez de esto hacer insercion por busqueda binaria con lso z index
 		this.children.sort(function (a, b) {
 			a.zIndex = a.zIndex || 0;
@@ -286,7 +287,7 @@ class CharacterSprites extends Container {
 			return a.zIndex - b.zIndex;
 		});
 	}
- 
+
 	_forEachHeadingSprite(callback) {
 		if (this.bodySprite) {
 			callback(this.bodySprite);
@@ -304,12 +305,12 @@ class CharacterSprites extends Container {
 			callback(this.helmetSprite);
 		}
 	}
- 
+
 	stopAnimations() {
 		this._forEachHeadingSprite((child) => {
 			child.gotoAndStop(0);
 		});
 	}
 }
- 
+
 export default CharacterSprites;

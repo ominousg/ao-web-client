@@ -99,7 +99,7 @@ class popUpSkills extends PopUp {
 		var puntosId = this._getSkillPointsDOMid(numSkill);
 		var botonMasId = "popUpSkills_botonMasSkill_" + numSkill;
 		var botonMenosId = "popUpSkills_botonMenosSkill_" + numSkill;
-            
+
 		$("#popUpSkillsContenedorSkills").append("<tr>"
             + "<td class=\"secondaryColor\" id=" + textoId + "></td>"
             + "<td class=\"everywhereBoldFont activeColor\" id=" + puntosId + "></td>"

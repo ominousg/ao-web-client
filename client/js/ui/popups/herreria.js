@@ -78,7 +78,7 @@ class Herreria extends PopUp {
 		for (var item of items) {
 			const isItemUnique = self.items.has(item.Name);
 			self.items.add(item.Name);
-    
+
 			if (isItemUnique) continue;
 
 			var $row = $("<tr></tr>");

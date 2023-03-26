@@ -84,10 +84,10 @@ class Carpinteria extends PopUp {
 
 		var self = this;
 		const renderedItems = new Set();
-        
+
 		for (var item of items) {
 			renderedItems.add(item.Name);
-        
+
 			var $row = $("<tr></tr>");
 
 			var numGraf = this.game.assetManager.getNumCssGraficoFromGrh(item.GrhIndex);

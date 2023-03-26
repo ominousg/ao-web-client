@@ -43,7 +43,7 @@ class Character extends Entity {
 		this.moveSpeed = speed;
 		this.sprite.setSpeed(speed);
 	}
-        
+
 	update(delta){
 		this.movement.update(delta);
 

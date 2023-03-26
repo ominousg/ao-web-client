@@ -1,20 +1,21 @@
 /**
  * Created by horacio on 5/3/16.
+ * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
 import { Enums } from "../enums";
 import Font from "../font";
 import { Ticker } from "pixi.js";
- 
+
 class Macros {
 	constructor(game, intervalos, acciones) {
 		this.game = game;
 		this.intervalos = intervalos;
 		this.acciones = acciones;
- 
+
 		this.trabajando = false;
 		this.lanzandoHechizo = false;
 	}
- 
+
 	toggleTrabajo() {
 		if (this.trabajando) {
 			this.terminarTrabajar();
@@ -22,7 +23,7 @@ class Macros {
 			this.comenzarTrabajar();
 		}
 	}
- 
+
 	toggleHechizos() {
 		if (this.lanzandoHechizo) {
 			this.terminarLanzarHechizo();
@@ -30,7 +31,7 @@ class Macros {
 			this.comenzarLanzarHechizo();
 		}
 	}
- 
+
 	comenzarTrabajar() {
 		if (this.trabajando) {
 			return;
@@ -41,23 +42,23 @@ class Macros {
 		}
 		this.game.gameUI.interfaz.setMacroTrabajo(true);
 		this.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_TRABAJO_ACTIVADO, Font.WARNING);
- 
+
 		Ticker.shared.add(this._updateTrabajar, this);
 		this.trabajando = true;
 	}
- 
+
 	terminarTrabajar() {
 		if (!this.trabajando) {
 			return;
 		}
- 
+
 		this.game.gameUI.interfaz.setMacroTrabajo(false);
 		this.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_TRABAJO_DESACTIVADO, Font.WARNING);
- 
+
 		Ticker.shared.remove(this._updateTrabajar, this);
 		this.trabajando = false;
 	}
- 
+
 	_updateTrabajar() {
 		if (!this.intervalos.requestMacroTrabajo()) {
 			return;
@@ -68,7 +69,7 @@ class Macros {
 			this.acciones.usarConU();
 		}
 	}
- 
+
 	comenzarLanzarHechizo() {
 		if (this.lanzandoHechizo) {
 			return;
@@ -82,7 +83,7 @@ class Macros {
 		Ticker.shared.add(this._updateHechizos, this);
 		this.lanzandoHechizo = true;
 	}
- 
+
 	terminarLanzarHechizo() {
 		if (!this.lanzandoHechizo) {
 			return;
@@ -92,7 +93,7 @@ class Macros {
 		Ticker.shared.remove(this._updateHechizos, this);
 		this.lanzandoHechizo = false;
 	}
- 
+
 	_updateHechizos() {
 		if (!this.intervalos.requestMacroHechizo()) {
 			return;
@@ -103,12 +104,11 @@ class Macros {
 			this.acciones.lanzarHechizo();
 		}
 	}
- 
+
 	desactivarMacros() {
 		this.terminarTrabajar();
 		this.terminarLanzarHechizo();
 	}
- 
+
 }
 export default Macros;
-     

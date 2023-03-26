@@ -218,7 +218,7 @@ class Boveda extends PopUp {
 		if (!maxLabel) {
 			maxVal = "";
 		}
-            
+
 		$("#bovedaNombreVal").text(nombreVal);
 		$("#bovedaMinLabel").text(minLabel);
 		$("#bovedaMinVal").text(minVal);

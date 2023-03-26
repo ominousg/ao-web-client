@@ -59,7 +59,7 @@ class CrearClan extends PopUp {
 
 		this.game = game;
 		this.showMensajeCb = showMensajeCb;
-            
+
 		this.$botonCrear = $("#crearClanBotonCrear");
 		this.$botonCancelar = $("#crearClanBotonCancelar");
 

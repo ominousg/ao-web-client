@@ -100,7 +100,7 @@ class AssetManager {
 		}
 		this.grhs[grh] = new Texture(this._baseTextures[nombreGrafico], new Rectangle(this.indices[grh].offX, this.indices[grh].offY, this.indices[grh].width, this.indices[grh].height));
 	}
-            
+
 	_setBaseTexture(nombreGrafico, baseTexture) {
 		this._baseTextures[nombreGrafico] = baseTexture;
 	}

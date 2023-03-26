@@ -352,7 +352,7 @@ class ComandosChat {
 						this.game.escribirMsgConsola("Faltan parámetros. Utilice /PARTYLIDER NICKNAME.");
 					}
 					break;
-                            
+
 				case "/ACCEPTPARTY":
 					if (args.length) {
 						this.game.client.sendPartyAcceptMember(args.join(" "));
@@ -474,11 +474,11 @@ class ComandosChat {
 						this.game.escribirMsgConsola("Escriba un mensaje.");
 					}
 					break;
-                        
+
 				case "/SHOWNAME":
 					this.game.client.sendShowName();
 					break;
-                        
+
 				case "/ONLINEREAL":
 					this.game.client.sendOnlineRoyalArmy();
 					break;
@@ -494,7 +494,7 @@ class ComandosChat {
 						this.game.escribirMsgConsola("Faltan parámetros. Utilice /ircerca NICKNAME.");
 					}
 					break;
-                            
+
 				case "/REM":
 					if (args.length) {
 						this.game.client.sendComment(args.join(" "));
@@ -515,7 +515,7 @@ class ComandosChat {
 				case "/CC":
 					this.game.client.sendSpawnListRequest();
 					break;
-                        
+
 				case "/RESETINV":
 					this.game.client.sendResetNPCInventory();
 					break;
@@ -559,7 +559,7 @@ class ComandosChat {
 						this.game.escribirMsgConsola("Faltan parámetros. Utilice /ejecutar NICKNAME.");
 					}
 					break;
-                        
+
 				case "/STAT":
 					if (args.length == 1) {
 						this.game.client.sendRequestCharStats(args[0]);
@@ -583,7 +583,7 @@ class ComandosChat {
 						this.game.escribirMsgConsola("Faltan parámetros. Utilice /inv NICKNAME.");
 					}
 					break;
-                        
+
 				case "/BOV":
 					if (args.length == 1) {
 						this.game.client.sendRequestCharBank(args[0]);
@@ -655,7 +655,7 @@ class ComandosChat {
 						this.game.escribirMsgConsola("Escriba un mensaje.");
 					}
 					break;
-                        
+
 				case "/MAPMSG":
 					if (args.length) {
 						this.game.client.sendMapMessage(args.join(" "));
@@ -711,7 +711,7 @@ class ComandosChat {
 						this.game.escribirMsgConsola("Faltan parámetros. Utilice /SETDESC DESCRIPCION.");
 					}
 					break;
-                        
+
 				case "/FORCEMIDIMAP":
 					if (args.length == 2) {
 						this.game.client.sendForceMIDIToMap(args[0], args[1]);
@@ -719,7 +719,7 @@ class ComandosChat {
 						this.game.escribirMsgConsola("Formato incorrecto. Utilice /FORCEMIDIMAP MIDI MAPA.");
 					}
 					break;
-                            
+
 				case "/FORCEWAVMAP":
 					if (args.length == 2) {
 						this.game.client.sendForceWAVEToMap(args[0], args[1]);
@@ -735,7 +735,7 @@ class ComandosChat {
 						this.game.escribirMsgConsola("Escriba un mensaje.");
 					}
 					break;
-                            
+
 				case "/CAOSMSG":
 					if (args.length == 1) {
 						this.game.client.sendChaosLegionMessage(args.join(" "));
@@ -1098,7 +1098,7 @@ class ComandosChat {
 							break;
 						case "ZONA":
 							this.game.client.sendChangeMapInfoZone(args[1]);
-							break;             
+							break;
 						case "ROBONPC":
 							this.game.client.sendChangeMapInfoStealNpc(args[1]);
 							break;
@@ -1121,7 +1121,7 @@ class ComandosChat {
 				case "/BORRARSOS":
 					this.game.client.sendCleanSOS();
 					break;
-                        
+
 				case "/NOCHE":
 					this.game.client.sendNight();
 					break;

@@ -24,10 +24,10 @@ module.exports = {
 					"error",
 					"always"
 				],
-				"no-undef": "warn",
+				"no-undef": "off",
 				"no-redeclare": "warn",
 				"no-unused-vars": "warn",
-				"no-trailing-spaces": "warn",
+				"no-trailing-spaces": "error",
 				"no-unreachable": "warn",
 				"no-prototype-builtins": "warn",
 				"no-useless-escape": "warn",

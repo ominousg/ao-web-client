@@ -41,27 +41,27 @@ const htmlString = `
 `;
 
 class GuiaMapa extends PopUp {
-    constructor(game, acciones) {
-        var options = {
-            title: "MAPA",
-            width: 710,
-            height: 650,
-        };
-        var $element = $(`<div>${htmlString}</div>`);
-        super($element, options);
-        this.initCallbacks();
-    }
+	constructor(game, acciones) {
+		var options = {
+			title: "MAPA",
+			width: 710,
+			height: 650,
+		};
+		var $element = $(`<div>${htmlString}</div>`);
+		super($element, options);
+		this.initCallbacks();
+	}
 
-    initCallbacks() {
-        var self = this;
-        $("#mapaBotonCerrar").click(function () {
-            self.hide();
-        });
-        // $("#mapaBotonToggle").click(function () {
-        //     $("#popUpMapa").toggleClass("mapaSeccionB");
-        // });
+	initCallbacks() {
+		var self = this;
+		$("#mapaBotonCerrar").click(function () {
+			self.hide();
+		});
+		// $("#mapaBotonToggle").click(function () {
+		//     $("#popUpMapa").toggleClass("mapaSeccionB");
+		// });
 
-    }
+	}
 }
 
 export default GuiaMapa;

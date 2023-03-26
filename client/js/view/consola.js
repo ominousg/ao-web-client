@@ -1,27 +1,28 @@
 /**
  * Created by horacio on 3/8/16.
+ * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
 import Font from "../font";
 import { Container, Text } from "pixi.js";
 import rendererUtils from "./rendererutils";
 import GameTextStyle from "./gametextstyle";
- 
+
 function Consola(escala) {
 	Container.call(this);
-         
+
 	this.DURACION_TEXTO = 5000;
 	this.CANT_LINEAS = 7;
- 
+
 	escala = escala || 1;
 	this._escala = escala;
 	this.setEscala(escala);
- 
+
 	this._elapsedTime = 0;
 }
- 
+
 Consola.prototype = Object.create(Container.prototype);
 Consola.constructor = Consola;
- 
+
 Consola.prototype.setEscala = function (escala) {
 	for (var i = 0; i < this.children.length; i++) {
 		this.children[i].style.setEscala(escala);
@@ -29,10 +30,10 @@ Consola.prototype.setEscala = function (escala) {
 	}
 	this._escala = escala;
 };
- 
+
 Consola.prototype.update = function (delta) {
 	this._elapsedTime += delta;
- 
+
 	//solo checkeo primer item porque fue el primero en aparecer
 	let texto = this.children[0];
 	if (!texto) {
@@ -42,8 +43,8 @@ Consola.prototype.update = function (delta) {
 		this._removerTexto(texto);
 	}
 };
- 
- 
+
+
 Consola.prototype._removerTexto = function (spriteTexto) {
 	for (var i = 0; i < this.children.length; i++) {
 		this.children[i].y -= spriteTexto.height;
@@ -55,11 +56,11 @@ Consola.prototype._removerTexto = function (spriteTexto) {
 	}
 	rendererUtils.removePixiChild(this,spriteTexto);
 };
- 
+
 Consola.prototype.agregarTexto = function (texto, font) {
 	let estilo = new GameTextStyle(Font.CONSOLA_BASE_FONT,this._escala,font);
 	let nuevoTexto = new Text(texto, estilo);
- 
+
 	if (this.children.length > this.CANT_LINEAS - 1) {
 		this._removerTexto(this.children[0]);
 	}
@@ -69,9 +70,8 @@ Consola.prototype.agregarTexto = function (texto, font) {
 	}
 	nuevoTexto.y = y;
 	nuevoTexto.tiempoInicial = this._elapsedTime;
- 
+
 	this.addChild(nuevoTexto);
 };
- 
+
 export default Consola;
- 

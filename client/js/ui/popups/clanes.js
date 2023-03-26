@@ -162,9 +162,9 @@ class Clanes extends PopUp {
 
 	initCallbacks() {
 		var self = this;
-            
+
 	}
-        
+
 	_initTabs(){
 		this._inicializarTabDesactivable(this.$solicitudesTabButton);
 		this._inicializarTabDesactivable(this.$miembrosTabButton);

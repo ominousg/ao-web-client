@@ -14,7 +14,7 @@ class ItemGrid {
 		this._selectedSlot = null;
 		this._selectionCallback = null;
 		this._doubleClickCallback = null;
-            
+
 		this.crearSlots();
 	}
 

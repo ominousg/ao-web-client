@@ -558,7 +558,7 @@ class Game {
 	_gameTick() {
 		if (this.started && !this.isStopped) {
 			this.renderer.renderFrame();
-    
+
 			// calculating FPS
 			this._fpsCounter++;
 			const currentTime = performance.now();
@@ -572,7 +572,7 @@ class Game {
 				// console.log("FPS: " + this._fps);
 				this.actualizarIndicadorFPS(this._fps);
 			}
-            
+
 			if (!this.isPaused) {
 				this.updater.update(deltaMS);
 			}
@@ -637,4 +637,3 @@ class Game {
 }
 
 export default Game;
-        
