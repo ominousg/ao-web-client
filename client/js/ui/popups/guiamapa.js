@@ -40,28 +40,28 @@ const htmlString = `
 </html>
 `;
 
-    class GuiaMapa extends PopUp {
-        constructor(game, acciones) {
-            var options = {
-                title: "MAPA",
-                width: 610,
-                height: 550,
-            };
-            var $element = $(`<div>${htmlString}</div>`);
-            super($element, options);
-            this.initCallbacks();
-        }
+class GuiaMapa extends PopUp {
+	constructor(game, acciones) {
+		var options = {
+			title: "MAPA",
+			width: 610,
+			height: 550,
+		};
+		var $element = $(`<div>${htmlString}</div>`);
+		super($element, options);
+		this.initCallbacks();
+	}
 
-        initCallbacks() {
-            var self = this;
-            $("#mapaBotonCerrar").click(function () {
-                self.hide();
-            });
-            // $("#mapaBotonToggle").click(function () {
-            //     $("#popUpMapa").toggleClass("mapaSeccionB");
-            // });
+	initCallbacks() {
+		var self = this;
+		$("#mapaBotonCerrar").click(function () {
+			self.hide();
+		});
+		// $("#mapaBotonToggle").click(function () {
+		//     $("#popUpMapa").toggleClass("mapaSeccionB");
+		// });
 
-        }
-    }
+	}
+}
 
-    export default GuiaMapa;
+export default GuiaMapa;

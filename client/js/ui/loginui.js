@@ -1,74 +1,74 @@
 /**
  * Created by horacio on 4/6/16.
  */
-import CharcodeMap from '../utils/charcodemap';
+import CharcodeMap from "../utils/charcodemap";
 
-    class LoginUI {
-        constructor() {
-            this.enableLoginPressingEnter();
-        }
+class LoginUI {
+	constructor() {
+		this.enableLoginPressingEnter();
+	}
 
-        setBotonJugarCallback(cb) {
-            $('#botonJugar').click(function () {
-                cb();
-            });
-        }
+	setBotonJugarCallback(cb) {
+		$("#botonJugar").click(function () {
+			cb();
+		});
+	}
 
-        setBotonCrearCallback(cb) {
-            $('#botonCrearPJ').click(function () {
-                cb();
-            });
-        }
+	setBotonCrearCallback(cb) {
+		$("#botonCrearPJ").click(function () {
+			cb();
+		});
+	}
 
-        enableLoginPressingEnter() {
+	enableLoginPressingEnter() {
 
-            let loginKeyPressFunc = (keyNumber) => {
+		let loginKeyPressFunc = (keyNumber) => {
 
-                if (keyNumber === CharcodeMap.keys.indexOf("ENTER")) {
-                    let $playButton = $('#botonJugar');
-                    if (!$playButton.prop('disabled')) {
-                        $playButton.click();
-                    }
-                    return false;
-                }
-            };
+			if (keyNumber === CharcodeMap.keys.indexOf("ENTER")) {
+				let $playButton = $("#botonJugar");
+				if (!$playButton.prop("disabled")) {
+					$playButton.click();
+				}
+				return false;
+			}
+		};
 
-            $('#loginNombre').keypress(function (e) {
-                loginKeyPressFunc(e.which);
-            });
+		$("#loginNombre").keypress(function (e) {
+			loginKeyPressFunc(e.which);
+		});
 
-            $('#loginContrasenia').keypress(function (e) {
-                loginKeyPressFunc(e.which);
-            });
-        }
+		$("#loginContrasenia").keypress(function (e) {
+			loginKeyPressFunc(e.which);
+		});
+	}
 
-        setPlayButtonState(enabled) {
-            var $playButton = $('#botonJugar');
+	setPlayButtonState(enabled) {
+		var $playButton = $("#botonJugar");
 
-            if (enabled) {
-                $playButton.prop('disabled', false);
-            } else {
-                $playButton.prop('disabled', true);
-            }
-        }
+		if (enabled) {
+			$playButton.prop("disabled", false);
+		} else {
+			$playButton.prop("disabled", true);
+		}
+	}
 
-        setCrearButtonState(enabled) {
-            var $crearButton = $('#botonCrearPJ');
+	setCrearButtonState(enabled) {
+		var $crearButton = $("#botonCrearPJ");
 
-            if (enabled) {
-                $crearButton.prop('disabled', false);
-            } else {
-                $crearButton.prop('disabled', true);
-            }
-        }
+		if (enabled) {
+			$crearButton.prop("disabled", false);
+		} else {
+			$crearButton.prop("disabled", true);
+		}
+	}
 
-        getUsername() {
-            return $('#loginNombre').val();
-        }
+	getUsername() {
+		return $("#loginNombre").val();
+	}
 
-        getPassword() {
-            return $('#loginContrasenia').val();
-        }
-    }
-    export default LoginUI;
+	getPassword() {
+		return $("#loginContrasenia").val();
+	}
+}
+export default LoginUI;
 

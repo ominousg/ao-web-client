@@ -28,52 +28,52 @@ const htmlString = `
 </html>
 `;
 
-    class Tirar extends PopUp {
-        constructor(game, acciones) {
-            var options = {
-                title: "TIRAR",
-                width: 250,
-                height: 160,
-                minWidth: 100,
-                minHeight: 200
-            };
-            var $element = $(`<div>${htmlString}</div>`);
-            super($element, options);
-            this.game = game;
-            this.acciones = acciones;
-            this.initCallbacks();
-        }
+class Tirar extends PopUp {
+	constructor(game, acciones) {
+		var options = {
+			title: "TIRAR",
+			width: 250,
+			height: 160,
+			minWidth: 100,
+			minHeight: 200
+		};
+		var $element = $(`<div>${htmlString}</div>`);
+		super($element, options);
+		this.game = game;
+		this.acciones = acciones;
+		this.initCallbacks();
+	}
 
-        show(tirandoOro) {
-            super.show();
-            this.tirandoOro = tirandoOro;
-        }
+	show(tirandoOro) {
+		super.show();
+		this.tirandoOro = tirandoOro;
+	}
 
-        initCallbacks() {
-            var self = this;
-            $("#tirarBotonTirar").click(function () {
-                var cantidad = $("#tirarInputCantidad").val();
-                if (!isNaN(cantidad)) {
-                    if (cantidad > 0) {
-                        if (self.tirandoOro) {
-                            self.acciones.tirarOro(cantidad);
-                        } else {
-                            self.acciones.tirarSelectedItem(cantidad);
-                        }
-                    }
-                }
-                self.hide();
-            });
+	initCallbacks() {
+		var self = this;
+		$("#tirarBotonTirar").click(function () {
+			var cantidad = $("#tirarInputCantidad").val();
+			if (!isNaN(cantidad)) {
+				if (cantidad > 0) {
+					if (self.tirandoOro) {
+						self.acciones.tirarOro(cantidad);
+					} else {
+						self.acciones.tirarSelectedItem(cantidad);
+					}
+				}
+			}
+			self.hide();
+		});
 
-            $("#tirarBotonTirarTodo").click(function () {
-                if (self.tirandoOro) {
-                    self.acciones.tirarTodoOro();
-                } else {
-                    self.acciones.tirarTodoSelectedItem();
-                }
-                self.hide();
-            });
-        }
-    }
+		$("#tirarBotonTirarTodo").click(function () {
+			if (self.tirandoOro) {
+				self.acciones.tirarTodoOro();
+			} else {
+				self.acciones.tirarTodoSelectedItem();
+			}
+			self.hide();
+		});
+	}
+}
 
-    export default Tirar;
+export default Tirar;

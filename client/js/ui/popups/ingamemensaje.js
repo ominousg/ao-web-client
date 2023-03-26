@@ -24,32 +24,32 @@ const htmlString = `
 </html>
 `;
 
-    class InGameMensaje extends PopUp {
-        constructor() {
-            var options = {
-                title: "MENSAJE",
-                width: 300,
-                height: 280,
-                minWidth: 200,
-                minHeight: 150
-            };
-            var $element = $(`<div>${htmlString}</div>`);
-            super($element, options);
-            this.initCallbacks();
-        }
+class InGameMensaje extends PopUp {
+	constructor() {
+		var options = {
+			title: "MENSAJE",
+			width: 300,
+			height: 280,
+			minWidth: 200,
+			minHeight: 150
+		};
+		var $element = $(`<div>${htmlString}</div>`);
+		super($element, options);
+		this.initCallbacks();
+	}
 
-        show(mensaje) {
-            super.show();
-            $("#inGameMensajeContenido").text(mensaje);
-            $("#inGameMensajeBotonOk").focus();
-        }
+	show(mensaje) {
+		super.show();
+		$("#inGameMensajeContenido").text(mensaje);
+		$("#inGameMensajeBotonOk").focus();
+	}
 
-        initCallbacks() {
-            var self = this;
-            $("#inGameMensajeBotonOk").click(function () {
-                self.hide();
-            });
-        }
-    }
+	initCallbacks() {
+		var self = this;
+		$("#inGameMensajeBotonOk").click(function () {
+			self.hide();
+		});
+	}
+}
 
-    export default InGameMensaje;
+export default InGameMensaje;

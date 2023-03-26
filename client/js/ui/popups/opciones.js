@@ -277,68 +277,68 @@ const htmlString = `
 </html>
 `;
 
-    class Opciones extends PopUp {
-        constructor(game, storage, updateKeysCallback, showMensajeCallback) {
-            var options = {
-                title: "AJUSTES",
-                width: 500,
-                height: 600,
-                minWidth: 250,
-                minHeight: 400
-            };
-            var $element = $(`<div>${htmlString}</div>`);
-            super($element, options);
-            this.configurarTeclasTab = new ConfigurarTeclasTab(storage, updateKeysCallback, showMensajeCallback);
-            this.audioTab = new AudioTab(game, storage);
-            this.initCallbacks();
-            this._initFullScreenListener();
-            var self = this;
-            this.configurarTeclasTab.setCerrarCallback(function () {
-                self.hide();
-            });
-        }
+class Opciones extends PopUp {
+	constructor(game, storage, updateKeysCallback, showMensajeCallback) {
+		var options = {
+			title: "AJUSTES",
+			width: 500,
+			height: 600,
+			minWidth: 250,
+			minHeight: 400
+		};
+		var $element = $(`<div>${htmlString}</div>`);
+		super($element, options);
+		this.configurarTeclasTab = new ConfigurarTeclasTab(storage, updateKeysCallback, showMensajeCallback);
+		this.audioTab = new AudioTab(game, storage);
+		this.initCallbacks();
+		this._initFullScreenListener();
+		var self = this;
+		this.configurarTeclasTab.setCerrarCallback(function () {
+			self.hide();
+		});
+	}
 
-        show() {
-            super.show();
-            this.audioTab.onShow();
-            this.configurarTeclasTab.onShow();
-        }
+	show() {
+		super.show();
+		this.audioTab.onShow();
+		this.configurarTeclasTab.onShow();
+	}
 
-        hide() {
-            super.hide();
-            this.audioTab.onHide();
-            this.configurarTeclasTab.onHide();
-        }
+	hide() {
+		super.hide();
+		this.audioTab.onHide();
+		this.configurarTeclasTab.onHide();
+	}
 
-        _initFullScreenListener(){
-            if (Screenfull.enabled) {
-                document.addEventListener(Screenfull.raw.fullscreenchange, () => {
-                    $("#opcionesCheckboxFullscreen").prop('checked', Screenfull.isFullscreen);
-                });
-            }
-        }
+	_initFullScreenListener(){
+		if (Screenfull.enabled) {
+			document.addEventListener(Screenfull.raw.fullscreenchange, () => {
+				$("#opcionesCheckboxFullscreen").prop("checked", Screenfull.isFullscreen);
+			});
+		}
+	}
 
-        initCallbacks() {
-            var self = this;
+	initCallbacks() {
+		var self = this;
 
-            $("#opcionesCheckboxFullscreen").change(function () {
-                if (!Screenfull.enabled) {
-                    alert("No es posible jugar en pantalla completa");
-                    this.checked = false;
-                    return;
-                }
-                if (this.checked) {
-                    Screenfull.request();
-                } else {
-                    Screenfull.exit();
-                }
-            });
+		$("#opcionesCheckboxFullscreen").change(function () {
+			if (!Screenfull.enabled) {
+				alert("No es posible jugar en pantalla completa");
+				this.checked = false;
+				return;
+			}
+			if (this.checked) {
+				Screenfull.request();
+			} else {
+				Screenfull.exit();
+			}
+		});
 
-            $('#opcionesSliderPantalla').slider({
-                range: "min",
-            });
-        }
+		$("#opcionesSliderPantalla").slider({
+			range: "min",
+		});
+	}
 
-    }
+}
 
-    export default Opciones;
+export default Opciones;

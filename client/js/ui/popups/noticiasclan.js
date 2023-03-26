@@ -32,42 +32,42 @@ const htmlString = `
 </html>
 `;
 
-    class NoticiasClan extends PopUp {
-        constructor() {
+class NoticiasClan extends PopUp {
+	constructor() {
 
-            var options = {
-                title: "NOTICIAS CLAN",
-                width: 500,
-                height: 400,
-                minWidth: 250,
-                minHeight: 300
-            };
-            var $element = $(`<div>${htmlString}</div>`);
-            super($element, options);
+		var options = {
+			title: "NOTICIAS CLAN",
+			width: 500,
+			height: 400,
+			minWidth: 250,
+			minHeight: 300
+		};
+		var $element = $(`<div>${htmlString}</div>`);
+		super($element, options);
 
-            this.$noticias = $("#noticiasClanNoticias");
-            this.$enemigos = $("#noticiasClanEnemigos");
-            this.$aliados = $("#noticiasClanAliados");
-            this.$botonAceptar = $("#noticiasClanBotonAceptar");
+		this.$noticias = $("#noticiasClanNoticias");
+		this.$enemigos = $("#noticiasClanEnemigos");
+		this.$aliados = $("#noticiasClanAliados");
+		this.$botonAceptar = $("#noticiasClanBotonAceptar");
 
-            this.initCallbacks();
-        }
+		this.initCallbacks();
+	}
 
-        show(noticias, enemigos, aliados) {
-            super.show();
-            this.$noticias.text(noticias);
-            this.$enemigos.text(enemigos.join('\n'));
-            this.$aliados.text(aliados.join('\n'));
-        }
+	show(noticias, enemigos, aliados) {
+		super.show();
+		this.$noticias.text(noticias);
+		this.$enemigos.text(enemigos.join("\n"));
+		this.$aliados.text(aliados.join("\n"));
+	}
 
-        initCallbacks() {
-            var self = this;
+	initCallbacks() {
+		var self = this;
 
-            this.$botonAceptar.click(function () {
-                self.hide();
-            });
-        }
+		this.$botonAceptar.click(function () {
+			self.hide();
+		});
+	}
 
-    }
+}
 
-    export default NoticiasClan;
+export default NoticiasClan;

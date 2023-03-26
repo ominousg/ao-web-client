@@ -100,80 +100,80 @@ const htmlString = `
 </html>
 `;
 
-    class Clanes extends PopUp {
+class Clanes extends PopUp {
 
-        constructor(game, detallesClan, showMensajeCb, solicitudClanCb) {
+	constructor(game, detallesClan, showMensajeCb, solicitudClanCb) {
 
-            var options = {
-                title: "CLANES",
-                width: 550,
-                height: 500,
-                minWidth: 250,
-                minHeight: 150
-            };
-            var $element = $(`<div>${htmlString}</div>`);
-            super($element, options);
+		var options = {
+			title: "CLANES",
+			width: 550,
+			height: 500,
+			minWidth: 250,
+			minHeight: 150
+		};
+		var $element = $(`<div>${htmlString}</div>`);
+		super($element, options);
 
 
-            this.game = game;
-            this.detallesClan = detallesClan;
-            this.showMensajeCb = showMensajeCb;
+		this.game = game;
+		this.detallesClan = detallesClan;
+		this.showMensajeCb = showMensajeCb;
 
-            this.searchTab = new ClanesSearchTab(game, detallesClan, showMensajeCb, solicitudClanCb);
-            this.miembrosTab = new MiembrosClanTab(game, showMensajeCb);
-            this.solicitudesTab = new SolicitudesClanTab(game,showMensajeCb);
-            this.settingsTab = new SettingsClanTab();
+		this.searchTab = new ClanesSearchTab(game, detallesClan, showMensajeCb, solicitudClanCb);
+		this.miembrosTab = new MiembrosClanTab(game, showMensajeCb);
+		this.solicitudesTab = new SolicitudesClanTab(game,showMensajeCb);
+		this.settingsTab = new SettingsClanTab();
 
-            this.$miembrosTabButton = $("#clanesMiembrosTabButton");
-            this.$solicitudesTabButton = $("#clanesSolicitudesTabButton");
-            this.$settingsTabButton = $("#clanesSettingsTabButton");
+		this.$miembrosTabButton = $("#clanesMiembrosTabButton");
+		this.$solicitudesTabButton = $("#clanesSolicitudesTabButton");
+		this.$settingsTabButton = $("#clanesSettingsTabButton");
 
-            this._initTabs();
-            this.initCallbacks();
+		this._initTabs();
+		this.initCallbacks();
 
-        }
+	}
 
-        show() {
-            super.show();
-            this.game.client.sendRequestGuildLeaderInfo();
-        }
+	show() {
+		super.show();
+		this.game.client.sendRequestGuildLeaderInfo();
+	}
 
-        setNombresClanes(nombresClanes) {
-            this.searchTab.setNombresClanes(nombresClanes);
-        }
+	setNombresClanes(nombresClanes) {
+		this.searchTab.setNombresClanes(nombresClanes);
+	}
 
-        setNombresMiembros(nombresMiembros) {
-            this._activarTab(this.$miembrosTabButton);
-            this.miembrosTab.setNombresMiembros(nombresMiembros);
-        }
+	setNombresMiembros(nombresMiembros) {
+		this._activarTab(this.$miembrosTabButton);
+		this.miembrosTab.setNombresMiembros(nombresMiembros);
+	}
 
-        setNombresSolicitantes(nombresSolicitantes) {
-            this._activarTab(this.$solicitudesTabButton);
-            this._activarTab(this.$settingsTabButton);
-            this.solicitudesTab.setNombresSolicitantes(nombresSolicitantes);
-        }
+	setNombresSolicitantes(nombresSolicitantes) {
+		this._activarTab(this.$solicitudesTabButton);
+		this._activarTab(this.$settingsTabButton);
+		this.solicitudesTab.setNombresSolicitantes(nombresSolicitantes);
+	}
 
-        hide(incomingFromServer) {
-            super.hide();
-            this._desactivarTab(this.$solicitudesTabButton);
-            this._desactivarTab(this.$miembrosTabButton);
-            this._desactivarTab(this.$settingsTabButton);
-        }
+	hide(incomingFromServer) {
+		super.hide();
+		this._desactivarTab(this.$solicitudesTabButton);
+		this._desactivarTab(this.$miembrosTabButton);
+		this._desactivarTab(this.$settingsTabButton);
+	}
 
-        initCallbacks() {
-            var self = this;
+	initCallbacks() {
+		var self = this;
             
-        }
+	}
         
-        _initTabs(){
-            this._inicializarTabDesactivable(this.$solicitudesTabButton);
-            this._inicializarTabDesactivable(this.$miembrosTabButton);
-            this._inicializarTabDesactivable(this.$settingsTabButton);
-        }
+	_initTabs(){
+		this._inicializarTabDesactivable(this.$solicitudesTabButton);
+		this._inicializarTabDesactivable(this.$miembrosTabButton);
+		this._inicializarTabDesactivable(this.$settingsTabButton);
+	}
 
-        clearDom() {
-            super.clearDom();
-        }
-    }
+	clearDom() {
+		super.clearDom();
+	}
+}
 
-    export default Clanes;
+export default Clanes;

@@ -27,48 +27,48 @@ const htmlString = `
 </html>
 `;
 
-    class SolictudClan extends PopUp {
-        constructor(game) {
+class SolictudClan extends PopUp {
+	constructor(game) {
 
-            var options = {
-                title: "CLANES",
-                width: 500,
-                height: 400,
-                minWidth: 250,
-                minHeight: 300
-            };
-            var $element = $(`<div>${htmlString}</div>`);
-            super($element, options);
+		var options = {
+			title: "CLANES",
+			width: 500,
+			height: 400,
+			minWidth: 250,
+			minHeight: 300
+		};
+		var $element = $(`<div>${htmlString}</div>`);
+		super($element, options);
 
-            this.game = game;
-            this.clan = "";
+		this.game = game;
+		this.clan = "";
 
-            this.$botonCancelar = $("#solicitudClanBotonCancelar");
-            this.$botonEnviar = $("#solicitudClanBotonEnviar");
+		this.$botonCancelar = $("#solicitudClanBotonCancelar");
+		this.$botonEnviar = $("#solicitudClanBotonEnviar");
 
-            this.initCallbacks();
-        }
+		this.initCallbacks();
+	}
 
-        show(targetClan) {
-            super.show();
-            this.clan = targetClan;
-        }
+	show(targetClan) {
+		super.show();
+		this.clan = targetClan;
+	}
 
-        initCallbacks() {
-            var self = this;
+	initCallbacks() {
+		var self = this;
 
-            this.$botonCancelar.click(function(){
-               self.hide();
-            });
+		this.$botonCancelar.click(function(){
+			self.hide();
+		});
 
-            this.$botonEnviar.click(function(){
-                var textoSolicitud = $("#detallesClanInputSolicitud").val();
-                self.game.client.sendGuildRequestMembership(self.clan, textoSolicitud);
-                self.hide();
-            });
+		this.$botonEnviar.click(function(){
+			var textoSolicitud = $("#detallesClanInputSolicitud").val();
+			self.game.client.sendGuildRequestMembership(self.clan, textoSolicitud);
+			self.hide();
+		});
 
-        }
+	}
 
-    }
+}
 
-    export default SolictudClan;
+export default SolictudClan;

@@ -1,22 +1,22 @@
 define(function () {
-    return {
-        isInt: function (n) {
-            return (n % 1) === 0;
-        },
+	return {
+		isInt: function (n) {
+			return (n % 1) === 0;
+		},
 
-        // modulo que funciona tambien para los numeros negativos
-        modulo: function (num, max) {
-            return ((num % max) + max) % max;
-        },
+		// modulo que funciona tambien para los numeros negativos
+		modulo: function (num, max) {
+			return ((num % max) + max) % max;
+		},
 
-        splitNullArray: function (string) {
-            return string.split("\u0000");
-        },
+		splitNullArray: function (string) {
+			return string.split("\u0000");
+		},
 
-        joinNullArray: function (array) {
-            return array.join("\u0000");
-        },
-    };
+		joinNullArray: function (array) {
+			return array.join("\u0000");
+		},
+	};
 });
 /*
  // busqueda binaria que devuelve {found,index} donde index es el index donde esta o si no lo encontro donde estaria

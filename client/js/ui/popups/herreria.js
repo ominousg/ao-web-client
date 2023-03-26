@@ -43,26 +43,26 @@ const htmlString = `
 </html>
 `;
 
-    class Herreria extends PopUp {
-        constructor(game) {
+class Herreria extends PopUp {
+	constructor(game) {
 
-            var options = {
-                title: "HERRERIA",
-                width: 500,
-                height: 500,
-                minWidth: 250,
-                minHeight: 400
-            };
-            var $element = $(`<div>${htmlString}</div>`);
-            super($element, options);
+		var options = {
+			title: "HERRERIA",
+			width: 500,
+			height: 500,
+			minWidth: 250,
+			minHeight: 400
+		};
+		var $element = $(`<div>${htmlString}</div>`);
+		super($element, options);
 
-            this.items = new Set();
-            this.game = game;
-            //this.initCallbacks();
-            this.$itemsContainer = $("#herreriaContenedorItems");
-        }
+		this.items = new Set();
+		this.game = game;
+		//this.initCallbacks();
+		this.$itemsContainer = $("#herreriaContenedorItems");
+	}
 
-        /*Item contiene:
+	/*Item contiene:
          Name: Name,
          GrhIndex: GrhIndex,
          LingH: LingH,
@@ -71,51 +71,51 @@ const htmlString = `
          ArmasHerreroIndex: ArmasHerreroIndex,
          ObjUpgrade: ObjUpgrade,
          */
-        setItems(items) {
-            //TODO objUpgrade
+	setItems(items) {
+		//TODO objUpgrade
 
-            var self = this;
-            for (var item of items) {
-                const isItemUnique = self.items.has(item.Name);
-                self.items.add(item.Name);
+		var self = this;
+		for (var item of items) {
+			const isItemUnique = self.items.has(item.Name);
+			self.items.add(item.Name);
     
-                if (isItemUnique) continue;
+			if (isItemUnique) continue;
 
-                var $row = $('<tr></tr>');
+			var $row = $("<tr></tr>");
 
-                var numGraf = this.game.assetManager.getNumCssGraficoFromGrh(item.GrhIndex);
-                var url = "url(graficos/css/" + numGraf + ".png)";
+			var numGraf = this.game.assetManager.getNumCssGraficoFromGrh(item.GrhIndex);
+			var url = "url(graficos/css/" + numGraf + ".png)";
 
-                var $cell = $('<td></td>');
-                var $imagenItem = $('<div class="divImagen" style="width: 50px; height:50px;"></div>');
-                $imagenItem.css('background-image', url);
-                $cell.append($imagenItem);
+			var $cell = $("<td></td>");
+			var $imagenItem = $("<div class=\"divImagen\" style=\"width: 50px; height:50px;\"></div>");
+			$imagenItem.css("background-image", url);
+			$cell.append($imagenItem);
 
-                $row.append($cell);
+			$row.append($cell);
 
-                var $cellRequerimientos = $('<td></td>');
-                $cellRequerimientos.text('Require lingote hierro: ' + item.LingH + " , lingote plata " + item.LingP + " y lingote de oro: " + item.LingO);
-                // TODO: graficos madera y madera elfica
-                $row.append($cellRequerimientos);
+			var $cellRequerimientos = $("<td></td>");
+			$cellRequerimientos.text("Require lingote hierro: " + item.LingH + " , lingote plata " + item.LingP + " y lingote de oro: " + item.LingO);
+			// TODO: graficos madera y madera elfica
+			$row.append($cellRequerimientos);
 
-                var $cellConstruir = $('<td></td>');
-                var $botonConstruir = $('<button class="btn btn-default" >Construir</button>');
+			var $cellConstruir = $("<td></td>");
+			var $botonConstruir = $("<button class=\"btn btn-default\" >Construir</button>");
 
-                $botonConstruir.data("itemIndex", item.ArmasHerreroIndex);
-                $botonConstruir.click(function () {
-                    var cantidadAConstruir = $('#herreriaCantidadAConstruir').val();
-                    self.game.client.sendInitCrafting(cantidadAConstruir, cantidadAConstruir);//TODO: horrible esto, que se haga de 1 (cambiar sv)
-                    var itemIndex = $(this).data("itemIndex");
-                    self.game.client.sendCraftBlacksmith(itemIndex);
-                });
-                $cellConstruir.append($botonConstruir);
-                $row.append($cellConstruir);
-                this.$itemsContainer.append($row);
-            }
-        }
+			$botonConstruir.data("itemIndex", item.ArmasHerreroIndex);
+			$botonConstruir.click(function () {
+				var cantidadAConstruir = $("#herreriaCantidadAConstruir").val();
+				self.game.client.sendInitCrafting(cantidadAConstruir, cantidadAConstruir);//TODO: horrible esto, que se haga de 1 (cambiar sv)
+				var itemIndex = $(this).data("itemIndex");
+				self.game.client.sendCraftBlacksmith(itemIndex);
+			});
+			$cellConstruir.append($botonConstruir);
+			$row.append($cellConstruir);
+			this.$itemsContainer.append($row);
+		}
+	}
 
-        setWeapons(items) {
-            /*Item contiene:
+	setWeapons(items) {
+		/*Item contiene:
              Name: Name,
              GrhIndex: GrhIndex,
              LingH: LingH,
@@ -124,11 +124,11 @@ const htmlString = `
              ArmasHerreroIndex: ArmasHerreroIndex,
              ObjUpgrade: ObjUpgrade,
              */
-            this.setItems(items);
-        }
+		this.setItems(items);
+	}
 
-        setArmors(items) {
-            /* Item contiene
+	setArmors(items) {
+		/* Item contiene
              Name: Name,
              GrhIndex: GrhIndex,
              LingH: LingH,
@@ -137,8 +137,8 @@ const htmlString = `
              ArmasHerreroIndex: ArmasHerreroIndex,
              ObjUpgrade: ObjUpgrade,
              */
-            this.setItems(items);
-        }
-    }
+		this.setItems(items);
+	}
+}
 
-    export default Herreria;
+export default Herreria;

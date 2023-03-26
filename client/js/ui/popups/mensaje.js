@@ -24,31 +24,31 @@ const htmlString = `
 `;
 
 class Mensaje extends PopUp {
-  constructor() {
-      var options = {
-          title: "MENSAJE",
-          width: 300,
-          height: 280,
-          minWidth: 200,
-          minHeight: 150
-      };
-      var $element = $(`<div>${htmlString}</div>`);
-      super($element, options, true, true);
-      this.initCallbacks();
-  }
+	constructor() {
+		var options = {
+			title: "MENSAJE",
+			width: 300,
+			height: 280,
+			minWidth: 200,
+			minHeight: 150
+		};
+		var $element = $(`<div>${htmlString}</div>`);
+		super($element, options, true, true);
+		this.initCallbacks();
+	}
 
-  show(mensaje) {
-      super.show();
-      $("#mensajeContenido").text(mensaje);
-      $("#mensajeBotonOk").focus();
-  }
+	show(mensaje) {
+		super.show();
+		$("#mensajeContenido").text(mensaje);
+		$("#mensajeBotonOk").focus();
+	}
 
-  initCallbacks() {
-      var self = this;
-      $("#mensajeBotonOk").click(function () {
-          self.hide();
-      });
-  }
+	initCallbacks() {
+		var self = this;
+		$("#mensajeBotonOk").click(function () {
+			self.hide();
+		});
+	}
 }
 
 export default Mensaje;
