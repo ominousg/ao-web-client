@@ -23,11 +23,11 @@ class Preloader {
 	preload(terminar_callback, progress_callback) {
 
 		// fonts:
-		WebFont.load({
-			custom: {
-				families: ["Myriad Pro:n4,n7,i4,i7"]
-			}
-		});
+		// WebFont.load({
+		// 	custom: {
+		// 		families: ["Myriad Pro:n4,n7,i4,i7"]
+		// 	}
+		// });
 
 		//sounds:
 		this._preloadSoundsAsync();

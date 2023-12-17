@@ -3,7 +3,12 @@ module.exports = {
 		"browser": true,
 		"es2021": true
 	},
-	"extends": "eslint:recommended",
+	"extends": ["eslint:recommended", "plugin:react/recommended"],
+	"settings": {
+		"react": {
+			"version": "18.2.0"
+		}
+	},
 	"ignorePatterns": [
 		"js/lib/**",
 		"dist/**"
@@ -43,6 +48,9 @@ module.exports = {
 	],
 	"parserOptions": {
 		"ecmaVersion": "latest",
-		"sourceType": "module"
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
 	}
 };

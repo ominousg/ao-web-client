@@ -2,15 +2,52 @@ const $ = require("jquery");
 import "bootstrap";
 const jQuery = require("jquery");
 const jQueryUI = require("jquery-ui");
-
-// import 'webpack-jquery-ui';
+import React, { useEffect } from "react";
+import ReactDOM from "react-dom/client";
+import GuiaMapa from "./ui/popups/migration/guiamapa/GuiaMapa.jsx";
+import Ajustes from "./ui/popups/migration/ajustes/Ajustes.jsx";
+import Estadisticas from "./ui/popups/migration/estadisticas/Estadisticas.jsx";
 import App from "./app";
 import AssetManager from "./assets/assetmanager";
 import UIManager from "./ui/uimanager";
 import Settings from "./storage/settings";
-import stacktrace from "./lib/stacktrace";
+import eventEmitter from "./ui/utils/eventEmitter.js";
+import useStore from "./store.js";
+import { PopupNames } from "./ui/popups/popupNames.js";
 
 let app, uiManager, assetManager, settings;
+
+const rootElement = document.getElementById("react-root");
+const root = ReactDOM.createRoot(rootElement);
+
+const GameApp = () => {
+
+	useEffect(() => {
+		const handleOpen = (popupName) => () => useStore.getState().openPopup(popupName);
+
+		Object.values(PopupNames).forEach(popupName => {
+			eventEmitter.on(popupName, handleOpen(popupName));
+		});
+
+		return () => {
+			Object.values(PopupNames).forEach(popupName => {
+				eventEmitter.off(popupName, handleOpen(popupName));
+			});
+		};
+	}, []);
+
+	return (
+		<>
+			{/* <Ajustes />
+      <Estadisticas /> */}
+			<GuiaMapa />
+		</>
+	);
+};
+
+root.render(
+	<GameApp />
+);
 
 function setupAudio(audio, settings) {
 	audio.setSoundMuted(settings.getSoundMuted());
@@ -55,5 +92,3 @@ var initApp = function () {
 };
 
 initApp();
-
-

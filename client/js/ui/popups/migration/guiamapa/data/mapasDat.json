@@ -1,0 +1,2206 @@
+[
+  {
+    "mapa": 1,
+    "name": "Ciudad de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 10,
+    "name": "Bosque oeste de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 100,
+    "name": "Mar al sur del desierto.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 101,
+    "name": "",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 102,
+    "name": "Mar al sureste del desierto.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 103,
+    "name": "Mar al este del desierto.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 104,
+    "name": "Mar al oeste de Lindos.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 105,
+    "name": "Mar al oeste de Lindos.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 106,
+    "name": "Mar oriental. (norte de Lindos)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 107,
+    "name": "Mar oriental. (norte de Lindos)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 108,
+    "name": "Mar oriental. (norte de Lindos)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 109,
+    "name": "Mar oriental. (norte de Lindos)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 11,
+    "name": "Bosque este de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 110,
+    "name": "Isla de Morgolock.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 111,
+    "name": "Isla Nueva Esperanza. (oeste)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 112,
+    "name": "Isla Nueva Esperanza. (este)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 113,
+    "name": "Isla Nueva Esperanza. (sureste)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 114,
+    "name": "Isla Nueva Esperanza. (suroeste)",
+    "MagiaSinefecto": 0,
+    "Pk": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0
+  },
+  {
+    "mapa": 115,
+    "name": "Dungeon Marabel.",
+    "MagiaSinefecto": 0,
+    "Pk": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0
+  },
+  {
+    "mapa": 116,
+    "name": "Dungeon Marabel.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 117,
+    "name": "Mar al oeste de Lindos.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 118,
+    "name": "Mar al oeste de Lindos.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 119,
+    "name": "Mar Oriental / Mar Nórdico.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 12,
+    "name": "Bosque este de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 120,
+    "name": "Mar Oriental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 121,
+    "name": "Mar Oriental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 122,
+    "name": "Mar Oriental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 123,
+    "name": "Mar Oriental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 124,
+    "name": "Mar al este de Arghal.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 125,
+    "name": "Mar Oriental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 126,
+    "name": "Mar Oriental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 127,
+    "name": "Mar Oriental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 128,
+    "name": "Mar Nórdico.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 129,
+    "name": "Mar Nórdico.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 13,
+    "name": "Bosque este de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 130,
+    "name": "Mar Oriental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 131,
+    "name": "Mar Nórdico.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 132,
+    "name": "Mar Nórdico.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 133,
+    "name": "Mar Nórdico.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 134,
+    "name": "Mar Nórdico.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 135,
+    "name": "Mar Nórdico.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 136,
+    "name": "Mar Nórdico.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 137,
+    "name": "Mar Nórdico. (muelle de Banderbill)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 138,
+    "name": "Mar Oriental. (oeste de Dungeon Inferno)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 139,
+    "name": "Mar Oriental. (oeste de Dungeon Inferno)",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 14,
+    "name": "Bosque sureste de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 140,
+    "name": "Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 141,
+    "name": "Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 142,
+    "name": "Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 143,
+    "name": "Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 144,
+    "name": "Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 145,
+    "name": "Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 146,
+    "name": "Dungeon Veriil. (Fuerte)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 147,
+    "name": "Mar al este de Arghal.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 148,
+    "name": "Mar al este de Arghal.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 149,
+    "name": "Mar al este de Arghal. (muelle de Arghal)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 15,
+    "name": "Desierto",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 150,
+    "name": "Ciudad de Arkhein. (muelle)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 151,
+    "name": "Ciudad de Arkhein.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 152,
+    "name": "Mar Oriental. (sur de Lindos)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 153,
+    "name": "Mar Oriental. (sur de Lindos)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 154,
+    "name": "Mar Oriental. (sur de Lindos)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 155,
+    "name": "Mar Oriental. (sur de Lindos)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 156,
+    "name": "Ciudad de Arkhein. (teatro \"El Juglar\")",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 157,
+    "name": "Bosque al oeste de Arghal.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 158,
+    "name": "Bosques al este de Banderbill.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 159,
+    "name": "Cementerio de Viejas Glorias.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 16,
+    "name": "Desierto",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 160,
+    "name": "Bosque al este de Banderbill.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 161,
+    "name": "Bosque al este de Banderbill.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 162,
+    "name": "Laberinto Oscuro.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 163,
+    "name": "Fuerte Pretoriano.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 164,
+    "name": "Desfiladero al oeste del Fuerte Preatoriano.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 165,
+    "name": "Aldea Pretoriana.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 166,
+    "name": "Dungeon Dragon.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 167,
+    "name": "Dungeon Newbie.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0
+  },
+  {
+    "mapa": 168,
+    "name": "Dungeon Newbie.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 169,
+    "name": "Mapa de GMs.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 17,
+    "name": "Desierto",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0
+  },
+  {
+    "mapa": 170,
+    "name": "Nubal",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 171,
+    "name": "Ciudad Abandonada.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 172,
+    "name": "Ducto de escape.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 173,
+    "name": "Ducto de escape.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 174,
+    "name": "Ducto de escape.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 175,
+    "name": "Ducto de escape.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 176,
+    "name": "Ducto de escape.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 177,
+    "name": "Ducto de escape.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 178,
+    "name": "Ducto de escape.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 179,
+    "name": "Minas de Oro.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 18,
+    "name": "Bosque sureste de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0
+  },
+  {
+    "mapa": 180,
+    "name": "Bosque central. (Montaña)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 181,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 182,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 183,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 184,
+    "name": "Dungeon Inferno.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 1,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 185,
+    "name": "Bosque Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 186,
+    "name": "Bosque Elfico.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 187,
+    "name": "Paraiso.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 188,
+    "name": "Bosque Élfico.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 189,
+    "name": "Bosque Élfico.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 19,
+    "name": "Bosque sureste de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 190,
+    "name": "Nuevo Mapa",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 191,
+    "name": "Bosque Central.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 192,
+    "name": "Bosque Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 193,
+    "name": "Bosque Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 194,
+    "name": "Bosque Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 195,
+    "name": "Ciudad de Arghal. (Taberna)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 196,
+    "name": "Ciudad de Arghal.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 197,
+    "name": "Ciudad de Arghal. (Pescadería)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 198,
+    "name": "Mapa para Casamientos. (Oasis)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 199,
+    "name": "Mapa para Casamientos. (Isla de pasto)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 2,
+    "name": "Bosque sur de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 20,
+    "name": "Desierto",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 200,
+    "name": "Mapa Legión Oscura.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 201,
+    "name": "Isla Pirata.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 202,
+    "name": "Mar al norte del desierto.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 203,
+    "name": "Mar al norte del desierto.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 204,
+    "name": "Mar al norte del desierto.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 205,
+    "name": "Mar al norte del desierto.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 206,
+    "name": "Mar al norte del desierto.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 207,
+    "name": "Mar al norte del desierto.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 208,
+    "name": "Mapa para Casamientos. (Iglesia)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 209,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 21,
+    "name": "Desierto",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 210,
+    "name": "Gran Isla al sur de Nix.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 211,
+    "name": "Gran Isla al sur de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 212,
+    "name": "Gran Isla al sur de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 213,
+    "name": "Gran Isla al sur de Nix. (entrada a Minas de Oro)",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 214,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 215,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 216,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 217,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 218,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 219,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 22,
+    "name": "Bosque noreste de Nix",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0
+  },
+  {
+    "mapa": 220,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 221,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 222,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 223,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 224,
+    "name": "Mar Austral.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 225,
+    "name": "Mar al oeste de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 226,
+    "name": "Mar al oeste de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 227,
+    "name": "Mar al oeste de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 228,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 229,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 23,
+    "name": "Bosque noreste de Nix",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 230,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 231,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 232,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 233,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 234,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 235,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 236,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 237,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 238,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 239,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 24,
+    "name": "Bosque noreste de Nix",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 240,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 241,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 242,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 243,
+    "name": "Mar Occidental.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 244,
+    "name": "Mar al sur de Arghal.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 245,
+    "name": "Mar al sur de Arghal.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 246,
+    "name": "Mar al sur de Arghal.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 247,
+    "name": "Mar al sur de Arghal.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 248,
+    "name": "Mar Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 249,
+    "name": "Mar Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 25,
+    "name": "Ciénaga de las cobras",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 250,
+    "name": "Mar Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 251,
+    "name": "Mar Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 252,
+    "name": "Mar Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 253,
+    "name": "Mar Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 254,
+    "name": "Mar Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 255,
+    "name": "Mar Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 256,
+    "name": "Mar Central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 257,
+    "name": "Mar al sur del Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 258,
+    "name": "Mar al sur del Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 259,
+    "name": "Mar al sur del Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 26,
+    "name": "Bosque este de la Ciénaga de las cobras",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 260,
+    "name": "Mar al sur del Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 261,
+    "name": "Mar con entrada al Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 262,
+    "name": "Mar al sureste del Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 263,
+    "name": "Mar al sureste del Dungeon Veriil.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 264,
+    "name": "Interior de la Montaña.",
+    "MagiaSinefecto": 1,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 265,
+    "name": "Interior de la Montaña.",
+    "MagiaSinefecto": 1,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 266,
+    "name": "Interior de la Montaña.",
+    "MagiaSinefecto": 1,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 267,
+    "name": "Interior de la Montaña.",
+    "MagiaSinefecto": 1,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 268,
+    "name": "Interior de la Montaña.",
+    "MagiaSinefecto": 1,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 269,
+    "name": "Interior de la Montaña.",
+    "MagiaSinefecto": 1,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 27,
+    "name": "Bosque al sur de la entrada al Dungeon Dragon.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 270,
+    "name": "Interior de la Montaña.",
+    "MagiaSinefecto": 1,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 271,
+    "name": "Interior de la Montaña.",
+    "MagiaSinefecto": 1,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 272,
+    "name": "Mapa de GMs. (rings)",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 273,
+    "name": "Mapa de GMs. (rings de Clanes)",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 274,
+    "name": "Mapa de GMs. (Partenón de los Dioses / Biblioteca)",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 275,
+    "name": "Mapa de la Armada Real.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 276,
+    "name": "Oasis",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 277,
+    "name": "Mapa para Casamientos. (Isla)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 278,
+    "name": "Mapa para Casamientos. (Bosque)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 279,
+    "name": "Mapa para Casamientos. (Isla desértica)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 28,
+    "name": "Cementerio",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 280,
+    "name": "Mapa de GMs. (Juzgado)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 281,
+    "name": "Mausoleo",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 282,
+    "name": "Isla Otto",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 283,
+    "name": "Entrada Ruinas de Ëarost",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 284,
+    "name": "Escondrijo Ruinas de Ëarost",
+    "MagiaSinefecto": 1,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 285,
+    "name": "Cueva del Kraken Ruinas de Ëarost",
+    "MagiaSinefecto": 0,
+    "Pk": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0
+  },
+  {
+    "mapa": 286,
+    "name": "Ciudad de Nemahuak",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 287,
+    "name": "Bosque de Taurgul",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 288,
+    "name": "Bosque de Eatempa",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 289,
+    "name": "Desierto de Urdor",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 29,
+    "name": "Bosque al este de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 290,
+    "name": "Ruinas de Kalëoli",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 3,
+    "name": "Bosque al sur de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 30,
+    "name": "Bosque al sureste de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0
+  },
+  {
+    "mapa": 31,
+    "name": "Bosque al sureste de Nix.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 32,
+    "name": "Bosque al este de Nix.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 33,
+    "name": "Minas de Hierro.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0
+  },
+  {
+    "mapa": 34,
+    "name": "Ciudad de Nix.",
+    "MagiaSinefecto": 0,
+    "Pk": 1,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0
+  },
+  {
+    "mapa": 35,
+    "name": "Bosque al norte de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0
+  },
+  {
+    "mapa": 36,
+    "name": "Bosque de Dorck.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 37,
+    "name": "Newbie Dungeon.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 38,
+    "name": "Bosque Dorck.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 39,
+    "name": "Bosque Dorck.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 4,
+    "name": "Bosque noreste de Nix",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 40,
+    "name": "Catacumbas Ullathorpe-Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 41,
+    "name": "Catacumbas Ullathorpe-Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 42,
+    "name": "Catacumbas Ullathorpe-Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 43,
+    "name": "Catacumbas Ullathorpe-Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 44,
+    "name": "Catacumbas Ullathorpe-Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 45,
+    "name": "Catacumbas Ullathorpe-Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 46,
+    "name": "Bosque de Dorck.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 47,
+    "name": "Isla Veleta.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 48,
+    "name": "Dungeon Veriil. (Dungeon Dragon)",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 49,
+    "name": "Mapa de GMs.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 5,
+    "name": "Bosque norte de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 50,
+    "name": "Minas de Plata.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 51,
+    "name": "Minas de Plata.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 52,
+    "name": "Minas de Plata.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 53,
+    "name": "Bosque al norte de Ullathorpe.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 54,
+    "name": "Bosque al sur de Banderbill.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 55,
+    "name": "Bosque al sur de Banderbill.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 56,
+    "name": "Bosque al sur de Banderbill.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 57,
+    "name": "Bosque al sur de Banderbill.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 58,
+    "name": "Suburbios de Banderbill.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 59,
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 6,
+    "name": "Bosque norte de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 60,
+    "name": "Ciudad de Banderbill.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 61,
+    "name": "Ciudad de Banderbill. (Muelle)",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 62,
+    "name": "Ciudad de Lindos.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 63,
+    "name": "Ciudad de Lindos.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 64,
+    "name": "Ciudad de Lindos.",
+    "MagiaSinefecto": 0,
+    "Pk": 1
+  },
+  {
+    "mapa": 65,
+    "name": "Bosque al sur de la Cárcel de Banderbill.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 66,
+    "name": "Cárcel de Banderbill.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 67,
+    "name": "Bosque al sur Banderbill.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 68,
+    "name": "Bosque al sur Banderbill.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 69,
+    "name": "Bosque al sur Banderbill.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 7,
+    "name": "Bosque norte de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 70,
+    "name": "Bosque al este del Dungeon Marabel.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 71,
+    "name": "Bosque entre Banderbill y Ullathorpe.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 72,
+    "name": "Bosque entre Banderbill y Ullathorpe.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 73,
+    "name": "Bosque entre Banderbill y Ullathorpe.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 74,
+    "name": "Bosque al noroeste de Ullathorpe.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 75,
+    "name": "Bosque al noroeste de Ullathorpe.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 76,
+    "name": "Bosque con entrada al Dungeon Marabel.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 77,
+    "name": "Bosque al noreste de Ullathorpe.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 78,
+    "name": "Mar al oeste de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 79,
+    "name": "Mar al suroeste de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 8,
+    "name": "Bosque oeste de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 80,
+    "name": "Mar al noroeste de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 81,
+    "name": "Bosque al noreste de Ullathorpe.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 82,
+    "name": "Bosque al noreste de Ullathorpe.",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 83,
+    "name": "Bosque al noreste de Ullathorpe.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 84,
+    "name": "Bosque al noreste de Ullathorpe.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 85,
+    "name": "Bosque central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 86,
+    "name": "Bosque central.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 87,
+    "name": "Mar al sur de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 88,
+    "name": "Mar al sur de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 89,
+    "name": "Mar al sur de Nix.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 9,
+    "name": "Bosque oeste de Ullathorpe",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 90,
+    "name": "Mar al este de Arkhein.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 91,
+    "name": "Bosque al norte Arkhein.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 92,
+    "name": "Mar al norte de Arkhein.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 93,
+    "name": "Mar al norte de Arkhein.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 94,
+    "name": "Bosque noreste de Nix",
+    "MagiaSinefecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 95,
+    "name": "Mar al norte de Arkhein.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 96,
+    "name": "Mar al norte de Arkhein.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 97,
+    "name": "Mar al norte de Arkhein y al sur del desierto.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 98,
+    "name": "Mar al norte de Arkhein y al sur del desierto.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  },
+  {
+    "mapa": 99,
+    "name": "Mar al sur del desierto.",
+    "MagiaSinefecto": 0,
+    "InviSinEfecto": 0,
+    "ResuSinEfecto": 0,
+    "Pk": 0
+  }
+]

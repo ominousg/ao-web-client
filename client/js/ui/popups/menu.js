@@ -3,6 +3,8 @@
  */
 
 import PopUp from "./popup";
+import eventEmitter from "../utils/eventEmitter";
+import { PopupNames } from "./popupNames";
 
 const htmlString = `
 <!DOCTYPE html>
@@ -67,11 +69,12 @@ class Menu extends PopUp {
 		var self = this;
 
 		$("#botonMapa1").click(function () {
-			self.showMapaCb();
+			eventEmitter.emit(PopupNames.GUIA_MAPA);
 		});
 
 		$("#botonEstadisticas1").click(function () {
 			self.showEstadisticasCb();
+			// eventEmitter.emit(PopupNames.ESTADISTICAS);
 		});
 
 		$("#botonClanes1").click(function () {
