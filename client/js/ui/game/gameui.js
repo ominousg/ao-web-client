@@ -21,7 +21,6 @@ import EleccionFaccionClan from "../popups/eleccionfaccionclan";
 import CrearClan from "../popups/crearclan";
 import NoticiasClan from "../popups/noticiasclan";
 import DetallesPersonaje from "../popups/detallespersonaje";
-import Estadisticas from "../popups/estadisticas";
 import PartyLider from "../popups/partylider";
 import PartyMiembro from "../popups/partymiembro";
 import Menu from "../popups/menu";
@@ -151,10 +150,6 @@ class GameUI {
 		this.detallesPersonaje.show(CharName, Race, Class, Gender, Level, Gold, Bank, Reputation, PreviousPetitions, CurrentGuild, PreviousGuilds, RoyalArmy, ChaosLegion, CiudadanosMatados, CriminalesMatados);
 	}
 
-	showEstadisticas() {
-		this.estadisticas.show();
-	}
-
 	showParty(esLider, data, exp) {
 		if (esLider) {
 			this.partyLider.show(data, exp);
@@ -165,19 +160,6 @@ class GameUI {
 
 	showMenu(fromEscapeKey) {
 		this.menu.show(fromEscapeKey);
-	}
-
-	setAtributosInfo(Fuerza, Agilidad, Inteligencia, Carisma, Constitucion) {
-		this.estadisticas.setAtributosInfo(Fuerza, Agilidad, Inteligencia, Carisma, Constitucion);
-	}
-
-	setFameInfo(Asesino, Bandido, Burgues, Ladron, Noble, Plebe, Promedio) {
-		this.estadisticas.setFameInfo(Asesino, Bandido, Burgues, Ladron, Noble, Plebe, Promedio);
-	}
-
-	setMiniStats(CiudadanosMatados, CriminalesMatados, UsuariosMatados, NpcsMuertos, Clase, Pena) {
-		this.estadisticas.setMiniStats(CiudadanosMatados, CriminalesMatados, UsuariosMatados, NpcsMuertos, Clase, Pena);
-
 	}
 
 	updateSlotUser(numSlot, slot) { //todo: feo todo esto!
@@ -224,9 +206,6 @@ class GameUI {
 	updateSkillsData(skills) {
 		if (this.skills.visible) {
 			this.skills.updateSkillsData(skills);
-		}
-		if (this.estadisticas.visible) {
-			this.estadisticas.updateSkillsData(skills);
 		}
 	}
 
@@ -275,7 +254,7 @@ class GameUI {
 	}
 
 	get menu() {
-		this._menu = this._menu || this._initPopUp(new Menu(this.game, this.showMapa.bind(this), this.showEstadisticas.bind(this), this.showClanes.bind(this), this.showOpciones.bind(this)));
+		this._menu = this._menu || this._initPopUp(new Menu(this.game, this.showMapa.bind(this), this.showClanes.bind(this), this.showOpciones.bind(this)));
 		return this._menu;
 	}
 
@@ -312,11 +291,6 @@ class GameUI {
 	get detallesPersonaje() {
 		this._detallesPersonaje = this._detallesPersonaje || this._initPopUp(new DetallesPersonaje());
 		return this._detallesPersonaje;
-	}
-
-	get estadisticas() {
-		this._estadisticas = this._estadisticas || this._initPopUp(new Estadisticas(this.game));
-		return this._estadisticas;
 	}
 
 	get partyLider() {

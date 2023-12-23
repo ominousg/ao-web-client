@@ -3,6 +3,7 @@
  */
 
 import { Enums } from "../enums";
+import { usePlayerStatsStore } from "../stores";
 
 class Skills {
 	constructor() {
@@ -21,17 +22,20 @@ class Skills {
 		this.puntosLibres += cant;
 	}
 
-	setSkills(skills) { // llegan cant puntos de skill i, porcentaje de skill i
-		this._skills = [];
-		for (var i = 0; i < skills.length; i++) {
-			var skill = {};
-			skill.numSkill = (i / 2) + 1;
-			skill.puntos = skills[i];
-			skill.porcentaje = skills[i + 1];
-			skill.nombre = this.getNombreSkill(skill.numSkill);
-			this._skills[skill.numSkill] = skill;
-		}
-	}
+	setSkills(skillsArray) { // llegan cant puntos de skill i, porcentaje de skill i
+    this._skills = [];
+    for (var i = 0; i < skillsArray.length; i += 2) {
+        const skill = {
+            numSkill: (i / 2) + 1,
+            puntos: skillsArray[i],
+            porcentaje: skillsArray[i + 1],
+            nombre: this.getNombreSkill((i / 2) + 1),
+        };
+        this._skills[skill.numSkill] = skill;
+    }
+
+    usePlayerStatsStore.getState().setPlayerSkills(this._skills.filter(skill => skill));
+  }
 
 	asignarSkill(numSkill) {
 		var skill = this._skills[numSkill];

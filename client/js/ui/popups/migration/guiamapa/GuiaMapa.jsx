@@ -3,7 +3,7 @@ import MyPopup from '../Popup.jsx';
 import { css } from '@emotion/react';
 import { MapaGlobalSVG } from './mapas/MapaGlobal.jsx';
 import { MapaDungeonsSVG } from './mapas/MapaDungeons.jsx';
-import useStore from '../../../../store.js';
+import { useUIStore } from '../../../../stores';
 import { PopupNames } from '../../popupNames.js';
 
 const guiaMapaPopup = css`
@@ -49,7 +49,7 @@ const contentStyle = css`
 `;
 
 const GuiaMapa = () => {
-  const { popups, closePopup } = useStore();
+  const { popups, closePopup } = useUIStore();
   const isOpen = popups[PopupNames.GUIA_MAPA] || false;
   const [activeTab, setActiveTab] = useState('mapaGlobal');
 

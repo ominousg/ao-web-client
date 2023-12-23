@@ -107,24 +107,24 @@ class AssetManager {
 
 
 	getMapaASync(numMapa, completeCallback) {
-		if (!this.dataMapas[numMapa]) {
-			var self = this;
-			$.ajax({
-				type: "GET",
-				url: "mapas/mapa" + numMapa + ".json",
-				dataType: "json",
-				data: null
-			}).done(function (data) {
-				self.dataMapas[numMapa] = data;
-				completeCallback(self.dataMapas[numMapa]);
-			}).fail(function () {
-				alert("Error cargando mapa " + numMapa);
-				self.getMapaASync(numMapa, completeCallback);
-			});
-		} else {
-			completeCallback(this.dataMapas[numMapa]);
-		}
-	}
+    if (!this.dataMapas[numMapa]) {
+      fetch(`mapas/mapa${numMapa}.json`)
+        .then(response => {
+          if (!response.ok) throw new Error(`Error cargando mapa ${numMapa}`);
+          return response.json();
+        })
+        .then(data => {
+          this.dataMapas[numMapa] = data;
+          completeCallback(this.dataMapas[numMapa]);
+        })
+        .catch(error => {
+          alert(error.message);
+          this.getMapaASync(numMapa, completeCallback);
+        });
+    } else {
+      completeCallback(this.dataMapas[numMapa]);
+    }
+  }
 
 	preload(terminar_callback, progress_callback) {
 		this.preloader.preload(terminar_callback, progress_callback);

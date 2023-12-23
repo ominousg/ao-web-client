@@ -79,6 +79,10 @@ const textContainer = (hideBorder) => css`
 
 const Popup = ({ title, children, isOpen, togglePopup, hideBorder, ...rest }) => {
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Escape') togglePopup();
+  };
+
   const DraggableDialog = (props) => {
     return (
       <Draggable handle=".drag-handle">
@@ -88,7 +92,7 @@ const Popup = ({ title, children, isOpen, togglePopup, hideBorder, ...rest }) =>
   };
 
   return (
-    <Dialog open={isOpen} PaperComponent={DraggableDialog} {...rest} >
+    <Dialog open={isOpen} PaperComponent={DraggableDialog} onClose={togglePopup} onKeyDown={handleKeyPress} {...rest} >
       <div css={basePopup}>
         <div css={titleBar} className="drag-handle">
           <h2>{title}</h2>

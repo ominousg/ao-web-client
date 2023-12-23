@@ -120,6 +120,30 @@ export const Enums = {
 		fundirmetal: 88
 	},
 
+  NombresSkills: {
+    1: "Magia",
+		2: "Robar",
+		3: "Evasión en combate",
+		4: "Combate cuerpo a cuerpo",
+		5: "Meditar",
+		6: "Apuñalar",
+		7: "Ocultarse",
+		8: "Supervivencia",
+		9: "Talar árboles",
+		10: "Comercio",
+		11: "Defensa con escudos",
+		12: "Pesca",
+		13: "Minería",
+		14: "Carpintería",
+		15: "Herrería",
+		16: "Liderazgo",
+		17: "Domar animales",
+		18: "Combate a distancia",
+		19: "Combate sin armas",
+		20: "Navegación",
+		21: "????",
+  },
+
 	Muerto: {
 		cabezaCasper: 500,
 		cuerpoFragataFantasmal: 87

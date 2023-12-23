@@ -5,6 +5,7 @@ import Font from "../font";
 import Protocolo from "./protocol";
 import ByteQueue from "./bytequeue";
 import Websock from "../lib/websock";
+import { usePlayerStatsStore } from "../stores";
 
 class GameClient {
 	constructor(game, uiManager, gameUI) {
@@ -307,7 +308,13 @@ class GameClient {
 	}
 
 	handleAtributes(Fuerza, Agilidad, Inteligencia, Carisma, Constitucion) {
-		this.game.gameUI.setAtributosInfo(Fuerza, Agilidad, Inteligencia, Carisma, Constitucion);
+    usePlayerStatsStore.getState().setPlayerAttributes({
+      fuerza: Fuerza,
+      agilidad: Agilidad,
+      inteligencia: Inteligencia,
+      carisma: Carisma,
+      constitucion: Constitucion,
+    });
 	}
 
 	handleBlacksmithWeapons(Items) {
@@ -381,11 +388,26 @@ class GameClient {
 	}
 
 	handleFame(Asesino, Bandido, Burgues, Ladron, Noble, Plebe, Promedio) {
-		this.game.gameUI.setFameInfo(Asesino, Bandido, Burgues, Ladron, Noble, Plebe, Promedio);
+    usePlayerStatsStore.getState().setFameInfo({
+      asesino: Asesino,
+      bandido: Bandido,
+      burgues: Burgues,
+      ladron: Ladron,
+      noble: Noble,
+      plebe: Plebe,
+      promedio: Promedio,
+    });
 	}
 
 	handleMiniStats(CiudadanosMatados, CriminalesMatados, UsuariosMatados, NpcsMuertos, Clase, Pena) {
-		this.game.gameUI.setMiniStats(CiudadanosMatados, CriminalesMatados, UsuariosMatados, NpcsMuertos, Clase, Pena);
+    usePlayerStatsStore.getState().setMiniStats({
+      ciudadanosMatados: CiudadanosMatados,
+      criminalesMatados: CriminalesMatados,
+      usuariosMatados: UsuariosMatados,
+      npcsMuertos: NpcsMuertos,
+      clase: Clase,
+      pena: Pena,
+    });
 	}
 
 	handleLevelUp(SkillPoints) {

@@ -1,8 +1,9 @@
 import React from 'react';
 import MyPopup from '../Popup.jsx';
 import { css } from '@emotion/react';
+import { Enums } from '../../../../enums.js';
 import Button from '../Button.jsx';
-import useStore from '../../../../store.js';
+import { useUIStore, usePlayerStatsStore } from '../../../../stores';
 import { PopupNames } from '../../popupNames.js';
 
 const estadisticasPopup = css`
@@ -72,8 +73,10 @@ const closeButtonContainer = css`
 `;
 
 const Estadisticas = () => {
-  const { popups, closePopup } = useStore();
+  const { popups, closePopup } = useUIStore();
   const isOpen = popups[PopupNames.ESTADISTICAS] || false;
+  const { playerStats: { attributes, fameInfo, miniStats, skills } } = usePlayerStatsStore();
+  const status = fameInfo.Promedio < 0 ? 'Criminal' : 'Ciudadano';
 
   return (
     <MyPopup title='Estadísticas' isOpen={isOpen} togglePopup={() => closePopup(PopupNames.ESTADISTICAS)}>
@@ -84,11 +87,11 @@ const Estadisticas = () => {
               <h2>Atributos</h2>
             </div>
             <div>
-              <p>Fuerza: 27</p>
-              <p>Agilidad: 17</p>
-              <p>Inteligencia: 16</p>
-              <p>Carisma: 15</p>
-              <p>Constitución: 19</p>
+              <p>Fuerza: {attributes.fuerza}</p>
+              <p>Agilidad: {attributes.agilidad}</p>
+              <p>Inteligencia: {attributes.inteligencia}</p>
+              <p>Carisma: {attributes.carisma}</p>
+              <p>Constitución: {attributes.constitucion}</p>
             </div>
           </div>
 
@@ -97,11 +100,13 @@ const Estadisticas = () => {
               <h2>Reputación</h2>
             </div>
             <div>
-              <p>Asesino: 0</p>
-              <p>Bandido: 0</p>
-              <p>Ladron: 0</p>
-              <p>Burgues: 0</p>
-              <p>Noble: 3000</p>
+              <p>Asesino: {fameInfo.asesino}</p>
+              <p>Burgues: {fameInfo.burgues}</p>
+              <p>Bandido: {fameInfo.bandido}</p>
+              <p>Ladron: {fameInfo.ladron}</p>
+              <p>Noble: {fameInfo.noble}</p>
+              <p>Plebe: {fameInfo.plebe}</p>
+              <p>Status: {status}</p>
             </div>
           </div>
 
@@ -110,11 +115,11 @@ const Estadisticas = () => {
               <h2>Estadísticas</h2>
             </div>
             <div>
-              <p>Criminales matados: 0</p>
-              <p>Ciudadanos matados: 0</p>
-              <p>Ladron: 0</p>
-              <p>Clase: Clérigo</p>
-              <p>Tiempo restante en carcel: 0</p>
+              <p>Criminales matados: {miniStats.criminalesMatados}</p>
+              <p>Ciudadanos matados: {miniStats.ciudadanosMatados}</p>
+              <p>Criaturas matadas: {miniStats.npcsMuertos}</p>
+              <p>Clase: {Enums.NombreClase[miniStats.clase]}</p>
+              <p>Tiempo restante en carcel: {miniStats.pena}</p>
             </div>
           </div>
 
@@ -125,14 +130,12 @@ const Estadisticas = () => {
             <div>
               <table>
                 <tbody>
-                  <tr>
-                    <td>Magia</td>
-                    <td>8</td>
-                  </tr>
-                  <tr>
-                    <td>Combate cuerpo a cuerpo</td>
-                    <td>0</td>
-                  </tr>
+                  {skills && skills.map((skill, index) => skill && (
+                    <tr key={index}>
+                      <td>{skill.nombre}</td>
+                      <td>{skill.puntos}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

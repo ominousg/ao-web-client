@@ -30,7 +30,7 @@ const htmlString = `
 `;
 
 class Menu extends PopUp {
-	constructor(game, showMapaCb, showEstadisticasCb, showClanesCb, showOpcionesCb) {
+	constructor(game, showMapaCb, showClanesCb, showOpcionesCb) {
 		var options = {
 			title: "MENU",
 			width: 220,
@@ -42,7 +42,6 @@ class Menu extends PopUp {
 		super($element, options);
 		this.game = game;
 		this.showMapaCb = showMapaCb;
-		this.showEstadisticasCb = showEstadisticasCb;
 		this.showClanesCb = showClanesCb;
 		this.showOpcionesCb = showOpcionesCb;
 
@@ -73,8 +72,12 @@ class Menu extends PopUp {
 		});
 
 		$("#botonEstadisticas1").click(function () {
-			self.showEstadisticasCb();
-			// eventEmitter.emit(PopupNames.ESTADISTICAS);
+      self.game.client.sendRequestAtributes();
+      self.game.client.sendRequestAtributes();
+      self.game.client.sendRequestSkills();
+      self.game.client.sendRequestMiniStats();
+      self.game.client.sendRequestFame();
+			eventEmitter.emit(PopupNames.ESTADISTICAS);
 		});
 
 		$("#botonClanes1").click(function () {
