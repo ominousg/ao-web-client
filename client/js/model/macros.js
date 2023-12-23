@@ -2,9 +2,9 @@
  * Created by horacio on 5/3/16.
  * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
-import { Enums } from "../enums";
-import Font from "../font";
-import { Ticker } from "pixi.js";
+import { Enums } from '../enums';
+import Font from '../font';
+import { Ticker } from 'pixi.js';
 
 class Macros {
 	constructor(game, intervalos, acciones) {
@@ -109,6 +109,5 @@ class Macros {
 		this.terminarTrabajar();
 		this.terminarLanzarHechizo();
 	}
-
 }
 export default Macros;

@@ -3,7 +3,6 @@
  */
 
 define([], function () {
-
 	class AudioTab {
 		constructor(game, settings) {
 			this.game = game;
@@ -19,30 +18,30 @@ define([], function () {
 		}
 
 		onShow() {
-			$("#sliderMusica").slider("value", this.settings.getMusicVolume() * 100);
-			$("#sliderSonido").slider("value", this.settings.getSoundVolume() * 100);
+			$('#sliderMusica').slider('value', this.settings.getMusicVolume() * 100);
+			$('#sliderSonido').slider('value', this.settings.getSoundVolume() * 100);
 
-			$("#checkboxMusica").prop("checked", !this.settings.getMusicMuted());
-			$("#checkboxSonido").prop("checked", !this.settings.getSoundMuted());
+			$('#checkboxMusica').prop('checked', !this.settings.getMusicMuted());
+			$('#checkboxSonido').prop('checked', !this.settings.getSoundMuted());
 		}
 
 		initCallbacks() {
 			var self = this;
 
-			$("#sliderMusica").slider({
-				range: "min",
+			$('#sliderMusica').slider({
+				range: 'min',
 				slide: function (event, ui) {
 					self.game.assetManager.audio.setMusicVolume(ui.value / 100);
 				}
 			});
-			$("#sliderSonido").slider({
-				range: "min",
+			$('#sliderSonido').slider({
+				range: 'min',
 				slide: function (event, ui) {
 					self.game.assetManager.audio.setSoundVolume(ui.value / 100);
 				}
 			});
 
-			$("#checkboxMusica").change(function () {
+			$('#checkboxMusica').change(function () {
 				if (this.checked) {
 					self.game.assetManager.audio.setMusicMuted(false);
 				} else {
@@ -50,16 +49,14 @@ define([], function () {
 				}
 			});
 
-			$("#checkboxSonido").change(function () {
+			$('#checkboxSonido').change(function () {
 				if (this.checked) {
 					self.game.assetManager.audio.setSoundMuted(false);
 				} else {
 					self.game.assetManager.audio.setSoundMuted(true);
 				}
 			});
-
 		}
-
 	}
 	return AudioTab;
 });

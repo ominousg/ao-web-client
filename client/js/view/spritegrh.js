@@ -2,7 +2,7 @@
  * Created by horacio on 3/10/16.
  * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
-import { AnimatedSprite, Texture, RenderTexture } from "pixi.js";
+import { AnimatedSprite, Texture, RenderTexture } from 'pixi.js';
 
 class SpriteGrh extends AnimatedSprite {
 	constructor(grh, cantLoops) {
@@ -18,7 +18,7 @@ class SpriteGrh extends AnimatedSprite {
 		this._cantLoops = cantLoops;
 		this._realOnComplete = null;
 
-		this.loop = (cantLoops <= 0); // OJO; si loopea por default hace play apenas lo creas
+		this.loop = cantLoops <= 0; // OJO; si loopea por default hace play apenas lo creas
 
 		this.cambiarGrh(grh);
 
@@ -89,7 +89,7 @@ class SpriteGrh extends AnimatedSprite {
 		this.y = y;
 		var gridX = Math.round(x / 32);
 		var gridY = Math.round(y / 32);
-		if ((gridX !== this._gridX) || (gridY !== this._gridY)) {
+		if (gridX !== this._gridX || gridY !== this._gridY) {
 			this._gridX = gridX;
 			this._gridY = gridY;
 			if (this._onGridPositionChange) {
@@ -99,7 +99,7 @@ class SpriteGrh extends AnimatedSprite {
 	}
 
 	_posicionarGrafico() {
-		var x = ((this.width - 32) / 2) / this.width;
+		var x = (this.width - 32) / 2 / this.width;
 		var y = (this.height - 32) / this.height;
 		this.anchor.set(x, y);
 	}

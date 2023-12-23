@@ -1,11 +1,10 @@
 /**
  * Created by horacio on 5/3/16.
  */
-import Game from "./game";
-import Intervalos from "./intervalos";
-import Acciones from "./acciones";
-import ComandosChat from "./comandoschat";
-
+import Game from './game';
+import Intervalos from './intervalos';
+import Acciones from './acciones';
+import ComandosChat from './comandoschat';
 
 class GameManager {
 	constructor(assetManager, renderer) {
@@ -31,6 +30,5 @@ class GameManager {
 		this.game.init(this.assetManaget);
 		this.game.setup(client, ui, this.renderer, this.assetManaget.audio);
 	}
-
 }
 export default GameManager;

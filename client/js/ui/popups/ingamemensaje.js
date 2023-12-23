@@ -2,7 +2,7 @@
  * Created by horacio on 4/19/16.
  */
 
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ const htmlString = `
 class InGameMensaje extends PopUp {
 	constructor() {
 		var options = {
-			title: "MENSAJE",
+			title: 'MENSAJE',
 			width: 300,
 			height: 280,
 			minWidth: 200,
@@ -40,13 +40,13 @@ class InGameMensaje extends PopUp {
 
 	show(mensaje) {
 		super.show();
-		$("#inGameMensajeContenido").text(mensaje);
-		$("#inGameMensajeBotonOk").focus();
+		$('#inGameMensajeContenido').text(mensaje);
+		$('#inGameMensajeBotonOk').focus();
 	}
 
 	initCallbacks() {
 		var self = this;
-		$("#inGameMensajeBotonOk").click(function () {
+		$('#inGameMensajeBotonOk').click(function () {
 			self.hide();
 		});
 	}

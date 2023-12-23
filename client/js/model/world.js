@@ -1,7 +1,7 @@
 /**
  * Created by horacio on 7/26/16.
  */
-import { Enums } from "../enums";
+import { Enums } from '../enums';
 
 class World {
 	constructor(renderer) {
@@ -18,7 +18,7 @@ class World {
 
 	getCharacterInGridPos(gridX, gridY) {
 		return this.characters.find((char) => {
-			return ((char.gridX === gridX) && (char.gridY === gridY));
+			return char.gridX === gridX && char.gridY === gridY;
 		});
 	}
 
@@ -50,18 +50,19 @@ class World {
 
 	getItemInGridPos(gridX, gridY) {
 		return this.items.find((item) => {
-			return ((item.gridX === gridX) && (item.gridY === gridY));
+			return item.gridX === gridX && item.gridY === gridY;
 		});
 	}
 
-	forEachCharacter(callback){ // loopeo al revez asi permite remover items en callback
+	forEachCharacter(callback) {
+		// loopeo al revez asi permite remover items en callback
 		let i;
 		for (i = this.characters.length - 1; i >= 0; i--) {
 			callback(this.characters[i], i);
 		}
 	}
 
-	forEachItem(callback){
+	forEachItem(callback) {
 		let i;
 		for (i = this.items.length - 1; i >= 0; i--) {
 			callback(this.items[i], i);
@@ -73,7 +74,7 @@ class World {
 		this.forEachItem(callback);
 	}
 
-	getEntities(){
+	getEntities() {
 		return this.characters.concat(this.items);
 	}
 }

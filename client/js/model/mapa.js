@@ -15,7 +15,7 @@ define([], function () {
 			return this.data.outdoor;
 		}
 
-		removeCallbacks(){
+		removeCallbacks() {
 			this.loadedCallbacks = [];
 		}
 
@@ -31,7 +31,7 @@ define([], function () {
 			this.data = data;
 			this.isLoaded = true;
 			for (var block of this.tempBlockData) {
-				this.setBlockPosition(block.gridX , block.gridY,block.blocked );
+				this.setBlockPosition(block.gridX, block.gridY, block.blocked);
 			}
 			this.tempBlockData = null;
 			for (var f of this.loadedCallbacks) {
@@ -51,16 +51,16 @@ define([], function () {
 			if (grh2) {
 				return false;
 			}
-			if ((grh1 >= 1505) && (grh1 <= 1520)) {
+			if (grh1 >= 1505 && grh1 <= 1520) {
 				return true;
 			}
-			if ((grh1 >= 5665) && (grh1 <= 5680)) {
+			if (grh1 >= 5665 && grh1 <= 5680) {
 				return true;
 			}
-			if ((grh1 >= 5665) && (grh1 <= 5680)) {
+			if (grh1 >= 5665 && grh1 <= 5680) {
 				return true;
 			}
-			if ((grh1 >= 13547) && (grh1 <= 13562)) {
+			if (grh1 >= 13547 && grh1 <= 13562) {
 				return true;
 			}
 			return false;
@@ -68,7 +68,7 @@ define([], function () {
 
 		setBlockPosition(gridX, gridY, blocked) {
 			if (!this.isLoaded) {
-				this.tempBlockData.push({gridX: gridX, gridY: gridY, blocked: blocked});
+				this.tempBlockData.push({ gridX: gridX, gridY: gridY, blocked: blocked });
 				return false;
 			}
 			blocked = blocked ? true : false;
@@ -76,15 +76,18 @@ define([], function () {
 		}
 
 		getGrh(numGrh, gridX, gridY) {
-			if (this.data.layers[gridX - 1] &&
-                this.data.layers[gridX - 1][gridY - 1] &&
-                this.data.layers[gridX - 1][gridY - 1][numGrh]) {
+			if (
+				this.data.layers[gridX - 1] &&
+				this.data.layers[gridX - 1][gridY - 1] &&
+				this.data.layers[gridX - 1][gridY - 1][numGrh]
+			) {
 				return this.data.layers[gridX - 1][gridY - 1][numGrh];
 			}
 			return 0;
 		}
 
-		getGrh1(gridX, gridY) { //devuelve indice de grafico de la primer lagridYer
+		getGrh1(gridX, gridY) {
+			//devuelve indice de grafico de la primer lagridYer
 			return this.getGrh(1, gridX, gridY);
 		}
 
@@ -109,7 +112,7 @@ define([], function () {
 		}
 
 		isOutOfBounds(gridX, gridY) {
-			return (gridX < 0 || gridX >= this.width || gridY < 0 || gridY >= this.height);
+			return gridX < 0 || gridX >= this.width || gridY < 0 || gridY >= this.height;
 		}
 	}
 

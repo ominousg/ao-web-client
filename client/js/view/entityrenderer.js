@@ -3,19 +3,18 @@
  * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
 
-import { Enums } from "../enums";
-import Utils from "../utils/util";
-import Font from "../font";
-import * as PIXI from "pixi.js-legacy";
-import CharacterSprites from "./charactersprites";
-import CharacterName from "./charactername";
-import CharacterText from "./charactertext";
-import SpriteGrh from "./spritegrh";
-import RendererUtils from "./rendererutils";
+import { Enums } from '../enums';
+import Utils from '../utils/util';
+import Font from '../font';
+import * as PIXI from 'pixi.js-legacy';
+import CharacterSprites from './charactersprites';
+import CharacterName from './charactername';
+import CharacterText from './charactertext';
+import SpriteGrh from './spritegrh';
+import RendererUtils from './rendererutils';
 
 class EntityRenderer {
 	constructor(escala, entityContainer, entityNamesContainer, entityChatContainer, camera, assetManager) {
-
 		this.CLIPPING_EXTRA_POSITIONS = {
 			norte: 0,
 			sur: 2,
@@ -41,7 +40,8 @@ class EntityRenderer {
 		this.fxs = assetManager.getFxs();
 	}
 
-	rescale(escala) { //TEMPORAL
+	rescale(escala) {
+		//TEMPORAL
 		this.escala = escala;
 	}
 
@@ -65,10 +65,16 @@ class EntityRenderer {
 
 	agregarItem(item, numGrh) {
 		if (!this.assetManager.getGrh(numGrh)) {
-			console.log("grh de item invalido!");
+			console.log('grh de item invalido!');
 			return;
 		}
-		item.sprite = this._crearSprite(this.entityContainer, numGrh, Math.round(item.x), Math.round(item.y), -50);
+		item.sprite = this._crearSprite(
+			this.entityContainer,
+			numGrh,
+			Math.round(item.x),
+			Math.round(item.y),
+			-50
+		);
 	}
 
 	sacarItem(item) {
@@ -102,9 +108,9 @@ class EntityRenderer {
 			char.spriteNombre = nuevoNombre;
 		};
 
-		char.on("nameChanged", f);
+		char.on('nameChanged', f);
 
-		char.emit("nameChanged");
+		char.emit('nameChanged');
 
 		var sprite = this._crearCharacterSprites(this.entityContainer, char.x, char.y, -30);
 		sprite.setSpeed(char.moveSpeed); // ANIMACIONES char se setean a misma velocidad que su movimiento !!
@@ -115,7 +121,7 @@ class EntityRenderer {
 		char.texto = new CharacterText(this.escala);
 		this.entityChatContainer.addChild(char.texto);
 
-		char.on("positionChanged", function () {
+		char.on('positionChanged', function () {
 			var spriteX = this.x;
 			var spriteY = this.y;
 
@@ -128,19 +134,19 @@ class EntityRenderer {
 			}
 		});
 
-		char.on("gridPositionChanged", function () {
+		char.on('gridPositionChanged', function () {
 			self._setSpriteClipping(this.sprite);
 		});
 
-		char.emit("positionChanged");
+		char.emit('positionChanged');
 
-		char.on("headingChanged", function () {
+		char.on('headingChanged', function () {
 			char.sprite.cambiarHeading(char.heading);
 		});
 
-		char.emit("headingChanged");
+		char.emit('headingChanged');
 
-		char.on("bodyChanged", function () {
+		char.on('bodyChanged', function () {
 			var Body = char.body;
 			var bodys = self._getHeadingsGrhs(self.cuerpos, Body);
 			var headOffX = 0;
@@ -152,40 +158,39 @@ class EntityRenderer {
 			char.sprite.setBodys(bodys, headOffX, headOffY);
 		});
 
-		char.emit("bodyChanged");
+		char.emit('bodyChanged');
 
-		char.on("headChanged", function () {
+		char.on('headChanged', function () {
 			var Head = char.head;
 			var heads = self._getHeadingsGrhs(self.cabezas, Head);
 			char.sprite.setHeads(heads);
 		});
 
-		char.emit("headChanged");
+		char.emit('headChanged');
 
-		char.on("weaponChanged", function () {
+		char.on('weaponChanged', function () {
 			var Weapon = char.weapon;
 			var weapons = self._getHeadingsGrhs(self.armas, Weapon);
 			char.sprite.setWeapons(weapons);
 		});
 
-		char.emit("weaponChanged");
+		char.emit('weaponChanged');
 
-		char.on("shieldChanged", function () {
+		char.on('shieldChanged', function () {
 			var Shield = char.shield;
 			var shields = self._getHeadingsGrhs(self.escudos, Shield);
 			char.sprite.setShields(shields);
 		});
 
-		char.emit("shieldChanged");
+		char.emit('shieldChanged');
 
-		char.on("helmetChanged", function () {
+		char.on('helmetChanged', function () {
 			var Helmet = char.helmet;
 			var helmets = self._getHeadingsGrhs(self.cascos, Helmet);
 			char.sprite.setHelmets(helmets);
 		});
 
-		char.emit("helmetChanged");
-
+		char.emit('helmetChanged');
 	}
 
 	sacarCharacter(char) {
@@ -219,7 +224,7 @@ class EntityRenderer {
 		return sprite;
 	}
 
-	updateEntitiesMov(direccion,entities) {
+	updateEntitiesMov(direccion, entities) {
 		this.updateEntitiesClipping(entities);
 	}
 
@@ -234,7 +239,7 @@ class EntityRenderer {
 	}
 
 	entityVisiblePorCamara(entity, extraPositions) {
-		if (!entity.sprite){
+		if (!entity.sprite) {
 			return false;
 		}
 		let finalExtraPositions;
@@ -247,7 +252,7 @@ class EntityRenderer {
 		} else {
 			finalExtraPositions = this.CLIPPING_EXTRA_POSITIONS;
 		}
-		return this._spriteVisiblePorCamara(entity.sprite,finalExtraPositions);
+		return this._spriteVisiblePorCamara(entity.sprite, finalExtraPositions);
 	}
 
 	_spriteVisiblePorCamara(sprite, extraPositions) {
@@ -263,7 +268,7 @@ class EntityRenderer {
 	}
 
 	setCharacterChat(char, chat, r, g, b) {
-		var color = "rgb(" + r + "," + g + "," + b + ")";
+		var color = 'rgb(' + r + ',' + g + ',' + b + ')';
 		char.texto.setChat(chat, color);
 	}
 
@@ -287,9 +292,9 @@ class EntityRenderer {
 		char.sprite.setFX(grh, this.fxs[FX].offX, this.fxs[FX].offY, FXLoops);
 	}
 
-	entityEnTileVisible(entity) { // puede que no este en un tile visible pero si sea visible la entidad (para eso usar el de arriba)
+	entityEnTileVisible(entity) {
+		// puede que no este en un tile visible pero si sea visible la entidad (para eso usar el de arriba)
 		return this.camera.isVisiblePosition(entity.gridX, entity.gridY);
 	}
-
 }
 export default EntityRenderer;

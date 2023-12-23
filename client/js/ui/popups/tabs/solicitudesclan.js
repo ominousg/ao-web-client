@@ -3,22 +3,21 @@
  */
 
 define([], function () {
-
 	class SolicitudesClan {
 		constructor(game, showMensajeCb) {
 			this.game = game;
 			this.showMensajeCb = showMensajeCb;
 
-			this.$solicitantesNameList = $("#clanesMembershipRequestList");
-			this.$botonDetalles = $("#clanesLiderBotonDetalles");
-			this.$botonAceptar = $("#clanesLiderBotonAceptar");
-			this.$botonRechazar = $("#clanesLiderBotonRechazar");
-			this.$botonVerPeticion = $("#clanesLiderBotonVerPeticion");
+			this.$solicitantesNameList = $('#clanesMembershipRequestList');
+			this.$botonDetalles = $('#clanesLiderBotonDetalles');
+			this.$botonAceptar = $('#clanesLiderBotonAceptar');
+			this.$botonRechazar = $('#clanesLiderBotonRechazar');
+			this.$botonVerPeticion = $('#clanesLiderBotonVerPeticion');
 			this.initCallbacks();
 		}
 
 		_getSolicitudSeleccionada() {
-			return this.$solicitantesNameList.find("option:selected").text();
+			return this.$solicitantesNameList.find('option:selected').text();
 		}
 
 		_ejecutarConSolicitante(cbFunc) {
@@ -26,14 +25,14 @@ define([], function () {
 			if (pj) {
 				cbFunc(pj);
 			} else {
-				this.showMensajeCb("Debes seleccionar un personaje");
+				this.showMensajeCb('Debes seleccionar un personaje');
 			}
 		}
 
 		setNombresSolicitantes(nombresSolicitantes) {
 			this.$solicitantesNameList.empty();
 			for (var nombre of nombresSolicitantes) {
-				var $nuevoSolicitante = $("<option>").text(nombre);
+				var $nuevoSolicitante = $('<option>').text(nombre);
 				this.$solicitantesNameList.append($nuevoSolicitante);
 			}
 		}
@@ -43,7 +42,8 @@ define([], function () {
 				this._ejecutarConSolicitante(
 					function (pj) {
 						this.game.client.sendGuildMemberInfo(pj);
-					}.bind(this));
+					}.bind(this)
+				);
 			});
 
 			this.$botonAceptar.click(() => {
@@ -51,7 +51,8 @@ define([], function () {
 					function (pj) {
 						this.game.client.sendGuildAcceptNewMember(pj);
 						this.game.client.sendRequestGuildLeaderInfo();
-					}.bind(this));
+					}.bind(this)
+				);
 			});
 
 			this.$botonRechazar.click(() => {
@@ -59,7 +60,8 @@ define([], function () {
 					function (pj) {
 						this.game.client.sendGuildRejectNewMember(pj);
 						this.game.client.sendRequestGuildLeaderInfo();
-					}.bind(this));
+					}.bind(this)
+				);
 			});
 		}
 	}

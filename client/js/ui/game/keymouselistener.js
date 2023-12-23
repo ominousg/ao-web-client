@@ -1,8 +1,8 @@
 /**
  * Created by horacio on 4/6/16.
  **/
-import KeyMouseInput from "./keymouseinput";
-import CharcodeMap from "../../utils/charcodemap";
+import KeyMouseInput from './keymouseinput';
+import CharcodeMap from '../../utils/charcodemap';
 
 // ominousg: crear archivo vanilla.js en la carpeta utils que contenga un debounce reusable para evitar repetición + event listeners reusables para ir reemplazando algunas partes de jQuery sin generar mucho boilerplate
 function debounce(func, wait) {
@@ -18,7 +18,6 @@ function debounce(func, wait) {
 }
 
 class KeyMouseListener {
-
 	constructor(game, acciones, keys, comandosChat) {
 		this.game = game; // todo: sacar de aca !?
 		this.inputHandler = new KeyMouseInput(game, acciones);
@@ -26,10 +25,10 @@ class KeyMouseListener {
 		this.comandosChat = comandosChat;
 
 		this._prevKeyDown = [];
-		this.gameCanvas = document.getElementById("gamecanvas");
-		this.$chatButton = $("#botonChatInput");
-		this.$chatbox = $("#chatbox");
-		this.$chatinput = $("#chatinput");
+		this.gameCanvas = document.getElementById('gamecanvas');
+		this.$chatButton = $('#botonChatInput');
+		this.$chatbox = $('#chatbox');
+		this.$chatinput = $('#chatinput');
 
 		this.talkingToClan = false;
 
@@ -42,12 +41,12 @@ class KeyMouseListener {
 	}
 
 	showChat() {
-		this.$chatbox.addClass("active");
+		this.$chatbox.addClass('active');
 		this.$chatinput.focus();
 	}
 
 	hideChat() {
-		this.$chatbox.removeClass("active");
+		this.$chatbox.removeClass('active');
 		this.$chatinput.blur();
 	}
 
@@ -81,7 +80,7 @@ class KeyMouseListener {
 
 	upKeyTeclasCaminar() {
 		var teclasCaminar = this.inputHandler.getTeclasCaminar();
-		teclasCaminar.forEach(key => {
+		teclasCaminar.forEach((key) => {
 			this._upKey(key);
 			this.inputHandler.keyUp(key);
 		});
@@ -126,7 +125,7 @@ class KeyMouseListener {
 				return;
 			}
 
-			if (self.game.isPaused || (self.game.gameUI.hayPopUpActivo())) {
+			if (self.game.isPaused || self.game.gameUI.hayPopUpActivo()) {
 				return;
 			}
 
@@ -135,7 +134,7 @@ class KeyMouseListener {
 			var $chatb = self.$chatbox;
 
 			if (key === self.keys.chat) {
-				if ($chatb.hasClass("active")) {
+				if ($chatb.hasClass('active')) {
 					self._submitChat();
 				} else {
 					self.showChat();
@@ -143,7 +142,7 @@ class KeyMouseListener {
 			}
 
 			if (key === self.keys.chatClan) {
-				if ($chatb.hasClass("active")) {
+				if ($chatb.hasClass('active')) {
 					if (self.talkingToClan) {
 						self._submitChat();
 					}
@@ -153,7 +152,7 @@ class KeyMouseListener {
 				}
 			}
 
-			if (!$chatb.hasClass("active")) {
+			if (!$chatb.hasClass('active')) {
 				if (self._isKeyDown(key)) {
 					return false;
 				}
@@ -162,7 +161,6 @@ class KeyMouseListener {
 				return self.inputHandler.keyDown(key); // << return false previene el default y hace que no se propague mas
 			}
 		});
-
 	}
 
 	_submitChat() {
@@ -178,7 +176,7 @@ class KeyMouseListener {
 
 	_trySendingChat() {
 		var $chat = this.$chatinput;
-		if ($chat.attr("value") !== "") {
+		if ($chat.attr('value') !== '') {
 			if (this.game.player) {
 				var chat = $chat.val();
 
@@ -192,7 +190,7 @@ class KeyMouseListener {
 					}
 				}
 			}
-			$chat.val("");
+			$chat.val('');
 		}
 	}
 
@@ -200,7 +198,6 @@ class KeyMouseListener {
 		var self = this;
 
 		this.$chatinput.keydown(function (e) {
-
 			var key = e.which;
 
 			if (key === self.keys.chat) {
@@ -212,31 +209,33 @@ class KeyMouseListener {
 				self.hideChat();
 				return false;
 			}
-
 		});
 	}
 
 	_initMouseListeners() {
 		const self = this;
-		const gameCanvas = document.getElementById("gamecanvas");
+		const gameCanvas = document.getElementById('gamecanvas');
 
-		gameCanvas.addEventListener("click", function (event) {
+		gameCanvas.addEventListener('click', function (event) {
 			// TODO: si haces click afuera del menu pop up que lo cierre?
 			if (self.updateGameMouseCoordinates(self.game, event, gameCanvas)) {
 				self.inputHandler.click();
 			}
 		});
 
-		gameCanvas.addEventListener("dblclick", function (event) {
+		gameCanvas.addEventListener('dblclick', function (event) {
 			// TODO: si haces click afuera del menu pop up que lo cierre?
 			if (self.updateGameMouseCoordinates(self.game, event, gameCanvas)) {
 				self.inputHandler.doubleClick();
 			}
 		});
 
-		gameCanvas.addEventListener("mousemove", debounce(function (event) {
-			self.updateGameMouseCoordinates(self.game, event, gameCanvas);
-		}, 50));
+		gameCanvas.addEventListener(
+			'mousemove',
+			debounce(function (event) {
+				self.updateGameMouseCoordinates(self.game, event, gameCanvas);
+			}, 50)
+		);
 		// DEBUG------------------------------ NO SACAR----------------------------------- :
 		//  $(window).bind('mousewheel DOMMouseScroll', function (event) {
 		//  var escala;
@@ -257,8 +256,12 @@ class KeyMouseListener {
 	}
 
 	_isArrowKey(key) {
-		return (key === CharcodeMap.keys.indexOf("LEFT") || key === CharcodeMap.keys.indexOf("UP") ||
-			key === CharcodeMap.keys.indexOf("DOWN") || key === CharcodeMap.keys.indexOf("RIGHT") );
+		return (
+			key === CharcodeMap.keys.indexOf('LEFT') ||
+			key === CharcodeMap.keys.indexOf('UP') ||
+			key === CharcodeMap.keys.indexOf('DOWN') ||
+			key === CharcodeMap.keys.indexOf('RIGHT')
+		);
 	}
 
 	_downKey(key) {
@@ -275,7 +278,6 @@ class KeyMouseListener {
 		}
 		return false;
 	}
-
 }
 
 export default KeyMouseListener;

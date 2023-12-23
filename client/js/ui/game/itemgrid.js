@@ -8,9 +8,8 @@ class ItemGrid {
 		this.dragAndDropable = dragAndDropable;
 		this.MAX_DELAY_DOUBLE_CLICK = 400;
 
-
 		this.id = gridID;
-		this.$this = $("#" + this.id);
+		this.$this = $('#' + this.id);
 		this._selectedSlot = null;
 		this._selectionCallback = null;
 		this._doubleClickCallback = null;
@@ -22,7 +21,8 @@ class ItemGrid {
 		this._selectionCallback = f;
 	}
 
-	setDobleClickCallback(cb) { // params: slot
+	setDobleClickCallback(cb) {
+		// params: slot
 		this._doubleClickCallback = cb;
 	}
 
@@ -32,11 +32,11 @@ class ItemGrid {
 
 	crearSlots() {
 		for (let i = 0; i < this.cantidadSlots; i++) {
-			var $slot = $("<li></li>").appendTo(this.$this);
-			$slot.data("slotNumber", i + 1);
+			var $slot = $('<li></li>').appendTo(this.$this);
+			$slot.data('slotNumber', i + 1);
 			if (this.dragAndDropable) {
 				$slot.droppable({
-					hoverClass: "ui-state-highlight", //TODO !!!
+					hoverClass: 'ui-state-highlight', //TODO !!!
 					drop: function (event, ui) {
 						let targetSlot = $(this),
 							draggedItem = $(ui.draggable),
@@ -50,11 +50,10 @@ class ItemGrid {
 						draggedItem.appendTo(targetSlot);
 
 						//swap slot numbers TODO: tener cuidado en dropear del inventario a un grid de comerciar (o viceversa) !!
-						let targetSlotNumber = targetSlot.data("slotNumber"),
-							originalSlotNumber = originalSlot.data("slotNumber");
-						targetSlot.data("slotNumber", originalSlotNumber);
-						originalSlot.data("slotNumber", targetSlotNumber);
-
+						let targetSlotNumber = targetSlot.data('slotNumber'),
+							originalSlotNumber = originalSlot.data('slotNumber');
+						targetSlot.data('slotNumber', originalSlotNumber);
+						originalSlot.data('slotNumber', targetSlotNumber);
 					}
 				});
 			}
@@ -68,19 +67,19 @@ class ItemGrid {
 			//$item.data("slot", numSlot);
 		}
 
-		$item.text(cantidad + "");
-		var url = "url(graficos/css/" + numGraf + ".png)";
-		$item.css("background-image", url);
+		$item.text(cantidad + '');
+		var url = 'url(graficos/css/' + numGraf + '.png)';
+		$item.css('background-image', url);
 		if (equiped) {
-			$item.addClass("equiped");
+			$item.addClass('equiped');
 		} else {
-			$item.removeClass("equiped");
+			$item.removeClass('equiped');
 		}
 	}
 
 	deselect() {
 		if (this._selectedSlot) {
-			this._getItem(this._selectedSlot).removeClass("selected");
+			this._getItem(this._selectedSlot).removeClass('selected');
 		}
 		this._selectedSlot = null;
 	}
@@ -89,13 +88,13 @@ class ItemGrid {
 		let $resSlot = null;
 		this.$this.children().each(function () {
 			var $slot = $(this);
-			if ($slot.data("slotNumber") === numSlot) {
+			if ($slot.data('slotNumber') === numSlot) {
 				$resSlot = $slot;
 				return false;
 			}
 		});
 		if (!$resSlot) {
-			throw new Error("Numero de slot invalido: " + numSlot);
+			throw new Error('Numero de slot invalido: ' + numSlot);
 		}
 		return $resSlot;
 	}
@@ -106,14 +105,15 @@ class ItemGrid {
 
 	_crearItem(numSlot) {
 		let $parentSlot = this._getSlot(numSlot);
-		var $item = $("<li></li>").appendTo($parentSlot);
+		var $item = $('<li></li>').appendTo($parentSlot);
 		if (this.dragAndDropable) {
 			$item.draggable({
 				distance: 15,
 				//cursor: "move", // TODO <-- (anda bugeado)
-				helper: "clone",
-				revert: "invalid",
-				start: function (event, ui) { //cambio tamaño helper asi no se expande
+				helper: 'clone',
+				revert: 'invalid',
+				start: function (event, ui) {
+					//cambio tamaño helper asi no se expande
 					let $itemHelper = $(ui.helper);
 					$itemHelper.width($parentSlot.width());
 					$itemHelper.height($parentSlot.height());
@@ -126,8 +126,8 @@ class ItemGrid {
 			var $currentItem = $(this);
 			var $currentSlot = $currentItem.parent();
 			self.deselect();
-			$currentItem.addClass("selected");
-			self._selectedSlot = $currentSlot.data("slotNumber");
+			$currentItem.addClass('selected');
+			self._selectedSlot = $currentSlot.data('slotNumber');
 			if (self._selectionCallback) {
 				self._selectionCallback(self._selectedSlot);
 			}
@@ -135,14 +135,16 @@ class ItemGrid {
 
 		if (self._doubleClickCallback) {
 			// DOBLE CLICK FIX: simulo doble click con el click para que ande ok en todos los browsers
-			$item.click(function () {
-				var newTime = Date.now();
-				var delta = newTime - (this.click_time || 0);
-				this.click_time = newTime;
-				if (delta < self.MAX_DELAY_DOUBLE_CLICK) {
-					self._doubleClickCallback(self._selectedSlot);
-				}
-			}.bind($item));
+			$item.click(
+				function () {
+					var newTime = Date.now();
+					var delta = newTime - (this.click_time || 0);
+					this.click_time = newTime;
+					if (delta < self.MAX_DELAY_DOUBLE_CLICK) {
+						self._doubleClickCallback(self._selectedSlot);
+					}
+				}.bind($item)
+			);
 		}
 		return $item;
 	}

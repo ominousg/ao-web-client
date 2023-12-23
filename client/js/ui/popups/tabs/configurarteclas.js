@@ -2,9 +2,7 @@
  * Created by horacio on 4/14/16.
  */
 
-
-define(["../../../utils/charcodemap", "../popup"], function (CharCodeMap, PopUp) {
-
+define(['../../../utils/charcodemap', '../popup'], function (CharCodeMap, PopUp) {
 	class ConfigurarTeclas {
 		constructor(settings, updateKeysCb, showMensajeCb) {
 			this.settings = settings;
@@ -15,13 +13,11 @@ define(["../../../utils/charcodemap", "../popup"], function (CharCodeMap, PopUp)
 		}
 
 		onShow() {
-			this.nuevasKeys = $.extend(true,{}, this.settings.getKeys()); // clonar
+			this.nuevasKeys = $.extend(true, {}, this.settings.getKeys()); // clonar
 			this.displayKeys();
 		}
 
-		onHide() {
-
-		}
+		onHide() {}
 
 		setCerrarCallback(cerrarCallback) {
 			this._cerrarCallback = cerrarCallback;
@@ -29,15 +25,17 @@ define(["../../../utils/charcodemap", "../popup"], function (CharCodeMap, PopUp)
 
 		displayKeys() {
 			var self = this;
-			$("#configurarTeclas").find("input").each(function () {
-				var id = ($(this).attr("id"));
-				var accion = id.split("_")[1];
-				if (!accion || !(self.nuevasKeys[accion])) {
-					console.log("Error con input element!");
-					return;
-				}
-				$(this).val(CharCodeMap.keys[self.nuevasKeys[accion]]);
-			});
+			$('#configurarTeclas')
+				.find('input')
+				.each(function () {
+					var id = $(this).attr('id');
+					var accion = id.split('_')[1];
+					if (!accion || !self.nuevasKeys[accion]) {
+						console.log('Error con input element!');
+						return;
+					}
+					$(this).val(CharCodeMap.keys[self.nuevasKeys[accion]]);
+				});
 		}
 
 		keyRepetida(c) {
@@ -54,35 +52,35 @@ define(["../../../utils/charcodemap", "../popup"], function (CharCodeMap, PopUp)
 		initCallbacks() {
 			var self = this;
 
-			$("#configurarTeclasBotonCerrar").click(function () {
+			$('#configurarTeclasBotonCerrar').click(function () {
 				self._cerrarCallback();
 			});
 
-			$("#configurarTeclasCancelar").click(function () {
+			$('#configurarTeclasCancelar').click(function () {
 				self._cerrarCallback();
 			});
 
-			$("#configurarTeclasRestaurarDefault").click(function () {
+			$('#configurarTeclasRestaurarDefault').click(function () {
 				self.nuevasKeys = self.settings.getDefaultKeys();
 				self.displayKeys();
 			});
 
-			$("#configurarTeclasGuardarYSalir").click(function () {
+			$('#configurarTeclasGuardarYSalir').click(function () {
 				self.settings.setKeys(self.nuevasKeys);
 				self.updateKeysCb(self.nuevasKeys);
 				self._cerrarCallback();
 			});
 
-			$("#configurarTeclas").on("keydown", "input", function (event) {
-				var id = ($(this).attr("id"));
-				var accion = id.split("_")[1];
-				if (!accion || !(self.nuevasKeys[accion])) {
-					console.log("Error con input element!");
+			$('#configurarTeclas').on('keydown', 'input', function (event) {
+				var id = $(this).attr('id');
+				var accion = id.split('_')[1];
+				if (!accion || !self.nuevasKeys[accion]) {
+					console.log('Error con input element!');
 					return;
 				}
 				var nuevaKey = event.which;
 				if (self.keyRepetida(nuevaKey)) {
-					self.showMensajeCb("Esa tecla ya pertenece a otro comando");
+					self.showMensajeCb('Esa tecla ya pertenece a otro comando');
 					self.displayKeys();
 					return false;
 				}
@@ -90,7 +88,6 @@ define(["../../../utils/charcodemap", "../popup"], function (CharCodeMap, PopUp)
 				self.displayKeys();
 				return false;
 			});
-
 		}
 	}
 

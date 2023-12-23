@@ -2,12 +2,11 @@
  * Created by horacio on 3/14/16.
  * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
-import { Container } from "pixi.js";
+import { Container } from 'pixi.js';
 
 function ContainerOrdenado(mapWidth) {
 	Container.call(this);
 	this._mapWidth = mapWidth;
-
 }
 
 ContainerOrdenado.prototype = Object.create(Container.prototype);
@@ -25,12 +24,13 @@ ContainerOrdenado.prototype.addChild = function (spriteGrh) {
 ContainerOrdenado.prototype._ordenarChild = function (hijo) {
 	var gridX = Math.round(hijo.x / 32);
 	var gridY = Math.round(hijo.y / 32);
-	hijo.zIndex = gridY * (this._mapWidth + 1) + ((this._mapWidth + 1) - gridX) + (hijo.zOffset || 0);
+	hijo.zIndex = gridY * (this._mapWidth + 1) + (this._mapWidth + 1 - gridX) + (hijo.zOffset || 0);
 
 	this._reordenarTodo();
 };
 
-ContainerOrdenado.prototype._reordenarTodo = function () { // TODO: no ordenar cada vez, sino insertar con una busqueda binaria
+ContainerOrdenado.prototype._reordenarTodo = function () {
+	// TODO: no ordenar cada vez, sino insertar con una busqueda binaria
 
 	this.children.sort(function (a, b) {
 		a.zIndex = a.zIndex || 0;

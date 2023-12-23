@@ -2,10 +2,10 @@
  * Created by horacio on 3/8/16.
  * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
-import Font from "../font";
-import { Container, Text } from "pixi.js";
-import rendererUtils from "./rendererutils";
-import GameTextStyle from "./gametextstyle";
+import Font from '../font';
+import { Container, Text } from 'pixi.js';
+import rendererUtils from './rendererutils';
+import GameTextStyle from './gametextstyle';
 
 function Consola(escala) {
 	Container.call(this);
@@ -44,21 +44,20 @@ Consola.prototype.update = function (delta) {
 	}
 };
 
-
 Consola.prototype._removerTexto = function (spriteTexto) {
 	for (var i = 0; i < this.children.length; i++) {
 		this.children[i].y -= spriteTexto.height;
 		// aumento el tiempo restante de los que tienen poco asi no se van todos de una
 		let tiempoRestante = this.children[i].tiempoInicial + this.DURACION_TEXTO - this._elapsedTime;
-		if (tiempoRestante < this.DURACION_TEXTO/5 ){
-			this.children[i].tiempoInicial += this.DURACION_TEXTO/5;
+		if (tiempoRestante < this.DURACION_TEXTO / 5) {
+			this.children[i].tiempoInicial += this.DURACION_TEXTO / 5;
 		}
 	}
-	rendererUtils.removePixiChild(this,spriteTexto);
+	rendererUtils.removePixiChild(this, spriteTexto);
 };
 
 Consola.prototype.agregarTexto = function (texto, font) {
-	let estilo = new GameTextStyle(Font.CONSOLA_BASE_FONT,this._escala,font);
+	let estilo = new GameTextStyle(Font.CONSOLA_BASE_FONT, this._escala, font);
 	let nuevoTexto = new Text(texto, estilo);
 
 	if (this.children.length > this.CANT_LINEAS - 1) {

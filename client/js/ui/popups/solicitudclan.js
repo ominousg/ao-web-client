@@ -2,7 +2,7 @@
  * Created by horacio on 7/6/16.
  */
 
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -29,9 +29,8 @@ const htmlString = `
 
 class SolictudClan extends PopUp {
 	constructor(game) {
-
 		var options = {
-			title: "CLANES",
+			title: 'CLANES',
 			width: 500,
 			height: 400,
 			minWidth: 250,
@@ -41,10 +40,10 @@ class SolictudClan extends PopUp {
 		super($element, options);
 
 		this.game = game;
-		this.clan = "";
+		this.clan = '';
 
-		this.$botonCancelar = $("#solicitudClanBotonCancelar");
-		this.$botonEnviar = $("#solicitudClanBotonEnviar");
+		this.$botonCancelar = $('#solicitudClanBotonCancelar');
+		this.$botonEnviar = $('#solicitudClanBotonEnviar');
 
 		this.initCallbacks();
 	}
@@ -57,18 +56,16 @@ class SolictudClan extends PopUp {
 	initCallbacks() {
 		var self = this;
 
-		this.$botonCancelar.click(function(){
+		this.$botonCancelar.click(function () {
 			self.hide();
 		});
 
-		this.$botonEnviar.click(function(){
-			var textoSolicitud = $("#detallesClanInputSolicitud").val();
+		this.$botonEnviar.click(function () {
+			var textoSolicitud = $('#detallesClanInputSolicitud').val();
 			self.game.client.sendGuildRequestMembership(self.clan, textoSolicitud);
 			self.hide();
 		});
-
 	}
-
 }
 
 export default SolictudClan;

@@ -2,7 +2,7 @@
  * Created by horacio on 09/08/2016.
  */
 
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -49,7 +49,7 @@ const htmlString = `
 class CrearPersonaje extends PopUp {
 	constructor(showMensajeCb) {
 		var options = {
-			title: "CREAR PERSONAJE",
+			title: 'CREAR PERSONAJE',
 			width: 280,
 			height: 400,
 			minWidth: 150,
@@ -82,28 +82,41 @@ class CrearPersonaje extends PopUp {
 	}
 
 	initCallbacks() {
-		$("#botonCrearPersonajeCrear").click(()=> {
-			let nombre = $("#crearNombreInput").val();
-			let password = $("#crearPasswordInput").val();
-			let password2 = $("#crearRepetirPasswordInput").val();
-			let mail = $("#crearMailInput").val();
+		$('#botonCrearPersonajeCrear').click(() => {
+			let nombre = $('#crearNombreInput').val();
+			let password = $('#crearPasswordInput').val();
+			let password2 = $('#crearRepetirPasswordInput').val();
+			let mail = $('#crearMailInput').val();
 
-			if (!(nombre && password && password2 && this.raza && this.genero && this.clase &&
-                    this.cabeza && mail && this.ciudad)) {
-				this.showMensajeCb.show("Debes completar todos los campos");
+			if (
+				!(
+					nombre &&
+					password &&
+					password2 &&
+					this.raza &&
+					this.genero &&
+					this.clase &&
+					this.cabeza &&
+					mail &&
+					this.ciudad
+				)
+			) {
+				this.showMensajeCb.show('Debes completar todos los campos');
 				return;
 			}
 			if (!this.emailValido(mail)) {
-				this.showMensajeCb.show("Mail invalido");
+				this.showMensajeCb.show('Mail invalido');
 				return;
 			}
 			if (!this.passwordValido(password)) {
-				this.showMensajeCb.show("El password debe contener " + this.LARGO_MINIMO_PASSWORD + " o mas caracteres");
+				this.showMensajeCb.show(
+					'El password debe contener ' + this.LARGO_MINIMO_PASSWORD + ' o mas caracteres'
+				);
 				return;
 			}
 
 			if (password !== password2) {
-				this.showMensajeCb.show("Los passwords ingresados no coinciden");
+				this.showMensajeCb.show('Los passwords ingresados no coinciden');
 				return;
 			}
 
@@ -114,15 +127,14 @@ class CrearPersonaje extends PopUp {
 
 	emailValido(email) {
 		// Regex borrowed from http://stackoverflow.com/a/46181/393005
-		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		var re =
+			/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return re.test(email);
 	}
 
 	passwordValido(pw) {
-		return (pw.length >= this.LARGO_MINIMO_PASSWORD);
+		return pw.length >= this.LARGO_MINIMO_PASSWORD;
 	}
 }
 
 export default CrearPersonaje;
-
-

@@ -3,7 +3,6 @@
  */
 
 define([], function () {
-
 	class PlayerState {
 		constructor() {
 			this.lastAttackedTarget = null; //reveer esto

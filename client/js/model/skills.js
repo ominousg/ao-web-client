@@ -2,8 +2,8 @@
  * Created by horacio on 4/23/16.
  */
 
-import { Enums } from "../enums";
-import { usePlayerStatsStore } from "../stores";
+import { Enums } from '../enums';
+import { usePlayerStatsStore } from '../stores';
 
 class Skills {
 	constructor() {
@@ -22,24 +22,25 @@ class Skills {
 		this.puntosLibres += cant;
 	}
 
-	setSkills(skillsArray) { // llegan cant puntos de skill i, porcentaje de skill i
-    this._skills = [];
-    for (var i = 0; i < skillsArray.length; i += 2) {
-        const skill = {
-            numSkill: (i / 2) + 1,
-            puntos: skillsArray[i],
-            porcentaje: skillsArray[i + 1],
-            nombre: this.getNombreSkill((i / 2) + 1),
-        };
-        this._skills[skill.numSkill] = skill;
-    }
+	setSkills(skillsArray) {
+		// llegan cant puntos de skill i, porcentaje de skill i
+		this._skills = [];
+		for (var i = 0; i < skillsArray.length; i += 2) {
+			const skill = {
+				numSkill: i / 2 + 1,
+				puntos: skillsArray[i],
+				porcentaje: skillsArray[i + 1],
+				nombre: this.getNombreSkill(i / 2 + 1)
+			};
+			this._skills[skill.numSkill] = skill;
+		}
 
-    usePlayerStatsStore.getState().setPlayerSkills(this._skills.filter(skill => skill));
-  }
+		usePlayerStatsStore.getState().setPlayerSkills(this._skills.filter((skill) => skill));
+	}
 
 	asignarSkill(numSkill) {
 		var skill = this._skills[numSkill];
-		if ((this.puntosLibres < 1 ) || (skill.puntos >= this.MAX_PUNTOS_SKILL )) {
+		if (this.puntosLibres < 1 || skill.puntos >= this.MAX_PUNTOS_SKILL) {
 			return false;
 		}
 		this.puntosLibres--;
@@ -60,7 +61,8 @@ class Skills {
 		return this._skills[numSkill].puntos;
 	}
 
-	forEachSkill(callback) { // callback(numSkill,puntos,porcentaje,nombre)
+	forEachSkill(callback) {
+		// callback(numSkill,puntos,porcentaje,nombre)
 		this._skills.forEach(function (skill) {
 			if (skill) {
 				callback(skill.numSkill, skill.puntos, skill.porcentaje, skill.nombre);
@@ -72,31 +74,29 @@ class Skills {
 		return this._nombres[numSkill];
 	}
 
-	_initNombresSkills(nombres) { // TODO: sacar esto de aca
-		nombres[Enums.Skill.magia] = "Magia";
-		nombres[Enums.Skill.robar] = "Robar";
-		nombres[Enums.Skill.tacticas] = "Evasión en combate";
-		nombres[Enums.Skill.armas] = "Combate cuerpo a cuerpo";
-		nombres[Enums.Skill.meditar] = "Meditar";
-		nombres[Enums.Skill.apunalar] = "Apuñalar";
-		nombres[Enums.Skill.ocultarse] = "Ocultarse";
-		nombres[Enums.Skill.supervivencia] = "Supervivencia";
-		nombres[Enums.Skill.talar] = "Talar árboles";
-		nombres[Enums.Skill.comerciar] = "Comercio";
-		nombres[Enums.Skill.defensa] = "Defensa con escudos";
-		nombres[Enums.Skill.pesca] = "Pesca";
-		nombres[Enums.Skill.mineria] = "Minería";
-		nombres[Enums.Skill.carpinteria] = "Carpintería";
-		nombres[Enums.Skill.herreria] = "Herrería";
-		nombres[Enums.Skill.liderazgo] = "Liderazgo";
-		nombres[Enums.Skill.domar] = "Domar animales";
-		nombres[Enums.Skill.proyectiles] = "Combate a distancia";
-		nombres[Enums.Skill.wrestling] = "Combate sin armas";
-		nombres[Enums.Skill.navegacion] = "Navegación";
-		nombres[Enums.Skill.fundirmetal] = "????";
+	_initNombresSkills(nombres) {
+		// TODO: sacar esto de aca
+		nombres[Enums.Skill.magia] = 'Magia';
+		nombres[Enums.Skill.robar] = 'Robar';
+		nombres[Enums.Skill.tacticas] = 'Evasión en combate';
+		nombres[Enums.Skill.armas] = 'Combate cuerpo a cuerpo';
+		nombres[Enums.Skill.meditar] = 'Meditar';
+		nombres[Enums.Skill.apunalar] = 'Apuñalar';
+		nombres[Enums.Skill.ocultarse] = 'Ocultarse';
+		nombres[Enums.Skill.supervivencia] = 'Supervivencia';
+		nombres[Enums.Skill.talar] = 'Talar árboles';
+		nombres[Enums.Skill.comerciar] = 'Comercio';
+		nombres[Enums.Skill.defensa] = 'Defensa con escudos';
+		nombres[Enums.Skill.pesca] = 'Pesca';
+		nombres[Enums.Skill.mineria] = 'Minería';
+		nombres[Enums.Skill.carpinteria] = 'Carpintería';
+		nombres[Enums.Skill.herreria] = 'Herrería';
+		nombres[Enums.Skill.liderazgo] = 'Liderazgo';
+		nombres[Enums.Skill.domar] = 'Domar animales';
+		nombres[Enums.Skill.proyectiles] = 'Combate a distancia';
+		nombres[Enums.Skill.wrestling] = 'Combate sin armas';
+		nombres[Enums.Skill.navegacion] = 'Navegación';
+		nombres[Enums.Skill.fundirmetal] = '????';
 	}
 }
 export default Skills;
-
-
-

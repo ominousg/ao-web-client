@@ -1,15 +1,15 @@
-import { Enums } from "../enums";
-import * as PIXI from "pixi.js-legacy";
-import { Container } from "pixi.js";
-import Camera from "./camera";
-import Consola from "./consola";
-import ContainerOrdenado from "./containerordenado";
-import IndicadorMapa from "./indicadormapa";
-import IndicadorFPS from "./indicadorFPS";
-import EntityRenderer from "./entityrenderer";
-import ClimaRenderer from "./climarenderer";
-import MapaRenderer from "./maparenderer";
-import RendererUtils from "./rendererutils";
+import { Enums } from '../enums';
+import * as PIXI from 'pixi.js-legacy';
+import { Container } from 'pixi.js';
+import Camera from './camera';
+import Consola from './consola';
+import ContainerOrdenado from './containerordenado';
+import IndicadorMapa from './indicadormapa';
+import IndicadorFPS from './indicadorFPS';
+import EntityRenderer from './entityrenderer';
+import ClimaRenderer from './climarenderer';
+import MapaRenderer from './maparenderer';
+import RendererUtils from './rendererutils';
 
 class Renderer {
 	constructor(assetManager, escala) {
@@ -42,10 +42,13 @@ class Renderer {
 		PIXI.settings.MIPMAP_TEXTURES = false;
 		PIXI.settings.GC_MODE = PIXI.GC_MODES.MANUAL;
 
-		this.pixiRenderer = new PIXI.autoDetectRenderer(this.camera.gridW * this.tilesize, this.camera.gridH * this.tilesize);
-		$(this.pixiRenderer.view).css("position", "relative");
-		$(this.pixiRenderer.view).css("display", "block");
-		$("#gamecanvas").append(this.pixiRenderer.view);
+		this.pixiRenderer = new PIXI.autoDetectRenderer(
+			this.camera.gridW * this.tilesize,
+			this.camera.gridH * this.tilesize
+		);
+		$(this.pixiRenderer.view).css('position', 'relative');
+		$(this.pixiRenderer.view).css('display', 'block');
+		$('#gamecanvas').append(this.pixiRenderer.view);
 		this._initStage();
 	}
 
@@ -75,18 +78,37 @@ class Renderer {
 		this.gameStage.addChild(this.layer4);
 		this.gameStage.addChild(this.gameChat);
 
-		this.entityRenderer = new EntityRenderer(this.escala, this.layer3, this.gameNames, this.gameChat, this.camera, this.assetManager, this.gameStage);
-		this.climaRenderer = new ClimaRenderer(this.escala, this.climaContainer, this.assetManager, this.pixiRenderer);
-		this.mapaRenderer = new MapaRenderer(this.camera, this.assetManager, this.layer1, this.layer2, this.layer3, this.layer4);
+		this.entityRenderer = new EntityRenderer(
+			this.escala,
+			this.layer3,
+			this.gameNames,
+			this.gameChat,
+			this.camera,
+			this.assetManager,
+			this.gameStage
+		);
+		this.climaRenderer = new ClimaRenderer(
+			this.escala,
+			this.climaContainer,
+			this.assetManager,
+			this.pixiRenderer
+		);
+		this.mapaRenderer = new MapaRenderer(
+			this.camera,
+			this.assetManager,
+			this.layer1,
+			this.layer2,
+			this.layer3,
+			this.layer4
+		);
 	}
 
-	update(delta){
+	update(delta) {
 		//this.entityRenderer.update(delta);
 		this.climaRenderer.update(delta);
 		//this.mapaRenderer.update(delta);
 		this.consola.update(delta);
 	}
-
 
 	agregarTextoConsola(texto, font) {
 		this.consola.agregarTexto(texto, font);
@@ -137,10 +159,11 @@ class Renderer {
 	}
 
 	entityVisiblePorCamara(entity, extraPositions) {
-		return this.entityRenderer.entityVisiblePorCamara(entity,extraPositions);
+		return this.entityRenderer.entityVisiblePorCamara(entity, extraPositions);
 	}
 
-	entityEnTileVisible(entity) { // puede que no este en un tile visible pero si sea visible la entidad (para eso usar el de arriba)
+	entityEnTileVisible(entity) {
+		// puede que no este en un tile visible pero si sea visible la entidad (para eso usar el de arriba)
 		return this.entityRenderer.entityEnTileVisible(entity);
 	}
 
@@ -151,7 +174,10 @@ class Renderer {
 
 		this.escala = escala;
 
-		this.pixiRenderer.resize(Math.round(this.camera.gridW * this.tilesize * escala), Math.round(this.camera.gridH * this.tilesize * escala));
+		this.pixiRenderer.resize(
+			Math.round(this.camera.gridW * this.tilesize * escala),
+			Math.round(this.camera.gridH * this.tilesize * escala)
+		);
 		this.gameStage.scale.x = escala;
 		this.gameStage.scale.y = escala;
 
@@ -192,7 +218,7 @@ class Renderer {
 	clean(escala) {
 		while (this.stage.children.length > 0) {
 			var child = this.stage.getChildAt(0);
-			RendererUtils.removePixiChild(this.stage,child);
+			RendererUtils.removePixiChild(this.stage, child);
 		}
 
 		this._initStage();
@@ -219,18 +245,17 @@ class Renderer {
 		}, 50);
 	}
 
-	updateBeforeMovementBegins(dir,entities) {
+	updateBeforeMovementBegins(dir, entities) {
 		this.mapaRenderer.updateTilesMov(dir);
-		this.entityRenderer.updateEntitiesMov(dir,entities);
+		this.entityRenderer.updateEntitiesMov(dir, entities);
 	}
-
 
 	cambiarMapa(mapa) {
 		this.mapaRenderer.cambiarMapa(mapa);
 	}
 
 	drawMapaIni(gridX, gridY, entities) {
-		this.resetCameraPosition(gridX, gridY,entities);
+		this.resetCameraPosition(gridX, gridY, entities);
 		this._syncGamePosition();
 		this.mapaRenderer.drawMapaIni(gridX, gridY);
 	}
@@ -275,8 +300,5 @@ class Renderer {
                  testPosEnteras(this.stage);
                  */
 	}
-
-
 }
 export default Renderer;
-

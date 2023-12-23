@@ -1,21 +1,21 @@
-import Mapa from "./mapa";
-import Updater from "../updater";
-import Item from "./item";
-import Character from "./character";
-import Atributos from "./atributos";
-import Inventario from "./inventario";
-import Skills from "./skills";
-import PlayerState from "./playerstate";
-import PlayerMovement from "./playermovement";
-import { Enums } from "../enums";
-import World from "./world";
-import WorldState from "./worldstate";
-import GameText from "./gametext";
-import { Ticker } from "pixi.js";
+import Mapa from './mapa';
+import Updater from '../updater';
+import Item from './item';
+import Character from './character';
+import Atributos from './atributos';
+import Inventario from './inventario';
+import Skills from './skills';
+import PlayerState from './playerstate';
+import PlayerMovement from './playermovement';
+import { Enums } from '../enums';
+import World from './world';
+import WorldState from './worldstate';
+import GameText from './gametext';
+import { Ticker } from 'pixi.js';
 
 class Game {
 	constructor(assetManager) {
-		this.POSICIONES_EXTRA_SONIDO = {norte: 0, sur: 0, este: 3, oeste: 3};
+		this.POSICIONES_EXTRA_SONIDO = { norte: 0, sur: 0, este: 3, oeste: 3 };
 		this.init(assetManager);
 		this._fps = 0;
 		this._fpsCounter = 0;
@@ -23,7 +23,8 @@ class Game {
 		this._lastTick = performance.now();
 	}
 
-	init(assetManager) { // temporal
+	init(assetManager) {
+		// temporal
 		this.playerMovement = new PlayerMovement(this);
 		this.initPlayerMovementCallbacks();
 		this.playerState = new PlayerState();
@@ -47,7 +48,7 @@ class Game {
 		this.skills = new Skills();
 		this.hechizos = [];
 
-		this.mouse = {x: 0, y: 0};
+		this.mouse = { x: 0, y: 0 };
 
 		this.seguroResucitacionActivado = null;
 		this.seguroAtacarActivado = null;
@@ -130,19 +131,16 @@ class Game {
 				return;
 			}
 			this.world.sacarCharacter(entity);
-		}
-		else if (entity instanceof Item) {
+		} else if (entity instanceof Item) {
 			this.world.sacarItem(entity);
-		}
-		else {
-			console.log("Error: Tipo de entity desconocido!");
+		} else {
+			console.log('Error: Tipo de entity desconocido!');
 		}
 	}
 
 	moverCharacter(CharIndex, gridX, gridY) {
-
 		if (CharIndex === this.player.id) {
-			if ((X !== this.player.gridX) || (Y !== this.player.gridY)) {
+			if (X !== this.player.gridX || Y !== this.player.gridY) {
 				this.resetPosCharacter(CharIndex, X, Y);
 			}
 		} else {
@@ -154,7 +152,8 @@ class Game {
 			var dir = c.esPosAdyacente(gridX, gridY);
 			if (dir && this.renderer.entityVisiblePorCamara(c)) {
 				c.mover(dir);
-			} else { // posicion no adyacente o fuera de camara, entonces resetear la posicion directamente (no hacerlo caminar)
+			} else {
+				// posicion no adyacente o fuera de camara, entonces resetear la posicion directamente (no hacerlo caminar)
 				this.resetPosCharacter(CharIndex, gridX, gridY);
 			}
 			if (dir && this.renderer.entityVisiblePorCamara(c, this.POSICIONES_EXTRA_SONIDO)) {
@@ -169,19 +168,17 @@ class Game {
 				let prevY = this.playerMovement.prevGridPosY;
 				this.resetPosCharacter(this.player.id, prevX, prevY);
 			}
-
 		}
-
 	}
 
 	playSonidoPaso(char) {
 		if (char.muerto) {
 			return;
 		}
-		if (this.playerState.navegando) { //todo: que sea dependiendo si el char navega, no el player
+		if (this.playerState.navegando) {
+			//todo: que sea dependiendo si el char navega, no el player
 			this.assetManager.audio.playSound(Enums.SONIDOS.pasoNavegando);
-		}
-		else {
+		} else {
 			char.pasoDerecho = !char.pasoDerecho;
 			if (char.pasoDerecho) {
 				this.assetManager.audio.playSound(Enums.SONIDOS.paso1);
@@ -195,10 +192,10 @@ class Game {
 		var c = this.world.getCharacter(CharIndex);
 
 		if (!c) {
-			console.log("cambiar character inexistente");
+			console.log('cambiar character inexistente');
 			return;
 		}
-		if ((c !== this.player) || (c === this.player && !c.estaMoviendose())) {
+		if (c !== this.player || (c === this.player && !c.estaMoviendose())) {
 			c.heading = Heading;
 		}
 		c.body = Body;
@@ -210,20 +207,34 @@ class Game {
 		c.fxLoops = FXLoops;
 	}
 
-	agregarCharacter(CharIndex, Body, Head, Heading, X, Y, Weapon, Shield, Helmet, FX, FXLoops, Name,
-		NickColor, Privileges) {
-
+	agregarCharacter(
+		CharIndex,
+		Body,
+		Head,
+		Heading,
+		X,
+		Y,
+		Weapon,
+		Shield,
+		Helmet,
+		FX,
+		FXLoops,
+		Name,
+		NickColor,
+		Privileges
+	) {
 		let nombre, clan;
-		if (Name.indexOf("<") > 0) {
-			nombre = Name.slice(Name, Name.indexOf("<") - 1);
-			clan = Name.slice(Name.indexOf("<"), Name.length);
+		if (Name.indexOf('<') > 0) {
+			nombre = Name.slice(Name, Name.indexOf('<') - 1);
+			clan = Name.slice(Name.indexOf('<'), Name.length);
 		} else {
 			nombre = Name;
 			clan = null;
 		}
 
 		if (this.world.getCharacter(CharIndex)) {
-			if (CharIndex === this.player.id) { //"cambio de mapa", TODO: ver bien esto
+			if (CharIndex === this.player.id) {
+				//"cambio de mapa", TODO: ver bien esto
 				// setear cosas que pueden cambiar al cambiar mapa (color nombre, sacar chat,pos)
 				this.player.setName(nombre, clan, NickColor);
 				this.gameText.removeCharacterChat(this.player);
@@ -233,11 +244,27 @@ class Game {
 			return;
 		}
 
-		var c = new Character(CharIndex, X, Y, Heading, nombre, clan, Body, Head, Weapon, Shield, Helmet, FX, FXLoops, NickColor);
+		var c = new Character(
+			CharIndex,
+			X,
+			Y,
+			Heading,
+			nombre,
+			clan,
+			Body,
+			Head,
+			Weapon,
+			Shield,
+			Helmet,
+			FX,
+			FXLoops,
+			NickColor
+		);
 		this.world.addCharacter(c);
 		this.setCharacterFX(CharIndex, FX, FXLoops);
 
-		if ((!this.player) && ( this.username.toUpperCase() === nombre.toUpperCase())) { // mal esto, se deberia hacer comparando el charindex pero no se puede porque el server manda el char index del pj despues de crear los chars
+		if (!this.player && this.username.toUpperCase() === nombre.toUpperCase()) {
+			// mal esto, se deberia hacer comparando el charindex pero no se puede porque el server manda el char index del pj despues de crear los chars
 			this.player = c;
 			this.actualizarIndicadorPosMapa();
 		}
@@ -250,7 +277,6 @@ class Game {
 		}
 		var item = new Item(gridX, gridY);
 		this.world.addItem(item, grhIndex);
-
 	}
 
 	sacarItem(gridX, gridY) {
@@ -265,7 +291,6 @@ class Game {
 			var prevPlayerCharacter = this.player;
 			this.player = this.world.getCharacter(CharIndex);
 			this.sacarEntity(prevPlayerCharacter);
-
 		}
 		this.inicializarPlayerEnMapa();
 	}
@@ -278,24 +303,24 @@ class Game {
 			if (this.playerMovement.estaCaminando()) {
 				var dir;
 				switch (this.playerMovement.getDirMov()) {
-				case Enums.Heading.sur:
-					Y = Y - 1;
-					dir = Enums.Heading.sur;
-					break;
-				case Enums.Heading.norte:
-					Y = Y + 1;
-					dir = Enums.Heading.norte;
-					break;
-				case Enums.Heading.este:
-					X = X - 1;
-					dir = Enums.Heading.este;
-					break;
-				case Enums.Heading.oeste:
-					X = X + 1;
-					dir = Enums.Heading.oeste;
-					break;
-				default:
-					break;
+					case Enums.Heading.sur:
+						Y = Y - 1;
+						dir = Enums.Heading.sur;
+						break;
+					case Enums.Heading.norte:
+						Y = Y + 1;
+						dir = Enums.Heading.norte;
+						break;
+					case Enums.Heading.este:
+						X = X - 1;
+						dir = Enums.Heading.este;
+						break;
+					case Enums.Heading.oeste:
+						X = X + 1;
+						dir = Enums.Heading.oeste;
+						break;
+					default:
+						break;
 				}
 				this.playerMovement.forceCaminar(dir);
 				this.ignorarProximoSonidoPaso = true; // que no haga sonido este paso forzado
@@ -321,13 +346,39 @@ class Game {
 		this.client.sendSafeToggle();
 	}
 
-	cambiarSlotInventario(numSlot, ObjIndex, ObjName, Amount, Equiped, GrhIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef, ObjSalePrice) {
-		this.inventario.cambiarSlot(numSlot, ObjName, Amount, ObjSalePrice, GrhIndex, ObjIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef, Equiped);
+	cambiarSlotInventario(
+		numSlot,
+		ObjIndex,
+		ObjName,
+		Amount,
+		Equiped,
+		GrhIndex,
+		ObjType,
+		MaxHit,
+		MinHit,
+		MaxDef,
+		MinDef,
+		ObjSalePrice
+	) {
+		this.inventario.cambiarSlot(
+			numSlot,
+			ObjName,
+			Amount,
+			ObjSalePrice,
+			GrhIndex,
+			ObjIndex,
+			ObjType,
+			MaxHit,
+			MinHit,
+			MaxDef,
+			MinDef,
+			Equiped
+		);
 		this.gameUI.updateSlotUser(numSlot, this.inventario.getSlot(numSlot));
 	}
 
 	cambiarSlotHechizos(slot, spellID, nombre) {
-		this.hechizos[slot] = {id: spellID, nombre: nombre};
+		this.hechizos[slot] = { id: spellID, nombre: nombre };
 		this.gameUI.interfaz.modificarSlotHechizo(slot, nombre);
 		/*if (this.logeado)
                  this.uiRenderer.modificarSlotHechizos(slot, nombre);*/
@@ -365,13 +416,11 @@ class Game {
 		this.map = new Mapa(numeroMapa);
 		this.renderer.cambiarMapa(this.map);
 
-		this.assetManager.getMapaASync(
-			numeroMapa,
-			(mapData) => {
-				if (this.map.numero === numeroMapa) {
-					this.map.setData(mapData);
-				}
-			});
+		this.assetManager.getMapaASync(numeroMapa, (mapData) => {
+			if (this.map.numero === numeroMapa) {
+				this.map.setData(mapData);
+			}
+		});
 
 		this.playerMovement.disable();
 		this.map.onceLoaded((mapa) => {
@@ -390,7 +439,6 @@ class Game {
 	}
 
 	cambiarArea(gridX, gridY) {
-
 		var MinLimiteX = Math.floor(gridX / 9 - 1) * 9;
 		var MaxLimiteX = MinLimiteX + 26;
 
@@ -398,15 +446,18 @@ class Game {
 		var MaxLimiteY = MinLimiteY + 26;
 
 		var self = this;
-		this.world.forEachEntity(
-			function (entity, index) {
-				if (( (entity.gridY < MinLimiteY) || (entity.gridY > MaxLimiteY) ) || ( (entity.gridX < MinLimiteX) || (entity.gridX > MaxLimiteX) )) {
-					if (entity !== self.player) {
-						self.sacarEntity(entity);
-					}
+		this.world.forEachEntity(function (entity, index) {
+			if (
+				entity.gridY < MinLimiteY ||
+				entity.gridY > MaxLimiteY ||
+				entity.gridX < MinLimiteX ||
+				entity.gridX > MaxLimiteX
+			) {
+				if (entity !== self.player) {
+					self.sacarEntity(entity);
 				}
 			}
-		);
+		});
 	}
 
 	forceCaminar(direccion) {
@@ -414,92 +465,98 @@ class Game {
 	}
 
 	initPlayerMovementCallbacks() {
-		this.playerMovement.setOnCaminar(function (direccion, forced) {
-			if (!forced) {
-				this.client.sendWalk(direccion);
-			}
-			this.actualizarBajoTecho();
-			if (this.ignorarProximoSonidoPaso) {
-				this.ignorarProximoSonidoPaso = false;
-			} else {
-				this.playSonidoPaso(this.player);
-			}
-
-			this.renderer.updateBeforeMovementBegins(direccion, this.world.getEntities());
-		}.bind(this));
-
-		this.playerMovement.setOnCambioHeading(function (direccion) {
-			this.client.sendChangeHeading(direccion);
-		}.bind(this));
-
-		this.playerMovement.setOnPuedeCaminar(function (direccion) {
-
-			if (this.playerState.paralizado) {
-				return false;
-			}
-			if (this.playerState.meditando) {
-				// envia solo 1 vez el mensaje de caminar para que deje de meditar, feo esto
-				if (!this._waltkToCancelMeditarSent) {
+		this.playerMovement.setOnCaminar(
+			function (direccion, forced) {
+				if (!forced) {
 					this.client.sendWalk(direccion);
 				}
-				this._waltkToCancelMeditarSent = true;
-				return false;
-			} else {
-				this._waltkToCancelMeditarSent = false;
-			}
+				this.actualizarBajoTecho();
+				if (this.ignorarProximoSonidoPaso) {
+					this.ignorarProximoSonidoPaso = false;
+				} else {
+					this.playSonidoPaso(this.player);
+				}
 
-			var x = this.player.gridX;
-			var y = this.player.gridY;
-			switch (direccion) {
-			case Enums.Heading.oeste:
-				x--;
-				break;
-			case Enums.Heading.este:
-				x++;
-				break;
-			case Enums.Heading.norte:
-				y--;
-				break;
-			case Enums.Heading.sur:
-				y++;
-				break;
-			default:
-				throw new Error("Direccion invalida!");
-			}
+				this.renderer.updateBeforeMovementBegins(direccion, this.world.getEntities());
+			}.bind(this)
+		);
 
-			if (this.map.isBlocked(x, y)) {
-				return false;
-			}
+		this.playerMovement.setOnCambioHeading(
+			function (direccion) {
+				this.client.sendChangeHeading(direccion);
+			}.bind(this)
+		);
 
-			if (this.map.hayAgua(x, y) !== this.playerState.navegando) {
-				return false;
-			}
-
-			let charInPos = this.world.getCharacterInGridPos(x, y);
-			if (charInPos) {
-				if (!charInPos.muerto) {
+		this.playerMovement.setOnPuedeCaminar(
+			function (direccion) {
+				if (this.playerState.paralizado) {
 					return false;
 				}
-				else {
-					// tienen que estar o ambos en agua o ambos en tierra (player y casper)
-					if (this.map.hayAgua(x, y) !== this.map.hayAgua(this.player.gridX, this.player.gridY)) {
+				if (this.playerState.meditando) {
+					// envia solo 1 vez el mensaje de caminar para que deje de meditar, feo esto
+					if (!this._waltkToCancelMeditarSent) {
+						this.client.sendWalk(direccion);
+					}
+					this._waltkToCancelMeditarSent = true;
+					return false;
+				} else {
+					this._waltkToCancelMeditarSent = false;
+				}
+
+				var x = this.player.gridX;
+				var y = this.player.gridY;
+				switch (direccion) {
+					case Enums.Heading.oeste:
+						x--;
+						break;
+					case Enums.Heading.este:
+						x++;
+						break;
+					case Enums.Heading.norte:
+						y--;
+						break;
+					case Enums.Heading.sur:
+						y++;
+						break;
+					default:
+						throw new Error('Direccion invalida!');
+				}
+
+				if (this.map.isBlocked(x, y)) {
+					return false;
+				}
+
+				if (this.map.hayAgua(x, y) !== this.playerState.navegando) {
+					return false;
+				}
+
+				let charInPos = this.world.getCharacterInGridPos(x, y);
+				if (charInPos) {
+					if (!charInPos.muerto) {
 						return false;
+					} else {
+						// tienen que estar o ambos en agua o ambos en tierra (player y casper)
+						if (this.map.hayAgua(x, y) !== this.map.hayAgua(this.player.gridX, this.player.gridY)) {
+							return false;
+						}
 					}
 				}
-			}
-			return true;
-
-		}.bind(this));
+				return true;
+			}.bind(this)
+		);
 
 		this.playerMovement.setOnMoverseUpdate(
 			function (x, y) {
 				this.renderer.moverPosition(x - this.renderer.camera.centerPosX, y - this.renderer.camera.centerPosY);
-			}.bind(this));
+			}.bind(this)
+		);
 
-		this.playerMovement.setOnFinMovimiento( // se ejecuta una vez que llega a cada tile
+		this.playerMovement.setOnFinMovimiento(
+			// se ejecuta una vez que llega a cada tile
 			function () {
 				this.actualizarIndicadorPosMapa();
-			}.bind(this));
+			}.bind(this)
+		);
 	}
 
 	setTrabajoPendiente(skill) {
@@ -514,19 +571,66 @@ class Game {
 		this.trabajoPendiente = null;
 	}
 
-	cambiarSlotCompra(numSlot, ObjName, Amount, Price, GrhIndex, ObjIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef) {
-		this.inventarioShop.cambiarSlot(numSlot, ObjName, Amount, Price, GrhIndex, ObjIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef);
+	cambiarSlotCompra(
+		numSlot,
+		ObjName,
+		Amount,
+		Price,
+		GrhIndex,
+		ObjIndex,
+		ObjType,
+		MaxHit,
+		MinHit,
+		MaxDef,
+		MinDef
+	) {
+		this.inventarioShop.cambiarSlot(
+			numSlot,
+			ObjName,
+			Amount,
+			Price,
+			GrhIndex,
+			ObjIndex,
+			ObjType,
+			MaxHit,
+			MinHit,
+			MaxDef,
+			MinDef
+		);
 		this.gameUI.updateSlotShop(numSlot, this.inventarioShop.getSlot(numSlot));
-
 	}
 
-	cambiarSlotRetirar(numSlot, ObjIndex, ObjName, Amount, GrhIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef, ObjSalePrice) {
-		this.bankShop.cambiarSlot(numSlot, ObjName, Amount, ObjSalePrice, GrhIndex, ObjIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef);
+	cambiarSlotRetirar(
+		numSlot,
+		ObjIndex,
+		ObjName,
+		Amount,
+		GrhIndex,
+		ObjType,
+		MaxHit,
+		MinHit,
+		MaxDef,
+		MinDef,
+		ObjSalePrice
+	) {
+		this.bankShop.cambiarSlot(
+			numSlot,
+			ObjName,
+			Amount,
+			ObjSalePrice,
+			GrhIndex,
+			ObjIndex,
+			ObjType,
+			MaxHit,
+			MinHit,
+			MaxDef,
+			MinDef
+		);
 		this.gameUI.updateSlotBank(numSlot, this.bankShop.getSlot(numSlot));
 	}
 
 	togglePausa() {
-		this.isPaused = !(this.isPaused);
+		this.isPaused = !this.isPaused;
 	}
 
 	setCharacterFX(CharIndex, FX, FXLoops) {
@@ -562,8 +666,8 @@ class Game {
 			// calculating FPS
 			this._fpsCounter++;
 			const currentTime = performance.now();
-			const deltaMS = (currentTime - this._lastTick);
-			this._fpsTime += (deltaMS / 1000);
+			const deltaMS = currentTime - this._lastTick;
+			this._fpsTime += deltaMS / 1000;
 			this._lastTick = currentTime;
 			if (this._fpsTime >= 3) {
 				this._fps = Math.round(this._fpsCounter / this._fpsTime);
@@ -580,7 +684,6 @@ class Game {
 	}
 
 	start() {
-
 		if (this.started) {
 			return;
 		}
@@ -588,11 +691,11 @@ class Game {
 		this.logeado = true;
 		this.started = true;
 		this.initGameTick();
-		console.log("Game loop started.");
+		console.log('Game loop started.');
 	}
 
 	stop() {
-		console.log("Game stopped.");
+		console.log('Game stopped.');
 		this.isStopped = true;
 	}
 
@@ -604,8 +707,8 @@ class Game {
 			offsetX = mx % ts,
 			offsetY = my % ts;
 
-		var x = ((mx - offsetX) / ts) + c.gridX;
-		var y = ((my - offsetY) / ts) + c.gridY;
+		var x = (mx - offsetX) / ts + c.gridX;
+		var y = (my - offsetY) / ts + c.gridY;
 
 		/*  Medio feo pero me parece que no hay otra, explicacion:
                  Cuando se mueve un pj, ni bien comienza la animacion ya esta en el tile siguiente. El problema con esto es que cuando estas caminando,
@@ -614,10 +717,9 @@ class Game {
                  (en el eje y no hay problema porque acepta 2 posiciones distintas)
                  */
 		if (this.playerMovement.estaCaminando() && offsetX) {
-
 			if (this.player.heading === Enums.Heading.oeste) {
 				x = x + 1; // fix de pos de c.gridX
-				if (x === (this.player.gridX + 1)) {
+				if (x === this.player.gridX + 1) {
 					x--;
 				}
 			}
@@ -627,13 +729,12 @@ class Game {
 				}
 			}
 		}
-		return {x: x, y: y};
+		return { x: x, y: y };
 	}
 
 	resize(escala) {
 		this.renderer.rescale(escala);
 	}
-
 }
 
 export default Game;

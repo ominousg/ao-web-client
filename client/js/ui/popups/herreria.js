@@ -2,7 +2,7 @@
  * Created by horacio on 6/20/16.
  */
 
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -45,9 +45,8 @@ const htmlString = `
 
 class Herreria extends PopUp {
 	constructor(game) {
-
 		var options = {
-			title: "HERRERIA",
+			title: 'HERRERIA',
 			width: 500,
 			height: 500,
 			minWidth: 250,
@@ -59,7 +58,7 @@ class Herreria extends PopUp {
 		this.items = new Set();
 		this.game = game;
 		//this.initCallbacks();
-		this.$itemsContainer = $("#herreriaContenedorItems");
+		this.$itemsContainer = $('#herreriaContenedorItems');
 	}
 
 	/*Item contiene:
@@ -81,31 +80,38 @@ class Herreria extends PopUp {
 
 			if (isItemUnique) continue;
 
-			var $row = $("<tr></tr>");
+			var $row = $('<tr></tr>');
 
 			var numGraf = this.game.assetManager.getNumCssGraficoFromGrh(item.GrhIndex);
-			var url = "url(graficos/css/" + numGraf + ".png)";
+			var url = 'url(graficos/css/' + numGraf + '.png)';
 
-			var $cell = $("<td></td>");
-			var $imagenItem = $("<div class=\"divImagen\" style=\"width: 50px; height:50px;\"></div>");
-			$imagenItem.css("background-image", url);
+			var $cell = $('<td></td>');
+			var $imagenItem = $('<div class="divImagen" style="width: 50px; height:50px;"></div>');
+			$imagenItem.css('background-image', url);
 			$cell.append($imagenItem);
 
 			$row.append($cell);
 
-			var $cellRequerimientos = $("<td></td>");
-			$cellRequerimientos.text("Require lingote hierro: " + item.LingH + " , lingote plata " + item.LingP + " y lingote de oro: " + item.LingO);
+			var $cellRequerimientos = $('<td></td>');
+			$cellRequerimientos.text(
+				'Require lingote hierro: ' +
+					item.LingH +
+					' , lingote plata ' +
+					item.LingP +
+					' y lingote de oro: ' +
+					item.LingO
+			);
 			// TODO: graficos madera y madera elfica
 			$row.append($cellRequerimientos);
 
-			var $cellConstruir = $("<td></td>");
-			var $botonConstruir = $("<button class=\"btn btn-default\" >Construir</button>");
+			var $cellConstruir = $('<td></td>');
+			var $botonConstruir = $('<button class="btn btn-default" >Construir</button>');
 
-			$botonConstruir.data("itemIndex", item.ArmasHerreroIndex);
+			$botonConstruir.data('itemIndex', item.ArmasHerreroIndex);
 			$botonConstruir.click(function () {
-				var cantidadAConstruir = $("#herreriaCantidadAConstruir").val();
-				self.game.client.sendInitCrafting(cantidadAConstruir, cantidadAConstruir);//TODO: horrible esto, que se haga de 1 (cambiar sv)
-				var itemIndex = $(this).data("itemIndex");
+				var cantidadAConstruir = $('#herreriaCantidadAConstruir').val();
+				self.game.client.sendInitCrafting(cantidadAConstruir, cantidadAConstruir); //TODO: horrible esto, que se haga de 1 (cambiar sv)
+				var itemIndex = $(this).data('itemIndex');
 				self.game.client.sendCraftBlacksmith(itemIndex);
 			});
 			$cellConstruir.append($botonConstruir);

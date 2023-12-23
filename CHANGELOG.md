@@ -12,4 +12,4 @@
 - 26/03/2023: Reemplazando Lodash por funciones nativas de JavaScript (500kb menos de bundle). Comparación de performance: [_.each vs forEach](https://measurethat.net/Benchmarks/Show/3470/0/lodash-foreach-vs-native-foreach). Removiendo branding y fondos de Dakara-client. Nuevo flow de intro. [(ff1ed3f)](https://github.com/ominousg/ao-web-client/commit/ff1ed3f6125e56ecdb3d0f78ba844a088021d975)
 - 17/12/2023: Rehaciendo popups con React + Material UI, event emitter, y manejo de estado global con Zustand. Nuevo diseño para el popup de mapas (SVG interactivo). [(65fa49f)](https://github.com/ominousg/ao-web-client/commit/65fa49f41526cac290100ad7f2840417d5b27d05)
 - 23/12/2023: Continuando con la migración de jQuery UI a React + Material UI: conectando el nuevo popup de estadísticas (MUI) con la store de PlayerStats. Preload de mapas: reemplazando ajax por fetch. [(0d9c11b)](https://github.com/ominousg/ao-web-client/commit/0d9c11b63be025c7cf104baa69b91e54e8cffa34)
-test
+- 23/12/2023: Configurando ESLint + Prettier + lint-staged y formateando archivos. [(placeholder)](https://github.com/ominousg/ao-web-client/commit/placeholder)

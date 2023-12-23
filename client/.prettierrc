@@ -1,0 +1,16 @@
+{
+  "semi": true,
+  "trailingComma": "none",
+  "singleQuote": true,
+  "useTabs": true,
+  "endOfLine": "auto",
+  "printWidth": 110,
+  "overrides": [
+    {
+      "files": "js/network/gameclient.js",
+      "options": {
+        "printWidth": 160
+      }
+    }
+  ]
+}

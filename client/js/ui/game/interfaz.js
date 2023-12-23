@@ -1,14 +1,14 @@
 /**
  * Created by horacio on 2/28/16.
  */
-import CharCodeMap from "../../utils/charcodemap";
-import ItemGrid from "./itemgrid";
+import CharCodeMap from '../../utils/charcodemap';
+import ItemGrid from './itemgrid';
 
 class Interfaz {
 	constructor(game, acciones) {
 		this.acciones = acciones;
 		this.game = game;
-		this.inventarioGrid = new ItemGrid("itemsGrid", 20, true);
+		this.inventarioGrid = new ItemGrid('itemsGrid', 20, true);
 		var self = this;
 		this.inventarioGrid.setDobleClickCallback(function (slot) {
 			self.acciones.usarConDobleClick(slot);
@@ -18,51 +18,51 @@ class Interfaz {
 	inicializar() {
 		var self = this;
 
-		$("#botonInventario").click(function () {
-			$("body").addClass("inventarioActivo");
+		$('#botonInventario').click(function () {
+			$('body').addClass('inventarioActivo');
 		});
 
-		$("#botonHechizos").click(function () {
-			$("body").removeClass("inventarioActivo");
+		$('#botonHechizos').click(function () {
+			$('body').removeClass('inventarioActivo');
 		});
 
-		$("#botonLanzar").click(function () {
+		$('#botonLanzar').click(function () {
 			self.acciones.lanzarHechizo();
 		});
 
-		$("#botonInfo").click(function () {
+		$('#botonInfo').click(function () {
 			self.acciones.requestInfoHechizo();
 		});
 
-		$("#botonTirarOro").click(function () {
+		$('#botonTirarOro').click(function () {
 			self.game.gameUI.showTirar(true);
 		});
 
-		$("#botonAsignarSkills").click(function () {
+		$('#botonAsignarSkills').click(function () {
 			self.game.gameUI.showSkills();
 		});
 
-		$("#botonSeguroResucitar").click(function () {
+		$('#botonSeguroResucitar').click(function () {
 			self.game.toggleSeguroResucitar();
 		});
 
-		$("#botonSeguroAtacar").click(function () {
+		$('#botonSeguroAtacar').click(function () {
 			self.game.toggleSeguroAtacar();
 		});
 
-		$("#botonMacroHechizos").click(function () {
+		$('#botonMacroHechizos').click(function () {
 			self.acciones.toggleMacroHechizos();
 		});
 
-		$("#botonMacroTrabajo").click(function () {
+		$('#botonMacroTrabajo').click(function () {
 			self.acciones.toggleMacroTrabajo();
 		});
 
-		$("#menuJuegoBotonMenu").click(function () {
+		$('#menuJuegoBotonMenu').click(function () {
 			self.game.gameUI.showMenu();
 		});
 
-		$("#botonMoverHechizoArriba").click(function () {
+		$('#botonMoverHechizoArriba').click(function () {
 			let slot = self.game.gameUI.interfaz.getSelectedSlotHechizo();
 			if (!slot || slot === 1) {
 				return;
@@ -72,9 +72,10 @@ class Interfaz {
 			self.setSelectedSlotHechizo(slot - 1);
 		});
 
-		$("#botonMoverHechizoAbajo").click(function () {
+		$('#botonMoverHechizoAbajo').click(function () {
 			let slot = self.game.gameUI.interfaz.getSelectedSlotHechizo();
-			if (!slot) { // TODO: checkear que no sea el ultimo!!!
+			if (!slot) {
+				// TODO: checkear que no sea el ultimo!!!
 				return;
 			}
 			self.game.client.sendMoveSpell(false, slot);
@@ -83,7 +84,7 @@ class Interfaz {
 		});
 
 		//FIX bug firefox que no previene movimiento scroll hehcizos
-		if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
+		if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
 			self.setHechizosScrollFirefoxFix(self);
 		}
 	}
@@ -108,40 +109,39 @@ class Interfaz {
 	}
 
 	getSelectedSlotHechizo() {
-		var res = parseInt($("#hechizos").val());
+		var res = parseInt($('#hechizos').val());
 		if (res) {
 			return res;
-		}
-		else {
+		} else {
 			return 0;
 		}
 	}
 
 	setSelectedSlotHechizo(slot) {
-		$("#hechizos").val(parseInt(slot));
+		$('#hechizos').val(parseInt(slot));
 	}
 
 	modificarSlotHechizo(slot, texto) {
-		var elemento = $("#hechizos option[value=" + slot + "]");
-		if (!elemento.length) { // nuevo elemento
-			var $nuevoHechizo = $("<option>").attr("value", slot).text(texto);
-			$("#hechizos").append($nuevoHechizo);
-		}
-		else {
+		var elemento = $('#hechizos option[value=' + slot + ']');
+		if (!elemento.length) {
+			// nuevo elemento
+			var $nuevoHechizo = $('<option>').attr('value', slot).text(texto);
+			$('#hechizos').append($nuevoHechizo);
+		} else {
 			$(elemento).text(texto);
 		}
 	}
 
 	updateAgilidad(agi) {
-		$("#indicadorAgilidad").text("A: " + agi);
+		$('#indicadorAgilidad').text('A: ' + agi);
 	}
 
 	updateFuerza(fuerza) {
-		$("#indicadorFuerza").text("F: " + fuerza);
+		$('#indicadorFuerza').text('F: ' + fuerza);
 	}
 
 	updateOro(oro) {
-		$("#indicadorOro").text(oro);
+		$('#indicadorOro').text(oro);
 	}
 
 	_updateBarra(cant, max, $barra, $label, noInvertida) {
@@ -153,81 +153,80 @@ class Interfaz {
 				porcentaje = 100 - Math.floor((cant / max) * 100);
 			}
 		}
-		$barra.css("width", porcentaje + "%");
-		$label.text(cant + "/" + max);
+		$barra.css('width', porcentaje + '%');
+		$label.text(cant + '/' + max);
 	}
 
 	updateBarraEnergia(cant, max) {
-		this._updateBarra(cant, max, $("#barraEnergiaUsada"), $("#barraEnergiaTexto"));
+		this._updateBarra(cant, max, $('#barraEnergiaUsada'), $('#barraEnergiaTexto'));
 	}
 
 	updateBarraVida(cant, max) {
-		this._updateBarra(cant, max, $("#barraSaludUsada"), $("#barraSaludTexto"));
+		this._updateBarra(cant, max, $('#barraSaludUsada'), $('#barraSaludTexto'));
 	}
 
 	updateBarraMana(cant, max) {
-		this._updateBarra(cant, max, $("#barraManaUsada"), $("#barraManaTexto"));
+		this._updateBarra(cant, max, $('#barraManaUsada'), $('#barraManaTexto'));
 	}
 
 	updateBarraHambre(cant, max) {
-		this._updateBarra(cant, max, $("#barraHambreUsada"), $("#barraHambreTexto"));
+		this._updateBarra(cant, max, $('#barraHambreUsada'), $('#barraHambreTexto'));
 	}
 
 	updateBarraSed(cant, max) {
-		this._updateBarra(cant, max, $("#barraSedUsada"), $("#barraSedTexto"));
+		this._updateBarra(cant, max, $('#barraSedUsada'), $('#barraSedTexto'));
 	}
 
 	updateBarraExp(cant, max) {
-		this._updateBarra(cant, max, $("#barraExpUsada"), $("#barraExpTexto"));
+		this._updateBarra(cant, max, $('#barraExpUsada'), $('#barraExpTexto'));
 	}
 
 	updateNivel(nivel) {
-		$("#indicadorNivel").text("Nivel " + nivel);
+		$('#indicadorNivel').text('Nivel ' + nivel);
 	}
 
 	setMouseCrosshair(visible) {
 		if (visible) {
-			$("#gamecanvas").addClass("crosshair");
-		}
-		else {
-			$("#gamecanvas").removeClass("crosshair");
+			$('#gamecanvas').addClass('crosshair');
+		} else {
+			$('#gamecanvas').removeClass('crosshair');
 		}
 	}
 
 	setSeguroResucitacion(activado) {
 		if (!activado) {
-			$("#botonSeguroResucitar").addClass("seguroOff");
+			$('#botonSeguroResucitar').addClass('seguroOff');
 		} else {
-			$("#botonSeguroResucitar").removeClass("seguroOff");
+			$('#botonSeguroResucitar').removeClass('seguroOff');
 		}
 	}
 
 	setSeguroAtacar(activado) {
 		if (!activado) {
-			$("#botonSeguroAtacar").addClass("seguroOff");
+			$('#botonSeguroAtacar').addClass('seguroOff');
 		} else {
-			$("#botonSeguroAtacar").removeClass("seguroOff");
+			$('#botonSeguroAtacar').removeClass('seguroOff');
 		}
 	}
 
 	setMacroTrabajo(activado) {
 		if (activado) {
-			$("#botonMacroTrabajo").addClass("macroActivado");
+			$('#botonMacroTrabajo').addClass('macroActivado');
 		} else {
-			$("#botonMacroTrabajo").removeClass("macroActivado");
+			$('#botonMacroTrabajo').removeClass('macroActivado');
 		}
 	}
 
 	setMacroHechizos(activado) {
 		if (activado) {
-			$("#botonMacroHechizos").addClass("macroActivado");
+			$('#botonMacroHechizos').addClass('macroActivado');
 		} else {
-			$("#botonMacroHechizos").removeClass("macroActivado");
+			$('#botonMacroHechizos').removeClass('macroActivado');
 		}
 	}
 
 	setHechizosScrollFirefoxFix(self) {
-		var $hechizos = $("#hechizos");
+		var $hechizos = $('#hechizos');
 		self.hechizos_realSelectedSlot = 1;
 
 		$hechizos.click(function () {
@@ -235,10 +234,10 @@ class Interfaz {
 			$hechizos.blur();
 		});
 
-		var up = CharCodeMap.keys.indexOf("UP");
-		var down = CharCodeMap.keys.indexOf("DOWN");
-		var left = CharCodeMap.keys.indexOf("LEFT");
-		var right = CharCodeMap.keys.indexOf("RIGHT");
+		var up = CharCodeMap.keys.indexOf('UP');
+		var down = CharCodeMap.keys.indexOf('DOWN');
+		var left = CharCodeMap.keys.indexOf('LEFT');
+		var right = CharCodeMap.keys.indexOf('RIGHT');
 
 		$hechizos.change(function () {
 			$hechizos.blur();
@@ -260,9 +259,7 @@ class Interfaz {
 		//            break;
 		//    }
 		//});
-
 	}
-
 }
 
 export default Interfaz;

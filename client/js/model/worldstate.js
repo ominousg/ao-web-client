@@ -2,7 +2,7 @@
  * Created by horacio on 9/1/16.
  */
 
-import { Enums } from "../enums";
+import { Enums } from '../enums';
 
 class WorldState {
 	constructor(renderer, audio) {

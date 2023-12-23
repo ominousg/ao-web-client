@@ -2,39 +2,40 @@
  * Created by horacio on 8/22/16.
  * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
-import { Enums } from "../enums";
-import Transition from "../transition";
-import PIXI from "pixi.js";
+import { Enums } from '../enums';
+import Transition from '../transition';
+import PIXI from 'pixi.js';
 
 class CharacterMovement {
-
 	constructor(character) {
 		this.movementTransition = new Transition();
 		this.character = character;
 	}
 
-	update(delta){
+	update(delta) {
 		if (this.estaMoviendose()) {
 			this.movementTransition.step(delta);
 		}
 	}
 
 	mover(dir, movimientoCallback, finMovimientoCallback) {
-		switch (dir) {  // Se setea la pos del grid nomas porque la (x,y) la usa para la animacion el character ( y la va actualizando)
-		case  Enums.Heading.oeste:
-			this.character.setGridPositionOnly(this.character.gridX - 1, this.character.gridY);
-			break;
-		case  Enums.Heading.este:
-			this.character.setGridPositionOnly(this.character.gridX + 1, this.character.gridY);
-			break;
-		case  Enums.Heading.norte:
-			this.character.setGridPositionOnly(this.character.gridX, this.character.gridY - 1);
-			break;
-		case  Enums.Heading.sur:
-			this.character.setGridPositionOnly(this.character.gridX, this.character.gridY + 1);
-			break;
-		default:
-			throw new Error(" Direccion de movimiento invalida!");
+		switch (
+			dir // Se setea la pos del grid nomas porque la (x,y) la usa para la animacion el character ( y la va actualizando)
+		) {
+			case Enums.Heading.oeste:
+				this.character.setGridPositionOnly(this.character.gridX - 1, this.character.gridY);
+				break;
+			case Enums.Heading.este:
+				this.character.setGridPositionOnly(this.character.gridX + 1, this.character.gridY);
+				break;
+			case Enums.Heading.norte:
+				this.character.setGridPositionOnly(this.character.gridX, this.character.gridY - 1);
+				break;
+			case Enums.Heading.sur:
+				this.character.setGridPositionOnly(this.character.gridX, this.character.gridY + 1);
+				break;
+			default:
+				throw new Error(' Direccion de movimiento invalida!');
 		}
 
 		this.resetMovement();
@@ -65,9 +66,9 @@ class CharacterMovement {
 				},
 				self.character.x - distPrimerFrame,
 				self.character.x - 32,
-				self.character.moveSpeed);
-		}
-		else if (self.character.heading === Enums.Heading.este) {
+				self.character.moveSpeed
+			);
+		} else if (self.character.heading === Enums.Heading.este) {
 			self.movementTransition.start(
 				function (x) {
 					self.character.setPosition(x, self.character.y);
@@ -86,9 +87,9 @@ class CharacterMovement {
 				},
 				self.character.x + distPrimerFrame,
 				self.character.x + 32,
-				self.character.moveSpeed);
-		}
-		else if (self.character.heading === Enums.Heading.norte) {
+				self.character.moveSpeed
+			);
+		} else if (self.character.heading === Enums.Heading.norte) {
 			self.movementTransition.start(
 				function (y) {
 					self.character.setPosition(self.character.x, y);
@@ -107,9 +108,9 @@ class CharacterMovement {
 				},
 				self.character.y - distPrimerFrame,
 				self.character.y - 32,
-				self.character.moveSpeed);
-		}
-		else if (self.character.heading === Enums.Heading.sur) {
+				self.character.moveSpeed
+			);
+		} else if (self.character.heading === Enums.Heading.sur) {
 			self.movementTransition.start(
 				function (y) {
 					self.character.setPosition(self.character.x, y);
@@ -128,15 +129,14 @@ class CharacterMovement {
 				},
 				self.character.y + distPrimerFrame,
 				self.character.y + 32,
-				self.character.moveSpeed);
+				self.character.moveSpeed
+			);
 		}
 	}
 
-
-	estaMoviendose(){
+	estaMoviendose() {
 		return this.movementTransition.inProgress;
 	}
-
 
 	resetMovement() {
 		if (this.estaMoviendose()) {
@@ -146,7 +146,6 @@ class CharacterMovement {
 			}
 		}
 	}
-
 }
 
 export default CharacterMovement;

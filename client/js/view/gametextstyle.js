@@ -3,12 +3,12 @@
  * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
 
-import { TextStyle } from "pixi.js";
+import { TextStyle } from 'pixi.js';
 
 class GameTextStyle extends TextStyle {
 	constructor(baseFont, escala, font) {
-		if (font){
-			$.extend(baseFont,baseFont,font);
+		if (font) {
+			$.extend(baseFont, baseFont, font);
 		}
 		super(baseFont);
 		this._font = baseFont;
@@ -19,7 +19,8 @@ class GameTextStyle extends TextStyle {
 		this._escala = escala;
 	}
 
-	setEscala(scale) { //escala con respecto a base_font
+	setEscala(scale) {
+		//escala con respecto a base_font
 		this._escala = scale;
 
 		let resizeFunc = function (target) {

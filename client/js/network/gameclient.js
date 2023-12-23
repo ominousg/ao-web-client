@@ -1,17 +1,17 @@
-import config from "../../config.json";
-import Utils from "../utils/util";
-import { Enums } from "../enums";
-import Font from "../font";
-import Protocolo from "./protocol";
-import ByteQueue from "./bytequeue";
-import Websock from "../lib/websock";
-import { usePlayerStatsStore } from "../stores";
+import config from '../../config.json';
+import Utils from '../utils/util';
+import { Enums } from '../enums';
+import Font from '../font';
+import Protocolo from './protocol';
+import ByteQueue from './bytequeue';
+import Websock from '../lib/websock';
+import { usePlayerStatsStore } from '../stores';
 
 class GameClient {
 	constructor(game, uiManager, gameUI) {
-		this.VER_A = config.version.split(".")[0];
-		this.VER_B = config.version.split(".")[1];
-		this.VER_C = config.version.split(".")[2];
+		this.VER_A = config.version.split('.')[0];
+		this.VER_B = config.version.split('.')[1];
+		this.VER_C = config.version.split('.')[2];
 
 		this.game = game;
 
@@ -25,30 +25,29 @@ class GameClient {
 	}
 
 	_connect(conectarse_callback) {
-		this.ws.open("ws://" + config.ip + ":" + config.port);
+		this.ws.open('ws://' + config.ip + ':' + config.port);
 		//this.ws.open("wss://dakaraonline.tk:443");
 		//this.ws.open("ws://localhost:8666");
 		var self = this;
-		this.ws.on("open", function () {
+		this.ws.on('open', function () {
 			self.conectado = true;
 			conectarse_callback();
 		});
 
-		this.ws.on("message", function () {
+		this.ws.on('message', function () {
 			try {
 				while (self.byteQueue.length() > 0) {
 					self.protocolo.ServerPacketDecodeAndDispatch(self.byteQueue, self);
 				}
 			} catch (e) {
-				alert(" Reporte de error - " + e.name + ": " + e.message + " - " + e.stack); // TODO: DESCOMENTAR
-				console.log(" Reporte de error - " + e.name + ": " + e.message + " - " + e.stack);
+				alert(' Reporte de error - ' + e.name + ': ' + e.message + ' - ' + e.stack); // TODO: DESCOMENTAR
+				console.log(' Reporte de error - ' + e.name + ': ' + e.message + ' - ' + e.stack);
 			}
 		});
-		this.ws.on("close", function () {
+		this.ws.on('close', function () {
 			self.conectado = false;
 			self.disconnect_callback();
 		});
-
 	}
 
 	_desconectar() {
@@ -61,8 +60,7 @@ class GameClient {
 			this._connect(function () {
 				self.sendLoginExistingChar(nombre, pw);
 			});
-		}
-		else {
+		} else {
 			this.sendLoginExistingChar(nombre, pw);
 		}
 	}
@@ -74,8 +72,7 @@ class GameClient {
 				callback();
 				self.sendThrowDices();
 			});
-		}
-		else {
+		} else {
 			callback();
 			this.sendThrowDices();
 		}
@@ -135,27 +132,27 @@ class GameClient {
 	}
 
 	handleUserCommerceInit(DestUserName) {
-		console.log("TODO: handleUserCommerceInit ");
+		console.log('TODO: handleUserCommerceInit ');
 	}
 
 	handleUserCommerceEnd() {
-		console.log("TODO: handleUserCommerceEnd ");
+		console.log('TODO: handleUserCommerceEnd ');
 	}
 
 	handleUserOfferConfirm() {
-		console.log("TODO: handleUserOfferConfirm ");
+		console.log('TODO: handleUserOfferConfirm ');
 	}
 
 	handleCommerceChat(Chat, FontIndex) {
-		console.log("TODO: handleCommerceChat ");
+		console.log('TODO: handleCommerceChat ');
 	}
 
 	handleShowBlacksmithForm() {
-		console.log("TODO: handleShowBlacksmithForm ");
+		console.log('TODO: handleShowBlacksmithForm ');
 	}
 
 	handleShowCarpenterForm() {
-		console.log("TODO: handleShowCarpenterForm ");
+		console.log('TODO: handleShowCarpenterForm ');
 	}
 
 	handleUpdateSta(Value) {
@@ -221,14 +218,14 @@ class GameClient {
 	handleCharacterRemove(CharIndex) {
 		let c = this.game.world.getCharacter(CharIndex);
 		if (!c) {
-			console.log("trato de sacar character inexistente");
+			console.log('trato de sacar character inexistente');
 		} else {
 			this.game.sacarEntity(c);
 		}
 	}
 
 	handleCharacterChangeNick(CharIndex, NewName) {
-		console.log("TODO: handleCharacterChangeNick ");
+		console.log('TODO: handleCharacterChangeNick ');
 	}
 
 	handleCharacterMove(CharIndex, X, Y) {
@@ -260,7 +257,7 @@ class GameClient {
 	}
 
 	handlePlayWave(WaveID, X, Y) {
-		if (( X < 0 ) || (Y < 0) || this.game.renderer.camera.isVisiblePosition(X, Y, this.game.POSICIONES_EXTRA_SONIDO)) {
+		if (X < 0 || Y < 0 || this.game.renderer.camera.isVisiblePosition(X, Y, this.game.POSICIONES_EXTRA_SONIDO)) {
 			this.game.assetManager.audio.playSound(WaveID);
 		}
 	}
@@ -308,13 +305,13 @@ class GameClient {
 	}
 
 	handleAtributes(Fuerza, Agilidad, Inteligencia, Carisma, Constitucion) {
-    usePlayerStatsStore.getState().setPlayerAttributes({
-      fuerza: Fuerza,
-      agilidad: Agilidad,
-      inteligencia: Inteligencia,
-      carisma: Carisma,
-      constitucion: Constitucion,
-    });
+		usePlayerStatsStore.getState().setPlayerAttributes({
+			fuerza: Fuerza,
+			agilidad: Agilidad,
+			inteligencia: Inteligencia,
+			carisma: Carisma,
+			constitucion: Constitucion
+		});
 	}
 
 	handleBlacksmithWeapons(Items) {
@@ -358,7 +355,7 @@ class GameClient {
 	}
 
 	handleRestOK() {
-		console.log("TODO: handleRestOK ");
+		console.log('TODO: handleRestOK ');
 	}
 
 	handleErrorMsg(Message) {
@@ -367,15 +364,15 @@ class GameClient {
 	}
 
 	handleBlind() {
-		console.log("TODO: handleBlind ");
+		console.log('TODO: handleBlind ');
 	}
 
 	handleDumb() {
-		console.log("TODO: handleDumb ");
+		console.log('TODO: handleDumb ');
 	}
 
 	handleShowSignal(Texto, Grh) {
-		console.log("TODO: handleShowSignal ");
+		console.log('TODO: handleShowSignal ');
 	}
 
 	handleChangeNPCInventorySlot(Slot, ObjName, Amount, Price, GrhIndex, ObjIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef) {
@@ -388,26 +385,26 @@ class GameClient {
 	}
 
 	handleFame(Asesino, Bandido, Burgues, Ladron, Noble, Plebe, Promedio) {
-    usePlayerStatsStore.getState().setFameInfo({
-      asesino: Asesino,
-      bandido: Bandido,
-      burgues: Burgues,
-      ladron: Ladron,
-      noble: Noble,
-      plebe: Plebe,
-      promedio: Promedio,
-    });
+		usePlayerStatsStore.getState().setFameInfo({
+			asesino: Asesino,
+			bandido: Bandido,
+			burgues: Burgues,
+			ladron: Ladron,
+			noble: Noble,
+			plebe: Plebe,
+			promedio: Promedio
+		});
 	}
 
 	handleMiniStats(CiudadanosMatados, CriminalesMatados, UsuariosMatados, NpcsMuertos, Clase, Pena) {
-    usePlayerStatsStore.getState().setMiniStats({
-      ciudadanosMatados: CiudadanosMatados,
-      criminalesMatados: CriminalesMatados,
-      usuariosMatados: UsuariosMatados,
-      npcsMuertos: NpcsMuertos,
-      clase: Clase,
-      pena: Pena,
-    });
+		usePlayerStatsStore.getState().setMiniStats({
+			ciudadanosMatados: CiudadanosMatados,
+			criminalesMatados: CriminalesMatados,
+			usuariosMatados: UsuariosMatados,
+			npcsMuertos: NpcsMuertos,
+			clase: Clase,
+			pena: Pena
+		});
 	}
 
 	handleLevelUp(SkillPoints) {
@@ -415,11 +412,11 @@ class GameClient {
 	}
 
 	handleAddForumMsg(ForumType, Title, Author, Message) {
-		console.log("TODO: handleAddForumMsg ");
+		console.log('TODO: handleAddForumMsg ');
 	}
 
 	handleShowForumForm(Visibilidad, CanMakeSticky) {
-		console.log("TODO: handleShowForumForm ");
+		console.log('TODO: handleShowForumForm ');
 	}
 
 	handleSetInvisible(charIndex, invisible) {
@@ -438,11 +435,11 @@ class GameClient {
 	}
 
 	handleBlindNoMore() {
-		console.log("TODO: handleBlindNoMore ");
+		console.log('TODO: handleBlindNoMore ');
 	}
 
 	handleDumbNoMore() {
-		console.log("TODO: handleDumbNoMore ");
+		console.log('TODO: handleDumbNoMore ');
 	}
 
 	handleSendSkills(Skills) {
@@ -451,7 +448,7 @@ class GameClient {
 	}
 
 	handleTrainerCreatureList(Data) {
-		console.log("TODO: handleTrainerCreatureList ");
+		console.log('TODO: handleTrainerCreatureList ');
 	}
 
 	handleGuildNews(News, EnemiesList, AlliesList) {
@@ -461,21 +458,53 @@ class GameClient {
 	}
 
 	handleOfferDetails(Details) {
-		console.log("TODO: handleOfferDetails ");
+		console.log('TODO: handleOfferDetails ');
 	}
 
 	handleAlianceProposalsList(Data) {
-		console.log("TODO: handleAlianceProposalsList ");
+		console.log('TODO: handleAlianceProposalsList ');
 	}
 
 	handlePeaceProposalsList(Data) {
-		console.log("TODO: handlePeaceProposalsList ");
+		console.log('TODO: handlePeaceProposalsList ');
 	}
 
-	handleCharacterInfo(CharName, Race, Class, Gender, Level, Gold, Bank, Reputation, PreviousPetitions, CurrentGuild, PreviousGuilds, RoyalArmy, ChaosLegion, CiudadanosMatados, CriminalesMatados) {
-		let previousGuilds = /*Utils.joinNullArray*/(PreviousGuilds);
-		let previousPetitions = /*Utils.joinNullArray*/(PreviousPetitions);
-		this.game.gameUI.showDetallesPersonaje(CharName, Race, Class, Gender, Level, Gold, Bank, Reputation, previousPetitions, CurrentGuild, previousGuilds, RoyalArmy, ChaosLegion, CiudadanosMatados, CriminalesMatados);
+	handleCharacterInfo(
+		CharName,
+		Race,
+		Class,
+		Gender,
+		Level,
+		Gold,
+		Bank,
+		Reputation,
+		PreviousPetitions,
+		CurrentGuild,
+		PreviousGuilds,
+		RoyalArmy,
+		ChaosLegion,
+		CiudadanosMatados,
+		CriminalesMatados
+	) {
+		let previousGuilds = /*Utils.joinNullArray*/ PreviousGuilds;
+		let previousPetitions = /*Utils.joinNullArray*/ PreviousPetitions;
+		this.game.gameUI.showDetallesPersonaje(
+			CharName,
+			Race,
+			Class,
+			Gender,
+			Level,
+			Gold,
+			Bank,
+			Reputation,
+			previousPetitions,
+			CurrentGuild,
+			previousGuilds,
+			RoyalArmy,
+			ChaosLegion,
+			CiudadanosMatados,
+			CriminalesMatados
+		);
 	}
 
 	handleGuildLeaderInfo(GuildList, MemberList, GuildNews, JoinRequests) {
@@ -485,7 +514,7 @@ class GameClient {
 		var aspirantes = Utils.splitNullArray(JoinRequests);
 		if (aspirantes[0]) {
 			this.game.gameUI.clanes.setNombresSolicitantes(aspirantes);
-		} else{
+		} else {
 			this.game.gameUI.clanes.setNombresSolicitantes([]);
 		}
 	}
@@ -496,8 +525,36 @@ class GameClient {
 		this.game.gameUI.clanes.setNombresMiembros(nombresMiembros);
 	}
 
-	handleGuildDetails(GuildName, Founder, FoundationDate, Leader, URL, MemberCount, ElectionsOpen, Aligment, EnemiesCount, AlliesCount, AntifactionPoints, Codex, GuildDesc) {
-		this.game.gameUI.detallesClan.setClanInfo(GuildName, Founder, FoundationDate, Leader, URL, MemberCount, ElectionsOpen, Aligment, EnemiesCount, AlliesCount, AntifactionPoints, Codex, GuildDesc);
+	handleGuildDetails(
+		GuildName,
+		Founder,
+		FoundationDate,
+		Leader,
+		URL,
+		MemberCount,
+		ElectionsOpen,
+		Aligment,
+		EnemiesCount,
+		AlliesCount,
+		AntifactionPoints,
+		Codex,
+		GuildDesc
+	) {
+		this.game.gameUI.detallesClan.setClanInfo(
+			GuildName,
+			Founder,
+			FoundationDate,
+			Leader,
+			URL,
+			MemberCount,
+			ElectionsOpen,
+			Aligment,
+			EnemiesCount,
+			AlliesCount,
+			AntifactionPoints,
+			Codex,
+			GuildDesc
+		);
 	}
 
 	handleShowGuildFundationForm() {
@@ -509,12 +566,12 @@ class GameClient {
 	}
 
 	handleShowUserRequest(Details) {
-		console.log("TODO: handleShowUserRequest ");
+		console.log('TODO: handleShowUserRequest ');
 	}
 
 	handleTradeOK() {
 		//this.game.assetManager.audio.playSound(Enums.SONIDOS.comprar_vender);
-		console.log("TODO: handleTradeOK ");
+		console.log('TODO: handleTradeOK ');
 	}
 
 	handleBankOK() {
@@ -522,15 +579,15 @@ class GameClient {
 	}
 
 	handleChangeUserTradeSlot(OfferSlot, ObjIndex, Amount, GrhIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef, Price, ObjName) {
-		console.log("TODO: handleChangeUserTradeSlot ");
+		console.log('TODO: handleChangeUserTradeSlot ');
 	}
 
 	handleSendNight(Night) {
-		console.log("TODO: handleSendNight ");
+		console.log('TODO: handleSendNight ');
 	}
 
 	handlePong() {
-		console.log("TODO: handlePong ");
+		console.log('TODO: handlePong ');
 	}
 
 	handleUpdateTagAndStatus(CharIndex, NickColor, Tag) {
@@ -541,48 +598,46 @@ class GameClient {
 		}
 
 		var nombre, clan;
-		if (Tag.indexOf("<") > 0) {
-			nombre = Tag.slice(Tag, Tag.indexOf("<") - 1);
-			clan = Tag.slice(Tag.indexOf("<"), Tag.length);
-		}
-		else {
+		if (Tag.indexOf('<') > 0) {
+			nombre = Tag.slice(Tag, Tag.indexOf('<') - 1);
+			clan = Tag.slice(Tag.indexOf('<'), Tag.length);
+		} else {
 			nombre = Tag;
 			clan = null;
 		}
 		char.setName(nombre, clan, NickColor);
-
 	}
 
 	handleSpawnList(Data) {
-		console.log("TODO: handleSpawnList ");
+		console.log('TODO: handleSpawnList ');
 	}
 
 	handleShowSOSForm(Data) {
-		console.log("TODO: handleShowSOSForm ");
+		console.log('TODO: handleShowSOSForm ');
 	}
 
 	handleShowMOTDEditionForm(Data) {
-		console.log("TODO: handleShowMOTDEditionForm ");
+		console.log('TODO: handleShowMOTDEditionForm ');
 	}
 
 	handleShowGMPanelForm() {
-		console.log("TODO: handleShowGMPanelForm ");
+		console.log('TODO: handleShowGMPanelForm ');
 	}
 
 	handleUserNameList(Data) {
-		console.log("TODO: handleUserNameList ");
+		console.log('TODO: handleUserNameList ');
 	}
 
 	handleShowDenounces(Data) {
-		console.log("TODO: handleShowDenounces ");
+		console.log('TODO: handleShowDenounces ');
 	}
 
 	handleRecordList(Items) {
-		console.log("TODO: handleRecordList ");
+		console.log('TODO: handleRecordList ');
 	}
 
 	handleRecordDetails(Creador, Motivo, Online, IP, OnlineTime, Obs) {
-		console.log("TODO: handleRecordDetails ");
+		console.log('TODO: handleRecordDetails ');
 	}
 
 	handleShowGuildAlign() {
@@ -608,7 +663,7 @@ class GameClient {
 	}
 
 	handleAddSlots(Mochila) {
-		console.log("TODO: handleAddSlots ");
+		console.log('TODO: handleAddSlots ');
 	}
 
 	handleNPCHitUser(parteCuerpo, danio) {
@@ -635,32 +690,32 @@ class GameClient {
 
 	handleWorkRequestTarget(skill) {
 		switch (skill) {
-		case Enums.Skill.magia:
-			this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_MAGIA, Font.SKILLINFO);
-			break;
-		case Enums.Skill.pesca:
-			this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_PESCA, Font.SKILLINFO);
-			break;
-		case Enums.Skill.talar:
-			this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_TALAR, Font.SKILLINFO);
-			break;
-		case Enums.Skill.mineria:
-			this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_MINERIA, Font.SKILLINFO);
-			break;
-		case Enums.Skill.fundirmetal:
-			this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_FUNDIRMETAL, Font.SKILLINFO);
-			break;
-		case Enums.Skill.proyectiles:
-			this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_PROYECTILES, Font.SKILLINFO);
-			break;
-		case Enums.Skill.robar:
-			this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_ROBAR, Font.SKILLINFO);
-			break;
-		case Enums.Skill.domar:
-			this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_DOMAR, Font.SKILLINFO);
-			break;
-		default:
-			console.log("Numero de skill invalido: " + skill);
+			case Enums.Skill.magia:
+				this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_MAGIA, Font.SKILLINFO);
+				break;
+			case Enums.Skill.pesca:
+				this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_PESCA, Font.SKILLINFO);
+				break;
+			case Enums.Skill.talar:
+				this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_TALAR, Font.SKILLINFO);
+				break;
+			case Enums.Skill.mineria:
+				this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_MINERIA, Font.SKILLINFO);
+				break;
+			case Enums.Skill.fundirmetal:
+				this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_FUNDIRMETAL, Font.SKILLINFO);
+				break;
+			case Enums.Skill.proyectiles:
+				this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_PROYECTILES, Font.SKILLINFO);
+				break;
+			case Enums.Skill.robar:
+				this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_ROBAR, Font.SKILLINFO);
+				break;
+			case Enums.Skill.domar:
+				this.game.escribirMsgConsola(Enums.MensajeConsola.TRABAJO_DOMAR, Font.SKILLINFO);
+				break;
+			default:
+				console.log('Numero de skill invalido: ' + skill);
 		}
 		this.game.setTrabajoPendiente(skill);
 	}
@@ -669,7 +724,6 @@ class GameClient {
 		let victimName = this.game.world.getCharacter(victimIndex).nombre;
 		this.game.escribirMsgConsola(Enums.MensajeConsola.HAS_MATADO_A + victimName + Enums.MensajeConsola.MENSAJE_22, Font.FIGHT);
 		this.game.escribirMsgConsola(Enums.MensajeConsola.HAS_GANADO_EXPE_1 + exp + Enums.MensajeConsola.HAS_GANADO_EXPE_2, Font.FIGHT);
-
 	}
 
 	handleHome(distancia, tiempoEnSegundos, hogar) {
@@ -677,12 +731,12 @@ class GameClient {
 		let seconds = tiempoEnSegundos - minutes * 60;
 		let msg;
 		if (minutes) {
-			msg = minutes + " minutos y " + seconds + " segundos.";
+			msg = minutes + ' minutos y ' + seconds + ' segundos.';
 		} else {
-			msg = seconds + " segundos.";
+			msg = seconds + ' segundos.';
 		}
 
-		this.game.escribirMsgConsola("Te encuentras a " + distancia + " mapas de la " + hogar + ", este viaje durará " + msg, Font.INFO);
+		this.game.escribirMsgConsola('Te encuentras a ' + distancia + ' mapas de la ' + hogar + ', este viaje durará ' + msg, Font.INFO);
 		this.game.playerMovement.disable();
 	}
 
@@ -748,7 +802,7 @@ class GameClient {
 	}
 
 	handleEarnExp() {
-		console.log("TODO: handleEarnExp");
+		console.log('TODO: handleEarnExp');
 	}
 
 	handleFinishHome() {
@@ -762,11 +816,11 @@ class GameClient {
 	}
 
 	handleStopWorking() {
-		console.log("TODO: handleStopWorking ");
+		console.log('TODO: handleStopWorking ');
 	}
 
 	handleCancelOfferItem(Slot) {
-		console.log("TODO: handleCancelOfferItem ");
+		console.log('TODO: handleCancelOfferItem ');
 	}
 
 	sendLoginExistingChar(UserName, Password) {
@@ -959,7 +1013,8 @@ class GameClient {
 		p.serialize(this.byteQueue);
 	}
 
-	sendModifySkills(Skills) { // Skills : vector de 20 pos conteniendo los puntos a adicionar a cada skill
+	sendModifySkills(Skills) {
+		// Skills : vector de 20 pos conteniendo los puntos a adicionar a cada skill
 		var p = this.protocolo.BuildModifySkills(Skills);
 		p.serialize(this.byteQueue);
 	}

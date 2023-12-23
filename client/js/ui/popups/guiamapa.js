@@ -2,7 +2,7 @@
  * Created by horacio on 4/12/16.
  */
 
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -43,9 +43,9 @@ const htmlString = `
 class GuiaMapa extends PopUp {
 	constructor(game, acciones) {
 		var options = {
-			title: "MAPA",
+			title: 'MAPA',
 			width: 710,
-			height: 650,
+			height: 650
 		};
 		var $element = $(`<div>${htmlString}</div>`);
 		super($element, options);
@@ -54,13 +54,12 @@ class GuiaMapa extends PopUp {
 
 	initCallbacks() {
 		var self = this;
-		$("#mapaBotonCerrar").click(function () {
+		$('#mapaBotonCerrar').click(function () {
 			self.hide();
 		});
 		// $("#mapaBotonToggle").click(function () {
 		//     $("#popUpMapa").toggleClass("mapaSeccionB");
 		// });
-
 	}
 }
 

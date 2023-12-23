@@ -1,9 +1,9 @@
-const $ = require("jquery");
-const jQuery = require("jquery");
-const jQueryUI = require("jquery-ui");
-import GameManager from "./model/gamemanager";
-import Renderer from "./view/renderer";
-import GameClient from "./network/gameclient";
+const $ = require('jquery');
+const jQuery = require('jquery');
+const jQueryUI = require('jquery-ui');
+import GameManager from './model/gamemanager';
+import Renderer from './view/renderer';
+import GameClient from './network/gameclient';
 
 class App {
 	constructor(assetManager, uiManager, settings) {
@@ -32,9 +32,11 @@ class App {
 		this.uiManager.crearPjUI.setBotonVolverCallback(function () {
 			self.uiManager.setLoginScreen();
 		});
-		this.uiManager.crearPjUI.setBotonCrearCallback(function (nombre, password, raza, genero, clase, cabeza, mail, ciudad) {
-			self.startGame(true, nombre, password, raza, genero, clase, cabeza, mail, ciudad);
-		});
+		this.uiManager.crearPjUI.setBotonCrearCallback(
+			function (nombre, password, raza, genero, clase, cabeza, mail, ciudad) {
+				self.startGame(true, nombre, password, raza, genero, clase, cabeza, mail, ciudad);
+			}
+		);
 	}
 
 	_initClientCallbacks(client) {
@@ -56,7 +58,6 @@ class App {
 		client.setDadosCallback(function (Fuerza, Agilidad, Inteligencia, Carisma, Constitucion) {
 			self.uiManager.crearPjUI.updateDados(Fuerza, Agilidad, Inteligencia, Carisma, Constitucion);
 		});
-
 	}
 
 	inicializarGame() {
@@ -86,7 +87,7 @@ class App {
 			return;
 		}
 
-		console.log(" Trying to start game...");
+		console.log(' Trying to start game...');
 
 		var username = this.uiManager.loginUI.getUsername();
 		var userpw = this.uiManager.loginUI.getPassword();
@@ -106,8 +107,7 @@ class App {
 		this.gameManager.game.inicializar(username);
 		if (!newChar) {
 			this.client.intentarLogear(username, userpw);
-		}
-		else {
+		} else {
 			this.client.sendLoginNewChar(username, userpw, raza, genero, clase, cabeza, mail, ciudad);
 		}
 	}
@@ -118,22 +118,21 @@ class App {
 		this.uiManager.hideIntro();
 		this.inicializarGame();
 
-		console.log("App initialized.");
+		console.log('App initialized.');
 	}
 
 	validarLogin(username, userpw) {
 		if (!username) {
-			this.uiManager.showMensaje("Debes ingresar un usuario");
+			this.uiManager.showMensaje('Debes ingresar un usuario');
 			return false;
 		}
 
 		if (!userpw) {
-			this.uiManager.showMensaje("Debes ingresar un password");
+			this.uiManager.showMensaje('Debes ingresar una contraseña');
 			return false;
 		}
 
 		return true;
 	}
-
 }
 export default App;

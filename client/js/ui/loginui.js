@@ -1,7 +1,7 @@
 /**
  * Created by horacio on 4/6/16.
  */
-import CharcodeMap from "../utils/charcodemap";
+import CharcodeMap from '../utils/charcodemap';
 
 class LoginUI {
 	constructor() {
@@ -9,66 +9,63 @@ class LoginUI {
 	}
 
 	setBotonJugarCallback(cb) {
-		$("#botonJugar").click(function () {
+		$('#botonJugar').click(function () {
 			cb();
 		});
 	}
 
 	setBotonCrearCallback(cb) {
-		$("#botonCrearPJ").click(function () {
+		$('#botonCrearPJ').click(function () {
 			cb();
 		});
 	}
 
 	enableLoginPressingEnter() {
-
 		let loginKeyPressFunc = (keyNumber) => {
-
-			if (keyNumber === CharcodeMap.keys.indexOf("ENTER")) {
-				let $playButton = $("#botonJugar");
-				if (!$playButton.prop("disabled")) {
+			if (keyNumber === CharcodeMap.keys.indexOf('ENTER')) {
+				let $playButton = $('#botonJugar');
+				if (!$playButton.prop('disabled')) {
 					$playButton.click();
 				}
 				return false;
 			}
 		};
 
-		$("#loginNombre").keypress(function (e) {
+		$('#loginNombre').keypress(function (e) {
 			loginKeyPressFunc(e.which);
 		});
 
-		$("#loginContrasenia").keypress(function (e) {
+		$('#loginContrasenia').keypress(function (e) {
 			loginKeyPressFunc(e.which);
 		});
 	}
 
 	setPlayButtonState(enabled) {
-		var $playButton = $("#botonJugar");
+		var $playButton = $('#botonJugar');
 
 		if (enabled) {
-			$playButton.prop("disabled", false);
+			$playButton.prop('disabled', false);
 		} else {
-			$playButton.prop("disabled", true);
+			$playButton.prop('disabled', true);
 		}
 	}
 
 	setCrearButtonState(enabled) {
-		var $crearButton = $("#botonCrearPJ");
+		var $crearButton = $('#botonCrearPJ');
 
 		if (enabled) {
-			$crearButton.prop("disabled", false);
+			$crearButton.prop('disabled', false);
 		} else {
-			$crearButton.prop("disabled", true);
+			$crearButton.prop('disabled', true);
 		}
 	}
 
 	getUsername() {
-		return $("#loginNombre").val();
+		return $('#loginNombre').val();
 	}
 
 	getPassword() {
-		return $("#loginContrasenia").val();
+		return $('#loginContrasenia').val();
 	}
 }
 export default LoginUI;
-

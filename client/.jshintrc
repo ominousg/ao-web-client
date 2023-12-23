@@ -1,9 +1,9 @@
 {
 	"esversion": 6,
-	"globals":{
+	"globals": {
 		"define": false,
 		"$": false,
-		"log":false
+		"log": false
 	},
 	"-W027": false
 }

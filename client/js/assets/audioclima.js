@@ -2,8 +2,8 @@
  * Created by horacio on 8/31/16.
  */
 
-import { Enums } from "../enums";
-import { Howler } from "howler";
+import { Enums } from '../enums';
+import { Howler } from 'howler';
 
 class AudioClima {
 	constructor(audio) {
@@ -36,17 +36,17 @@ class AudioClima {
 		var nombre, sprite;
 		if (bajoTecho) {
 			nombre = Enums.SONIDOS.lluvia_indoor;
-			sprite = {lluvia: [130, 7900]};
-		}
-		else {
+			sprite = { lluvia: [130, 7900] };
+		} else {
 			nombre = Enums.SONIDOS.lluvia_outdoor;
-			sprite = {lluvia: [100, 4200]};
+			sprite = { lluvia: [100, 4200] };
 		}
 
-		if (!this.audio.isLoaded(nombre)) { //cargar con sprite para que loopee bien
+		if (!this.audio.isLoaded(nombre)) {
+			//cargar con sprite para que loopee bien
 			this.audio.cargarSonido(nombre, null, sprite);
 		}
-		this.audio.playSound(nombre, true, null, 0.4, "lluvia");
+		this.audio.playSound(nombre, true, null, 0.4, 'lluvia');
 	}
 
 	_stopLluvia() {

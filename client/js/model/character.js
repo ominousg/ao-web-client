@@ -1,19 +1,33 @@
-import Entity from "./entity";
-import Transition from "../transition";
-import PIXI from "pixi.js";
-import { Enums } from "../enums";
-import CharacterMovement from "./charactermovement";
+import Entity from './entity';
+import Transition from '../transition';
+import PIXI from 'pixi.js';
+import { Enums } from '../enums';
+import CharacterMovement from './charactermovement';
 
 class Character extends Entity {
-	constructor(CharIndex, gridX, gridY, Heading, Name, clan, Body, Head, Weapon, Shield, Helmet, FX, FXLoops, NickColor) {
-
+	constructor(
+		CharIndex,
+		gridX,
+		gridY,
+		Heading,
+		Name,
+		clan,
+		Body,
+		Head,
+		Weapon,
+		Shield,
+		Helmet,
+		FX,
+		FXLoops,
+		NickColor
+	) {
 		super(gridX, gridY);
 
 		var self = this;
-		if (!Name) // es un bicho o npc
-		{
+		if (!Name) {
+			// es un bicho o npc
 			this.moveSpeed = 200;
-		}// bicho (duracion de movimiento en ms, animaciones de mov se setean automaticamnete a esta vel (abajo) )
+		} // bicho (duracion de movimiento en ms, animaciones de mov se setean automaticamnete a esta vel (abajo) )
 		else {
 			this.moveSpeed = 210;
 		} // PJ TODO: setear bien estos valores, fijarse que en lo posible no haya resetmovements (esto pasa si la animacion es mas lenta que el llamado a cambiar de pos)
@@ -39,20 +53,19 @@ class Character extends Entity {
 		this._nickColor = NickColor;
 	}
 
-	setSpeed(speed){
+	setSpeed(speed) {
 		this.moveSpeed = speed;
 		this.sprite.setSpeed(speed);
 	}
 
-	update(delta){
+	update(delta) {
 		this.movement.update(delta);
-
 
 		//this.sprite.update(delta);
 		//if (this.spriteNombre){
 		//    this.spriteNombre.update(delta);
 		//}
-		if (this.texto){
+		if (this.texto) {
 			this.texto.update(delta);
 		}
 	}
@@ -68,7 +81,7 @@ class Character extends Entity {
 		return this.movement.mover(dir, movimientoCallback, finCb);
 	}
 
-	estaMoviendose(){
+	estaMoviendose() {
 		return this.movement.estaMoviendose();
 	}
 
@@ -89,120 +102,118 @@ class Character extends Entity {
 		}
 	}
 
-	get muerto(){
-		return (this.head === Enums.Muerto.cabezaCasper) || (this.body === Enums.Muerto.cuerpoFragataFantasmal);
+	get muerto() {
+		return this.head === Enums.Muerto.cabezaCasper || this.body === Enums.Muerto.cuerpoFragataFantasmal;
 	}
 
-	get heading(){
+	get heading() {
 		return this._heading;
 	}
 
-	set heading(heading){
-		if (this._heading !== heading){
+	set heading(heading) {
+		if (this._heading !== heading) {
 			this._heading = heading;
-			this.emit("headingChanged");
+			this.emit('headingChanged');
 		}
 	}
 
-
-	get body(){
+	get body() {
 		return this._body;
 	}
 
-	set body(body){
-		if (this._body !== body){
+	set body(body) {
+		if (this._body !== body) {
 			this._body = body;
-			this.emit("bodyChanged");
+			this.emit('bodyChanged');
 		}
 	}
 
-	get head(){
+	get head() {
 		return this._head;
 	}
 
-	set head(head){
-		if (this._head !== head){
+	set head(head) {
+		if (this._head !== head) {
 			this._head = head;
-			this.emit("headChanged");
+			this.emit('headChanged');
 		}
 	}
 
-	get weapon(){
+	get weapon() {
 		return this._weapon;
 	}
 
-	set weapon(weapon){
-		if (this._weapon !== weapon){
+	set weapon(weapon) {
+		if (this._weapon !== weapon) {
 			this._weapon = weapon;
-			this.emit("weaponChanged");
+			this.emit('weaponChanged');
 		}
 	}
 
-	get shield(){
+	get shield() {
 		return this._shield;
 	}
 
-	set shield(shield){
-		if (this._shield !== shield){
+	set shield(shield) {
+		if (this._shield !== shield) {
 			this._shield = shield;
-			this.emit("shieldChanged");
+			this.emit('shieldChanged');
 		}
 	}
 
-	get helmet(){
+	get helmet() {
 		return this._helmet;
 	}
 
-	set helmet(helmet){
-		if (this._helmet !== helmet){
+	set helmet(helmet) {
+		if (this._helmet !== helmet) {
 			this._helmet = helmet;
-			this.emit("helmetChanged");
+			this.emit('helmetChanged');
 		}
 	}
 
-	get fx(){
+	get fx() {
 		return this._fx;
 	}
 
-	set fx(fx){
-		if (this._fx !== fx){
+	set fx(fx) {
+		if (this._fx !== fx) {
 			this._fx = fx;
-			this.emit("fxChanged");
+			this.emit('fxChanged');
 		}
 	}
 
-	get fxLoops(){
+	get fxLoops() {
 		return this._fxLoops;
 	}
 
-	set fxLoops(fxLoops){
-		if (this._fxLoops !== fxLoops){
+	set fxLoops(fxLoops) {
+		if (this._fxLoops !== fxLoops) {
 			this._fxLoops = fxLoops;
-			this.emit("fxLoopsChanged");
+			this.emit('fxLoopsChanged');
 		}
 	}
 
-	get nombre(){
+	get nombre() {
 		return this._nombre;
 	}
 
-	get clan(){
+	get clan() {
 		return this._clan;
 	}
 
-	get nickColor(){
+	get nickColor() {
 		return this._nickColor;
 	}
 
-	setName(nombre,clan,color) {
+	setName(nombre, clan, color) {
 		if (this._nombre !== nombre || this._clan !== clan || this._nickColor !== color) {
 			this._nombre = nombre;
 			this._clan = clan;
 			this._nickColor = color;
-			this.emit("nameChanged");
+			this.emit('nameChanged');
 		}
 	}
-
 }
 
 export default Character;

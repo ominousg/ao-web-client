@@ -10,20 +10,23 @@ define(function () {
 		}
 
 		// todos little endian:
-		WriteInteger(value) { // 2B
+		WriteInteger(value) {
+			// 2B
 
 			this._data.push(value & 0xff);
 			this._data.push((value >> 8) & 0xff);
 		}
 
-		WriteLong(value) { // 4B
+		WriteLong(value) {
+			// 4B
 			this._data.push(value & 0xff);
 			this._data.push((value >> 8) & 0xff);
 			this._data.push((value >> 16) & 0xff);
 			this._data.push((value >> 24) & 0xff);
 		}
 
-		WriteSingle(value) { // 4B
+		WriteSingle(value) {
+			// 4B
 
 			var buffer = new ArrayBuffer(4);
 			var floatArray = new Float32Array(buffer);
@@ -34,7 +37,8 @@ define(function () {
 			}
 		}
 
-		WriteDouble(value) { //8B
+		WriteDouble(value) {
+			//8B
 
 			var buffer = new ArrayBuffer(8);
 			var floatArray = new Float64Array(buffer);
@@ -55,10 +59,10 @@ define(function () {
 
 		WriteUnicodeStringFixed(string) {
 			this._data = this._data.concat(
-				string.split("").map(
-					function (chr) {
-						return chr.charCodeAt(0);
-					}));
+				string.split('').map(function (chr) {
+					return chr.charCodeAt(0);
+				})
+			);
 		}
 
 		WriteUnicodeString(string) {
@@ -75,11 +79,10 @@ define(function () {
 		}
 
 		ReadInteger() {
-
 			var int = this.ws.rQshift16();
-			if (int & 0x8000) // ultimo bit de los 16 es 1 -> numero negativo, extiendo los demas bits
-			{
-				int = int | 0xFFFF0000;
+			if (int & 0x8000) {
+				// ultimo bit de los 16 es 1 -> numero negativo, extiendo los demas bits
+				int = int | 0xffff0000;
 			}
 			return int;
 		}

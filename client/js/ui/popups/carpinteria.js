@@ -1,7 +1,7 @@
 /**
  * Created by horacio on 6/17/16.
  */
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -41,9 +41,8 @@ const htmlString = `
 
 class Carpinteria extends PopUp {
 	constructor(game) {
-
 		var options = {
-			title: "CARPINTERIA",
+			title: 'CARPINTERIA',
 			width: 500,
 			height: 500,
 			minWidth: 250,
@@ -54,8 +53,8 @@ class Carpinteria extends PopUp {
 
 		this.game = game;
 		this.initCallbacks();
-		this.$itemsContainer = $("#carpinteriaContenedorItems");
-		this.$carpinteriaTexto = $("#carpinteriaTexto");
+		this.$itemsContainer = $('#carpinteriaContenedorItems');
+		this.$carpinteriaTexto = $('#carpinteriaTexto');
 	}
 
 	/* Items contiene
@@ -76,10 +75,12 @@ class Carpinteria extends PopUp {
 	setItems(items) {
 		//TODO objUpgrade
 		if (items.length < 1) {
-			this.$carpinteriaTexto.text("No puedes construir ningun objeto porque no tienes suficientes puntos en carpinteria");
+			this.$carpinteriaTexto.text(
+				'No puedes construir ningun objeto porque no tienes suficientes puntos en carpinteria'
+			);
 			// TODO: decir que no peude construir items pq le falta skills
-		} else{
-			this.$carpinteriaTexto.text("");
+		} else {
+			this.$carpinteriaTexto.text('');
 		}
 
 		var self = this;
@@ -88,31 +89,31 @@ class Carpinteria extends PopUp {
 		for (var item of items) {
 			renderedItems.add(item.Name);
 
-			var $row = $("<tr></tr>");
+			var $row = $('<tr></tr>');
 
 			var numGraf = this.game.assetManager.getNumCssGraficoFromGrh(item.GrhIndex);
-			var url = "url(graficos/css/" + numGraf + ".png)";
+			var url = 'url(graficos/css/' + numGraf + '.png)';
 
-			var $cell = $("<td></td>");
-			var $imagenItem = $("<div class=\"divImagen\" style=\"width: 50px; height:50px;\"></div>");
-			$imagenItem.css("background-image", url);
+			var $cell = $('<td></td>');
+			var $imagenItem = $('<div class="divImagen" style="width: 50px; height:50px;"></div>');
+			$imagenItem.css('background-image', url);
 			$cell.append($imagenItem);
 
 			$row.append($cell);
 
-			var $cellRequerimientos = $("<td></td>");
-			$cellRequerimientos.text("Require madera: " + item.Madera + " y madera elfica " + item.MaderaElfica);
+			var $cellRequerimientos = $('<td></td>');
+			$cellRequerimientos.text('Require madera: ' + item.Madera + ' y madera elfica ' + item.MaderaElfica);
 			// TODO: graficos madera y madera elfica
 			$row.append($cellRequerimientos);
 
-			var $cellConstruir = $("<td></td>");
-			var $botonConstruir = $("<button class=\"btn btn-default\" >Construir</button>");
+			var $cellConstruir = $('<td></td>');
+			var $botonConstruir = $('<button class="btn btn-default" >Construir</button>');
 
-			$botonConstruir.data("itemIndex", item.ObjCarpinteroIndex);
+			$botonConstruir.data('itemIndex', item.ObjCarpinteroIndex);
 			$botonConstruir.click(function () {
-				var cantidadAConstruir = $("#carpinteriaCantidadAConstruir").val();
+				var cantidadAConstruir = $('#carpinteriaCantidadAConstruir').val();
 				self.game.client.sendInitCrafting(cantidadAConstruir, cantidadAConstruir); //TODO: horrible esto, que se haga de 1 (cambiar sv)
-				var itemIndex = $(this).data("itemIndex");
+				var itemIndex = $(this).data('itemIndex');
 				self.game.client.sendCraftCarpenter(itemIndex);
 			});
 			$cellConstruir.append($botonConstruir);
@@ -121,9 +122,7 @@ class Carpinteria extends PopUp {
 		}
 	}
 
-	initCallbacks() {
-
-	}
+	initCallbacks() {}
 }
 
 export default Carpinteria;

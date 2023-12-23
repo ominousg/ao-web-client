@@ -1,5 +1,4 @@
 define([], function () {
-
 	class Updater {
 		constructor(game) {
 			this.game = game;
@@ -24,7 +23,6 @@ define([], function () {
 				character.update(delta);
 			});
 		}
-
 	}
 
 	return Updater;

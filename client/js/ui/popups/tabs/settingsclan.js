@@ -3,7 +3,6 @@
  */
 
 define([], function () {
-
 	class SettingsClan {
 		constructor() {
 			this.initCallbacks();

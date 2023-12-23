@@ -2,9 +2,9 @@
  * Created by horacio on 3/2/16.
  * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
-import { Enums } from "../enums";
-import { Container } from "pixi.js";
-import SpriteGrh from "./spritegrh";
+import { Enums } from '../enums';
+import { Container } from 'pixi.js';
+import SpriteGrh from './spritegrh';
 
 class CharacterSprites extends Container {
 	constructor() {
@@ -19,15 +19,16 @@ class CharacterSprites extends Container {
 		this._fxsInfinitos = [];
 	}
 
-	get width(){ // ignoro tamaño de la cabeza, ver si hace diferencia
-		if (this.bodySprite){
+	get width() {
+		// ignoro tamaño de la cabeza, ver si hace diferencia
+		if (this.bodySprite) {
 			return this.bodySprite.width;
 		}
 		return 0;
 	}
 
-	get height(){
-		if (this.bodySprite){
+	get height() {
+		if (this.bodySprite) {
 			return this.bodySprite.height;
 		}
 		return 0;
@@ -44,8 +45,7 @@ class CharacterSprites extends Container {
 			nuevoSprite.setOnComplete(function () {
 				self.removeChild(nuevoSprite);
 			});
-		}
-		else {
+		} else {
 			nuevoSprite.zIndex--; // asi los fxs salen arriba de los infinitos (como meditar)
 			this._fxsInfinitos.push(nuevoSprite);
 		}
@@ -92,7 +92,7 @@ class CharacterSprites extends Container {
 		this.y = Math.round(y);
 		var gridX = Math.round(x / 32);
 		var gridY = Math.round(y / 32);
-		if ((gridX !== this._gridX) || (gridY !== this._gridY)) {
+		if (gridX !== this._gridX || gridY !== this._gridY) {
 			this._gridX = gridX;
 			this._gridY = gridY;
 			if (this._onGridPositionChange) {
@@ -144,21 +144,21 @@ class CharacterSprites extends Container {
 
 		if (this.bodySprite) {
 			switch (this.heading) {
-			case Enums.Heading.norte:
-				this.bodySprite.zIndex = 3;
-				break;
-			case Enums.Heading.sur:
-				this.bodySprite.zIndex = 1;
-				break;
-			case Enums.Heading.este:
-				this.bodySprite.zIndex = 2;
-				break;
-			case Enums.Heading.oeste:
-				this.bodySprite.zIndex = 1;
-				break;
-			default:
-				console.log("character heading invalido");
-				break;
+				case Enums.Heading.norte:
+					this.bodySprite.zIndex = 3;
+					break;
+				case Enums.Heading.sur:
+					this.bodySprite.zIndex = 1;
+					break;
+				case Enums.Heading.este:
+					this.bodySprite.zIndex = 2;
+					break;
+				case Enums.Heading.oeste:
+					this.bodySprite.zIndex = 1;
+					break;
+				default:
+					console.log('character heading invalido');
+					break;
 			}
 			this._updateSombraSpriteSize();
 		}
@@ -178,21 +178,21 @@ class CharacterSprites extends Container {
 		this.weaponSprite = this._setHeadingSprite(this.weaponSprite, weapons);
 		if (this.weaponSprite) {
 			switch (this.heading) {
-			case Enums.Heading.norte:
-				this.weaponSprite.zIndex = 2;
-				break;
-			case Enums.Heading.sur:
-				this.weaponSprite.zIndex = 2;
-				break;
-			case Enums.Heading.este:
-				this.weaponSprite.zIndex = 3;
-				break;
-			case Enums.Heading.oeste:
-				this.weaponSprite.zIndex = 2;
-				break;
-			default:
-				console.log("character heading invalido");
-				break;
+				case Enums.Heading.norte:
+					this.weaponSprite.zIndex = 2;
+					break;
+				case Enums.Heading.sur:
+					this.weaponSprite.zIndex = 2;
+					break;
+				case Enums.Heading.este:
+					this.weaponSprite.zIndex = 3;
+					break;
+				case Enums.Heading.oeste:
+					this.weaponSprite.zIndex = 2;
+					break;
+				default:
+					console.log('character heading invalido');
+					break;
 			}
 		}
 	}
@@ -202,21 +202,21 @@ class CharacterSprites extends Container {
 		this.shieldSprite = this._setHeadingSprite(this.shieldSprite, shields);
 		if (this.shieldSprite) {
 			switch (this.heading) {
-			case Enums.Heading.norte:
-				this.shieldSprite.zIndex = 1;
-				break;
-			case Enums.Heading.sur:
-				this.shieldSprite.zIndex = 3;
-				break;
-			case Enums.Heading.este:
-				this.shieldSprite.zIndex = 1;
-				break;
-			case Enums.Heading.oeste:
-				this.shieldSprite.zIndex = 3;
-				break;
-			default:
-				console.log("character heading invalido");
-				break;
+				case Enums.Heading.norte:
+					this.shieldSprite.zIndex = 1;
+					break;
+				case Enums.Heading.sur:
+					this.shieldSprite.zIndex = 3;
+					break;
+				case Enums.Heading.este:
+					this.shieldSprite.zIndex = 1;
+					break;
+				case Enums.Heading.oeste:
+					this.shieldSprite.zIndex = 3;
+					break;
+				default:
+					console.log('character heading invalido');
+					break;
 			}
 		}
 	}
@@ -229,7 +229,6 @@ class CharacterSprites extends Container {
 			this.helmetSprite.setPosition(this.headOffX, this.headOffY + this.OFFSET_HEAD);
 		}
 	}
-
 
 	setCharVisible(visible) {
 		this._charVisible = visible;
@@ -264,7 +263,7 @@ class CharacterSprites extends Container {
 
 	_setHeadOffset(headOffX, headOffY) {
 		if (this.headOffX) {
-			if ((this.headOffX === headOffX) && (this.headOffY === headOffY)) {
+			if (this.headOffX === headOffX && this.headOffY === headOffY) {
 				return;
 			}
 		}
@@ -277,10 +276,10 @@ class CharacterSprites extends Container {
 		if (this.helmetSprite) {
 			this.helmetSprite.setPosition(this.headOffX, this.headOffY + this.OFFSET_HEAD);
 		}
-
 	}
 
-	_updateOrdenHijos() { // TODO: al agregar en vez de esto hacer insercion por busqueda binaria con lso z index
+	_updateOrdenHijos() {
+		// TODO: al agregar en vez de esto hacer insercion por busqueda binaria con lso z index
 		this.children.sort(function (a, b) {
 			a.zIndex = a.zIndex || 0;
 			b.zIndex = b.zIndex || 0;

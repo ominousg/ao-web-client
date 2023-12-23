@@ -2,7 +2,7 @@
  * Created by horacio on 6/17/16.
  */
 
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -54,10 +54,9 @@ const htmlString = `
 `;
 
 class DetallesClan extends PopUp {
-	constructor(game,solicitudClanCb) {
-
+	constructor(game, solicitudClanCb) {
 		var options = {
-			title: "CLANES",
+			title: 'CLANES',
 			width: 500,
 			height: 400,
 			minWidth: 250,
@@ -67,9 +66,9 @@ class DetallesClan extends PopUp {
 		super($element, options);
 
 		this.game = game;
-		this.clan = "";
-		this.$botonAbrirSolicitud = $("#detallesClan_botonAplicarse");
-		this.$botonCerrar = $("#detallesClan_botonCerrar");
+		this.clan = '';
+		this.$botonAbrirSolicitud = $('#detallesClan_botonAplicarse');
+		this.$botonCerrar = $('#detallesClan_botonCerrar');
 
 		this.solicitudClanCb = solicitudClanCb;
 		this.initCallbacks();
@@ -81,21 +80,34 @@ class DetallesClan extends PopUp {
 		this.clan = targetClan;
 	}
 
-
-	setClanInfo(GuildName, Founder, FoundationDate, Leader, URL, MemberCount, ElectionsOpen, Aligment, EnemiesCount, AlliesCount, AntifactionPoints, Codex, GuildDesc) {
-		$("#detallesClan_nombre").text(GuildName);
-		$("#detallesClan_miembros").text(MemberCount);
-		$("#detallesClan_fundador").text(Founder);
-		$("#detallesClan_lider").text(Leader);
-		$("#detallesClan_web").text(URL);
-		$("#detallesClan_enemigos").text(EnemiesCount);
-		$("#detallesClan_aliados").text(AlliesCount);
-		$("#detallesClan_puntosAntifaccion").text(AntifactionPoints);
-		$("#detallesClan_fechaCreacion").text(FoundationDate);
-		$("#detallesClan_elecciones").text(ElectionsOpen);
-		$("#detallesClan_alineacion").text(Aligment);
-		$("#detallesClan_codex").text(Codex);
-		$("#detallesClan_descripcion").text(GuildDesc);
+	setClanInfo(
+		GuildName,
+		Founder,
+		FoundationDate,
+		Leader,
+		URL,
+		MemberCount,
+		ElectionsOpen,
+		Aligment,
+		EnemiesCount,
+		AlliesCount,
+		AntifactionPoints,
+		Codex,
+		GuildDesc
+	) {
+		$('#detallesClan_nombre').text(GuildName);
+		$('#detallesClan_miembros').text(MemberCount);
+		$('#detallesClan_fundador').text(Founder);
+		$('#detallesClan_lider').text(Leader);
+		$('#detallesClan_web').text(URL);
+		$('#detallesClan_enemigos').text(EnemiesCount);
+		$('#detallesClan_aliados').text(AlliesCount);
+		$('#detallesClan_puntosAntifaccion').text(AntifactionPoints);
+		$('#detallesClan_fechaCreacion').text(FoundationDate);
+		$('#detallesClan_elecciones').text(ElectionsOpen);
+		$('#detallesClan_alineacion').text(Aligment);
+		$('#detallesClan_codex').text(Codex);
+		$('#detallesClan_descripcion').text(GuildDesc);
 	}
 
 	initCallbacks() {
@@ -105,11 +117,10 @@ class DetallesClan extends PopUp {
 			self.solicitudClanCb(self.clan);
 		});
 
-		this.$botonCerrar.click(function(){
+		this.$botonCerrar.click(function () {
 			self.hide();
 		});
 	}
-
 }
 
 export default DetallesClan;

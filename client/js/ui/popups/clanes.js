@@ -1,11 +1,11 @@
 /**
  * Created by horacio on 6/16/16.
  */
-import PopUp from "./popup";
-import ClanesSearchTab from "./tabs/clanesSearch";
-import MiembrosClanTab from "./tabs/miembrosclan";
-import SolicitudesClanTab from "./tabs/solicitudesclan";
-import SettingsClanTab from "./tabs/settingsclan";
+import PopUp from './popup';
+import ClanesSearchTab from './tabs/clanesSearch';
+import MiembrosClanTab from './tabs/miembrosclan';
+import SolicitudesClanTab from './tabs/solicitudesclan';
+import SettingsClanTab from './tabs/settingsclan';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -101,11 +101,9 @@ const htmlString = `
 `;
 
 class Clanes extends PopUp {
-
 	constructor(game, detallesClan, showMensajeCb, solicitudClanCb) {
-
 		var options = {
-			title: "CLANES",
+			title: 'CLANES',
 			width: 550,
 			height: 500,
 			minWidth: 250,
@@ -114,23 +112,21 @@ class Clanes extends PopUp {
 		var $element = $(`<div>${htmlString}</div>`);
 		super($element, options);
 
-
 		this.game = game;
 		this.detallesClan = detallesClan;
 		this.showMensajeCb = showMensajeCb;
 
 		this.searchTab = new ClanesSearchTab(game, detallesClan, showMensajeCb, solicitudClanCb);
 		this.miembrosTab = new MiembrosClanTab(game, showMensajeCb);
-		this.solicitudesTab = new SolicitudesClanTab(game,showMensajeCb);
+		this.solicitudesTab = new SolicitudesClanTab(game, showMensajeCb);
 		this.settingsTab = new SettingsClanTab();
 
-		this.$miembrosTabButton = $("#clanesMiembrosTabButton");
-		this.$solicitudesTabButton = $("#clanesSolicitudesTabButton");
-		this.$settingsTabButton = $("#clanesSettingsTabButton");
+		this.$miembrosTabButton = $('#clanesMiembrosTabButton');
+		this.$solicitudesTabButton = $('#clanesSolicitudesTabButton');
+		this.$settingsTabButton = $('#clanesSettingsTabButton');
 
 		this._initTabs();
 		this.initCallbacks();
-
 	}
 
 	show() {
@@ -162,10 +158,9 @@ class Clanes extends PopUp {
 
 	initCallbacks() {
 		var self = this;
-
 	}
 
-	_initTabs(){
+	_initTabs() {
 		this._inicializarTabDesactivable(this.$solicitudesTabButton);
 		this._inicializarTabDesactivable(this.$miembrosTabButton);
 		this._inicializarTabDesactivable(this.$settingsTabButton);

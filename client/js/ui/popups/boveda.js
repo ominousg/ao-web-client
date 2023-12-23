@@ -1,8 +1,8 @@
 /**
  * Created by horacio on 3/24/16.
  */
-import PopUp from "./popup";
-import ItemGrid from "../game/itemgrid";
+import PopUp from './popup';
+import ItemGrid from '../game/itemgrid';
 const htmlString = `
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +71,7 @@ const htmlString = `
 class Boveda extends PopUp {
 	constructor(game, acciones) {
 		var options = {
-			title: "BOVEDA",
+			title: 'BOVEDA',
 			width: 630,
 			height: 510,
 			minWidth: 250,
@@ -82,10 +82,10 @@ class Boveda extends PopUp {
 		this.game = game;
 		this.acciones = acciones;
 
-		this.shopGrid = new ItemGrid("bovedaGridComprar",40);
-		this.userGrid = new ItemGrid("bovedaGridVender",40);
+		this.shopGrid = new ItemGrid('bovedaGridComprar', 40);
+		this.userGrid = new ItemGrid('bovedaGridVender', 40);
 		this.initCallbacks();
-		this.completarLabels("","","","","","");
+		this.completarLabels('', '', '', '', '', '');
 	}
 
 	show() {
@@ -93,11 +93,10 @@ class Boveda extends PopUp {
 		var self = this;
 		this.userGrid.clear();
 
-		this.game.inventario.forEachSlot(
-			function (slot) {
-				var numGraf = self.game.assetManager.getNumCssGraficoFromGrh(slot.grh);
-				self.userGrid.modificarSlot(slot.numero, slot.cantidad, numGraf);
-			});
+		this.game.inventario.forEachSlot(function (slot) {
+			var numGraf = self.game.assetManager.getNumCssGraficoFromGrh(slot.grh);
+			self.userGrid.modificarSlot(slot.numero, slot.cantidad, numGraf);
+		});
 
 		this.shopGrid.deselect();
 		this.userGrid.deselect();
@@ -127,15 +126,15 @@ class Boveda extends PopUp {
 	}
 
 	setOroDisponible(oro) {
-		$("#bovedaOroDisponibleLabel").text("ORO DISPONIBLE");
-		$("#bovedaOroDisponibleVal").text(oro);
+		$('#bovedaOroDisponibleLabel').text('ORO DISPONIBLE');
+		$('#bovedaOroDisponibleVal').text(oro);
 	}
 
 	initCallbacks() {
 		var self = this;
 
-		$("#bovedaBotonRetirarOro").click(function () {
-			var inputCantidad = $("#bovedaInputCantidadOro").val();
+		$('#bovedaBotonRetirarOro').click(function () {
+			var inputCantidad = $('#bovedaInputCantidadOro').val();
 			if (!isNaN(inputCantidad)) {
 				if (inputCantidad > 0) {
 					self.acciones.retirarOro(inputCantidad);
@@ -143,8 +142,8 @@ class Boveda extends PopUp {
 			}
 		});
 
-		$("#bovedaBotonDepositarOro").click(function () {
-			var inputCantidad = $("#bovedaInputCantidadOro").val();
+		$('#bovedaBotonDepositarOro').click(function () {
+			var inputCantidad = $('#bovedaInputCantidadOro').val();
 			if (!isNaN(inputCantidad)) {
 				if (inputCantidad > 0) {
 					self.acciones.depositarOro(inputCantidad);
@@ -152,57 +151,55 @@ class Boveda extends PopUp {
 			}
 		});
 
-		$("#bovedaBotonRetirarItem").click(function () {
+		$('#bovedaBotonRetirarItem').click(function () {
 			var slot = self.shopGrid.getSelectedSlot();
 			if (slot) {
-				var inputCantidad = $("#bovedaInputCantidadItem").val();
-				if (isNaN(inputCantidad) || (inputCantidad < 0) || !inputCantidad) {
+				var inputCantidad = $('#bovedaInputCantidadItem').val();
+				if (isNaN(inputCantidad) || inputCantidad < 0 || !inputCantidad) {
 					inputCantidad = 1;
 				}
 				self.acciones.retirarItem(slot, inputCantidad);
 			}
 		});
 
-		$("#bovedaBotonDepositarItem").click(function () {
+		$('#bovedaBotonDepositarItem').click(function () {
 			var slot = self.userGrid.getSelectedSlot();
 			if (slot) {
-				var inputCantidad = $("#bovedaInputCantidadItem").val();
-				if (isNaN(inputCantidad) || (inputCantidad < 0) || !inputCantidad) {
+				var inputCantidad = $('#bovedaInputCantidadItem').val();
+				if (isNaN(inputCantidad) || inputCantidad < 0 || !inputCantidad) {
 					inputCantidad = 1;
 				}
 				self.acciones.depositarItem(slot, inputCantidad);
 			}
 		});
 
-		this.shopGrid.setSelectionCallback(
-			function (slot) {
-				var item = self.game.inventarioShop.getSlot(slot);
-				self.displayItemData(item);
-			});
+		this.shopGrid.setSelectionCallback(function (slot) {
+			var item = self.game.inventarioShop.getSlot(slot);
+			self.displayItemData(item);
+		});
 
-		this.userGrid.setSelectionCallback(
-			function (slot) {
-				var item = self.game.inventario.getSlot(slot);
-				self.displayItemData(item);
-			});
+		this.userGrid.setSelectionCallback(function (slot) {
+			var item = self.game.inventario.getSlot(slot);
+			self.displayItemData(item);
+		});
 	}
 
 	displayItemData(item) {
-		var minLabel = "";
-		var maxLabel = "";
+		var minLabel = '';
+		var maxLabel = '';
 
 		if (item.minDef) {
-			minLabel = "MIN DEFENSA";
+			minLabel = 'MIN DEFENSA';
 		}
 		if (item.minHit) {
-			minLabel = "MIN GOLPE";
+			minLabel = 'MIN GOLPE';
 		}
 
 		if (item.maxDef) {
-			maxLabel = "MAX DEFENSA";
+			maxLabel = 'MAX DEFENSA';
 		}
 		if (item.maxHit) {
-			maxLabel = "MAX GOLPE";
+			maxLabel = 'MAX GOLPE';
 		}
 
 		var minVal = item.minDef || item.minHit;
@@ -213,17 +210,17 @@ class Boveda extends PopUp {
 
 	completarLabels(nombreVal, minLabel, minVal, maxLabel, maxVal) {
 		if (!minLabel) {
-			minVal = "";
+			minVal = '';
 		}
 		if (!maxLabel) {
-			maxVal = "";
+			maxVal = '';
 		}
 
-		$("#bovedaNombreVal").text(nombreVal);
-		$("#bovedaMinLabel").text(minLabel);
-		$("#bovedaMinVal").text(minVal);
-		$("#bovedaMaxLabel").text(maxLabel);
-		$("#bovedaMaxVal").text(maxVal);
+		$('#bovedaNombreVal').text(nombreVal);
+		$('#bovedaMinLabel').text(minLabel);
+		$('#bovedaMinVal').text(minVal);
+		$('#bovedaMaxLabel').text(maxLabel);
+		$('#bovedaMaxVal').text(maxVal);
 	}
 }
 

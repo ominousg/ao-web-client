@@ -2,10 +2,10 @@
  * Created by horacio on 5/2/16.
  */
 
-import PopUp from "./popup";
-import ConfigurarTeclasTab from "./tabs/configurarteclas";
-import AudioTab from "./tabs/audiotab";
-import Screenfull from "../../lib/screenfull";
+import PopUp from './popup';
+import ConfigurarTeclasTab from './tabs/configurarteclas';
+import AudioTab from './tabs/audiotab';
+import Screenfull from '../../lib/screenfull';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -280,7 +280,7 @@ const htmlString = `
 class Opciones extends PopUp {
 	constructor(game, storage, updateKeysCallback, showMensajeCallback) {
 		var options = {
-			title: "AJUSTES",
+			title: 'AJUSTES',
 			width: 500,
 			height: 600,
 			minWidth: 250,
@@ -310,10 +310,10 @@ class Opciones extends PopUp {
 		this.configurarTeclasTab.onHide();
 	}
 
-	_initFullScreenListener(){
+	_initFullScreenListener() {
 		if (Screenfull.enabled) {
 			document.addEventListener(Screenfull.raw.fullscreenchange, () => {
-				$("#opcionesCheckboxFullscreen").prop("checked", Screenfull.isFullscreen);
+				$('#opcionesCheckboxFullscreen').prop('checked', Screenfull.isFullscreen);
 			});
 		}
 	}
@@ -321,9 +321,9 @@ class Opciones extends PopUp {
 	initCallbacks() {
 		var self = this;
 
-		$("#opcionesCheckboxFullscreen").change(function () {
+		$('#opcionesCheckboxFullscreen').change(function () {
 			if (!Screenfull.enabled) {
-				alert("No es posible jugar en pantalla completa");
+				alert('No es posible jugar en pantalla completa');
 				this.checked = false;
 				return;
 			}
@@ -334,11 +334,10 @@ class Opciones extends PopUp {
 			}
 		});
 
-		$("#opcionesSliderPantalla").slider({
-			range: "min",
+		$('#opcionesSliderPantalla').slider({
+			range: 'min'
 		});
 	}
-
 }
 
 export default Opciones;

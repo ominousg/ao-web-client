@@ -2,9 +2,9 @@
  * Created by horacio on 8/20/16.
  * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
-import { Enums } from "../enums";
-import { ParticleContainer } from "pixi.js";
-import SpriteGrh from "./spritegrh";
+import { Enums } from '../enums';
+import { ParticleContainer } from 'pixi.js';
+import SpriteGrh from './spritegrh';
 
 class ClimaRenderer {
 	constructor(escala, parentContainer, assetManager, /*TEMPORAL*/ pixiRenderer /*TEMPORAL*/) {
@@ -46,7 +46,7 @@ class ClimaRenderer {
 
 			gota.x = Math.random() * this.pixiRenderer.width;
 			gota.y = Math.random() * this.pixiRenderer.height;
-			gota.rotation = anguloBase + Math.random() * Math.PI / 16;
+			gota.rotation = anguloBase + (Math.random() * Math.PI) / 16;
 			gota.velocidad = velocidad;
 
 			gota.height = (4 + 6 * Math.random()) * this.escala;
@@ -56,7 +56,7 @@ class ClimaRenderer {
 		}
 	}
 
-	update(delta){
+	update(delta) {
 		if (this.containerLluvia) {
 			this._updateGotas(delta);
 		}
@@ -65,14 +65,13 @@ class ClimaRenderer {
 	_updateGotas(delta) {
 		for (var i = 0; i < this.gotas.length; i++) {
 			var gota = this.gotas[i];
-			gota.position.x -= Math.sin(gota.rotation) * (gota.velocidad) * delta;
-			gota.position.y += Math.cos(gota.rotation) * (gota.velocidad) * delta;
+			gota.position.x -= Math.sin(gota.rotation) * gota.velocidad * delta;
+			gota.position.y += Math.cos(gota.rotation) * gota.velocidad * delta;
 
 			if (gota.position.x > this.pixiRenderer.width + 20) {
 				gota.position.x = 0 - 20;
 				gota.y = Math.random() * this.pixiRenderer.height;
-			}
-			else if (gota.position.x < 0 - 20) {
+			} else if (gota.position.x < 0 - 20) {
 				gota.position.x = this.pixiRenderer.width + 20;
 				gota.y = Math.random() * this.pixiRenderer.height;
 			}
@@ -82,6 +81,5 @@ class ClimaRenderer {
 			}
 		}
 	}
-
 }
 export default ClimaRenderer;

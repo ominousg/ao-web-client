@@ -2,8 +2,8 @@
  * Created by horacio on 7/8/16.
  */
 
-import PopUp from "./popup";
-import Utils from "../../utils/util";
+import PopUp from './popup';
+import Utils from '../../utils/util';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -46,9 +46,8 @@ const htmlString = `
 
 class CrearClan extends PopUp {
 	constructor(game, showMensajeCb) {
-
 		var options = {
-			title: "CLANES",
+			title: 'CLANES',
 			width: 500,
 			height: 400,
 			minWidth: 250,
@@ -60,13 +59,13 @@ class CrearClan extends PopUp {
 		this.game = game;
 		this.showMensajeCb = showMensajeCb;
 
-		this.$botonCrear = $("#crearClanBotonCrear");
-		this.$botonCancelar = $("#crearClanBotonCancelar");
+		this.$botonCrear = $('#crearClanBotonCrear');
+		this.$botonCancelar = $('#crearClanBotonCancelar');
 
-		this.$inputNombre = $("#crearClanNombre");
-		this.$inputWebsite = $("#crearClanWebsite");
-		this.$inputDescripcion = $("#crearClanDescripcion");
-		this.prefixCodex = "crearClanCodex_";
+		this.$inputNombre = $('#crearClanNombre');
+		this.$inputWebsite = $('#crearClanWebsite');
+		this.$inputDescripcion = $('#crearClanDescripcion');
+		this.prefixCodex = 'crearClanCodex_';
 
 		this.initCallbacks();
 	}
@@ -77,7 +76,7 @@ class CrearClan extends PopUp {
 		let result = [];
 		let completedLines = 0;
 		for (let i = 0; i < NUMBER_OF_LINES; i++) {
-			let $inputLine = $("#" + this.prefixCodex + i);
+			let $inputLine = $('#' + this.prefixCodex + i);
 			let text = $inputLine.val();
 			if (text) {
 				completedLines++;
@@ -91,7 +90,12 @@ class CrearClan extends PopUp {
 	}
 
 	_verificarCampos() {
-		return !(!this.$inputNombre.val() || !this.$inputWebsite.val() || !this.$inputDescripcion.val() || !this._getCodexText());
+		return !(
+			!this.$inputNombre.val() ||
+			!this.$inputWebsite.val() ||
+			!this.$inputDescripcion.val() ||
+			!this._getCodexText()
+		);
 	}
 
 	initCallbacks() {
@@ -102,16 +106,19 @@ class CrearClan extends PopUp {
 		});
 
 		this.$botonCrear.click(function () {
-			if (!self._verificarCampos()){
-				self.showMensajeCb("Debes completar todos los campos");
+			if (!self._verificarCampos()) {
+				self.showMensajeCb('Debes completar todos los campos');
 				return;
 			}
-			self.game.client.sendCreateNewGuild(self.$inputDescripcion.val(), self.$inputNombre.val(),
-				self.$inputWebsite.val(), self._getCodexText());
+			self.game.client.sendCreateNewGuild(
+				self.$inputDescripcion.val(),
+				self.$inputNombre.val(),
+				self.$inputWebsite.val(),
+				self._getCodexText()
+			);
 			self.hide();
 		});
 	}
-
 }
 
 export default CrearClan;

@@ -2,7 +2,7 @@
  * Created by horacio on 3/21/16.
  */
 
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -31,7 +31,7 @@ const htmlString = `
 class Tirar extends PopUp {
 	constructor(game, acciones) {
 		var options = {
-			title: "TIRAR",
+			title: 'TIRAR',
 			width: 250,
 			height: 160,
 			minWidth: 100,
@@ -51,8 +51,8 @@ class Tirar extends PopUp {
 
 	initCallbacks() {
 		var self = this;
-		$("#tirarBotonTirar").click(function () {
-			var cantidad = $("#tirarInputCantidad").val();
+		$('#tirarBotonTirar').click(function () {
+			var cantidad = $('#tirarInputCantidad').val();
 			if (!isNaN(cantidad)) {
 				if (cantidad > 0) {
 					if (self.tirandoOro) {
@@ -65,7 +65,7 @@ class Tirar extends PopUp {
 			self.hide();
 		});
 
-		$("#tirarBotonTirarTodo").click(function () {
+		$('#tirarBotonTirarTodo').click(function () {
 			if (self.tirandoOro) {
 				self.acciones.tirarTodoOro();
 			} else {

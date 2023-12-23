@@ -1,7 +1,7 @@
-import { Enums } from "../enums";
-import * as PIXI from "pixi.js-legacy";
+import { Enums } from '../enums';
+import * as PIXI from 'pixi.js-legacy';
 
-class Entity extends PIXI.utils.EventEmitter{
+class Entity extends PIXI.utils.EventEmitter {
 	constructor(gridX, gridY) {
 		super();
 		var self = this;
@@ -12,50 +12,51 @@ class Entity extends PIXI.utils.EventEmitter{
 		this.setGridPosition(gridX, gridY);
 	}
 
-	get x(){
+	get x() {
 		return this._x;
 	}
 
-	get y(){
+	get y() {
 		return this._y;
 	}
 
-	get gridX(){
+	get gridX() {
 		return this._gridX;
 	}
 
-	get gridY(){
+	get gridY() {
 		return this._gridY;
 	}
 
 	setPosition(x, y) {
 		this._x = x;
 		this._y = y;
-		this.emit("positionChanged");
+		this.emit('positionChanged');
 	}
 
 	setGridPositionOnly(gridX, gridY) {
 		this._gridX = gridX;
 		this._gridY = gridY;
-		this.emit("gridPositionChanged");
+		this.emit('gridPositionChanged');
 	}
 
 	setGridPosition(gridX, gridY) {
-		this.setGridPositionOnly(gridX,gridY);
-		this.setPosition(gridX*32,gridY*32);
+		this.setGridPositionOnly(gridX, gridY);
+		this.setPosition(gridX * 32, gridY * 32);
 	}
 
-	esPosAdyacente(gridX, gridY) { // devulve el heading si la pos es adyacente, sino 0
-		if ((gridY === this.gridY) && (gridX === this.gridX + 1 )) {
+	esPosAdyacente(gridX, gridY) {
+		// devulve el heading si la pos es adyacente, sino 0
+		if (gridY === this.gridY && gridX === this.gridX + 1) {
 			return Enums.Heading.este;
 		}
-		if ((gridY === this.gridY) && (gridX === this.gridX - 1 )) {
+		if (gridY === this.gridY && gridX === this.gridX - 1) {
 			return Enums.Heading.oeste;
 		}
-		if ((gridX === this.gridX) && (gridY === this.gridY - 1 )) {
+		if (gridX === this.gridX && gridY === this.gridY - 1) {
 			return Enums.Heading.norte;
 		}
-		if ((gridX === this.gridX) && (gridY === this.gridY + 1 )) {
+		if (gridX === this.gridX && gridY === this.gridY + 1) {
 			return Enums.Heading.sur;
 		}
 		return 0;

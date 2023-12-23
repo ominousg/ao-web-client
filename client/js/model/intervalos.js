@@ -2,7 +2,7 @@
  * Created by horacio on 2/9/16.
  */
 
-import { Enums } from "../enums";
+import { Enums } from '../enums';
 
 class Intervalos {
 	constructor(time) {
@@ -32,7 +32,7 @@ class Intervalos {
 
 	requestMacroTrabajo() {
 		let time = this._getTime();
-		if (time > ( this.times.macroTrabajo + this.INTERVALO_MACRO_TRABAJO)) {
+		if (time > this.times.macroTrabajo + this.INTERVALO_MACRO_TRABAJO) {
 			this.times.macroTrabajo = time;
 			return true;
 		}
@@ -41,7 +41,7 @@ class Intervalos {
 
 	requestMacroHechizo() {
 		let time = this._getTime();
-		if (time > ( this.times.macroHechizo + this.INTERVALO_MACRO_HECHIZO)) {
+		if (time > this.times.macroHechizo + this.INTERVALO_MACRO_HECHIZO) {
 			this.times.macroHechizo = time;
 			return true;
 		}
@@ -50,7 +50,7 @@ class Intervalos {
 
 	requestPosUpdate() {
 		let time = this._getTime();
-		if (time > ( this.times.requestPostionUpdate + Enums.Intervalo.requestPostionUpdate)) {
+		if (time > this.times.requestPostionUpdate + Enums.Intervalo.requestPostionUpdate) {
 			this.times.requestPostionUpdate = time;
 			return true;
 		}
@@ -59,9 +59,9 @@ class Intervalos {
 
 	requestAtacar() {
 		let time = this._getTime();
-		if (time > ( this.times.ataqueConArco + Enums.Intervalo.ataqueConArco)) {
-			if (time > ( this.times.hechizoAtaque + Enums.Intervalo.hechizoAtaque)) {
-				if (time > ( this.times.ataque + Enums.Intervalo.ataque)) {
+		if (time > this.times.ataqueConArco + Enums.Intervalo.ataqueConArco) {
+			if (time > this.times.hechizoAtaque + Enums.Intervalo.hechizoAtaque) {
+				if (time > this.times.ataque + Enums.Intervalo.ataque) {
 					this.times.ataque = time;
 					this.times.ataqueHechizo = time;
 					return true;
@@ -73,9 +73,9 @@ class Intervalos {
 
 	requestLanzarHechizo() {
 		let time = this._getTime();
-		if (time > ( this.times.ataqueConArco + Enums.Intervalo.ataqueConArco)) {
-			if (time > ( this.times.ataqueHechizo + Enums.Intervalo.ataqueHechizo)) {
-				if (time > ( this.times.hechizo + Enums.Intervalo.hechizo)) {
+		if (time > this.times.ataqueConArco + Enums.Intervalo.ataqueConArco) {
+			if (time > this.times.ataqueHechizo + Enums.Intervalo.ataqueHechizo) {
+				if (time > this.times.hechizo + Enums.Intervalo.hechizo) {
 					this.times.hechizo = time;
 					this.times.hechizoAtaque = time;
 					return true;
@@ -87,7 +87,7 @@ class Intervalos {
 
 	requestAtacarConArco() {
 		let time = this._getTime();
-		if (time > ( this.times.ataqueConArco + Enums.Intervalo.ataqueConArco)) {
+		if (time > this.times.ataqueConArco + Enums.Intervalo.ataqueConArco) {
 			this.times.ataqueConArco = time;
 			return true;
 		}
@@ -96,7 +96,7 @@ class Intervalos {
 
 	requestUsarConU() {
 		let time = this._getTime();
-		if (time > ( this.times.usarItemConU + Enums.Intervalo.usarItemConU)) {
+		if (time > this.times.usarItemConU + Enums.Intervalo.usarItemConU) {
 			this.times.usarItemConU = time;
 			return true;
 		}
@@ -105,7 +105,7 @@ class Intervalos {
 
 	requestUsarConDobleClick() {
 		let time = this._getTime();
-		if (time > ( this.times.usarItemConDobleClick + Enums.Intervalo.usarItemConDobleClick)) {
+		if (time > this.times.usarItemConDobleClick + Enums.Intervalo.usarItemConDobleClick) {
 			this.times.usarItemConDobleClick = time;
 			return true;
 		}
@@ -114,7 +114,7 @@ class Intervalos {
 
 	requestDomar() {
 		let time = this._getTime();
-		if (time > ( this.times.domar + Enums.Intervalo.domar)) {
+		if (time > this.times.domar + Enums.Intervalo.domar) {
 			this.times.domar = time;
 			return true;
 		}
@@ -123,13 +123,12 @@ class Intervalos {
 
 	requestRobar() {
 		let time = this._getTime();
-		if (time > ( this.times.robar + Enums.Intervalo.robar)) {
+		if (time > this.times.robar + Enums.Intervalo.robar) {
 			this.times.robar = time;
 			return true;
 		}
 		return false;
 	}
-
 }
 
 export default Intervalos;

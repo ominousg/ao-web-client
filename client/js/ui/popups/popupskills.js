@@ -2,7 +2,7 @@
  * Created by horacio on 4/20/16.
  */
 
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -41,7 +41,7 @@ const htmlString = `
 class popUpSkills extends PopUp {
 	constructor(game) {
 		var options = {
-			title: "SKILLS",
+			title: 'SKILLS',
 			width: 300,
 			height: 600,
 			minWidth: 150,
@@ -62,15 +62,15 @@ class popUpSkills extends PopUp {
 
 	initCallbacks() {
 		var self = this;
-		$("#skillsBotonCerrar").click(function () {
+		$('#skillsBotonCerrar').click(function () {
 			self.hide();
 		});
 
-		$("#skillsBotonCancelar").click(function () {
+		$('#skillsBotonCancelar').click(function () {
 			self.hide();
 		});
 
-		$("#skillsBotonAceptar").click(function () {
+		$('#skillsBotonAceptar').click(function () {
 			var puntos = self._getPuntosAdicionalesSerialized();
 			if (puntos) {
 				self.game.client.sendModifySkills(puntos);
@@ -81,15 +81,15 @@ class popUpSkills extends PopUp {
 	}
 
 	_getSkillDOMid(numSkill) {
-		return "popUpSkills_skill_" + numSkill;
+		return 'popUpSkills_skill_' + numSkill;
 	}
 
 	_getSkillTextDOMid(numSkill) {
-		return "popUpSkills_textoSkill_" + numSkill;
+		return 'popUpSkills_textoSkill_' + numSkill;
 	}
 
 	_getSkillPointsDOMid(numSkill) {
-		return "popUpSkills_puntosSkill_" + numSkill;
+		return 'popUpSkills_puntosSkill_' + numSkill;
 	}
 
 	_createSkill(numSkill, nombre, puntos, porcentaje) {
@@ -97,30 +97,40 @@ class popUpSkills extends PopUp {
 		//var id = this._getSkillDOMid(numSkill);
 		var textoId = this._getSkillTextDOMid(numSkill);
 		var puntosId = this._getSkillPointsDOMid(numSkill);
-		var botonMasId = "popUpSkills_botonMasSkill_" + numSkill;
-		var botonMenosId = "popUpSkills_botonMenosSkill_" + numSkill;
+		var botonMasId = 'popUpSkills_botonMasSkill_' + numSkill;
+		var botonMenosId = 'popUpSkills_botonMenosSkill_' + numSkill;
 
-		$("#popUpSkillsContenedorSkills").append("<tr>"
-            + "<td class=\"secondaryColor\" id=" + textoId + "></td>"
-            + "<td class=\"everywhereBoldFont activeColor\" id=" + puntosId + "></td>"
-            + "<td><button id=" + botonMenosId + " class=\"botonMenosSkill\"></button></td>"
-            + "<td><button id=" + botonMasId + " class=\"botonMasSkill\"></button></td>"
-                + "</tr>");
+		$('#popUpSkillsContenedorSkills').append(
+			'<tr>' +
+				'<td class="secondaryColor" id=' +
+				textoId +
+				'></td>' +
+				'<td class="everywhereBoldFont activeColor" id=' +
+				puntosId +
+				'></td>' +
+				'<td><button id=' +
+				botonMenosId +
+				' class="botonMenosSkill"></button></td>' +
+				'<td><button id=' +
+				botonMasId +
+				' class="botonMasSkill"></button></td>' +
+				'</tr>'
+		);
 
-		var $botonMas = $("#" + botonMasId);
-		$botonMas.data("numSkill", numSkill);
-		$botonMas.on("click", function () {
-			var numSkill = $(this).data("numSkill");
+		var $botonMas = $('#' + botonMasId);
+		$botonMas.data('numSkill', numSkill);
+		$botonMas.on('click', function () {
+			var numSkill = $(this).data('numSkill');
 			if (self.skills.asignarSkill(numSkill)) {
 				self._updateSkill(numSkill);
 				self._updatePuntosLibres();
 			}
 		});
 
-		var $botonMenos = $("#" + botonMenosId);
-		$botonMenos.data("numSkill", numSkill);
-		$botonMenos.on("click", function () {
-			var numSkill = $(this).data("numSkill");
+		var $botonMenos = $('#' + botonMenosId);
+		$botonMenos.data('numSkill', numSkill);
+		$botonMenos.on('click', function () {
+			var numSkill = $(this).data('numSkill');
 			if (self.skills.getPuntosSkill(numSkill) <= self.game.skills.getPuntosSkill(numSkill)) {
 				return;
 			}
@@ -131,7 +141,7 @@ class popUpSkills extends PopUp {
 	}
 
 	_updatePuntosLibres() {
-		$("#popUpSkillsContenedorPuntosLibres").text("Puntos libres: " + this.skills.puntosLibres);
+		$('#popUpSkillsContenedorPuntosLibres').text('Puntos libres: ' + this.skills.puntosLibres);
 	}
 
 	_updateSkill(numSkill, nombre, puntos) {
@@ -139,8 +149,8 @@ class popUpSkills extends PopUp {
 		puntos = puntos || this.skills.getPuntosSkill(numSkill);
 		var id = this._getSkillTextDOMid(numSkill);
 		let puntosid = this._getSkillPointsDOMid(numSkill);
-		$("#" + id).text(nombre.toUpperCase());
-		$("#" + puntosid).text(puntos);
+		$('#' + id).text(nombre.toUpperCase());
+		$('#' + puntosid).text(puntos);
 	}
 
 	_updateSkillsPoints() {

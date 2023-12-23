@@ -2,7 +2,7 @@
  * Created by horacio on 7/9/16.
  */
 
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -34,9 +34,8 @@ const htmlString = `
 
 class NoticiasClan extends PopUp {
 	constructor() {
-
 		var options = {
-			title: "NOTICIAS CLAN",
+			title: 'NOTICIAS CLAN',
 			width: 500,
 			height: 400,
 			minWidth: 250,
@@ -45,10 +44,10 @@ class NoticiasClan extends PopUp {
 		var $element = $(`<div>${htmlString}</div>`);
 		super($element, options);
 
-		this.$noticias = $("#noticiasClanNoticias");
-		this.$enemigos = $("#noticiasClanEnemigos");
-		this.$aliados = $("#noticiasClanAliados");
-		this.$botonAceptar = $("#noticiasClanBotonAceptar");
+		this.$noticias = $('#noticiasClanNoticias');
+		this.$enemigos = $('#noticiasClanEnemigos');
+		this.$aliados = $('#noticiasClanAliados');
+		this.$botonAceptar = $('#noticiasClanBotonAceptar');
 
 		this.initCallbacks();
 	}
@@ -56,8 +55,8 @@ class NoticiasClan extends PopUp {
 	show(noticias, enemigos, aliados) {
 		super.show();
 		this.$noticias.text(noticias);
-		this.$enemigos.text(enemigos.join("\n"));
-		this.$aliados.text(aliados.join("\n"));
+		this.$enemigos.text(enemigos.join('\n'));
+		this.$aliados.text(aliados.join('\n'));
 	}
 
 	initCallbacks() {
@@ -67,7 +66,6 @@ class NoticiasClan extends PopUp {
 			self.hide();
 		});
 	}
-
 }
 
 export default NoticiasClan;

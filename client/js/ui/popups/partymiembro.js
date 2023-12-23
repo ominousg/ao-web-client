@@ -2,7 +2,7 @@
  * Created by horacio on 7/11/16.
  */
 
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -29,9 +29,8 @@ const htmlString = `
 
 class PartyMiembro extends PopUp {
 	constructor(game, showMensajeCb) {
-
 		var options = {
-			title: "PARTY",
+			title: 'PARTY',
 			width: 500,
 			height: 400,
 			minWidth: 250,
@@ -43,11 +42,11 @@ class PartyMiembro extends PopUp {
 		this.game = game;
 		this.showMensajeCb = showMensajeCb;
 
-		this.$inputMensaje = $("#partyMiembroMensaje");
-		this.$miembrosList = $("#partyMiembroMembersList");
-		this.$experienciaTotal = $("#partyMiembroExperienciaTotal");
-		this.$botonAbandonar = $("#partyMiembroBotonAbandonar");
-		this.$botonCerrar = $("#partyMiembroBotonCerrar");
+		this.$inputMensaje = $('#partyMiembroMensaje');
+		this.$miembrosList = $('#partyMiembroMembersList');
+		this.$experienciaTotal = $('#partyMiembroExperienciaTotal');
+		this.$botonAbandonar = $('#partyMiembroBotonAbandonar');
+		this.$botonCerrar = $('#partyMiembroBotonCerrar');
 
 		this.initCallbacks();
 	}
@@ -57,14 +56,13 @@ class PartyMiembro extends PopUp {
 
 		this.$miembrosList.empty();
 		for (var nombre of miembros) {
-			var $nuevoMiembro = $("<option>").text(nombre);
+			var $nuevoMiembro = $('<option>').text(nombre);
 			this.$miembrosList.append($nuevoMiembro);
 		}
 		this.$experienciaTotal.text(exp);
 	}
 
 	initCallbacks() {
-
 		this.$botonAbandonar.click(() => {
 			this.game.client.sendPartyLeave();
 			this.hide();
@@ -78,12 +76,11 @@ class PartyMiembro extends PopUp {
 		this.$inputMensaje.keypress((event) => {
 			if (event.keyCode == 13 || event.which == 13) {
 				this.game.client.sendPartyMessage(this.$inputMensaje.val());
-				this.$inputMensaje.val("");
+				this.$inputMensaje.val('');
 				event.preventDefault();
 			}
 		});
 	}
-
 }
 
 export default PartyMiembro;

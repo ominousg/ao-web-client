@@ -2,14 +2,14 @@
  * Created by horacio on 3/9/16.
  * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
-import Font from "../font";
-import { Container, Text } from "pixi.js";
-import GameTextStyle from "./gametextstyle";
+import Font from '../font';
+import { Container, Text } from 'pixi.js';
+import GameTextStyle from './gametextstyle';
 
 class CharacterText extends Container {
 	constructor(escala) {
 		super();
-		this.estiloChat = new GameTextStyle(Font.TALK_BASE_FONT,escala);
+		this.estiloChat = new GameTextStyle(Font.TALK_BASE_FONT, escala);
 
 		this.infos = [];
 		this._chat = null;
@@ -42,11 +42,11 @@ class CharacterText extends Container {
 	_formatearChat(str) {
 		var resultado = [];
 		str = str.trim();
-		while ((str.length > this.MAXIMO_LARGO_LINEA_CHAT) && (str.indexOf(" ") > (-1))) {
-			var idx = str.indexOf(" ");
+		while (str.length > this.MAXIMO_LARGO_LINEA_CHAT && str.indexOf(' ') > -1) {
+			var idx = str.indexOf(' ');
 			var posUltimoEspacioPrimerBloque = idx;
-			while ((idx != -1) && (idx < this.MAXIMO_LARGO_LINEA_CHAT - 1 )) {
-				idx = str.indexOf(" ", idx + 1);
+			while (idx != -1 && idx < this.MAXIMO_LARGO_LINEA_CHAT - 1) {
+				idx = str.indexOf(' ', idx + 1);
 				if (idx > 0) {
 					posUltimoEspacioPrimerBloque = idx;
 				}
@@ -64,12 +64,12 @@ class CharacterText extends Container {
 		this.removerChat();
 		chat = this._formatearChat(chat);
 		this.estiloChat.fill = color;
-		this._chat = new Text(chat.join("\n"), this.estiloChat);
+		this._chat = new Text(chat.join('\n'), this.estiloChat);
 
 		this._chat.tiempoPasado = 0;
 
 		this.addChild(this._chat);
-		this._chat.x = Math.round(32 * this._escala / 2 - this._chat.width / 2);
+		this._chat.x = Math.round((32 * this._escala) / 2 - this._chat.width / 2);
 		this._chat.y = Math.round(-19 * this._escala - this._chat.height);
 	}
 
@@ -81,9 +81,8 @@ class CharacterText extends Container {
 		this._chat = null;
 	}
 
-
 	addHoveringInfo(value, font) {
-		var estilo = new GameTextStyle(Font.HOVERING_BASE_FONT,this._escala,font);
+		var estilo = new GameTextStyle(Font.HOVERING_BASE_FONT, this._escala, font);
 		var info = new Text(value, estilo);
 
 		info.tiempoPasado = 0;
@@ -91,7 +90,7 @@ class CharacterText extends Container {
 		this.infos.push(info);
 
 		info.y = -16 * this._escala - info.height;
-		info.x = 32 * this._escala / 2 - info.width / 2;
+		info.x = (32 * this._escala) / 2 - info.width / 2;
 	}
 
 	_removerInfo(info) {
@@ -127,7 +126,7 @@ class CharacterText extends Container {
 			let info = this.infos[i];
 			info.tiempoPasado += delta;
 			info.y -= delta / 50;
-			var alpha = ((this.DURACION_INFO - info.tiempoPasado) / this.DURACION_INFO );
+			var alpha = (this.DURACION_INFO - info.tiempoPasado) / this.DURACION_INFO;
 			if (alpha >= 0) {
 				info.alpha = alpha;
 			}

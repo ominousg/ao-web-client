@@ -1,9 +1,9 @@
 /**
  * Created by horacio on 2/27/16.
  */
-import { Enums } from "../enums";
-import * as Utils from "../utils/util";
-import DialogCrearPersonaje from "./popups/crearpersonaje";
+import { Enums } from '../enums';
+import * as Utils from '../utils/util';
+import DialogCrearPersonaje from './popups/crearpersonaje';
 
 class CrearPjUI {
 	constructor(assetManager, showMensajeCb) {
@@ -13,12 +13,12 @@ class CrearPjUI {
 		this._inicializado = false;
 		this.offsetSelectedCabeza = 0;
 
-		this.$imgCabezaIzq = $("#crearPjSeleccionCabezaImagenIzq");
-		this.$imgCabezaCentro = $("#crearPjSeleccionCabezaImagenCenter");
-		this.$imgCabezaDer = $("#crearPjSeleccionCabezaImagenDer");
+		this.$imgCabezaIzq = $('#crearPjSeleccionCabezaImagenIzq');
+		this.$imgCabezaCentro = $('#crearPjSeleccionCabezaImagenCenter');
+		this.$imgCabezaDer = $('#crearPjSeleccionCabezaImagenDer');
 
-		this.$imagenCuerpo = $("#crearPjImagenPersonaje");
-		this.$imagenCabezaCuerpo = $("#crearPjImagenCabezaPersonaje");
+		this.$imagenCuerpo = $('#crearPjImagenPersonaje');
+		this.$imagenCabezaCuerpo = $('#crearPjImagenCabezaPersonaje');
 
 		this._dialogCrearPersonaje = null;
 	}
@@ -37,27 +37,27 @@ class CrearPjUI {
 
 		var self = this;
 
-		var id = "crearSelectCiudad";
-		var $sel = $("#" + id);
-		this.modificarSlotInput($sel, id, Enums.Ciudad.Ullathorpe, "Ullathorpe");
-		this.modificarSlotInput($sel, id, Enums.Ciudad.Nix, "Nix");
-		this.modificarSlotInput($sel, id, Enums.Ciudad.Banderbill, "Banderbill");
-		this.modificarSlotInput($sel, id, Enums.Ciudad.Lindos, "Lindos");
-		this.modificarSlotInput($sel, id, Enums.Ciudad.Arghal, "Arghal");
+		var id = 'crearSelectCiudad';
+		var $sel = $('#' + id);
+		this.modificarSlotInput($sel, id, Enums.Ciudad.Ullathorpe, 'Ullathorpe');
+		this.modificarSlotInput($sel, id, Enums.Ciudad.Nix, 'Nix');
+		this.modificarSlotInput($sel, id, Enums.Ciudad.Banderbill, 'Banderbill');
+		this.modificarSlotInput($sel, id, Enums.Ciudad.Lindos, 'Lindos');
+		this.modificarSlotInput($sel, id, Enums.Ciudad.Arghal, 'Arghal');
 
-		id = "crearSelectRaza";
-		$sel = $("#" + id);
-		this.modificarSlotInput($sel, id, Enums.Raza.humano, "Humano");
-		this.modificarSlotInput($sel, id, Enums.Raza.elfo, "Elfo");
-		this.modificarSlotInput($sel, id, Enums.Raza.elfoOscuro, "Elfo Oscuro");
-		this.modificarSlotInput($sel, id, Enums.Raza.gnomo, "Gnomo");
-		this.modificarSlotInput($sel, id, Enums.Raza.enano, "Enano");
+		id = 'crearSelectRaza';
+		$sel = $('#' + id);
+		this.modificarSlotInput($sel, id, Enums.Raza.humano, 'Humano');
+		this.modificarSlotInput($sel, id, Enums.Raza.elfo, 'Elfo');
+		this.modificarSlotInput($sel, id, Enums.Raza.elfoOscuro, 'Elfo Oscuro');
+		this.modificarSlotInput($sel, id, Enums.Raza.gnomo, 'Gnomo');
+		this.modificarSlotInput($sel, id, Enums.Raza.enano, 'Enano');
 		$sel.change(function () {
 			self._updatePJ();
 		});
 
-		id = "crearSelectClase";
-		$sel = $("#" + id);
+		id = 'crearSelectClase';
+		$sel = $('#' + id);
 		this.modificarSlotInput($sel, id, Enums.Clase.clerigo, Enums.NombreClase[Enums.Clase.clerigo]);
 		this.modificarSlotInput($sel, id, Enums.Clase.guerrero, Enums.NombreClase[Enums.Clase.guerrero]);
 		this.modificarSlotInput($sel, id, Enums.Clase.mago, Enums.NombreClase[Enums.Clase.mago]);
@@ -71,26 +71,26 @@ class CrearPjUI {
 		this.modificarSlotInput($sel, id, Enums.Clase.trabajador, Enums.NombreClase[Enums.Clase.trabajador]);
 		this.modificarSlotInput($sel, id, Enums.Clase.pirata, Enums.NombreClase[Enums.Clase.pirata]);
 
-		$("#crearBotonGeneroMasculino").addClass("selected");
-		$("#crearBotonGeneroFemenino").removeClass("selected");
+		$('#crearBotonGeneroMasculino').addClass('selected');
+		$('#crearBotonGeneroFemenino').removeClass('selected');
 
-		$("#crearBotonGeneroMasculino").click(() => {
-			$("#crearBotonGeneroMasculino").toggleClass("selected");
-			$("#crearBotonGeneroFemenino").toggleClass("selected");
+		$('#crearBotonGeneroMasculino').click(() => {
+			$('#crearBotonGeneroMasculino').toggleClass('selected');
+			$('#crearBotonGeneroFemenino').toggleClass('selected');
 			this._updatePJ();
 		});
 
-		$("#crearBotonGeneroFemenino").click(() => {
-			$("#crearBotonGeneroMasculino").toggleClass("selected");
-			$("#crearBotonGeneroFemenino").toggleClass("selected");
+		$('#crearBotonGeneroFemenino').click(() => {
+			$('#crearBotonGeneroMasculino').toggleClass('selected');
+			$('#crearBotonGeneroFemenino').toggleClass('selected');
 			this._updatePJ();
 		});
 
-		$("#crearPjSeleccionCabezaBotonIzq").click(() => {
+		$('#crearPjSeleccionCabezaBotonIzq').click(() => {
 			this.offsetSelectedCabeza--;
 			this._updatePJ();
 		});
-		$("#crearPjSeleccionCabezaBotonDer").click(() => {
+		$('#crearPjSeleccionCabezaBotonDer').click(() => {
 			this.offsetSelectedCabeza++;
 			this._updatePJ();
 		});
@@ -98,26 +98,25 @@ class CrearPjUI {
 	}
 
 	_getGenero() {
-		return $("#crearBotonGeneroMasculino").hasClass("selected") ? Enums.Genero.hombre : Enums.Genero.mujer;
+		return $('#crearBotonGeneroMasculino').hasClass('selected') ? Enums.Genero.hombre : Enums.Genero.mujer;
 	}
 
 	_getRaza() {
-		return parseInt($("#crearSelectRaza").val());
+		return parseInt($('#crearSelectRaza').val());
 	}
 
 	modificarSlotInput($sel, id, slot, texto) {
-		var elemento = $("#" + id + " option[value=" + slot + "]");
-		if (!elemento.length) { // nuevo elemento
-			$sel.append($("<option>").attr("value", slot).text(texto));
-		}
-		else {
+		var elemento = $('#' + id + ' option[value=' + slot + ']');
+		if (!elemento.length) {
+			// nuevo elemento
+			$sel.append($('<option>').attr('value', slot).text(texto));
+		} else {
 			$(elemento).text(texto);
 		}
 	}
 
 	setBotonTirarDadosCallback(cb) {
-
-		$("#crearBotonTirarDados").click(() => {
+		$('#crearBotonTirarDados').click(() => {
 			cb();
 			this.assetManager.audio.playSound(Enums.SONIDOS.dados);
 		});
@@ -125,7 +124,7 @@ class CrearPjUI {
 
 	setBotonVolverCallback(cb) {
 		var self = this;
-		$("#crearBotonVolver").click(function () {
+		$('#crearBotonVolver').click(function () {
 			self.dialogCrearPersonaje.hide();
 			cb();
 		});
@@ -136,11 +135,11 @@ class CrearPjUI {
 
 		self.dialogCrearPersonaje.crearCb = cb;
 
-		$("#crearBotonCrear").click(function () {
+		$('#crearBotonCrear').click(function () {
 			var raza = self._getRaza();
 			var genero = self._getGenero();
-			var clase = $("#crearSelectClase").val();
-			var ciudad = $("#crearSelectCiudad").val();
+			var clase = $('#crearSelectClase').val();
+			var ciudad = $('#crearSelectCiudad').val();
 			var cabeza = self._getCabezaNum(self.offsetSelectedCabeza);
 
 			self.dialogCrearPersonaje.show(raza, genero, clase, ciudad, cabeza);
@@ -149,7 +148,7 @@ class CrearPjUI {
 
 	_getCabezaNum(offset) {
 		var cabezas = this.getPrimerYUltimaCabezaNum();
-		var incremento = Utils.modulo(offset, (cabezas.ultima - cabezas.primera));
+		var incremento = Utils.modulo(offset, cabezas.ultima - cabezas.primera);
 
 		return cabezas.primera + incremento;
 	}
@@ -162,11 +161,11 @@ class CrearPjUI {
 
 	_actualizarAlturaPJ() {
 		let raza = this._getRaza();
-		let petizo = (raza === Enums.Raza.gnomo || raza === Enums.Raza.enano);
+		let petizo = raza === Enums.Raza.gnomo || raza === Enums.Raza.enano;
 		if (petizo) {
-			this.$imagenCabezaCuerpo.addClass("petizo");
+			this.$imagenCabezaCuerpo.addClass('petizo');
 		} else {
-			this.$imagenCabezaCuerpo.removeClass("petizo");
+			this.$imagenCabezaCuerpo.removeClass('petizo');
 		}
 	}
 
@@ -178,13 +177,13 @@ class CrearPjUI {
 		var numGrafCentro = this.assetManager.getFaceGrafFromNum(cabezaCentro);
 		var numGrafDer = this.assetManager.getFaceGrafFromNum(cabezaDer);
 
-		var url = "url(graficos/css/" + numGrafIzq + ".png)";
-		this.$imgCabezaIzq.css("background-image", url);
-		url = "url(graficos/css/" + numGrafDer + ".png)";
-		this.$imgCabezaDer.css("background-image", url);
-		url = "url(graficos/css/" + numGrafCentro + ".png)";
-		this.$imgCabezaCentro.css("background-image", url);
-		this.$imagenCabezaCuerpo.css("background-image", url);
+		var url = 'url(graficos/css/' + numGrafIzq + '.png)';
+		this.$imgCabezaIzq.css('background-image', url);
+		url = 'url(graficos/css/' + numGrafDer + '.png)';
+		this.$imgCabezaDer.css('background-image', url);
+		url = 'url(graficos/css/' + numGrafCentro + '.png)';
+		this.$imgCabezaCentro.css('background-image', url);
+		this.$imagenCabezaCuerpo.css('background-image', url);
 	}
 
 	_updateCuerpo() {
@@ -193,16 +192,16 @@ class CrearPjUI {
 
 		var numCuerpo = this._getCuerpoNum(genero, raza);
 		var numGraf = this.assetManager.getBodyGrafFromNum(numCuerpo);
-		var url = "url(graficos/css/" + numGraf + ".png)";
-		this.$imagenCuerpo.css("background-image", url);
+		var url = 'url(graficos/css/' + numGraf + '.png)';
+		this.$imagenCuerpo.css('background-image', url);
 	}
 
 	updateDados(Fuerza, Agilidad, Inteligencia, Carisma, Constitucion) {
-		$("#crearDadoFuerza").text("Fuerza: " + Fuerza);
-		$("#crearDadoAgilidad").text("Agilidad: " + Agilidad);
-		$("#crearDadoInteligencia").text("Inteligencia: " + Inteligencia);
-		$("#crearDadoCarisma").text("Carisma: " + Carisma);
-		$("#crearDadoConstitucion").text("Constitucion: " + Constitucion);
+		$('#crearDadoFuerza').text('Fuerza: ' + Fuerza);
+		$('#crearDadoAgilidad').text('Agilidad: ' + Agilidad);
+		$('#crearDadoInteligencia').text('Inteligencia: ' + Inteligencia);
+		$('#crearDadoCarisma').text('Carisma: ' + Carisma);
+		$('#crearDadoConstitucion').text('Constitucion: ' + Constitucion);
 	}
 
 	getPrimerYUltimaCabezaNum() {
@@ -210,7 +209,7 @@ class CrearPjUI {
 		let raza = this._getRaza();
 
 		var HUMANO_H_PRIMER_CABEZA = 1;
-		var HUMANO_H_ULTIMA_CABEZA = 40;//TODO: deberia ser 51 pero el sv las toma como invalidas
+		var HUMANO_H_ULTIMA_CABEZA = 40; //TODO: deberia ser 51 pero el sv las toma como invalidas
 		var ELFO_H_PRIMER_CABEZA = 101;
 		var ELFO_H_ULTIMA_CABEZA = 122;
 		var DROW_H_PRIMER_CABEZA = 201;
@@ -233,44 +232,44 @@ class CrearPjUI {
 
 		if (genero === Enums.Genero.hombre) {
 			switch (raza) {
-			case Enums.Raza.humano:
-				return {primera: HUMANO_H_PRIMER_CABEZA, ultima: HUMANO_H_ULTIMA_CABEZA};
-				break;
-			case Enums.Raza.elfo:
-				return {primera: ELFO_H_PRIMER_CABEZA, ultima: ELFO_H_ULTIMA_CABEZA};
-				break;
-			case Enums.Raza.elfoOscuro:
-				return {primera: DROW_H_PRIMER_CABEZA, ultima: DROW_H_ULTIMA_CABEZA};
-				break;
-			case Enums.Raza.enano:
-				return {primera: ENANO_H_PRIMER_CABEZA, ultima: ENANO_H_ULTIMA_CABEZA};
-				break;
-			case Enums.Raza.gnomo:
-				return {primera: GNOMO_H_PRIMER_CABEZA, ultima: GNOMO_H_ULTIMA_CABEZA};
-				break;
-			default:
-				console.log("raza invalida");
+				case Enums.Raza.humano:
+					return { primera: HUMANO_H_PRIMER_CABEZA, ultima: HUMANO_H_ULTIMA_CABEZA };
+					break;
+				case Enums.Raza.elfo:
+					return { primera: ELFO_H_PRIMER_CABEZA, ultima: ELFO_H_ULTIMA_CABEZA };
+					break;
+				case Enums.Raza.elfoOscuro:
+					return { primera: DROW_H_PRIMER_CABEZA, ultima: DROW_H_ULTIMA_CABEZA };
+					break;
+				case Enums.Raza.enano:
+					return { primera: ENANO_H_PRIMER_CABEZA, ultima: ENANO_H_ULTIMA_CABEZA };
+					break;
+				case Enums.Raza.gnomo:
+					return { primera: GNOMO_H_PRIMER_CABEZA, ultima: GNOMO_H_ULTIMA_CABEZA };
+					break;
+				default:
+					console.log('raza invalida');
 			}
 		}
 		if (genero === Enums.Genero.mujer) {
 			switch (raza) {
-			case Enums.Raza.humano:
-				return {primera: HUMANO_M_PRIMER_CABEZA, ultima: HUMANO_M_ULTIMA_CABEZA};
-				break;
-			case Enums.Raza.elfo:
-				return {primera: ELFO_M_PRIMER_CABEZA, ultima: ELFO_M_ULTIMA_CABEZA};
-				break;
-			case Enums.Raza.elfoOscuro:
-				return {primera: DROW_M_PRIMER_CABEZA, ultima: DROW_M_ULTIMA_CABEZA};
-				break;
-			case Enums.Raza.enano:
-				return {primera: ENANO_M_PRIMER_CABEZA, ultima: ENANO_M_ULTIMA_CABEZA};
-				break;
-			case Enums.Raza.gnomo:
-				return {primera: GNOMO_M_PRIMER_CABEZA, ultima: GNOMO_M_ULTIMA_CABEZA};
-				break;
-			default:
-				console.log("raza invalida");
+				case Enums.Raza.humano:
+					return { primera: HUMANO_M_PRIMER_CABEZA, ultima: HUMANO_M_ULTIMA_CABEZA };
+					break;
+				case Enums.Raza.elfo:
+					return { primera: ELFO_M_PRIMER_CABEZA, ultima: ELFO_M_ULTIMA_CABEZA };
+					break;
+				case Enums.Raza.elfoOscuro:
+					return { primera: DROW_M_PRIMER_CABEZA, ultima: DROW_M_ULTIMA_CABEZA };
+					break;
+				case Enums.Raza.enano:
+					return { primera: ENANO_M_PRIMER_CABEZA, ultima: ENANO_M_ULTIMA_CABEZA };
+					break;
+				case Enums.Raza.gnomo:
+					return { primera: GNOMO_M_PRIMER_CABEZA, ultima: GNOMO_M_ULTIMA_CABEZA };
+					break;
+				default:
+					console.log('raza invalida');
 			}
 		}
 	}
@@ -292,49 +291,47 @@ class CrearPjUI {
 		var GNOMO_M_CUERPO_DESNUDO = 260;
 		if (genero === Enums.Genero.hombre) {
 			switch (raza) {
-			case Enums.Raza.humano:
-				return HUMANO_H_CUERPO_DESNUDO;
-				break;
-			case Enums.Raza.elfo:
-				return ELFO_H_CUERPO_DESNUDO;
-				break;
-			case Enums.Raza.elfoOscuro:
-				return DROW_H_CUERPO_DESNUDO;
-				break;
-			case Enums.Raza.enano:
-				return ENANO_H_CUERPO_DESNUDO;
-				break;
-			case Enums.Raza.gnomo:
-				return GNOMO_H_CUERPO_DESNUDO;
-				break;
-			default:
-				console.log("raza invalida");
+				case Enums.Raza.humano:
+					return HUMANO_H_CUERPO_DESNUDO;
+					break;
+				case Enums.Raza.elfo:
+					return ELFO_H_CUERPO_DESNUDO;
+					break;
+				case Enums.Raza.elfoOscuro:
+					return DROW_H_CUERPO_DESNUDO;
+					break;
+				case Enums.Raza.enano:
+					return ENANO_H_CUERPO_DESNUDO;
+					break;
+				case Enums.Raza.gnomo:
+					return GNOMO_H_CUERPO_DESNUDO;
+					break;
+				default:
+					console.log('raza invalida');
 			}
 		}
 		if (genero === Enums.Genero.mujer) {
 			switch (raza) {
-			case Enums.Raza.humano:
-				return HUMANO_M_CUERPO_DESNUDO;
-				break;
-			case Enums.Raza.elfo:
-				return ELFO_M_CUERPO_DESNUDO;
-				break;
-			case Enums.Raza.elfoOscuro:
-				return DROW_M_CUERPO_DESNUDO;
-				break;
-			case Enums.Raza.enano:
-				return ENANO_M_CUERPO_DESNUDO;
-				break;
-			case Enums.Raza.gnomo:
-				return GNOMO_M_CUERPO_DESNUDO;
-				break;
-			default:
-				console.log("raza invalida");
+				case Enums.Raza.humano:
+					return HUMANO_M_CUERPO_DESNUDO;
+					break;
+				case Enums.Raza.elfo:
+					return ELFO_M_CUERPO_DESNUDO;
+					break;
+				case Enums.Raza.elfoOscuro:
+					return DROW_M_CUERPO_DESNUDO;
+					break;
+				case Enums.Raza.enano:
+					return ENANO_M_CUERPO_DESNUDO;
+					break;
+				case Enums.Raza.gnomo:
+					return GNOMO_M_CUERPO_DESNUDO;
+					break;
+				default:
+					console.log('raza invalida');
 			}
 		}
-
 	}
 }
 
 export default CrearPjUI;
-

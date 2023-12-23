@@ -1,12 +1,12 @@
-import jsonArmas from "../../indices/armas.json";
-import jsonCabezas from "../../indices/cabezas.json";
-import jsonCascos from "../../indices/cascos.json";
-import jsonCuerpos from "../../indices/cuerpos.json";
-import jsonEscudos from "../../indices/escudos.json";
-import jsonFxs from "../../indices/fxs.json";
-import { settings, BaseTexture, Texture, Rectangle,SCALE_MODES, GC_MODES } from "pixi.js";
-import Preloader from "./preloader";
-import Audio from "./audio";
+import jsonArmas from '../../indices/armas.json';
+import jsonCabezas from '../../indices/cabezas.json';
+import jsonCascos from '../../indices/cascos.json';
+import jsonCuerpos from '../../indices/cuerpos.json';
+import jsonEscudos from '../../indices/escudos.json';
+import jsonFxs from '../../indices/fxs.json';
+import { settings, BaseTexture, Texture, Rectangle, SCALE_MODES, GC_MODES } from 'pixi.js';
+import Preloader from './preloader';
+import Audio from './audio';
 
 class AssetManager {
 	constructor() {
@@ -77,7 +77,8 @@ class AssetManager {
 		if (!this.indices[grh] || this.grhs[grh]) {
 			return;
 		}
-		if (this.indices[grh].frames) {// animacion
+		if (this.indices[grh].frames) {
+			// animacion
 			var frameNumbers = this.indices[grh].frames;
 			var vecgrhs = [];
 			for (var j = 0; j < frameNumbers.length; j++) {
@@ -86,45 +87,53 @@ class AssetManager {
 				}
 				vecgrhs.push(this.grhs[frameNumbers[j]]);
 			}
-			this.grhs[grh] = {frames: vecgrhs, velocidad: this.indices[grh].velocidad};
-		}
-		else { // no animacion
+			this.grhs[grh] = { frames: vecgrhs, velocidad: this.indices[grh].velocidad };
+		} else {
+			// no animacion
 			this._loadGrhGrafico(grh);
 		}
 	}
 
 	_loadGrhGrafico(grh) {
 		var nombreGrafico = this.indices[grh].grafico;
-		if (!this._baseTextures[nombreGrafico]) { // cargar basetexture
-			this._setBaseTexture(nombreGrafico, new BaseTexture.from("graficos/" + nombreGrafico + ".png"));
+		if (!this._baseTextures[nombreGrafico]) {
+			// cargar basetexture
+			this._setBaseTexture(nombreGrafico, new BaseTexture.from('graficos/' + nombreGrafico + '.png'));
 		}
-		this.grhs[grh] = new Texture(this._baseTextures[nombreGrafico], new Rectangle(this.indices[grh].offX, this.indices[grh].offY, this.indices[grh].width, this.indices[grh].height));
+		this.grhs[grh] = new Texture(
+			this._baseTextures[nombreGrafico],
+			new Rectangle(
+				this.indices[grh].offX,
+				this.indices[grh].offY,
+				this.indices[grh].width,
+				this.indices[grh].height
+			)
+		);
 	}
 
 	_setBaseTexture(nombreGrafico, baseTexture) {
 		this._baseTextures[nombreGrafico] = baseTexture;
 	}
 
-
 	getMapaASync(numMapa, completeCallback) {
-    if (!this.dataMapas[numMapa]) {
-      fetch(`mapas/mapa${numMapa}.json`)
-        .then(response => {
-          if (!response.ok) throw new Error(`Error cargando mapa ${numMapa}`);
-          return response.json();
-        })
-        .then(data => {
-          this.dataMapas[numMapa] = data;
-          completeCallback(this.dataMapas[numMapa]);
-        })
-        .catch(error => {
-          alert(error.message);
-          this.getMapaASync(numMapa, completeCallback);
-        });
-    } else {
-      completeCallback(this.dataMapas[numMapa]);
-    }
-  }
+		if (!this.dataMapas[numMapa]) {
+			fetch(`mapas/mapa${numMapa}.json`)
+				.then((response) => {
+					if (!response.ok) throw new Error(`Error cargando mapa ${numMapa}`);
+					return response.json();
+				})
+				.then((data) => {
+					this.dataMapas[numMapa] = data;
+					completeCallback(this.dataMapas[numMapa]);
+				})
+				.catch((error) => {
+					alert(error.message);
+					this.getMapaASync(numMapa, completeCallback);
+				});
+		} else {
+			completeCallback(this.dataMapas[numMapa]);
+		}
+	}
 
 	preload(terminar_callback, progress_callback) {
 		this.preloader.preload(terminar_callback, progress_callback);

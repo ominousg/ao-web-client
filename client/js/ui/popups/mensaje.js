@@ -2,7 +2,7 @@
  * Created by horacio on 4/3/16.
  */
 
-import PopUp from "./popup";
+import PopUp from './popup';
 
 const htmlString = `
   <!DOCTYPE html>
@@ -26,7 +26,7 @@ const htmlString = `
 class Mensaje extends PopUp {
 	constructor() {
 		var options = {
-			title: "MENSAJE",
+			title: 'MENSAJE',
 			width: 300,
 			height: 280,
 			minWidth: 200,
@@ -39,17 +39,16 @@ class Mensaje extends PopUp {
 
 	show(mensaje) {
 		super.show();
-		$("#mensajeContenido").text(mensaje);
-		$("#mensajeBotonOk").focus();
+		$('#mensajeContenido').text(mensaje);
+		$('#mensajeBotonOk').focus();
 	}
 
 	initCallbacks() {
 		var self = this;
-		$("#mensajeBotonOk").click(function () {
+		$('#mensajeBotonOk').click(function () {
 			self.hide();
 		});
 	}
 }
 
 export default Mensaje;
-

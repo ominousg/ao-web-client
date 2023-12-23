@@ -2,9 +2,9 @@
  * Created by horacio on 07/08/2016.
  */
 
-import PopUp from "./popup";
-import eventEmitter from "../utils/eventEmitter";
-import { PopupNames } from "./popupNames";
+import PopUp from './popup';
+import eventEmitter from '../utils/eventEmitter';
+import { PopupNames } from './popupNames';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -32,7 +32,7 @@ const htmlString = `
 class Menu extends PopUp {
 	constructor(game, showMapaCb, showClanesCb, showOpcionesCb) {
 		var options = {
-			title: "MENU",
+			title: 'MENU',
 			width: 220,
 			height: 300,
 			minWidth: 150,
@@ -49,15 +49,15 @@ class Menu extends PopUp {
 		this.initCallbacks();
 	}
 
-	hide(){
+	hide() {
 		super.hide();
 		this._lastClosedTime = Date.now();
 	}
 
-	show(fromEscapeKey){
+	show(fromEscapeKey) {
 		// fromEscapeKey: fix feo para poder mostrar y ocultar con la tecla esc
-		if (fromEscapeKey){
-			if (this._lastClosedTime > Date.now() - 20 ){
+		if (fromEscapeKey) {
+			if (this._lastClosedTime > Date.now() - 20) {
 				return;
 			}
 		}
@@ -67,28 +67,28 @@ class Menu extends PopUp {
 	initCallbacks() {
 		var self = this;
 
-		$("#botonMapa1").click(function () {
+		$('#botonMapa1').click(function () {
 			eventEmitter.emit(PopupNames.GUIA_MAPA);
 		});
 
-		$("#botonEstadisticas1").click(function () {
-      self.game.client.sendRequestAtributes();
-      self.game.client.sendRequestAtributes();
-      self.game.client.sendRequestSkills();
-      self.game.client.sendRequestMiniStats();
-      self.game.client.sendRequestFame();
+		$('#botonEstadisticas1').click(function () {
+			self.game.client.sendRequestAtributes();
+			self.game.client.sendRequestAtributes();
+			self.game.client.sendRequestSkills();
+			self.game.client.sendRequestMiniStats();
+			self.game.client.sendRequestFame();
 			eventEmitter.emit(PopupNames.ESTADISTICAS);
 		});
 
-		$("#botonClanes1").click(function () {
+		$('#botonClanes1').click(function () {
 			self.showClanesCb();
 		});
 
-		$("#botonParty1").click(function () {
+		$('#botonParty1').click(function () {
 			self.game.client.sendRequestPartyForm();
 		});
 
-		$("#botonOpciones1").click(function () {
+		$('#botonOpciones1').click(function () {
 			self.showOpcionesCb();
 		});
 
@@ -107,4 +107,3 @@ class Menu extends PopUp {
 }
 
 export default Menu;
-

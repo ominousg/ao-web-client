@@ -1,9 +1,9 @@
 /**
  * Created by horacio on 4/20/16.
  */
-import { Enums } from "../enums";
-import Howler from "howler";
-import AudioClima from "./audioclima";
+import { Enums } from '../enums';
+import Howler from 'howler';
+import AudioClima from './audioclima';
 
 class Audio {
 	constructor() {
@@ -16,10 +16,10 @@ class Audio {
 		this.musicVolume = 1.0;
 		this._sounds = {};
 
-		this.MUSIC_PATH = "audio/musica/";
-		this.SOUND_PATH = "audio/sonidos/";
-		this.MAIN_EXTENSION = ".ogg";
-		this.SECONDARY_EXTENSION = ".mp3";
+		this.MUSIC_PATH = 'audio/musica/';
+		this.SOUND_PATH = 'audio/sonidos/';
+		this.MAIN_EXTENSION = '.ogg';
+		this.SECONDARY_EXTENSION = '.mp3';
 
 		this.currentMusicName = null;
 	}
@@ -46,12 +46,15 @@ class Audio {
 			if (this.currentMusic) {
 				let fadingOutMusic = this.currentMusic;
 				fadingOutMusic.fade(fadingOutMusic.volume(), 0, 1000);
-				fadingOutMusic.once("fade", () => {
+				fadingOutMusic.once('fade', () => {
 					fadingOutMusic.stop();
 				});
 			}
 			this.currentMusic = new Howler.Howl({
-				src: [this.MUSIC_PATH + nombre + this.MAIN_EXTENSION, this.MUSIC_PATH + nombre + this.SECONDARY_EXTENSION],
+				src: [
+					this.MUSIC_PATH + nombre + this.MAIN_EXTENSION,
+					this.MUSIC_PATH + nombre + this.SECONDARY_EXTENSION
+				],
 				loop: true
 			});
 
@@ -88,11 +91,14 @@ class Audio {
 		}
 
 		this._sounds[nombre] = new Howler.Howl({
-			src: [this.SOUND_PATH + nombre + this.MAIN_EXTENSION, this.SOUND_PATH + nombre + this.SECONDARY_EXTENSION],
+			src: [
+				this.SOUND_PATH + nombre + this.MAIN_EXTENSION,
+				this.SOUND_PATH + nombre + this.SECONDARY_EXTENSION
+			],
 			sprite: sprite
 		});
 		if (onEnd) {
-			this._sounds[nombre].on("onend", onEnd);
+			this._sounds[nombre].on('onend', onEnd);
 		}
 	}
 
@@ -104,7 +110,6 @@ class Audio {
 		if (this.soundEnabled) {
 			this.soundEnabled = false;
 			this.setMusicMuted(false);
-
 		} else {
 			this.soundEnabled = true;
 			this.setMusicMuted(true);
@@ -151,4 +156,3 @@ class Audio {
 }
 
 export default Audio;
-

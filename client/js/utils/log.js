@@ -2,15 +2,12 @@ var Logger = function (level) {
 	this.level = level;
 };
 
-Logger.prototype.info = function () {
-};
-Logger.prototype.debug = function () {
-};
-Logger.prototype.error = function () {
-};
+Logger.prototype.info = function () {};
+Logger.prototype.debug = function () {};
+Logger.prototype.error = function () {};
 
 Logger.prototype.info = function (message) {
-	if (this.level === "debug" || this.level === "info") {
+	if (this.level === 'debug' || this.level === 'info') {
 		if (window.console) {
 			console.info(message);
 		}
@@ -18,7 +15,7 @@ Logger.prototype.info = function (message) {
 };
 
 Logger.prototype.debug = function (message) {
-	if (this.level === "debug") {
+	if (this.level === 'debug') {
 		if (window.console) {
 			console.log(message);
 		}
@@ -26,7 +23,7 @@ Logger.prototype.debug = function (message) {
 };
 
 Logger.prototype.network = function (message) {
-	if (this.level === "debug" || this.level === "info") {
+	if (this.level === 'debug' || this.level === 'info') {
 		if (window.console) {
 			console.log(message);
 		}
@@ -38,10 +35,10 @@ Logger.prototype.error = function (message, stacktrace) {
 		console.error(message);
 		if (stacktrace !== undefined && stacktrace === true) {
 			var trace = printStackTrace();
-			console.error(trace.join("\n\n"));
-			console.error("-----------------------------");
+			console.error(trace.join('\n\n'));
+			console.error('-----------------------------');
 		}
 	}
 };
 
-var log = new Logger("debug");
+var log = new Logger('debug');

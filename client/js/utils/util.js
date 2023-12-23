@@ -1,7 +1,7 @@
 define(function () {
 	return {
 		isInt: function (n) {
-			return (n % 1) === 0;
+			return n % 1 === 0;
 		},
 
 		// modulo que funciona tambien para los numeros negativos
@@ -10,12 +10,12 @@ define(function () {
 		},
 
 		splitNullArray: function (string) {
-			return string.split("\u0000");
+			return string.split('\u0000');
 		},
 
 		joinNullArray: function (array) {
-			return array.join("\u0000");
-		},
+			return array.join('\u0000');
+		}
 	};
 });
 /*

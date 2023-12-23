@@ -2,32 +2,31 @@
  * Created by horacio on 2/21/16.
  */
 
-import { Enums } from "../../enums";
-import KeyMouseListener from "./keymouselistener";
-import popUpSkills from "../popups/popupskills";
-import Comerciar from "../popups/comerciar";
-import InGameMensaje from "../popups/ingamemensaje";
-import Interfaz from "./interfaz";
-import Tirar from "../popups/tirar";
-import Boveda from "../popups/boveda";
-import GuiaMapa from "../popups/guiamapa";
-import Opciones from "../popups/opciones";
-import Carpinteria from "../popups/carpinteria";
-import Herreria from "../popups/herreria";
-import Clanes from "../popups/clanes";
-import DetallesClan from "../popups/detallesclan";
-import SolicitudClan from "../popups/solicitudclan";
-import EleccionFaccionClan from "../popups/eleccionfaccionclan";
-import CrearClan from "../popups/crearclan";
-import NoticiasClan from "../popups/noticiasclan";
-import DetallesPersonaje from "../popups/detallespersonaje";
-import PartyLider from "../popups/partylider";
-import PartyMiembro from "../popups/partymiembro";
-import Menu from "../popups/menu";
+import { Enums } from '../../enums';
+import KeyMouseListener from './keymouselistener';
+import popUpSkills from '../popups/popupskills';
+import Comerciar from '../popups/comerciar';
+import InGameMensaje from '../popups/ingamemensaje';
+import Interfaz from './interfaz';
+import Tirar from '../popups/tirar';
+import Boveda from '../popups/boveda';
+import GuiaMapa from '../popups/guiamapa';
+import Opciones from '../popups/opciones';
+import Carpinteria from '../popups/carpinteria';
+import Herreria from '../popups/herreria';
+import Clanes from '../popups/clanes';
+import DetallesClan from '../popups/detallesclan';
+import SolicitudClan from '../popups/solicitudclan';
+import EleccionFaccionClan from '../popups/eleccionfaccionclan';
+import CrearClan from '../popups/crearclan';
+import NoticiasClan from '../popups/noticiasclan';
+import DetallesPersonaje from '../popups/detallespersonaje';
+import PartyLider from '../popups/partylider';
+import PartyMiembro from '../popups/partymiembro';
+import Menu from '../popups/menu';
 
 class GameUI {
 	constructor(gameManager, settings, playSonidoClickCb) {
-
 		this.playSonidoClickCb = playSonidoClickCb;
 
 		var game = gameManager.game;
@@ -59,13 +58,15 @@ class GameUI {
 		this.game.resize(escala); // todo <- este resize del renderer deberia ir fuera de game
 	}
 
-	updateKeysCallback(keys) { // todo: en otro lado esto y que a gameui solo le llegue keys
+	updateKeysCallback(keys) {
+		// todo: en otro lado esto y que a gameui solo le llegue keys
 		this.keyMouseListener.setKeys(keys);
 	}
 
-	hayPopUpActivo() { // TODO: ponerlo en uimanager o en otro lado, esto sirve tambien para los popups globales
+	hayPopUpActivo() {
+		// TODO: ponerlo en uimanager o en otro lado, esto sirve tambien para los popups globales
 		// no usar el vector popUps de aca porque solo contiene a los pop ups del juego
-		return ($("#container").children(".ui-dialog:visible").length !== 0);
+		return $('#container').children('.ui-dialog:visible').length !== 0;
 	}
 
 	hideGamePopUps() {
@@ -146,8 +147,40 @@ class GameUI {
 		this.noticiasClan.show(noticias, enemigos, aliados);
 	}
 
-	showDetallesPersonaje(CharName, Race, Class, Gender, Level, Gold, Bank, Reputation, PreviousPetitions, CurrentGuild, PreviousGuilds, RoyalArmy, ChaosLegion, CiudadanosMatados, CriminalesMatados) {
-		this.detallesPersonaje.show(CharName, Race, Class, Gender, Level, Gold, Bank, Reputation, PreviousPetitions, CurrentGuild, PreviousGuilds, RoyalArmy, ChaosLegion, CiudadanosMatados, CriminalesMatados);
+	showDetallesPersonaje(
+		CharName,
+		Race,
+		Class,
+		Gender,
+		Level,
+		Gold,
+		Bank,
+		Reputation,
+		PreviousPetitions,
+		CurrentGuild,
+		PreviousGuilds,
+		RoyalArmy,
+		ChaosLegion,
+		CiudadanosMatados,
+		CriminalesMatados
+	) {
+		this.detallesPersonaje.show(
+			CharName,
+			Race,
+			Class,
+			Gender,
+			Level,
+			Gold,
+			Bank,
+			Reputation,
+			PreviousPetitions,
+			CurrentGuild,
+			PreviousGuilds,
+			RoyalArmy,
+			ChaosLegion,
+			CiudadanosMatados,
+			CriminalesMatados
+		);
 	}
 
 	showParty(esLider, data, exp) {
@@ -162,7 +195,8 @@ class GameUI {
 		this.menu.show(fromEscapeKey);
 	}
 
-	updateSlotUser(numSlot, slot) { //todo: feo todo esto!
+	updateSlotUser(numSlot, slot) {
+		//todo: feo todo esto!
 		if (slot) {
 			var numGrafico = this.game.assetManager.getNumCssGraficoFromGrh(slot.grh);
 			this.interfaz.cambiarSlotInventario(numSlot, slot.cantidad, numGrafico, slot.equipado);
@@ -172,8 +206,7 @@ class GameUI {
 			if (this.boveda.visible) {
 				this.boveda.cambiarSlotDepositar(numSlot, slot.cantidad, numGrafico);
 			}
-		}
-		else {
+		} else {
 			this.interfaz.borrarSlotInventario(numSlot);
 			if (this.comerciar.visible) {
 				this.comerciar.borrarSlotVenta(numSlot);
@@ -188,8 +221,7 @@ class GameUI {
 		if (slot) {
 			var numGrafico = this.game.assetManager.getNumCssGraficoFromGrh(slot.grh);
 			this.comerciar.cambiarSlotCompra(numSlot, slot.cantidad, numGrafico);
-		}
-		else {
+		} else {
 			this.comerciar.borrarSlotCompra(numSlot);
 		}
 	}
@@ -244,7 +276,11 @@ class GameUI {
 	}
 
 	get opciones() {
-		this._opciones = this._opciones || this._initPopUp(new Opciones(this.game, this.settings, this.updateKeysCallback.bind(this), this.showMensajeFunction));
+		this._opciones =
+			this._opciones ||
+			this._initPopUp(
+				new Opciones(this.game, this.settings, this.updateKeysCallback.bind(this), this.showMensajeFunction)
+			);
 		return this._opciones;
 	}
 
@@ -254,17 +290,31 @@ class GameUI {
 	}
 
 	get menu() {
-		this._menu = this._menu || this._initPopUp(new Menu(this.game, this.showMapa.bind(this), this.showClanes.bind(this), this.showOpciones.bind(this)));
+		this._menu =
+			this._menu ||
+			this._initPopUp(
+				new Menu(
+					this.game,
+					this.showMapa.bind(this),
+					this.showClanes.bind(this),
+					this.showOpciones.bind(this)
+				)
+			);
 		return this._menu;
 	}
 
 	get detallesClan() {
-		this._detallesClan = this._detallesClan || this._initPopUp(new DetallesClan(this.game, this._showSolicitudClan.bind(this)));
+		this._detallesClan =
+			this._detallesClan || this._initPopUp(new DetallesClan(this.game, this._showSolicitudClan.bind(this)));
 		return this._detallesClan;
 	}
 
 	get clanes() {
-		this._clanes = this._clanes || this._initPopUp(new Clanes(this.game, this.detallesClan, this.showMensajeFunction, this._showSolicitudClan.bind(this)));
+		this._clanes =
+			this._clanes ||
+			this._initPopUp(
+				new Clanes(this.game, this.detallesClan, this.showMensajeFunction, this._showSolicitudClan.bind(this))
+			);
 		return this._clanes;
 	}
 
@@ -274,7 +324,8 @@ class GameUI {
 	}
 
 	get eleccionFaccionClan() {
-		this._eleccionFaccionClan = this._eleccionFaccionClan || this._initPopUp(new EleccionFaccionClan(this.game));
+		this._eleccionFaccionClan =
+			this._eleccionFaccionClan || this._initPopUp(new EleccionFaccionClan(this.game));
 		return this._eleccionFaccionClan;
 	}
 
@@ -294,12 +345,14 @@ class GameUI {
 	}
 
 	get partyLider() {
-		this._partyLider = this._partyLider || this._initPopUp(new PartyLider(this.game, this.showMensajeFunction));
+		this._partyLider =
+			this._partyLider || this._initPopUp(new PartyLider(this.game, this.showMensajeFunction));
 		return this._partyLider;
 	}
 
 	get partyMiembro() {
-		this._partyMiembro = this._partyMiembro || this._initPopUp(new PartyMiembro(this.game, this.showMensajeFunction));
+		this._partyMiembro =
+			this._partyMiembro || this._initPopUp(new PartyMiembro(this.game, this.showMensajeFunction));
 		return this._partyMiembro;
 	}
 

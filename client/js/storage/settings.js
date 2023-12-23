@@ -2,14 +2,14 @@
  * Created by horacio on 07/09/2016.
  */
 
-import DefaultSettings from "./defaultsettings";
-import Storage from "./storage";
+import DefaultSettings from './defaultsettings';
+import Storage from './storage';
 
 class Settings {
 	constructor() {
 		this.storage = new Storage();
 		var defaultSettings = this._getDefaultData();
-		this._settings = this.storage.getItem("settings", defaultSettings);
+		this._settings = this.storage.getItem('settings', defaultSettings);
 	}
 
 	_getDefaultData() {
@@ -66,14 +66,12 @@ class Settings {
 	}
 
 	save() {
-		this.storage.setItem("settings", this._settings);
+		this.storage.setItem('settings', this._settings);
 	}
 
 	clear() {
-		this.storage.removeItem("settings");
+		this.storage.removeItem('settings');
 	}
-
 }
 
 export default Settings;
-

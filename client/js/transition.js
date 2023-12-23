@@ -1,5 +1,4 @@
 define(function () {
-
 	class Transition {
 		constructor() {
 			this.startValue = 0;
@@ -23,9 +22,13 @@ define(function () {
 				this.elapsed += deltaTime;
 
 				var diff = this.endValue - this.startValue;
-				var i = this.startValue + ((diff / this.duration) * this.elapsed);
+				var i = this.startValue + (diff / this.duration) * this.elapsed;
 
-				if (this.elapsed >= this.duration || ( (diff > 0) && (i >= this.endValue) ) || ( (diff < 0 ) && (i <= this.endValue))) {
+				if (
+					this.elapsed >= this.duration ||
+					(diff > 0 && i >= this.endValue) ||
+					(diff < 0 && i <= this.endValue)
+				) {
 					this.stop();
 					if (this.stopFunction) {
 						this.stopFunction();

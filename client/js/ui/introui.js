@@ -4,13 +4,12 @@
 
 class IntroUI {
 	constructor(assetManager, showMensajeCb) {
-		this.loadingBarUsada = $("#loadingBarUsada");
+		this.loadingBarUsada = $('#loadingBarUsada');
 	}
 
 	updateLoadingBar(porcentajeCargado) {
-		this.loadingBarUsada.css("width", porcentajeCargado + "%");
+		this.loadingBarUsada.css('width', porcentajeCargado + '%');
 	}
-
 }
 
 export default IntroUI;

@@ -3,9 +3,7 @@
  */
 
 define([], function () {
-
 	class PlayerMovement {
-
 		constructor(game) {
 			/*this.game.player = null;*/
 
@@ -58,7 +56,8 @@ define([], function () {
 			this.cambioHeadingCallback = callback;
 		}
 
-		setOnMoverseUpdate(callback) { // cb params: x,y
+		setOnMoverseUpdate(callback) {
+			// cb params: x,y
 			this._moverseUpdateCallback = callback;
 		}
 
@@ -79,8 +78,7 @@ define([], function () {
 				this.caminarCallback(this.getDirMov(), this.caminandoForzado);
 				this.game.player.heading = this.getDirMov();
 				return true;
-			}
-			else {
+			} else {
 				if (this.game.player.heading !== this.getDirMov()) {
 					this.game.player.heading = this.getDirMov();
 					this.game.player.sprite.stopAnimations();
@@ -91,7 +89,7 @@ define([], function () {
 		}
 
 		terminarDeCaminar(direccion) {
-			if ((this.dirPressedStack.indexOf(direccion) > -1)) {
+			if (this.dirPressedStack.indexOf(direccion) > -1) {
 				this.dirPressedStack.splice(this.dirPressedStack.indexOf(direccion), 1);
 			}
 		}
@@ -103,8 +101,10 @@ define([], function () {
 			return this.dirPressedStack[this.dirPressedStack.length - 1];
 		}
 
-		_hasMoved() { //llamdo por el hasmoved del player
-			if (this.caminandoForzado) { // moviendoseForzado difiere de forcedcaminar en que este se setea una vez que comienza el movimiento, el otro cuando le llega el mensaje. Es necesario este checkeo porque si llega el mensaje y esta en movimiento, el hasmoved de ese movimiento afectaria al forcedcaminar
+		_hasMoved() {
+			//llamdo por el hasmoved del player
+			if (this.caminandoForzado) {
+				// moviendoseForzado difiere de forcedcaminar en que este se setea una vez que comienza el movimiento, el otro cuando le llega el mensaje. Es necesario este checkeo porque si llega el mensaje y esta en movimiento, el hasmoved de ese movimiento afectaria al forcedcaminar
 				this.forcedCaminarQueue.shift(); // remueve primer index, ForcedCaminar es una cola con los mensajes de caminar forzado que llegaron
 				this.caminandoForzado = false;
 			}
@@ -112,7 +112,7 @@ define([], function () {
 		}
 
 		tratarDeMover() {
-			if ((this.estaCaminando() && !this.game.player.estaMoviendose())) {
+			if (this.estaCaminando() && !this.game.player.estaMoviendose()) {
 				if (this._tratarDeCaminar()) {
 					this.prevGridPosX = this.game.player.gridX;
 					this.prevGridPosY = this.game.player.gridY;
@@ -129,9 +129,8 @@ define([], function () {
 		}
 
 		estaCaminando() {
-			return (this.forcedCaminarQueue.length > 0 || this.dirPressedStack.length > 0);
+			return this.forcedCaminarQueue.length > 0 || this.dirPressedStack.length > 0;
 		}
-
 	}
 
 	return PlayerMovement;

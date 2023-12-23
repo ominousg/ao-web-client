@@ -27,7 +27,7 @@ class Atributos {
 		if (!max) {
 			max = this.maxHp;
 		}
-		if ((this.hp !== min) || (this.maxHp !== max)) {
+		if (this.hp !== min || this.maxHp !== max) {
 			this.hp = min;
 			this.maxHp = max;
 			this.game.gameUI.interfaz.updateBarraVida(min, max);
@@ -35,11 +35,11 @@ class Atributos {
 	}
 
 	setMana(MinMan, MaxMan) {
-		if (!MaxMan && (MaxMan !== 0)) {
+		if (!MaxMan && MaxMan !== 0) {
 			MaxMan = this.maxMana;
 		}
 
-		if ((this.mana !== MinMan) || (this.maxMana !== MaxMan)) {
+		if (this.mana !== MinMan || this.maxMana !== MaxMan) {
 			this.mana = MinMan;
 			this.maxMana = MaxMan;
 			this.game.gameUI.interfaz.updateBarraMana(MinMan, MaxMan);
@@ -50,7 +50,7 @@ class Atributos {
 		if (!MaxSta) {
 			MaxSta = this.maxStamina;
 		}
-		if ((this.stamina !== MinSta) || this.maxStamina !== MaxSta) {
+		if (this.stamina !== MinSta || this.maxStamina !== MaxSta) {
 			this.stamina = MinSta;
 			this.maxStamina = MaxSta;
 			this.game.gameUI.interfaz.updateBarraEnergia(MinSta, MaxSta);
@@ -61,7 +61,7 @@ class Atributos {
 		if (!MaxAgu) {
 			MaxAgu = this.maxAgua;
 		}
-		if ((this.agua !== MinAgu) || (this.maxAgua !== MaxAgu)) {
+		if (this.agua !== MinAgu || this.maxAgua !== MaxAgu) {
 			this.maxAgua = MaxAgu;
 			this.agua = MinAgu;
 			this.game.gameUI.interfaz.updateBarraSed(MinAgu, MaxAgu);
@@ -72,7 +72,7 @@ class Atributos {
 		if (!MaxHam) {
 			MaxHam = this.maxHambre;
 		}
-		if ((this.hambre !== MinHam) || (this.maxHambre !== MaxHam)) {
+		if (this.hambre !== MinHam || this.maxHambre !== MaxHam) {
 			this.hambre = MinHam;
 			this.maxHambre = MaxHam;
 			this.game.gameUI.interfaz.updateBarraHambre(MinHam, MaxHam);
@@ -83,7 +83,7 @@ class Atributos {
 		if (!maxExp) {
 			maxExp = this.maxExp;
 		}
-		if ((this.exp !== minExp) || (this.maxExp !== maxExp)) {
+		if (this.exp !== minExp || this.maxExp !== maxExp) {
 			this.exp = minExp;
 			this.maxExp = maxExp;
 			this.game.gameUI.interfaz.updateBarraExp(minExp, maxExp);
@@ -103,7 +103,6 @@ class Atributos {
 			this.game.gameUI.interfaz.updateOro(oro);
 		}
 	}
-
 }
 
 export default Atributos;

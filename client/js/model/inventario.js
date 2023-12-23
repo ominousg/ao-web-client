@@ -3,13 +3,25 @@
  */
 
 define([], function () {
-
 	class Inventario {
 		constructor() {
 			this._slots = [];
 		}
 
-		cambiarSlot(numSlot, ObjName, Amount, Price, GrhIndex, ObjIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef, Equiped) {
+		cambiarSlot(
+			numSlot,
+			ObjName,
+			Amount,
+			Price,
+			GrhIndex,
+			ObjIndex,
+			ObjType,
+			MaxHit,
+			MinHit,
+			MaxDef,
+			MinDef,
+			Equiped
+		) {
 			var nuevoSlot;
 			if (this.isValidSlot(Amount, GrhIndex)) {
 				nuevoSlot = {
@@ -46,9 +58,8 @@ define([], function () {
 		}
 
 		isValidSlot(cantidad, grh) {
-			return !!((cantidad > 0) && (grh > 0));
+			return !!(cantidad > 0 && grh > 0);
 		}
-
 	}
 	return Inventario;
 });
