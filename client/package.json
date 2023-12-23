@@ -5,7 +5,9 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "start": "webpack serve --mode development",
+    "build": "set NODE_ENV=production&& webpack --mode production"
   },
   "author": "",
   "license": "ISC",

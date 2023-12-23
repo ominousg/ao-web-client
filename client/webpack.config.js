@@ -2,7 +2,8 @@
  * Migración de RequireJS a Webpack por ominousg - 04/02/2023.
  */
 
-require('dotenv').config();
+require('dotenv').config({ path: `.env.${process.env.APP_ENV}` });
+
 const path = require('path');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
@@ -10,10 +11,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const cssLoader = require('css-loader');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 const folders = ['imagenes', 'graficos', 'audio', 'css', 'js/lib', 'mapas', 'fonts', 'indices', 'audio'];
+const isProduction = process.env.APP_ENV === 'production';
 
 module.exports = {
-	mode: 'development',
+	mode: isProduction ? 'production' : 'development',
 	entry: ['./js/main.js'],
 	output: {
 		path: path.resolve(__dirname, 'dist'),
