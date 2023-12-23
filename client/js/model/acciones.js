@@ -1,9 +1,9 @@
 /**
  * Created by horacio on 4/9/16.
  */
-import { Enums } from "../enums";
-import Font from "../font";
-import Macros from "./macros";
+import { Enums } from '../enums';
+import Font from '../font';
+import Macros from './macros';
 
 class Acciones {
 	constructor(game, intervalos) {
@@ -14,21 +14,17 @@ class Acciones {
 	}
 
 	agarrar() {
-
 		if (this.game.player.muerto) {
 			this.game.escribirMsgConsola(Enums.MensajeConsola.ESTAS_MUERTO);
-		}
-		else {
+		} else {
 			this.game.client.sendPickUp();
 		}
 	}
 
 	ocultarse() {
-
 		if (this.game.player.muerto) {
 			this.game.escribirMsgConsola(Enums.MensajeConsola.ESTAS_MUERTO);
-		}
-		else {
+		} else {
 			this.game.client.sendWork(Enums.Skill.ocultarse);
 		}
 	}
@@ -63,36 +59,36 @@ class Acciones {
 		if (this.intervalos.requestUsarConDobleClick()) {
 			this.game.client.sendUseItem(slot);
 		}
-
 	}
 
 	atacar() {
 		if (this.intervalos.requestAtacar()) {
 			this.game.client.sendAttack();
 			let x, y;
-			switch (this.game.player.heading) { // todo: hacerlo con el arco y con hechizos tambien
-			case  Enums.Heading.oeste:
-				x = this.game.player.gridX - 1;
-				y = this.game.player.gridY;
-				break;
-			case  Enums.Heading.este:
-				x = this.game.player.gridX + 1;
-				y = this.game.player.gridY;
-				break;
-			case  Enums.Heading.norte:
-				x = this.game.player.gridX;
-				y = this.game.player.gridY - 1;
-				break;
-			case  Enums.Heading.sur:
-				x = this.game.player.gridX;
-				y = this.game.player.gridY + 1;
-				break;
-			default:
-				console.log(" Direccion de player invalida!");
+			switch (
+				this.game.player.heading // todo: hacerlo con el arco y con hechizos tambien
+			) {
+				case Enums.Heading.oeste:
+					x = this.game.player.gridX - 1;
+					y = this.game.player.gridY;
+					break;
+				case Enums.Heading.este:
+					x = this.game.player.gridX + 1;
+					y = this.game.player.gridY;
+					break;
+				case Enums.Heading.norte:
+					x = this.game.player.gridX;
+					y = this.game.player.gridY - 1;
+					break;
+				case Enums.Heading.sur:
+					x = this.game.player.gridX;
+					y = this.game.player.gridY + 1;
+					break;
+				default:
+					console.log(' Direccion de player invalida!');
 			}
 			this.game.playerState.lastAttackedTarget = this.game.world.getCharacterInGridPos(x, y);
 		}
-
 	}
 
 	caminar(direccion) {
@@ -151,7 +147,8 @@ class Acciones {
 		}
 	}
 
-	lanzarHechizo() { /*todo: slot por parametro*/
+	lanzarHechizo() {
+		/*todo: slot por parametro*/
 		if (!this.intervalos.requestLanzarHechizo()) {
 			return;
 		}
@@ -237,7 +234,7 @@ class Acciones {
 	}
 
 	tirarOro(cantidad) {
-		if (cantidad > (this.game.atributos.oro)) {
+		if (cantidad > this.game.atributos.oro) {
 			cantidad = this.game.atributos.oro;
 		}
 		if (cantidad > this.MAX_CANTIDAD_ITEM) {
@@ -256,7 +253,7 @@ class Acciones {
 			return;
 		}
 		if (this.game.atributos.mana === this.game.atributos.maxMana) {
-			this.game.escribirMsgConsola("Tu mana ya esta llena", Font.NOTIFICATION);
+			this.game.escribirMsgConsola('Tu mana ya esta llena', Font.NOTIFICATION);
 		} else {
 			this.game.client.sendMeditate();
 		}
@@ -274,8 +271,8 @@ class Acciones {
 		this.macros.desactivarMacros();
 	}
 
-	mostrarMenu(){
-		if (!this.game.gameUI.hayPopUpActivo()){
+	mostrarMenu() {
+		if (!this.game.gameUI.hayPopUpActivo()) {
 			this.game.gameUI.showMenu(true);
 		}
 	}
