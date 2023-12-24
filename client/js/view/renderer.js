@@ -199,7 +199,7 @@ class Renderer {
 
 		this.indicadorMapa.x = Math.floor((17 * 32 - 75) * escala);
 		this.indicadorMapa.y = Math.floor((13 * 32 - 12) * escala);
-		this.indicadorMapa.setEscala(escala);
+		// this.indicadorMapa.setEscala(escala);
 
 		this.indicadorFPS.x = Math.floor((18 * 32 - 62) * escala);
 		this.indicadorFPS.y = Math.floor((1 * 32 - 32) * escala);

@@ -28,6 +28,9 @@ class Preloader {
 		// 	}
 		// });
 
+		// bitmap fonts
+		this.loader.add('Roboto Mono', 'fonts/bitmaps/Roboto Mono.fnt');
+
 		//sounds:
 		this._preloadSoundsAsync();
 
