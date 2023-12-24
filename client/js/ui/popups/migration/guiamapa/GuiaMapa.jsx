@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MyPopup from '../Popup.jsx';
+import Popup from '../Popup.jsx';
 import { css } from '@emotion/react';
 import { MapaGlobalSVG } from './mapas/MapaGlobal.jsx';
 import { MapaDungeonsSVG } from './mapas/MapaDungeons.jsx';
@@ -66,7 +66,7 @@ const GuiaMapa = () => {
 	};
 
 	return (
-		<MyPopup
+		<Popup
 			title="Mapa"
 			isOpen={isOpen}
 			togglePopup={() => closePopup(PopupNames.GUIA_MAPA)}
@@ -87,7 +87,7 @@ const GuiaMapa = () => {
 					{activeTab === 'mapaDungeons' && <MapaDungeonsSVG />}
 				</div>
 			</div>
-		</MyPopup>
+		</Popup>
 	);
 };
 

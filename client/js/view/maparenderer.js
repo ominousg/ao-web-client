@@ -6,7 +6,7 @@ import { Enums } from '../enums';
 import Utils from '../utils/util';
 import { Graphics } from 'pixi.js';
 import SpriteGrh from './spritegrh';
-import RendererUtils from './rendererutils';
+import { posicionarRectEnTile, removePixiChild } from './rendererutils';
 
 class MapaRenderer {
 	constructor(camera, assetManager, layer1Container, layer2Container, layer3Container, layer4Container) {
@@ -241,15 +241,15 @@ class MapaRenderer {
 			dir,
 			function (i, j) {
 				if (self._spritesLayer2[i][j]) {
-					RendererUtils.removePixiChild(self.layer2, self._spritesLayer2[i][j]);
+					removePixiChild(self.layer2, self._spritesLayer2[i][j]);
 					self._spritesLayer2[i][j] = null;
 				}
 				if (self._spritesLayer3[i][j]) {
-					RendererUtils.removePixiChild(self.layer3, self._spritesLayer3[i][j]);
+					removePixiChild(self.layer3, self._spritesLayer3[i][j]);
 					self._spritesLayer3[i][j] = null;
 				}
 				if (self._spritesLayer4[i][j]) {
-					RendererUtils.removePixiChild(self.layer4, self._spritesLayer4[i][j]);
+					removePixiChild(self.layer4, self._spritesLayer4[i][j]);
 					self._spritesLayer4[i][j] = null;
 				}
 			},
@@ -286,7 +286,7 @@ class MapaRenderer {
 		spriteRect.width = sprite.width;
 		spriteRect.height = sprite.height;
 
-		RendererUtils.posicionarRectEnTile(spriteRect);
+		posicionarRectEnTile(spriteRect);
 		sprite.visible = this.camera.rectVisible(spriteRect);
 	}
 
@@ -294,7 +294,7 @@ class MapaRenderer {
 		gridHijos.forEach((fila) => {
 			fila.forEach((hijo) => {
 				if (hijo) {
-					RendererUtils.removePixiChild(padre, hijo);
+					removePixiChild(padre, hijo);
 				}
 			});
 		});

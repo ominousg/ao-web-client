@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MyPopup from '../Popup.jsx';
+import Popup from '../Popup.jsx';
 import Button from '../Button.jsx';
 import { css } from '@emotion/react';
 
@@ -21,7 +21,7 @@ const Menu = () => {
 	};
 
 	return (
-		<MyPopup title="Menu" isOpen={isOpen} togglePopup={togglePopup}>
+		<Popup title="Menu" isOpen={isOpen} togglePopup={togglePopup}>
 			<div css={menuPopup}>
 				<Button variant="primary">Mapa</Button>
 				<Button variant="primary">Estadísticas</Button>
@@ -29,7 +29,7 @@ const Menu = () => {
 				<Button variant="primary">Party</Button>
 				<Button variant="primary">Ajustes</Button>
 			</div>
-		</MyPopup>
+		</Popup>
 	);
 };
 

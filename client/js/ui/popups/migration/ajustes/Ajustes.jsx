@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MyPopup from '../Popup.jsx';
+import Popup from '../Popup.jsx';
 import { css } from '@emotion/react';
 import OptionsTab from './OptionsTab.jsx';
 import SoundTab from './SoundTab.jsx';
@@ -70,7 +70,7 @@ const Ajustes = () => {
 	];
 
 	return (
-		<MyPopup title="Ajustes" isOpen={isOpen} togglePopup={togglePopup} hideBorder={true}>
+		<Popup title="Ajustes" isOpen={isOpen} togglePopup={togglePopup} hideBorder={true}>
 			<div css={estadisticasPopup}>
 				<div css={sidebarStyles}>
 					{tabs.map((tab) => (
@@ -97,7 +97,7 @@ const Ajustes = () => {
 					{activeTab === 'keybindings' && <KeybindingsTab />}
 				</div>
 			</div>
-		</MyPopup>
+		</Popup>
 	);
 };
 

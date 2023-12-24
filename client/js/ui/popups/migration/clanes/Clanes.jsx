@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import MyPopup from '../Popup.jsx';
+import Popup from '../Popup.jsx';
 import { css } from '@emotion/react';
 import Button from '../Button.jsx';
 import Input from '../Input.jsx';
@@ -42,7 +42,7 @@ const contentStyle = css`
 `;
 
 const clanesList = css`
-	padding-left: 8px;
+	padding: 0px 8px;
 
 	h4 {
 		color: #978576;
@@ -79,6 +79,10 @@ const searchResult = css`
 	&:hover {
 		background-color: #19141120;
 	}
+`;
+
+const actionButtonsContainer = css`
+	padding: 5px 0px;
 `;
 
 const clanes = [
@@ -172,7 +176,7 @@ const ClanesList = () => {
 			<h4>Clanes</h4>
 			<Input
 				type="search"
-				placeholder="Nombre"
+				placeholder="Buscar por Nombre"
 				value={searchInput}
 				onChange={(e) => setSearchInput(e.target.value)}
 			/>
@@ -192,9 +196,11 @@ const ClanesList = () => {
 				)}
 			</div>
 
-			<Button variant="secondary">Crear</Button>
-			<Button variant="primary">Detalles</Button>
-			<Button variant="secondary">Aplicarse</Button>
+			<div css={actionButtonsContainer}>
+				<Button variant="secondary">Crear</Button>
+				<Button variant="primary">Detalles</Button>
+				<Button variant="secondary">Aplicarse</Button>
+			</div>
 		</div>
 	);
 };
@@ -215,7 +221,7 @@ const Clanes = () => {
 	];
 
 	return (
-		<MyPopup title="Clanes" isOpen={isOpen} togglePopup={togglePopup} hideBorder={true}>
+		<Popup title="Clanes" isOpen={isOpen} togglePopup={togglePopup} hideBorder={true}>
 			<div css={clanesPopup}>
 				<div css={sidebarStyle}>
 					{tabs.map((tab) => (
@@ -241,7 +247,7 @@ const Clanes = () => {
 					{activeTab === 'clanesMembers' && <h6>clanes members</h6>}
 				</div>
 			</div>
-		</MyPopup>
+		</Popup>
 	);
 };
 

@@ -9,7 +9,7 @@ import IndicadorFPS from './indicadorFPS';
 import EntityRenderer from './entityrenderer';
 import ClimaRenderer from './climarenderer';
 import MapaRenderer from './maparenderer';
-import RendererUtils from './rendererutils';
+import { removePixiChild } from './rendererutils';
 
 class Renderer {
 	constructor(assetManager, escala) {
@@ -218,7 +218,7 @@ class Renderer {
 	clean(escala) {
 		while (this.stage.children.length > 0) {
 			var child = this.stage.getChildAt(0);
-			RendererUtils.removePixiChild(this.stage, child);
+			removePixiChild(this.stage, child);
 		}
 
 		this._initStage();

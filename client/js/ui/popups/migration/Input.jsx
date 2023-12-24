@@ -3,9 +3,10 @@ import { css } from '@emotion/react';
 
 const inputStyles = css`
 	all: unset;
-	width: 390px;
+  box-sizing: border-box;
+	width: 100%;
 	height: 32px;
-	padding: 3px 12px;
+	padding: 3px 0px 3px 8px;
 	font-size: 14px;
 	color: #9f8e80;
 	background-color: #191411;

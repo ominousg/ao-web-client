@@ -1,5 +1,5 @@
 import React from 'react';
-import MyPopup from '../Popup.jsx';
+import Popup from '../Popup.jsx';
 import { css } from '@emotion/react';
 import { Enums } from '../../../../enums.js';
 import Button from '../Button.jsx';
@@ -81,7 +81,7 @@ const Estadisticas = () => {
 	const status = fameInfo.Promedio < 0 ? 'Criminal' : 'Ciudadano';
 
 	return (
-		<MyPopup title="Estadísticas" isOpen={isOpen} togglePopup={() => closePopup(PopupNames.ESTADISTICAS)}>
+		<Popup title="Estadísticas" isOpen={isOpen} togglePopup={() => closePopup(PopupNames.ESTADISTICAS)}>
 			<div css={estadisticasPopup}>
 				<div css={scrollFlex}>
 					<div css={statsBox}>
@@ -159,7 +159,7 @@ const Estadisticas = () => {
 					</Button>
 				</div>
 			</div>
-		</MyPopup>
+		</Popup>
 	);
 };
 

@@ -6,12 +6,11 @@
 import { Enums } from '../enums';
 import Utils from '../utils/util';
 import Font from '../font';
-import * as PIXI from 'pixi.js-legacy';
 import CharacterSprites from './charactersprites';
 import CharacterName from './charactername';
 import CharacterText from './charactertext';
 import SpriteGrh from './spritegrh';
-import RendererUtils from './rendererutils';
+import { posicionarRectEnTile, removePixiChild } from './rendererutils';
 
 class EntityRenderer {
 	constructor(escala, entityContainer, entityNamesContainer, entityChatContainer, camera, assetManager) {
@@ -81,7 +80,7 @@ class EntityRenderer {
 		if (!item.sprite) {
 			return;
 		}
-		RendererUtils.removePixiChild(this.entityContainer, item.sprite);
+		removePixiChild(this.entityContainer, item.sprite);
 		item.sprite = null;
 	}
 
@@ -94,7 +93,7 @@ class EntityRenderer {
 			var clan = char.clan;
 			var color = char.nickColor;
 			if (char.spriteNombre) {
-				RendererUtils.removePixiChild(self.entityNamesContainer, char.spriteNombre);
+				removePixiChild(self.entityNamesContainer, char.spriteNombre);
 				char.spriteNombre = null;
 			}
 			if (!nombre.trim()) {
@@ -194,13 +193,13 @@ class EntityRenderer {
 	}
 
 	sacarCharacter(char) {
-		RendererUtils.removePixiChild(this.entityContainer, char.sprite);
+		removePixiChild(this.entityContainer, char.sprite);
 		char.sprite = null;
-		RendererUtils.removePixiChild(this.entityChatContainer, char.texto);
+		removePixiChild(this.entityChatContainer, char.texto);
 		char.texto = null;
 
 		if (char.spriteNombre) {
-			RendererUtils.removePixiChild(this.entityNamesContainer, char.spriteNombre);
+			removePixiChild(this.entityNamesContainer, char.spriteNombre);
 			char.spriteNombre = null;
 		}
 	}
@@ -263,7 +262,7 @@ class EntityRenderer {
 		entityRect.width = sprite.width;
 		entityRect.height = sprite.height;
 
-		RendererUtils.posicionarRectEnTile(entityRect);
+		posicionarRectEnTile(entityRect);
 		return this.camera.rectVisible(entityRect, extraPositions);
 	}
 
