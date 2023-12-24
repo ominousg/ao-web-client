@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom/client';
 import Ajustes from './ui/popups/migration/ajustes/Ajustes.jsx';
 const Estadisticas = React.lazy(() => import('./ui/popups/migration/estadisticas/Estadisticas.jsx'));
 const GuiaMapa = React.lazy(() => import('./ui/popups/migration/guiamapa/GuiaMapa.jsx'));
+const Skills = React.lazy(() => import('./ui/popups/migration/skills/Skills.jsx'));
 import App from './app';
 import AssetManager from './assets/assetmanager';
 import UIManager from './ui/uimanager';
@@ -40,9 +41,9 @@ const GameApp = () => {
 	return (
 		<>
 			<Suspense fallback={null}>
-				{/* <Ajustes /> */}
 				{popups[PopupNames.ESTADISTICAS] && <Estadisticas />}
 				{popups[PopupNames.GUIA_MAPA] && <GuiaMapa />}
+				{popups[PopupNames.SKILLS] && <Skills />}
 			</Suspense>
 		</>
 	);

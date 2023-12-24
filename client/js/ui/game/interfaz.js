@@ -3,6 +3,8 @@
  */
 import CharCodeMap from '../../utils/charcodemap';
 import ItemGrid from './itemgrid';
+import eventEmitter from '../utils/eventEmitter';
+import { PopupNames } from '../popups/popupNames';
 
 class Interfaz {
 	constructor(game, acciones) {
@@ -40,6 +42,7 @@ class Interfaz {
 
 		$('#botonAsignarSkills').click(function () {
 			self.game.gameUI.showSkills();
+			eventEmitter.emit(PopupNames.SKILLS);
 		});
 
 		$('#botonSeguroResucitar').click(function () {

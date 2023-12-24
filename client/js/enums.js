@@ -143,6 +143,30 @@ export const Enums = {
 		21: '????'
 	},
 
+	SkillNames: {
+		magia: { id: 1, name: 'Magia' },
+		robar: { id: 2, name: 'Robar' },
+		tacticas: { id: 3, name: 'Evasión en combate' },
+		armas: { id: 4, name: 'Combate cuerpo a cuerpo' },
+		meditar: { id: 5, name: 'Meditar' },
+		apunalar: { id: 6, name: 'Apuñalar' },
+		ocultarse: { id: 7, name: 'Ocultarse' },
+		supervivencia: { id: 8, name: 'Supervivencia' },
+		talar: { id: 9, name: 'Talar árboles' },
+		comerciar: { id: 10, name: 'Comercio' },
+		defensa: { id: 11, name: 'Defensa con escudos' },
+		pesca: { id: 12, name: 'Pesca' },
+		mineria: { id: 13, name: 'Minería' },
+		carpinteria: { id: 14, name: 'Carpintería' },
+		herreria: { id: 15, name: 'Herrería' },
+		liderazgo: { id: 16, name: 'Liderazgo' },
+		domar: { id: 17, name: 'Domar animales' },
+		proyectiles: { id: 18, name: 'Combate a distancia' },
+		wrestling: { id: 19, name: 'Combate sin armas' },
+		navegacion: { id: 20, name: 'Navegación' },
+		fundirmetal: { id: 88, name: 'Fundir metal' }
+	},
+
 	Muerto: {
 		cabezaCasper: 500,
 		cuerpoFragataFantasmal: 87
