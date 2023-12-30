@@ -32,6 +32,7 @@ class Renderer {
 		this.climaRenderer = null;
 		this.fadeInterval = null;
 
+		this.escala = escala;
 		this._inicializarPixi();
 		this.rescale(escala);
 	}
@@ -197,13 +198,11 @@ class Renderer {
 		}
 		this.consola.setEscala(escala);
 
-		this.indicadorMapa.x = Math.floor((17 * 32 - 75) * escala);
-		this.indicadorMapa.y = Math.floor((13 * 32 - 12) * escala);
-		// this.indicadorMapa.setEscala(escala);
+		this.indicadorMapa.x = Math.round(518 * escala - 120);
+		this.indicadorMapa.y = Math.floor((13 * 32 - 10) * escala);
 
-		this.indicadorFPS.x = Math.floor((18 * 32 - 62) * escala);
+		this.indicadorFPS.x = Math.round(539 * escala - 63);
 		this.indicadorFPS.y = Math.floor((1 * 32 - 32) * escala);
-		this.indicadorFPS.setEscala(escala);
 
 		/* TEMPORAL */
 		if (this.entityRenderer) {

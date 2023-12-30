@@ -1,20 +1,16 @@
-import Font from '../font';
-import { Text } from 'pixi.js';
-import GameTextStyle from './gametextstyle';
+import { BitmapText } from 'pixi.js';
 
-class IndicadorFPS extends Text {
+class IndicadorFPS extends BitmapText {
 	constructor(escala) {
-		let style = new GameTextStyle(Font.INDICADOR_MAPA, escala);
-		super(' ', style);
-		this.setEscala(escala);
+		super(' ', {
+			fontName: 'Roboto Mono',
+			fontSize: 18,
+			tint: 0xffff00
+		});
 	}
 
 	actualizar(fps) {
 		this.text = 'FPS: ' + fps;
-	}
-
-	setEscala(escala) {
-		this.style.setEscala(escala);
 	}
 }
 export default IndicadorFPS;

@@ -30,6 +30,7 @@ class Preloader {
 
 		// bitmap fonts
 		this.loader.add('Roboto Mono', 'fonts/bitmaps/Roboto Mono.fnt');
+		this.loader.add('Ubuntu Mono', 'fonts/bitmaps/Ubuntu Mono.fnt');
 
 		//sounds:
 		this._preloadSoundsAsync();

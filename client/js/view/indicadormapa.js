@@ -8,19 +8,14 @@ class IndicadorMapa extends BitmapText {
 	constructor(escala) {
 		super(' ', {
 			fontName: 'Roboto Mono',
-			fontSize: 16
+			fontSize: 18,
+			tint: 0xffff00
 		});
-		this.escala = escala;
-		// this.adjustScale(escala);
 	}
 
 	actualizar(numMap, x, y) {
 		this.text = 'Mapa ' + numMap + ' X: ' + x + ' Y: ' + y;
 	}
-
-	// adjustScale(escala) {
-	// 	this.scale.set(escala, escala);
-	// }
 }
 
 export default IndicadorMapa;
