@@ -92,26 +92,26 @@ export default class Consola extends Container {
 
 	agregarTexto(texto, font) {
 		let estilo = new GameTextStyle(Font.CONSOLA_BASE_FONT, this._escala, font);
-
 		estilo.wordWrap = true;
-		const calculatedWidth = 700 + (1000 - 700) * ((this._escala - 1.387) / (1.968 - 1.387));
-		estilo.wordWrapWidth = calculatedWidth;
+		estilo.wordWrapWidth = 700 + (1000 - 700) * ((this._escala - 1.387) / (1.968 - 1.387));
 
 		let processedText = this.insertForcedBreaks(texto, estilo.wordWrapWidth, estilo);
 		let nuevoTexto = new Text(processedText, estilo);
 
-		if (this.children.length > this.CANT_LINEAS - 1) {
+		this.addChild(nuevoTexto);
+
+		if (this.children.length > this.CANT_LINEAS) {
 			this._removerTexto(this.children[0]);
 		}
 
-		let y =
-			this.children.length > 0
-				? this.children[this.children.length - 1].y +
-					(this.children[0] ? this.children[0].height : nuevoTexto.style.fontSize)
-				: 0;
-		nuevoTexto.y = y;
+		for (let i = 1; i < this.children.length; i++) {
+			this.children[i].y = this.children[i - 1].y + this.children[i - 1].height;
+		}
+
 		nuevoTexto.tiempoInicial = this._elapsedTime;
 
-		this.addChild(nuevoTexto);
+		if (this.children.length > 0) {
+			this.children[0].y = 0;
+		}
 	}
 }
