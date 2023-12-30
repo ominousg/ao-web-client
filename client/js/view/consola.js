@@ -54,17 +54,61 @@ export default class Consola extends Container {
 		removePixiChild(this, spriteTexto);
 	}
 
+	insertBreaksInLongStrings(text, maxLineLength) {
+		const words = text.split(' ');
+		return words
+			.map((word) => {
+				if (word.length > maxLineLength) {
+					return word.replace(new RegExp(`(.{${maxLineLength}})`, 'g'), '$1 ');
+				}
+				return word;
+			})
+			.join(' ');
+	}
+
+	insertForcedBreaks(text, maxLineWidth, fontStyle) {
+		let sampleText = new Text('j', fontStyle);
+		this.addChild(sampleText);
+		const averageCharWidth = sampleText.width / sampleText.text.length;
+		this.removeChild(sampleText);
+
+		const reductionFactor = 2;
+		const maxCharsInLine = Math.floor((maxLineWidth / averageCharWidth) * reductionFactor);
+
+		let result = '';
+		let currentLineLength = 0;
+
+		for (const char of text) {
+			result += char;
+			currentLineLength++;
+			if (currentLineLength >= maxCharsInLine) {
+				result += ' ';
+				currentLineLength = 0;
+			}
+		}
+
+		return result;
+	}
+
 	agregarTexto(texto, font) {
 		let estilo = new GameTextStyle(Font.CONSOLA_BASE_FONT, this._escala, font);
-		let nuevoTexto = new Text(texto, estilo);
+
+		estilo.wordWrap = true;
+		const calculatedWidth = 700 + (1000 - 700) * ((this._escala - 1.387) / (1.968 - 1.387));
+		estilo.wordWrapWidth = calculatedWidth;
+
+		let processedText = this.insertForcedBreaks(texto, estilo.wordWrapWidth, estilo);
+		let nuevoTexto = new Text(processedText, estilo);
 
 		if (this.children.length > this.CANT_LINEAS - 1) {
 			this._removerTexto(this.children[0]);
 		}
-		let y = 0;
-		if (this.children[0]) {
-			y = this.children[0].height * this.children.length;
-		}
+
+		let y =
+			this.children.length > 0
+				? this.children[this.children.length - 1].y +
+					(this.children[0] ? this.children[0].height : nuevoTexto.style.fontSize)
+				: 0;
 		nuevoTexto.y = y;
 		nuevoTexto.tiempoInicial = this._elapsedTime;
 
