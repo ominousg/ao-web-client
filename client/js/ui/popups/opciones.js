@@ -5,7 +5,6 @@
 import PopUp from './popup';
 import ConfigurarTeclasTab from './tabs/configurarteclas';
 import AudioTab from './tabs/audiotab';
-import Screenfull from '../../lib/screenfull';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -34,19 +33,9 @@ const htmlString = `
 
             <div id="popUpOpcionesOpcionesGenerales" class="tab-pane active">
                 <div class="form-horizontal">
-                    <p class="bg-warning">Los controles de esta pestaña no andan todabia, los de audio y teclas si.</p>
+                    <p class="bg-warning">Los controles de esta pestaña no andan todavia, los de audio y teclas si.</p>
                     <h4>Pantalla</h4>
-                    <div class="form-group">
-                        <label for="opcionesSliderPantalla" class="col-sm-6 control-label">Tamaño pantalla:</label>
-                        <div class="col-sm-6">
-                            <div id="opcionesSliderPantalla"></div>
-                        </div>
-                    </div>
 
-
-                    <div class="checkbox">
-                        <label><input id="opcionesCheckboxFullscreen" type="checkbox" value="">Pantalla completa</label>
-                    </div>
                     <div class="checkbox">
                         <label><input type="checkbox" value="">Graficar lluvia</label>
                     </div>
@@ -291,7 +280,6 @@ class Opciones extends PopUp {
 		this.configurarTeclasTab = new ConfigurarTeclasTab(storage, updateKeysCallback, showMensajeCallback);
 		this.audioTab = new AudioTab(game, storage);
 		this.initCallbacks();
-		this._initFullScreenListener();
 		var self = this;
 		this.configurarTeclasTab.setCerrarCallback(function () {
 			self.hide();
@@ -310,33 +298,8 @@ class Opciones extends PopUp {
 		this.configurarTeclasTab.onHide();
 	}
 
-	_initFullScreenListener() {
-		if (Screenfull.enabled) {
-			document.addEventListener(Screenfull.raw.fullscreenchange, () => {
-				$('#opcionesCheckboxFullscreen').prop('checked', Screenfull.isFullscreen);
-			});
-		}
-	}
-
 	initCallbacks() {
 		var self = this;
-
-		$('#opcionesCheckboxFullscreen').change(function () {
-			if (!Screenfull.enabled) {
-				alert('No es posible jugar en pantalla completa');
-				this.checked = false;
-				return;
-			}
-			if (this.checked) {
-				Screenfull.request();
-			} else {
-				Screenfull.exit();
-			}
-		});
-
-		$('#opcionesSliderPantalla').slider({
-			range: 'min'
-		});
 	}
 }
 

@@ -8523,6 +8523,29 @@ footer a {
   top: 93%;
   border: 2px transparent solid !important; }
 
+#botonFullscreen {
+  border: none !important;
+  outline: none !important;
+  position: absolute;
+  left: 110%;
+  top: 4%;
+  width: 25px;
+  height: 25px;
+  -webkit-box-shadow: 0px 0px 15px -8px rgba(255,255,255,1);
+  -moz-box-shadow: 0px 0px 15px -8px rgba(255,255,255,1);
+  box-shadow: 0px 0px 15px -8px rgba(255,255,255,1);
+  cursor: pointer;
+  background: Transparent no-repeat;
+  background-size: contain;
+  border: none; 
+  background-image: url("../imagenes/botones/fullscren_open.png"); }
+
+#botonFullscreen:hover {
+  filter: brightness(1.15); }
+
+#botonFullscreen.botonFullscreenOpen {
+  background-image: url("../imagenes/botones/fullscren_close.png"); }
+
 #menuJuegoBotonMenu {
   background: url("../imagenes/botones/menu.png") no-repeat;
   background-size: 100% 100%;

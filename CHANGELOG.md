@@ -13,4 +13,6 @@
 - 17/12/2023: Rehaciendo popups con React + Material UI, event emitter, y manejo de estado global con Zustand. Nuevo diseño para el popup de mapas (SVG interactivo). [(65fa49f)](https://github.com/ominousg/ao-web-client/commit/65fa49f41526cac290100ad7f2840417d5b27d05)
 - 23/12/2023: Continuando con la migración de jQuery UI a React + Material UI: conectando el nuevo popup de estadísticas (MUI) con la store de PlayerStats. Preload de mapas: reemplazando ajax por fetch. [(0d9c11b)](https://github.com/ominousg/ao-web-client/commit/0d9c11b63be025c7cf104baa69b91e54e8cffa34)
 - 23/12/2023: Configurando ESLint + Prettier + Husky + lint-staged + y formateando archivos. [(7facb4e)](https://github.com/ominousg/ao-web-client/commit/7facb4e00212286fba1777fe764eb2d521d891a7)
-- 24/12/2023: Refactor de estilado en algunos popups. Migración de ES5 a ES6 en algunos archivos de renderizado. [(placeholder)](https://github.com/ominousg/ao-web-client/commit/placeholder)
+- 24/12/2023: Refactor de estilado en algunos popups. Migración de ES5 a ES6 en algunos archivos de renderizado. [(55e8a17)](https://github.com/ominousg/ao-web-client/commit/55e8a17789efaf19709a7fb56a0999ded89651bb)
+- 30/12/2023: Reemplazando PIXI.Text por BitmapText en el indicador de mapa y FPS. [(89fd86f)](https://github.com/ominousg/ao-web-client/commit/89fd86f9560148cf068869b6b24cb518c875eb4f)
+- 30/12/2023: Boton para activar pantalla completa usando requestFullscreen. Eliminando libreria screenfull.js  [(placeholder)](https://github.com/ominousg/ao-web-client/commit/placeholder)

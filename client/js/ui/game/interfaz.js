@@ -62,6 +62,28 @@ class Interfaz {
 			self.game.gameUI.showMenu();
 		});
 
+		$('#botonFullscreen').click(function () {
+			if (!document.fullscreenElement) {
+				document.documentElement
+					.requestFullscreen()
+					.then(() => {
+						$('#botonFullscreen').addClass('botonFullscreenOpen');
+					})
+					.catch((err) => {
+						console.error(`Error al intentar maximizar pantalla: ${err.message} (${err.name})`);
+					});
+			} else {
+				document
+					.exitFullscreen()
+					.then(() => {
+						$('#botonFullscreen').removeClass('botonFullscreenOpen');
+					})
+					.catch((err) => {
+						console.error(`Error al intentar minimizar pantalla: ${err.message} (${err.name})`);
+					});
+			}
+		});
+
 		$('#botonMoverHechizoArriba').click(function () {
 			let slot = self.game.gameUI.interfaz.getSelectedSlotHechizo();
 			if (!slot || slot === 1) {
