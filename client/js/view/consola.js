@@ -6,6 +6,7 @@ import Font from '../font';
 import { Container, Text } from 'pixi.js';
 import { removePixiChild } from './rendererutils';
 import GameTextStyle from './gametextstyle';
+import { useConsoleMessagesStore } from '../stores';
 
 export default class Consola extends Container {
 	constructor(escala) {
@@ -19,6 +20,10 @@ export default class Consola extends Container {
 		this.setEscala(escala);
 
 		this._elapsedTime = 0;
+
+		this.messageBatch = [];
+		this.batchInterval = 5000;
+		this.batchTimeout = null;
 	}
 
 	setEscala(escala) {
@@ -39,6 +44,13 @@ export default class Consola extends Container {
 		}
 		if (texto.tiempoInicial + this.DURACION_TEXTO < this._elapsedTime) {
 			this._removerTexto(texto);
+		}
+	}
+
+	_flushMessageBatch() {
+		if (this.messageBatch.length > 0) {
+			useConsoleMessagesStore.getState().addMessages(this.messageBatch);
+			this.messageBatch = [];
 		}
 	}
 
@@ -112,6 +124,15 @@ export default class Consola extends Container {
 
 		if (this.children.length > 0) {
 			this.children[0].y = 0;
+		}
+
+		this.messageBatch.push({ text: processedText, style: estilo });
+
+		if (!this.batchTimeout) {
+			this.batchTimeout = setTimeout(() => {
+				this._flushMessageBatch();
+				this.batchTimeout = null;
+			}, this.batchInterval);
 		}
 	}
 }

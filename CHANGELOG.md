@@ -15,4 +15,7 @@
 - 23/12/2023: Configurando ESLint + Prettier + Husky + lint-staged + y formateando archivos. [(7facb4e)](https://github.com/ominousg/ao-web-client/commit/7facb4e00212286fba1777fe764eb2d521d891a7)
 - 24/12/2023: Refactor de estilado en algunos popups. Migración de ES5 a ES6 en algunos archivos de renderizado. [(55e8a17)](https://github.com/ominousg/ao-web-client/commit/55e8a17789efaf19709a7fb56a0999ded89651bb)
 - 30/12/2023: Reemplazando PIXI.Text por BitmapText en el indicador de mapa y FPS. [(89fd86f)](https://github.com/ominousg/ao-web-client/commit/89fd86f9560148cf068869b6b24cb518c875eb4f)
-- 30/12/2023: Boton para activar pantalla completa usando requestFullscreen. Eliminando libreria screenfull.js  [(placeholder)](https://github.com/ominousg/ao-web-client/commit/placeholder)
+- 30/12/2023: Boton para activar pantalla completa usando requestFullscreen. Eliminando libreria screenfull.js  [(6346180)](https://github.com/ominousg/ao-web-client/commit/634618075aff3497fc65da31dc7fe57007a9b728)
+- 30/12/2023: Fix bug: los textos largos de consola no tenían saltos de linea [(75623e5)](https://github.com/ominousg/ao-web-client/commit/75623e5913be191ebcc095a4ebf8f3b3c3c4505f)
+- 30/12/2023: Fix bug: al pedir información del hechizo y clickear otras cosas, los textos de consola se renderizaban uno arriba del otro. [(99b318e)](https://github.com/ominousg/ao-web-client/commit/99b318eaaa6069476c2188563838240cdfec866c)
+- 01/01/2024: Agregando nuevo popup para ver los últimos 200 mensajes de consola. Bloqueando click derecho en el canvas del juego e interfaz. Nueva animación: tiembla la pantalla cuando bloqueás un golpe con el escudo. [(placeholder)](https://github.com/ominousg/ao-web-client/commit/placeholder)

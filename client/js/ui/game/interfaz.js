@@ -3,6 +3,8 @@
  */
 import CharCodeMap from '../../utils/charcodemap';
 import ItemGrid from './itemgrid';
+import eventEmitter from '../utils/eventEmitter';
+import { PopupNames } from '../popups/popupNames';
 
 class Interfaz {
 	constructor(game, acciones) {
@@ -62,6 +64,10 @@ class Interfaz {
 			self.game.gameUI.showMenu();
 		});
 
+		$('#botonVerConsolaCompleta').click(function () {
+			eventEmitter.emit(PopupNames.CONSOLA_COMPLETA);
+		});
+
 		$('#botonFullscreen').click(function () {
 			if (!document.fullscreenElement) {
 				document.documentElement
@@ -81,6 +87,14 @@ class Interfaz {
 					.catch((err) => {
 						console.error(`Error al intentar minimizar pantalla: ${err.message} (${err.name})`);
 					});
+			}
+		});
+
+		$(document).on('fullscreenchange', function () {
+			if (!document.fullscreenElement) {
+				$('#botonFullscreen').removeClass('botonFullscreenOpen');
+			} else {
+				$('#botonFullscreen').addClass('botonFullscreenOpen');
 			}
 		});
 

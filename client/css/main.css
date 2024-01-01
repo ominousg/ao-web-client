@@ -8527,10 +8527,10 @@ footer a {
   border: none !important;
   outline: none !important;
   position: absolute;
-  left: 110%;
+  left: 107%;
   top: 4%;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   -webkit-box-shadow: 0px 0px 15px -8px rgba(255,255,255,1);
   -moz-box-shadow: 0px 0px 15px -8px rgba(255,255,255,1);
   box-shadow: 0px 0px 15px -8px rgba(255,255,255,1);
@@ -8545,6 +8545,26 @@ footer a {
 
 #botonFullscreen.botonFullscreenOpen {
   background-image: url("../imagenes/botones/fullscren_close.png"); }
+
+#botonVerConsolaCompleta {
+  border: none !important;
+  outline: none !important;
+  position: absolute;
+  left: 107%;
+  top: 9%;
+  width: 30px;
+  height: 30px;
+  -webkit-box-shadow: 0px 0px 15px -8px rgba(255,255,255,1);
+  -moz-box-shadow: 0px 0px 15px -8px rgba(255,255,255,1);
+  box-shadow: 0px 0px 15px -8px rgba(255,255,255,1);
+  cursor: pointer;
+  background: Transparent no-repeat;
+  background-size: contain;
+  border: none; 
+  background-image: url("../imagenes/botones/console_button.png"); }
+
+#botonVerConsolaCompleta:hover {
+  filter: brightness(1.15); }
 
 #menuJuegoBotonMenu {
   background: url("../imagenes/botones/menu.png") no-repeat;

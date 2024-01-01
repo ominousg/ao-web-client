@@ -759,6 +759,7 @@ class GameClient {
 
 	handleBlockedWithShieldUser() {
 		this.game.escribirMsgConsola(Enums.MensajeConsola.RECHAZO_ATAQUE_ESCUDO, Font.FIGHT);
+		this.game.renderer.shieldBlockAnimation();
 	}
 
 	handleBlockedWithShieldOther() {

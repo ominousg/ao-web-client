@@ -216,6 +216,10 @@ class KeyMouseListener {
 		const self = this;
 		const gameCanvas = document.getElementById('gamecanvas');
 
+		gameCanvas.addEventListener('contextmenu', function (event) {
+			event.preventDefault();
+		});
+
 		gameCanvas.addEventListener('click', function (event) {
 			// TODO: si haces click afuera del menu pop up que lo cierre?
 			if (self.updateGameMouseCoordinates(self.game, event, gameCanvas)) {

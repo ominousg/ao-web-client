@@ -244,6 +244,29 @@ class Renderer {
 		}, 50);
 	}
 
+	shieldBlockAnimation() {
+		const duration = 200;
+		const magnitude = 2.5;
+		const originalPosition = { x: this.stage.x, y: this.stage.y };
+		const startTime = Date.now();
+
+		const shake = () => {
+			const elapsed = Date.now() - startTime;
+			const remaining = duration - elapsed;
+
+			if (remaining > 0) {
+				this.stage.x = originalPosition.x + (Math.random() - 0.5) * magnitude;
+				this.stage.y = originalPosition.y + (Math.random() - 0.5) * magnitude;
+				requestAnimationFrame(shake);
+			} else {
+				this.stage.x = originalPosition.x;
+				this.stage.y = originalPosition.y;
+			}
+		};
+
+		shake();
+	}
+
 	updateBeforeMovementBegins(dir, entities) {
 		this.mapaRenderer.updateTilesMov(dir);
 		this.entityRenderer.updateEntitiesMov(dir, entities);

@@ -80,6 +80,12 @@ class UIManager {
 			});
 		});
 
+		const menuJuego = document.getElementById('menuJuego');
+
+		menuJuego.addEventListener('contextmenu', function (event) {
+			event.preventDefault();
+		});
+
 		document.addEventListener('touchstart', function () {}, false);
 
 		const resizeCallback = this.resizeUi.bind(this);

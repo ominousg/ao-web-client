@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom/client';
 import Ajustes from './ui/popups/migration/ajustes/Ajustes.jsx';
 const Estadisticas = React.lazy(() => import('./ui/popups/migration/estadisticas/Estadisticas.jsx'));
 const GuiaMapa = React.lazy(() => import('./ui/popups/migration/guiamapa/GuiaMapa.jsx'));
+const ConsolaCompleta = React.lazy(() => import('./ui/popups/migration/consola/ConsolaCompleta.jsx'));
 import App from './app';
 import AssetManager from './assets/assetmanager';
 import UIManager from './ui/uimanager';
@@ -43,6 +44,7 @@ const GameApp = () => {
 				{/* <Ajustes /> */}
 				{popups[PopupNames.ESTADISTICAS] && <Estadisticas />}
 				{popups[PopupNames.GUIA_MAPA] && <GuiaMapa />}
+				{popups[PopupNames.CONSOLA_COMPLETA] && <ConsolaCompleta />}
 			</Suspense>
 		</>
 	);
