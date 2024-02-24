@@ -1,6 +1,12 @@
-import { Enums } from '../enums';
-import * as PIXI from 'pixi.js-legacy';
-import { Container } from 'pixi.js';
+import {
+	BaseTexture,
+	Container,
+	autoDetectRenderer,
+	SCALE_MODES,
+	GC_MODES,
+	MIPMAP_MODES,
+	TextureGCSystem
+} from 'pixi.js-legacy';
 import Camera from './camera';
 import Consola from './consola';
 import ContainerOrdenado from './containerordenado';
@@ -38,12 +44,11 @@ class Renderer {
 	}
 
 	_inicializarPixi() {
-		PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-		// PIXI.MIPMAP_TEXTURES = false;
-		PIXI.settings.MIPMAP_TEXTURES = false;
-		PIXI.settings.GC_MODE = PIXI.GC_MODES.MANUAL;
+		BaseTexture.defaultOptions.scaleMode = SCALE_MODES.NEAREST;
+		BaseTexture.defaultOptions.mipmap = MIPMAP_MODES.OFF;
+		TextureGCSystem.defaultMode = GC_MODES.MANUAL;
 
-		this.pixiRenderer = new PIXI.autoDetectRenderer(
+		this.pixiRenderer = new autoDetectRenderer(
 			this.camera.gridW * this.tilesize,
 			this.camera.gridH * this.tilesize
 		);

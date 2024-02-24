@@ -4,7 +4,15 @@ import jsonCascos from '../../indices/cascos.json';
 import jsonCuerpos from '../../indices/cuerpos.json';
 import jsonEscudos from '../../indices/escudos.json';
 import jsonFxs from '../../indices/fxs.json';
-import { settings, BaseTexture, Texture, Rectangle, SCALE_MODES, GC_MODES } from 'pixi.js';
+import {
+	TextureGCSystem,
+	BaseTexture,
+	Texture,
+	Rectangle,
+	SCALE_MODES,
+	GC_MODES,
+	MIPMAP_MODES
+} from 'pixi.js';
 import Preloader from './preloader';
 import Audio from './audio';
 
@@ -25,9 +33,9 @@ class AssetManager {
 		this.dataMapas = [];
 		this.preloader = new Preloader(this);
 
-		settings.SCALE_MODE = SCALE_MODES.NEAREST;
-		settings.MIPMAP_TEXTURES = false;
-		settings.GC_MODE = GC_MODES.MANUAL;
+		BaseTexture.defaultOptions.scaleMode = SCALE_MODES.NEAREST;
+		BaseTexture.defaultOptions.mipmap = MIPMAP_MODES.OFF;
+		TextureGCSystem.defaultMode = GC_MODES.MANUAL;
 	}
 
 	getNumCssGraficoFromGrh(grh) {
@@ -97,8 +105,7 @@ class AssetManager {
 	_loadGrhGrafico(grh) {
 		var nombreGrafico = this.indices[grh].grafico;
 		if (!this._baseTextures[nombreGrafico]) {
-			// cargar basetexture
-			this._setBaseTexture(nombreGrafico, new BaseTexture.from('graficos/' + nombreGrafico + '.png'));
+			this._baseTextures[nombreGrafico] = BaseTexture.from('graficos/' + nombreGrafico + '.png');
 		}
 		this.grhs[grh] = new Texture(
 			this._baseTextures[nombreGrafico],

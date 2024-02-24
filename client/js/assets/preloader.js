@@ -3,7 +3,7 @@
  * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
  */
 
-import { Loader } from 'pixi.js';
+import { Assets } from 'pixi.js';
 import PreloadSounds from '../../preload_config/preload_sounds.json';
 import PreloadGraficos from '../../preload_config/preload_graficos.json';
 import PreloadMapas from '../../preload_config/preload_mapas.json';
@@ -11,7 +11,6 @@ import PreloadMapas from '../../preload_config/preload_mapas.json';
 class Preloader {
 	constructor(assetManager) {
 		this.assetManager = assetManager;
-		this.loader = new Loader();
 	}
 
 	_preloadSoundsAsync() {
@@ -20,7 +19,7 @@ class Preloader {
 		}
 	}
 
-	preload(terminar_callback, progress_callback) {
+	async preload(terminar_callback, progress_callback) {
 		// fonts:
 		// WebFont.load({
 		// 	custom: {
@@ -29,41 +28,62 @@ class Preloader {
 		// });
 
 		// bitmap fonts
-		this.loader.add('Roboto Mono', 'fonts/bitmaps/Roboto Mono.fnt');
-		this.loader.add('Ubuntu Mono', 'fonts/bitmaps/Ubuntu Mono.fnt');
+		Assets.add({ alias: 'Roboto Mono', src: 'fonts/bitmaps/Roboto Mono.fnt' });
+		Assets.add({ alias: 'Ubuntu Mono', src: 'fonts/bitmaps/Ubuntu Mono.fnt' });
 
-		//sounds:
-		this._preloadSoundsAsync();
-
-		// graficos:
-		let self = this;
-		let loader = this.loader;
-
-		loader.add('indices', 'indices/graficos.json');
+		// indices
+		Assets.add({ alias: 'indices', src: 'indices/graficos.json' });
+		Assets.add({ alias: 'armas', src: 'indices/armas.json' });
+		Assets.add({ alias: 'cuerpos', src: 'indices/cuerpos.json' });
+		Assets.add({ alias: 'escudos', src: 'indices/escudos.json' });
+		Assets.add({ alias: 'cabezas', src: 'indices/cabezas.json' });
+		Assets.add({ alias: 'fxs', src: 'indices/fxs.json' });
 
 		for (let mapa of PreloadMapas) {
-			loader.add(mapa, 'mapas/mapa' + mapa + '.json');
+			Assets.add({ alias: mapa, src: 'mapas/mapa' + mapa + '.json' });
 		}
 
 		for (let grafico of PreloadGraficos) {
-			loader.add(grafico, 'graficos/' + grafico + '.png');
+			Assets.add({ alias: grafico, src: 'graficos/' + grafico + '.png' });
 		}
 
-		loader.onLoad.add((loader, resource) => {
-			progress_callback(loader.progress);
-		});
+		try {
+			for (let key of [
+				...PreloadMapas,
+				...PreloadGraficos,
+				'indices',
+				'armas',
+				'cuerpos',
+				'escudos',
+				'cabezas',
+				'fxs',
+				'Roboto Mono',
+				'Ubuntu Mono'
+			]) {
+				await Assets.load(key, (progress) => progress_callback(progress));
 
-		loader.onComplete.add(() => {
-			console.log('All resources loaded');
-		});
-
-		loader.load((loader, resources) => {
-			for (let grafico of PreloadGraficos) {
-				self.assetManager._setBaseTexture(grafico, loader.resources[grafico].texture.baseTexture);
+				if (PreloadGraficos.includes(key)) {
+					const loadedTexture = Assets.get(key);
+					if (loadedTexture) {
+						this.assetManager._setBaseTexture(key, loadedTexture);
+					} else {
+						console.error('No se pudo cargar el asset:', key);
+					}
+				}
 			}
-			self.assetManager.indices = resources.indices.data;
+
+			const indicesData = Assets.get('indices');
+
+			if (indicesData && indicesData.length > 1) {
+				this.assetManager.indices = indicesData;
+			} else {
+				console.error('La data de los indices no se pudo cargar o tiene formato incorrecto.');
+			}
+
 			terminar_callback();
-		});
+		} catch (error) {
+			console.error('Error cargando assets:', error);
+		}
 	}
 }
 
