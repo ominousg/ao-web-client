@@ -7,10 +7,10 @@ const createBitmapText = () =>
 		tint: 0xffff00
 	});
 
-const init = (escala) => createBitmapText(escala);
+const initIndicadorFPS = (escala) => createBitmapText(escala);
 
 const actualizar = (indicadorFPS, fps) => {
 	indicadorFPS.text = `FPS: ${fps}`;
 };
 
-export { init, actualizar };
+export { initIndicadorFPS, actualizar };

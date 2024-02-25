@@ -13,10 +13,10 @@ const createBitmapText = () =>
 		tint: 0xffff00
 	});
 
-const init = (escala) => createBitmapText(escala);
+const initIndicadorMapa = (escala) => createBitmapText(escala);
 
 const actualizar = (indicadorMapa, numMap, x, y) => {
 	indicadorMapa.text = `Mapa ${numMap} X: ${x} Y: ${y}`;
 };
 
-export { init, actualizar };
+export { initIndicadorMapa, actualizar };

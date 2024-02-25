@@ -8,7 +8,7 @@ import {
 	TextureGCSystem
 } from 'pixi.js-legacy';
 import Camera from './camera';
-import Consola from './consola';
+import * as Consola from './consola';
 import ContainerOrdenado from './containerordenado';
 import * as IndicadorMapa from './indicadormapa';
 import * as IndicadorFPS from './indicadorFPS';
@@ -69,9 +69,9 @@ class Renderer {
 		this.layer3.ordenado = true;
 		this.layer4 = new Container();
 		this.gameChat = new Container();
-		this.consola = new Consola(this.escala);
-		this.indicadorMapa = IndicadorMapa.init(this.escala);
-		this.indicadorFPS = IndicadorFPS.init(this.escala);
+		this.consola = Consola.initConsola(this.escala);
+		this.indicadorMapa = IndicadorMapa.initIndicadorMapa(this.escala);
+		this.indicadorFPS = IndicadorFPS.initIndicadorFPS(this.escala);
 		this.stage.addChild(this.gameStage);
 		this.stage.addChild(this.climaContainer);
 		this.stage.addChild(this.consola);
@@ -113,11 +113,11 @@ class Renderer {
 		//this.entityRenderer.update(delta);
 		ClimaRenderer.update(this.climaRendererState, delta);
 		//this.mapaRenderer.update(delta);
-		this.consola.update(delta);
+		Consola.update(this.consola, delta);
 	}
 
 	agregarTextoConsola(texto, font) {
-		this.consola.agregarTexto(texto, font);
+		Consola.agregarTexto(this.consola, texto, font);
 	}
 
 	actualizarIndicadorMapa(numMap, x, y) {
@@ -201,7 +201,7 @@ class Renderer {
 		for (var name of this.gameNames.children) {
 			name.setEscala(escala);
 		}
-		this.consola.setEscala(escala);
+		Consola.setEscala(this.consola, escala);
 
 		this.indicadorMapa.x = Math.round(518 * escala - 120);
 		this.indicadorMapa.y = Math.floor((13 * 32 - 10) * escala);
