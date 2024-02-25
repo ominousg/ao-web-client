@@ -1,6 +1,7 @@
 /**
  * Created by horacio on 8/20/16.
- * Migration from PixiJS v4.0.3 to v6.4.2 by ominousf on 03/25/2023
+ * PixiJS migrations by ominousf: v4.0.3 to v6.4.2 on 03/25/2023
+ * v6.4.2 to 7.4.0 on 24/02/2024
  */
 import { Enums } from '../enums';
 import { ParticleContainer } from 'pixi.js';
