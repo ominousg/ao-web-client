@@ -15,6 +15,7 @@ import * as IndicadorFPS from './indicadorFPS';
 import EntityRenderer from './entityrenderer';
 import * as ClimaRenderer from './climarenderer';
 import MapaRenderer from './maparenderer';
+import * as CharacterText from './charactertext';
 import { removePixiChild } from './rendererutils';
 
 class Renderer {
@@ -195,8 +196,8 @@ class Renderer {
 
 		this._syncGamePosition();
 
-		for (var i = 0; i < this.gameChat.children.length; i++) {
-			this.gameChat.children[i].setEscala(escala);
+		for (let i = 0; i < this.gameChat.children.length; i++) {
+			CharacterText.setEscala(this.gameChat.children[i], escala);
 		}
 		for (var name of this.gameNames.children) {
 			name.setEscala(escala);

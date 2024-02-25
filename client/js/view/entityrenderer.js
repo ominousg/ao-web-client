@@ -9,7 +9,7 @@ import Utils from '../utils/util';
 import Font from '../font';
 import CharacterSprites from './charactersprites';
 import CharacterName from './charactername';
-import CharacterText from './charactertext';
+import * as CharacterText from './charactertext';
 import SpriteGrh from './spritegrh';
 import { posicionarRectEnTile, removePixiChild } from './rendererutils';
 
@@ -118,7 +118,7 @@ class EntityRenderer {
 		char.sprite = sprite;
 
 		// TODO! nombre clippping y textos de chat clipping !
-		char.texto = new CharacterText(this.escala);
+		char.texto = CharacterText.initCharacterText(this.escala);
 		this.entityChatContainer.addChild(char.texto);
 
 		char.on('positionChanged', function () {
@@ -130,7 +130,7 @@ class EntityRenderer {
 				this.spriteNombre.setPosition(spriteX, spriteY);
 			}
 			if (this.texto) {
-				this.texto.setPosition(spriteX, spriteY);
+				CharacterText.setPosition(char.texto, spriteX, spriteY);
 			}
 		});
 
@@ -268,12 +268,12 @@ class EntityRenderer {
 	}
 
 	setCharacterChat(char, chat, r, g, b) {
-		var color = 'rgb(' + r + ',' + g + ',' + b + ')';
-		char.texto.setChat(chat, color);
+		const color = `rgb(${r},${g},${b})`;
+		CharacterText.setChat(char.texto, chat, color);
 	}
 
 	removerChat(char) {
-		char.texto.removerChat();
+		CharacterText.removerChat(char.texto);
 	}
 
 	setCharVisible(char, visible) {

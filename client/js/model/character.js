@@ -3,6 +3,7 @@ import Transition from '../transition';
 import PIXI from 'pixi.js';
 import { Enums } from '../enums';
 import CharacterMovement from './charactermovement';
+import * as CharacterText from '../view/charactertext';
 
 class Character extends Entity {
 	constructor(
@@ -66,7 +67,7 @@ class Character extends Entity {
 		//    this.spriteNombre.update(delta);
 		//}
 		if (this.texto) {
-			this.texto.update(delta);
+			CharacterText.update(this.texto, delta);
 		}
 	}
 
