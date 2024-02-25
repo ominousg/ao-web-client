@@ -10,10 +10,10 @@ import {
 import Camera from './camera';
 import Consola from './consola';
 import ContainerOrdenado from './containerordenado';
-import IndicadorMapa from './indicadormapa';
-import IndicadorFPS from './indicadorFPS';
+import * as IndicadorMapa from './indicadormapa';
+import * as IndicadorFPS from './indicadorFPS';
 import EntityRenderer from './entityrenderer';
-import ClimaRenderer from './climarenderer';
+import * as ClimaRenderer from './climarenderer';
 import MapaRenderer from './maparenderer';
 import { removePixiChild } from './rendererutils';
 
@@ -35,7 +35,7 @@ class Renderer {
 
 		this.entityRenderer = null;
 		this.mapaRenderer = null;
-		this.climaRenderer = null;
+		this.climaRendererState = null;
 		this.fadeInterval = null;
 
 		this.escala = escala;
@@ -70,8 +70,8 @@ class Renderer {
 		this.layer4 = new Container();
 		this.gameChat = new Container();
 		this.consola = new Consola(this.escala);
-		this.indicadorMapa = new IndicadorMapa(this.escala);
-		this.indicadorFPS = new IndicadorFPS(this.escala);
+		this.indicadorMapa = IndicadorMapa.init(this.escala);
+		this.indicadorFPS = IndicadorFPS.init(this.escala);
 		this.stage.addChild(this.gameStage);
 		this.stage.addChild(this.climaContainer);
 		this.stage.addChild(this.consola);
@@ -93,7 +93,7 @@ class Renderer {
 			this.assetManager,
 			this.gameStage
 		);
-		this.climaRenderer = new ClimaRenderer(
+		this.climaRendererState = ClimaRenderer.initClimaRenderer(
 			this.escala,
 			this.climaContainer,
 			this.assetManager,
@@ -111,7 +111,7 @@ class Renderer {
 
 	update(delta) {
 		//this.entityRenderer.update(delta);
-		this.climaRenderer.update(delta);
+		ClimaRenderer.update(this.climaRendererState, delta);
 		//this.mapaRenderer.update(delta);
 		this.consola.update(delta);
 	}
@@ -121,11 +121,11 @@ class Renderer {
 	}
 
 	actualizarIndicadorMapa(numMap, x, y) {
-		this.indicadorMapa.actualizar(numMap, x, y);
+		IndicadorMapa.actualizar(this.indicadorMapa, numMap, x, y);
 	}
 
-	actualizarIndicadorFPS(numMap, x, y) {
-		this.indicadorFPS.actualizar(numMap, x, y);
+	actualizarIndicadorFPS(fps) {
+		IndicadorFPS.actualizar(this.indicadorFPS, fps);
 	}
 
 	agregarItem(item, numGrh) {
@@ -213,8 +213,8 @@ class Renderer {
 		if (this.entityRenderer) {
 			this.entityRenderer.rescale(escala);
 		}
-		if (this.climaRenderer) {
-			this.climaRenderer.escala = escala;
+		if (this.climaRendererState) {
+			this.climaRendererState.escala = escala;
 		}
 		/* TEMPORAL */
 	}
@@ -307,11 +307,11 @@ class Renderer {
 	}
 
 	removeLluvia() {
-		this.climaRenderer.removeLluvia();
+		ClimaRenderer.removeLluvia(this.climaRendererState);
 	}
 
 	createLluvia() {
-		this.climaRenderer.createLluvia();
+		ClimaRenderer.createLluvia(this.climaRendererState);
 	}
 
 	renderFrame() {
