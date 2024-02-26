@@ -65,7 +65,7 @@ class EntityRenderer {
 
 	agregarItem(item, numGrh) {
 		if (!this.assetManager.getGrh(numGrh)) {
-			console.log('grh de item invalido!');
+			console.error('grh de item invalido: ' + numGrh.toString());
 			return;
 		}
 		item.sprite = this._crearSprite(
@@ -284,7 +284,9 @@ class EntityRenderer {
 	}
 
 	agregarCharacterHoveringInfo(char, valor, font) {
-		char.texto.addHoveringInfo(valor, font);
+		if (char.texto) {
+			CharacterText.addHoveringInfo(char.texto, valor, font);
+		}
 	}
 
 	setCharacterFX(char, FX, FXLoops) {

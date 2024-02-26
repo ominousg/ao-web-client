@@ -9,7 +9,7 @@ import {
 } from 'pixi.js-legacy';
 import Camera from './camera';
 import * as Consola from './consola';
-import ContainerOrdenado from './containerordenado';
+import * as ContainerOrdenado from './containerordenado';
 import * as IndicadorMapa from './indicadormapa';
 import * as IndicadorFPS from './indicadorFPS';
 import EntityRenderer from './entityrenderer';
@@ -66,7 +66,7 @@ class Renderer {
 		this.layer1 = new Container();
 		this.layer2 = new Container();
 		this.gameNames = new Container();
-		this.layer3 = new ContainerOrdenado(this.MAPA_WIDTH);
+		this.layer3 = ContainerOrdenado.initContainerOrdenado(this.MAPA_WIDTH);
 		this.layer3.ordenado = true;
 		this.layer4 = new Container();
 		this.gameChat = new Container();

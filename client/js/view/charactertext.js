@@ -100,6 +100,10 @@ const removerChat = (container) => {
 };
 
 const removerInfo = (container, info) => {
+	if (!container.infos) {
+		console.warn('Se intentó remover info en un container sin infos.');
+		container.infos = [];
+	}
 	let index = container.infos.indexOf(info);
 	if (index > -1) {
 		container.infos.splice(index, 1);
