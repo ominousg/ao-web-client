@@ -1,12 +1,12 @@
 import {
+	Application,
 	BaseTexture,
 	Container,
-	autoDetectRenderer,
 	SCALE_MODES,
 	GC_MODES,
 	MIPMAP_MODES,
 	TextureGCSystem
-} from 'pixi.js-legacy';
+} from 'pixi.js';
 import Camera from './camera';
 import Consola from './consola';
 import ContainerOrdenado from './containerordenado';
@@ -48,18 +48,24 @@ class Renderer {
 		BaseTexture.defaultOptions.mipmap = MIPMAP_MODES.OFF;
 		TextureGCSystem.defaultMode = GC_MODES.MANUAL;
 
-		this.pixiRenderer = new autoDetectRenderer(
-			this.camera.gridW * this.tilesize,
-			this.camera.gridH * this.tilesize
-		);
-		$(this.pixiRenderer.view).css('position', 'relative');
-		$(this.pixiRenderer.view).css('display', 'block');
-		$('#gamecanvas').append(this.pixiRenderer.view);
+		this.pixiApp = new Application({
+			width: this.camera.gridW * this.tilesize,
+			height: this.camera.gridH * this.tilesize,
+			antialias: true,
+			transparent: false,
+			resolution: window.devicePixelRatio || 1,
+			hello: true
+		});
+
+		document.getElementById('gamecanvas').appendChild(this.pixiApp.view);
+		this.pixiApp.view.style.position = 'relative';
+		this.pixiApp.view.style.display = 'block';
+
 		this._initStage();
 	}
 
 	_initStage() {
-		this.stage = new Container();
+		this.stage = this.pixiApp.stage;
 		this.gameStage = new Container();
 		this.climaContainer = new Container();
 		this.layer1 = new Container();
@@ -93,12 +99,7 @@ class Renderer {
 			this.assetManager,
 			this.gameStage
 		);
-		this.climaRenderer = new ClimaRenderer(
-			this.escala,
-			this.climaContainer,
-			this.assetManager,
-			this.pixiRenderer
-		);
+		this.climaRenderer = new ClimaRenderer(this.escala, this.climaContainer, this.assetManager, this.pixiApp);
 		this.mapaRenderer = new MapaRenderer(
 			this.camera,
 			this.assetManager,
@@ -180,7 +181,7 @@ class Renderer {
 
 		this.escala = escala;
 
-		this.pixiRenderer.resize(
+		this.pixiApp.renderer.resize(
 			Math.round(this.camera.gridW * this.tilesize * escala),
 			Math.round(this.camera.gridH * this.tilesize * escala)
 		);
@@ -315,7 +316,7 @@ class Renderer {
 	}
 
 	renderFrame() {
-		this.pixiRenderer.render(this.stage);
+		this.pixiApp.renderer.render(this.stage);
 		/*
                  let testPosEnteras = (c) => {
                  if ( (Math.round(c.x) !== c.x) || (Math.round(c.y) !== c.y) ){

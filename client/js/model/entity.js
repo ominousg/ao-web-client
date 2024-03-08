@@ -1,7 +1,7 @@
 import { Enums } from '../enums';
-import * as PIXI from 'pixi.js-legacy';
+import { utils } from 'pixi.js';
 
-class Entity extends PIXI.utils.EventEmitter {
+class Entity extends utils.EventEmitter {
 	constructor(gridX, gridY) {
 		super();
 		var self = this;

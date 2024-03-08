@@ -8,10 +8,10 @@ import { ParticleContainer } from 'pixi.js';
 import SpriteGrh from './spritegrh';
 
 class ClimaRenderer {
-	constructor(escala, parentContainer, assetManager, /*TEMPORAL*/ pixiRenderer /*TEMPORAL*/) {
+	constructor(escala, parentContainer, assetManager, /*TEMPORAL*/ pixiApp /*TEMPORAL*/) {
 		this.escala = escala;
 		/*TEMPORAL*/
-		this.pixiRenderer = pixiRenderer;
+		this.pixiRenderer = pixiApp.renderer;
 		/*TEMPORAL*/
 		this.assetManager = assetManager;
 		this.parentContainer = parentContainer;

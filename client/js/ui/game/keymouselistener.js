@@ -52,8 +52,8 @@ class KeyMouseListener {
 
 	updateGameMouseCoordinates(game, event, gameCanvas) {
 		var gamePos = gameCanvas.getBoundingClientRect(),
-			width = game.renderer.pixiRenderer.width,
-			height = game.renderer.pixiRenderer.height,
+			width = game.renderer.pixiApp.renderer.width,
+			height = game.renderer.pixiApp.renderer.height,
 			mouse = game.mouse;
 
 		mouse.x = event.pageX - gamePos.left;
