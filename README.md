@@ -1,4 +1,5 @@
-# Argentum Online Web - Cliente 
+# Argentum Online Web - Cliente
+
 ![License](https://img.shields.io/github/license/ominousg/ao-web-client.svg) ![Issues](https://img.shields.io/github/issues/ominousg/ao-web-client.svg) [![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/)
 
 Cliente AOWeb usando como base el [dakara-client](https://github.com/horacioMartinez/dakara-client) creado por horacioMartinez. Usa [Pixi JS](https://github.com/pixijs/pixijs), que es un renderizador de WebGL y Canvas. Este repositorio va de la mano con [ao-web-server](https://github.com/ominousg/ao-web-server).
@@ -13,13 +14,13 @@ Funciona con el [dakara-server](https://github.com/DakaraOnline/dakara-server) e
 
 # Instrucciones
 
-Con la nueva migración de RequireJS a Webpack ya no es necesario usar npx http-server para el desarrollo: usamos webpack-dev-server en su lugar. Después para hostear el build en producción sí se puede usar http-server.
+Con la nueva migración de RequireJS a Webpack ya no es necesario usar npx http-server para el desarrollo: usamos npm run start en su lugar. Para crear el build: npm run build. Después para hostear el build (carpeta dist) en producción sí se puede usar npx http-server.
 
-Posicionarse en el mismo directorio que el package.json y correr los comandos:
 ```
+git clone https://github.com/ominousg/ao-web-client.git
+cd client
 npm i
-webpack
-webpack-dev-server
+npm run start
 ```
 
 ## Galería
