@@ -33,7 +33,8 @@ module.exports = {
 				'no-inner-declarations': 'warn',
 				'no-unexpected-multiline': 'warn',
 				'react/prop-types': 'off',
-				'react/no-unknown-property': ['error', { ignore: ['css'] }]
+				'react/no-unknown-property': ['error', { ignore: ['css'] }],
+				'no-case-declarations': 'off'
 			}
 		}
 	],

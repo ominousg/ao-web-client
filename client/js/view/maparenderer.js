@@ -3,310 +3,359 @@
  * PixiJS migrations by ominousf: v4.0.3 to v6.4.2 on 03/25/2023
  * v6.4.2 to 7.4.0 on 24/02/2024
  */
+
 import { Enums } from '../enums';
 import Utils from '../utils/util';
 import { Graphics } from 'pixi.js';
 import SpriteGrh from './spritegrh';
 import { posicionarRectEnTile, removePixiChild } from './rendererutils';
 
-class MapaRenderer {
-	constructor(camera, assetManager, layer1Container, layer2Container, layer3Container, layer4Container) {
-		// posiciones extra que se analizan para ver si lo que hay en ellas es visible o no
-		// (si es algo visible pero tan grande que cuando esta lejos no entra en estas posiciones no se ve)
-		this.POSICIONES_EXTRA_RENDER = {
-			norte: 1,
-			sur: 7,
-			este: 4,
-			oeste: 4
-		};
+// posiciones extra que se analizan para ver si lo que hay en ellas es visible o no
+// (si es algo visible pero tan grande que cuando esta lejos no entra en estas posiciones no se ve)
+const POSICIONES_EXTRA_RENDER = {
+	norte: 1,
+	sur: 7,
+	este: 4,
+	oeste: 4
+};
 
-		// posiciones extras que se renderizan del terreno (no deberia ser necesaria mas de 1 por el movimiento)
-		this.POSICIONES_EXTRA_TERRENO = 1;
+// posiciones extras que se renderizan del terreno (no deberia ser necesaria mas de 1 por el movimiento)
+const POSICIONES_EXTRA_TERRENO = 1;
 
-		this.camera = camera;
-		this.assetManager = assetManager;
-		this.layer1 = layer1Container;
-		this.layer2 = layer2Container;
-		this.layer3 = layer3Container;
-		this.layer4 = layer4Container;
+const initMapaRenderer = (
+	camera,
+	assetManager,
+	layer1Container,
+	layer2Container,
+	layer3Container,
+	layer4Container
+) => {
+	const tilesize = 32;
+	const terreno = [];
+	const _spritesLayer2 = [];
+	const _spritesLayer3 = [];
+	const _spritesLayer4 = [];
 
-		this.tilesize = 32;
-		this.mapa = null;
-		this.terreno = null;
-		this._lowestRowTerreno = null;
-		this._lowestColTerreno = null;
-		this._spritesLayer2 = [];
-		this._spritesLayer3 = [];
-		this._spritesLayer4 = [];
-
-		this._initTerrenoSpriteGrid();
-	}
-
-	cambiarMapa(mapa) {
-		this.mapa = mapa;
-	}
-
-	drawMapaIni(gridX, gridY) {
-		// SOLO USARLO EN CAMBIO DE MAPA, SINO USAR RESETPOS. Limpia vectores, dibuja el terreno del mapa, almacena los tiles animados
-
-		if (!this.mapa.isLoaded) {
-			throw new Error('DRAW MAPA INI SIN QUE ESTE CARGADO');
-			return;
+	for (let i = 0; i < camera.gridW + POSICIONES_EXTRA_TERRENO * 2; i++) {
+		terreno[i] = [];
+		for (let j = 0; j < camera.gridH + POSICIONES_EXTRA_TERRENO * 2; j++) {
+			terreno[i][j] = new SpriteGrh(assetManager.getTerrenoGrh(1)); // grh null
+			layer1Container.addChild(terreno[i][j]);
 		}
-		this._drawSpritesIni();
-		this._drawTerrenoIni();
 	}
 
-	updateTilesMov(dir) {
-		if (!this.mapa.isLoaded) {
-			return;
-		}
-		this._updateTerrenoMov(dir);
-		this._updateLayersMov(dir);
-	}
+	return {
+		camera,
+		assetManager,
+		layer1: layer1Container,
+		layer2: layer2Container,
+		layer3: layer3Container,
+		layer4: layer4Container,
+		tilesize,
+		mapa: null,
+		terreno,
+		_lowestRowTerreno: null,
+		_lowestColTerreno: null,
+		_spritesLayer2,
+		_spritesLayer3,
+		_spritesLayer4
+	};
+};
 
-	_initTerrenoSpriteGrid() {
-		this.terreno = [];
-		for (var i = 0; i < this.camera.gridW + this.POSICIONES_EXTRA_TERRENO * 2; i++) {
-			this.terreno[i] = [];
-			for (var j = 0; j < this.camera.gridH + this.POSICIONES_EXTRA_TERRENO * 2; j++) {
-				this.terreno[i][j] = new SpriteGrh(this.assetManager.getTerrenoGrh(1)); // grh null
-				this.layer1.addChild(this.terreno[i][j]);
+const cambiarMapa = (mapaRendererState, mapa) => {
+	mapaRendererState.mapa = mapa;
+};
+
+const drawMapaIni = (mapaRendererState, gridX, gridY) => {
+	// SOLO USARLO EN CAMBIO DE MAPA, SINO USAR RESETPOS. Limpia vectores, dibuja el terreno del mapa, almacena los tiles animados
+	if (!mapaRendererState.mapa.isLoaded) {
+		throw new Error('DRAW MAPA INI SIN QUE ESTE CARGADO');
+		return;
+	}
+	_drawSpritesIni(mapaRendererState);
+	_drawTerrenoIni(mapaRendererState);
+};
+
+const updateTilesMov = (mapaRendererState, dir) => {
+	if (!mapaRendererState.mapa.isLoaded) {
+		return;
+	}
+	_updateTerrenoMov(mapaRendererState, dir);
+	_updateLayersMov(mapaRendererState, dir);
+};
+
+const _drawTerrenoIni = (mapaRendererState) => {
+	const gridXIni = mapaRendererState.camera.gridX - POSICIONES_EXTRA_TERRENO;
+	const gridYIni = mapaRendererState.camera.gridY - POSICIONES_EXTRA_TERRENO;
+	mapaRendererState._lowestRowTerreno = 0; // variable que indica que indice tiene los sprites de pos mas baja, para que al caminar estos sean movidos a las mas altas
+	mapaRendererState._lowestColTerreno = 0;
+
+	for (let i = 0; i < mapaRendererState.camera.gridW + POSICIONES_EXTRA_TERRENO * 2; i++) {
+		for (let j = 0; j < mapaRendererState.camera.gridH + POSICIONES_EXTRA_TERRENO * 2; j++) {
+			const screenX = (gridXIni + i) * mapaRendererState.tilesize;
+			const screenY = (gridYIni + j) * mapaRendererState.tilesize;
+			mapaRendererState.terreno[i][j].setPosition(screenX, screenY);
+
+			const grh = mapaRendererState.mapa.getGrh1(gridXIni + i, gridYIni + j);
+			if (grh) {
+				mapaRendererState.terreno[i][j].cambiarGrh(mapaRendererState.assetManager.getTerrenoGrh(grh));
 			}
 		}
 	}
+};
 
-	_drawTerrenoIni() {
-		var gridXIni = this.camera.gridX - this.POSICIONES_EXTRA_TERRENO;
-		var gridYIni = this.camera.gridY - this.POSICIONES_EXTRA_TERRENO;
-		this._lowestRowTerreno = 0; // variable que indica que indice tiene los sprites de pos mas baja, para que al caminar estos sean movidos a las mas altas
-		this._lowestColTerreno = 0;
+const _updateTerrenoMov = (mapaRendererState, dir) => {
+	// al moverse mueve la columna/fila que queda atras al frente de todo
+	const gridXIni = mapaRendererState.camera.gridX - POSICIONES_EXTRA_TERRENO;
+	const gridYIni = mapaRendererState.camera.gridY - POSICIONES_EXTRA_TERRENO;
+	const cols = mapaRendererState.camera.gridW + POSICIONES_EXTRA_TERRENO * 2;
+	const rows = mapaRendererState.camera.gridH + POSICIONES_EXTRA_TERRENO * 2;
 
-		for (var i = 0; i < this.camera.gridW + this.POSICIONES_EXTRA_TERRENO * 2; i++) {
-			for (var j = 0; j < this.camera.gridH + this.POSICIONES_EXTRA_TERRENO * 2; j++) {
-				var screenX = (gridXIni + i) * this.tilesize;
-				var screenY = (gridYIni + j) * this.tilesize;
-				this.terreno[i][j].setPosition(screenX, screenY);
-
-				var grh = this.mapa.getGrh1(gridXIni + i, gridYIni + j);
-				if (grh) {
-					this.terreno[i][j].cambiarGrh(this.assetManager.getTerrenoGrh(grh));
-				}
-			}
-		}
-	}
-
-	_updateTerrenoMov(dir) {
-		// al moverse mueve la columna/fila que queda atras al frente de todo
-		var gridXIni = this.camera.gridX - this.POSICIONES_EXTRA_TERRENO;
-		var gridYIni = this.camera.gridY - this.POSICIONES_EXTRA_TERRENO;
-		var cols = this.camera.gridW + this.POSICIONES_EXTRA_TERRENO * 2;
-		var rows = this.camera.gridH + this.POSICIONES_EXTRA_TERRENO * 2;
-
-		switch (dir) {
-			case Enums.Heading.norte:
-				var j = Utils.modulo(this._lowestRowTerreno - 1, rows);
-				for (var i = 0; i < this.terreno.length; i++) {
-					this.terreno[i][j].setPosition(this.terreno[i][j].x, this.terreno[i][j].y - rows * this.tilesize);
-
-					var grh = this.mapa.getGrh1(
-						gridXIni + Utils.modulo(i - this._lowestColTerreno, cols),
+	switch (dir) {
+		case Enums.Heading.norte:
+			const updateNorte = () => {
+				const j = Utils.modulo(mapaRendererState._lowestRowTerreno - 1, rows);
+				for (let i = 0; i < mapaRendererState.terreno.length; i++) {
+					mapaRendererState.terreno[i][j].setPosition(
+						mapaRendererState.terreno[i][j].x,
+						mapaRendererState.terreno[i][j].y - rows * mapaRendererState.tilesize
+					);
+					const grh = mapaRendererState.mapa.getGrh1(
+						gridXIni + Utils.modulo(i - mapaRendererState._lowestColTerreno, cols),
 						gridYIni - 1
 					);
 					if (grh) {
-						this.terreno[i][j].cambiarGrh(this.assetManager.getTerrenoGrh(grh));
+						mapaRendererState.terreno[i][j].cambiarGrh(mapaRendererState.assetManager.getTerrenoGrh(grh));
 					}
 				}
+				mapaRendererState._lowestRowTerreno = Utils.modulo(mapaRendererState._lowestRowTerreno - 1, rows);
+			};
+			updateNorte();
+			break;
 
-				this._lowestRowTerreno = Utils.modulo(this._lowestRowTerreno - 1, rows);
-				break;
-
-			case Enums.Heading.oeste:
-				var i = Utils.modulo(this._lowestColTerreno - 1, cols);
-				for (var j = 0; j < this.terreno[i].length; j++) {
-					this.terreno[i][j].setPosition(this.terreno[i][j].x - cols * this.tilesize, this.terreno[i][j].y);
-
-					var grh = this.mapa.getGrh1(
+		case Enums.Heading.oeste:
+			const updateOeste = () => {
+				const i = Utils.modulo(mapaRendererState._lowestColTerreno - 1, cols);
+				for (let j = 0; j < mapaRendererState.terreno[i].length; j++) {
+					mapaRendererState.terreno[i][j].setPosition(
+						mapaRendererState.terreno[i][j].x - cols * mapaRendererState.tilesize,
+						mapaRendererState.terreno[i][j].y
+					);
+					const grh = mapaRendererState.mapa.getGrh1(
 						gridXIni - 1,
-						gridYIni + Utils.modulo(j - this._lowestRowTerreno, rows)
+						gridYIni + Utils.modulo(j - mapaRendererState._lowestRowTerreno, rows)
 					);
 					if (grh) {
-						this.terreno[i][j].cambiarGrh(this.assetManager.getTerrenoGrh(grh));
+						mapaRendererState.terreno[i][j].cambiarGrh(mapaRendererState.assetManager.getTerrenoGrh(grh));
 					}
 				}
-				this._lowestColTerreno = Utils.modulo(this._lowestColTerreno - 1, cols);
-				break;
+				mapaRendererState._lowestColTerreno = Utils.modulo(mapaRendererState._lowestColTerreno - 1, cols);
+			};
+			updateOeste();
+			break;
 
-			case Enums.Heading.sur:
-				var j = this._lowestRowTerreno;
-				for (var i = 0; i < this.terreno.length; i++) {
-					this.terreno[i][j].setPosition(this.terreno[i][j].x, this.terreno[i][j].y + rows * this.tilesize);
-
-					var grh = this.mapa.getGrh1(
-						gridXIni + Utils.modulo(i - this._lowestColTerreno, cols),
+		case Enums.Heading.sur:
+			const updateSur = () => {
+				const j = mapaRendererState._lowestRowTerreno;
+				for (let i = 0; i < mapaRendererState.terreno.length; i++) {
+					mapaRendererState.terreno[i][j].setPosition(
+						mapaRendererState.terreno[i][j].x,
+						mapaRendererState.terreno[i][j].y + rows * mapaRendererState.tilesize
+					);
+					const grh = mapaRendererState.mapa.getGrh1(
+						gridXIni + Utils.modulo(i - mapaRendererState._lowestColTerreno, cols),
 						gridYIni + rows
 					);
 					if (grh) {
-						this.terreno[i][j].cambiarGrh(this.assetManager.getTerrenoGrh(grh));
+						mapaRendererState.terreno[i][j].cambiarGrh(mapaRendererState.assetManager.getTerrenoGrh(grh));
 					}
 				}
-				this._lowestRowTerreno = Utils.modulo(this._lowestRowTerreno + 1, rows);
-				break;
+				mapaRendererState._lowestRowTerreno = Utils.modulo(mapaRendererState._lowestRowTerreno + 1, rows);
+			};
+			updateSur();
+			break;
 
-			case Enums.Heading.este:
-				var i = this._lowestColTerreno;
-				for (var j = 0; j < this.terreno[i].length; j++) {
-					this.terreno[i][j].setPosition(this.terreno[i][j].x + cols * this.tilesize, this.terreno[i][j].y);
-
-					var grh = this.mapa.getGrh1(
+		case Enums.Heading.este:
+			const updateEste = () => {
+				const i = mapaRendererState._lowestColTerreno;
+				for (let j = 0; j < mapaRendererState.terreno[i].length; j++) {
+					mapaRendererState.terreno[i][j].setPosition(
+						mapaRendererState.terreno[i][j].x + cols * mapaRendererState.tilesize,
+						mapaRendererState.terreno[i][j].y
+					);
+					const grh = mapaRendererState.mapa.getGrh1(
 						gridXIni + cols,
-						gridYIni + Utils.modulo(j - this._lowestRowTerreno, rows)
+						gridYIni + Utils.modulo(j - mapaRendererState._lowestRowTerreno, rows)
 					);
 					if (grh) {
-						this.terreno[i][j].cambiarGrh(this.assetManager.getTerrenoGrh(grh));
+						mapaRendererState.terreno[i][j].cambiarGrh(mapaRendererState.assetManager.getTerrenoGrh(grh));
 					}
 				}
-				this._lowestColTerreno = Utils.modulo(this._lowestColTerreno + 1, cols);
-				break;
+				mapaRendererState._lowestColTerreno = Utils.modulo(mapaRendererState._lowestColTerreno + 1, cols);
+			};
+			updateEste();
+			break;
 
-			default:
-				console.log('character heading invalido');
-				break;
+		default:
+			console.log('character heading invalido');
+			break;
+	}
+};
+
+const _drawSpritesIni = (mapaRendererState) => {
+	_removeChilds(mapaRendererState.layer2, mapaRendererState._spritesLayer2);
+	_removeChilds(mapaRendererState.layer3, mapaRendererState._spritesLayer3);
+	_removeChilds(mapaRendererState.layer4, mapaRendererState._spritesLayer4);
+	for (let k = 0; k <= 100; k++) {
+		mapaRendererState._spritesLayer2[k] = [];
+		mapaRendererState._spritesLayer3[k] = [];
+		mapaRendererState._spritesLayer4[k] = [];
+	}
+
+	mapaRendererState.camera.forEachVisiblePosition((i, j) => {
+		const screenX = i * mapaRendererState.tilesize;
+		const screenY = j * mapaRendererState.tilesize;
+		const grh2 = mapaRendererState.mapa.getGrh2(i, j);
+		const grh3 = mapaRendererState.mapa.getGrh3(i, j);
+		const grh4 = mapaRendererState.mapa.getGrh4(i, j);
+		if (grh2) {
+			mapaRendererState._spritesLayer2[i][j] = _crearSprite(
+				mapaRendererState.layer2,
+				mapaRendererState.assetManager.getGrh(grh2),
+				screenX,
+				screenY,
+				mapaRendererState
+			);
 		}
-	}
-
-	_drawSpritesIni() {
-		this._removeChilds(this.layer2, this._spritesLayer2);
-		this._removeChilds(this.layer3, this._spritesLayer3);
-		this._removeChilds(this.layer4, this._spritesLayer4);
-		for (var k = 0; k <= 100; k++) {
-			this._spritesLayer2[k] = [];
-			this._spritesLayer3[k] = [];
-			this._spritesLayer4[k] = [];
+		if (grh3) {
+			mapaRendererState._spritesLayer3[i][j] = _crearSprite(
+				mapaRendererState.layer3,
+				mapaRendererState.assetManager.getGrh(grh3),
+				screenX,
+				screenY,
+				mapaRendererState
+			);
 		}
-		var nuevoSprite;
+		if (grh4) {
+			mapaRendererState._spritesLayer4[i][j] = _crearSprite(
+				mapaRendererState.layer4,
+				mapaRendererState.assetManager.getGrh(grh4),
+				screenX,
+				screenY,
+				mapaRendererState
+			);
+		}
+	}, POSICIONES_EXTRA_RENDER);
+};
 
-		var self = this;
-		this.camera.forEachVisiblePosition(function (i, j) {
-			var screenX = i * self.tilesize;
-			var screenY = j * self.tilesize;
-			var grh2 = self.mapa.getGrh2(i, j);
-			var grh3 = self.mapa.getGrh3(i, j);
-			var grh4 = self.mapa.getGrh4(i, j);
-			if (grh2) {
-				self._spritesLayer2[i][j] = self._crearSprite(self.layer2, grh2, screenX, screenY);
+const _updateLayersMov = (mapaRendererState, dir) => {
+	mapaRendererState.camera.forEachVisibleNextLinea(
+		dir,
+		(i, j) => {
+			const screenX = i * mapaRendererState.tilesize;
+			const screenY = j * mapaRendererState.tilesize;
+			const grh2 = mapaRendererState.mapa.getGrh2(i, j);
+			const grh3 = mapaRendererState.mapa.getGrh3(i, j);
+			const grh4 = mapaRendererState.mapa.getGrh4(i, j);
+			if (grh2 && !mapaRendererState._spritesLayer2[i][j]) {
+				mapaRendererState._spritesLayer2[i][j] = _crearSprite(
+					mapaRendererState.layer2,
+					mapaRendererState.assetManager.getGrh(grh2),
+					screenX,
+					screenY,
+					mapaRendererState
+				);
 			}
-			if (grh3) {
-				self._spritesLayer3[i][j] = self._crearSprite(self.layer3, grh3, screenX, screenY);
+			if (grh3 && !mapaRendererState._spritesLayer3[i][j]) {
+				mapaRendererState._spritesLayer3[i][j] = _crearSprite(
+					mapaRendererState.layer3,
+					mapaRendererState.assetManager.getGrh(grh3),
+					screenX,
+					screenY,
+					mapaRendererState
+				);
 			}
-			if (grh4) {
-				self._spritesLayer4[i][j] = self._crearSprite(self.layer4, grh4, screenX, screenY);
+			if (grh4 && !mapaRendererState._spritesLayer4[i][j]) {
+				mapaRendererState._spritesLayer4[i][j] = _crearSprite(
+					mapaRendererState.layer4,
+					mapaRendererState.assetManager.getGrh(grh4),
+					screenX,
+					screenY,
+					mapaRendererState
+				);
 			}
-		}, this.POSICIONES_EXTRA_RENDER);
-	}
+		},
+		POSICIONES_EXTRA_RENDER
+	);
 
-	_updateLayersMov(dir) {
-		var self = this;
-		this.camera.forEachVisibleNextLinea(
-			dir,
-			function (i, j) {
-				var screenX = i * self.tilesize;
-				var screenY = j * self.tilesize;
-				var grh2 = self.mapa.getGrh2(i, j);
-				var grh3 = self.mapa.getGrh3(i, j);
-				var grh4 = self.mapa.getGrh4(i, j);
-				var nuevoSprite;
-				if (grh2) {
-					if (self._spritesLayer2[i][j]) {
-						return;
-					}
-					self._spritesLayer2[i][j] = self._crearSprite(self.layer2, grh2, screenX, screenY);
-				}
-				if (grh3) {
-					if (self._spritesLayer3[i][j]) {
-						return;
-					}
-					self._spritesLayer3[i][j] = self._crearSprite(self.layer3, grh3, screenX, screenY);
-				}
-				if (grh4) {
-					if (self._spritesLayer4[i][j]) {
-						return;
-					}
-					self._spritesLayer4[i][j] = self._crearSprite(self.layer4, grh4, screenX, screenY);
-				}
-			},
-			this.POSICIONES_EXTRA_RENDER
-		);
-
-		this.camera.forEachVisibleLastLinea(
-			dir,
-			function (i, j) {
-				if (self._spritesLayer2[i][j]) {
-					removePixiChild(self.layer2, self._spritesLayer2[i][j]);
-					self._spritesLayer2[i][j] = null;
-				}
-				if (self._spritesLayer3[i][j]) {
-					removePixiChild(self.layer3, self._spritesLayer3[i][j]);
-					self._spritesLayer3[i][j] = null;
-				}
-				if (self._spritesLayer4[i][j]) {
-					removePixiChild(self.layer4, self._spritesLayer4[i][j]);
-					self._spritesLayer4[i][j] = null;
-				}
-			},
-			this.POSICIONES_EXTRA_RENDER
-		);
-
-		this.camera.forEachVisiblePosition(function (i, j) {
-			if (self._spritesLayer2[i][j]) {
-				self._setSpriteClipping(self._spritesLayer2[i][j]);
+	mapaRendererState.camera.forEachVisibleLastLinea(
+		dir,
+		(i, j) => {
+			if (mapaRendererState._spritesLayer2[i][j]) {
+				removePixiChild(mapaRendererState.layer2, mapaRendererState._spritesLayer2[i][j]);
+				mapaRendererState._spritesLayer2[i][j] = null;
 			}
-			if (self._spritesLayer3[i][j]) {
-				self._setSpriteClipping(self._spritesLayer3[i][j]);
+			if (mapaRendererState._spritesLayer3[i][j]) {
+				removePixiChild(mapaRendererState.layer3, mapaRendererState._spritesLayer3[i][j]);
+				mapaRendererState._spritesLayer3[i][j] = null;
 			}
-
-			if (self._spritesLayer4[i][j]) {
-				self._setSpriteClipping(self._spritesLayer4[i][j]);
+			if (mapaRendererState._spritesLayer4[i][j]) {
+				removePixiChild(mapaRendererState.layer4, mapaRendererState._spritesLayer4[i][j]);
+				mapaRendererState._spritesLayer4[i][j] = null;
 			}
-		}, this.POSICIONES_EXTRA_RENDER);
-	}
+		},
+		POSICIONES_EXTRA_RENDER
+	);
 
-	_crearSprite(parentLayer, grh, x, y) {
-		let nuevoSprite = new SpriteGrh(this.assetManager.getGrh(grh));
-		parentLayer.addChild(nuevoSprite); // ojo tiene que estar en este orden sino no anda el z-index(TODO)
-		nuevoSprite.setPosition(x, y);
-		this._setSpriteClipping(nuevoSprite);
-		return nuevoSprite;
-	}
+	mapaRendererState.camera.forEachVisiblePosition((i, j) => {
+		if (mapaRendererState._spritesLayer2[i][j]) {
+			_setSpriteClipping(mapaRendererState, mapaRendererState._spritesLayer2[i][j]);
+		}
+		if (mapaRendererState._spritesLayer3[i][j]) {
+			_setSpriteClipping(mapaRendererState, mapaRendererState._spritesLayer3[i][j]);
+		}
+		if (mapaRendererState._spritesLayer4[i][j]) {
+			_setSpriteClipping(mapaRendererState, mapaRendererState._spritesLayer4[i][j]);
+		}
+	}, POSICIONES_EXTRA_RENDER);
+};
 
-	_setSpriteClipping(sprite) {
-		let spriteRect = {};
+const _crearSprite = (parentLayer, grh, x, y, mapaRendererState) => {
+	const nuevoSprite = new SpriteGrh(grh);
+	parentLayer.addChild(nuevoSprite); // ojo tiene que estar en este orden sino no anda el z-index(TODO)
+	nuevoSprite.setPosition(x, y);
+	_setSpriteClipping(mapaRendererState, nuevoSprite);
+	return nuevoSprite;
+};
 
-		spriteRect.x = sprite.x;
-		spriteRect.y = sprite.y;
-		spriteRect.width = sprite.width;
-		spriteRect.height = sprite.height;
+const _setSpriteClipping = (mapaRendererState, sprite) => {
+	const spriteRect = {};
 
-		posicionarRectEnTile(spriteRect);
-		sprite.visible = this.camera.rectVisible(spriteRect);
-	}
+	spriteRect.x = sprite.x;
+	spriteRect.y = sprite.y;
+	spriteRect.width = sprite.width;
+	spriteRect.height = sprite.height;
 
-	_removeChilds(padre, gridHijos) {
-		gridHijos.forEach((fila) => {
-			fila.forEach((hijo) => {
-				if (hijo) {
-					removePixiChild(padre, hijo);
-				}
-			});
+	posicionarRectEnTile(spriteRect);
+	sprite.visible = mapaRendererState.camera.rectVisible(spriteRect);
+};
+
+const _removeChilds = (padre, gridHijos) => {
+	gridHijos.forEach((fila) => {
+		fila.forEach((hijo) => {
+			if (hijo) {
+				removePixiChild(padre, hijo);
+			}
 		});
-	}
+	});
+};
 
-	_drawDebugTile(x, y) {
-		var graphics = new Graphics();
-		graphics.beginFill(0xffff00);
-		graphics.lineStyle(5, 0xff0000);
-		graphics.drawRect(x, y, this.tilesize, this.tilesize);
-		this.layer4.addChild(graphics);
-	}
-}
-export default MapaRenderer;
+const _drawDebugTile = (mapaRendererState, x, y) => {
+	const graphics = new Graphics();
+	graphics.beginFill(0xffff00);
+	graphics.lineStyle(5, 0xff0000);
+	graphics.drawRect(x, y, mapaRendererState.tilesize, mapaRendererState.tilesize);
+	mapaRendererState.layer4.addChild(graphics);
+};
+
+export { initMapaRenderer, updateTilesMov, cambiarMapa, drawMapaIni };

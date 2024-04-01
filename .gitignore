@@ -3,3 +3,5 @@ dist
 .env
 .env.test
 .env.production
+
+client/graficos/css/to_upscale/*

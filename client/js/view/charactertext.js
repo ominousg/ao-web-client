@@ -100,6 +100,7 @@ const removerChat = (container) => {
 };
 
 const removerInfo = (container, info) => {
+	// TO DO: mejorar este bugfix.
 	if (!container.infos) {
 		console.warn('Se intentó remover info en un container sin infos.');
 		container.infos = [];

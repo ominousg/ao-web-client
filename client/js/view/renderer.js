@@ -14,7 +14,7 @@ import * as IndicadorMapa from './indicadormapa';
 import * as IndicadorFPS from './indicadorFPS';
 import EntityRenderer from './entityrenderer';
 import * as ClimaRenderer from './climarenderer';
-import MapaRenderer from './maparenderer';
+import * as MapaRenderer from './maparenderer';
 import * as CharacterText from './charactertext';
 import { removePixiChild } from './rendererutils';
 
@@ -35,7 +35,7 @@ class Renderer {
 		this.camera = new Camera(this.tilesize);
 
 		this.entityRenderer = null;
-		this.mapaRenderer = null;
+		this.mapaRendererState = null;
 		this.climaRendererState = null;
 		this.fadeInterval = null;
 
@@ -100,7 +100,7 @@ class Renderer {
 			this.assetManager,
 			this.pixiRenderer
 		);
-		this.mapaRenderer = new MapaRenderer(
+		this.mapaRendererState = new MapaRenderer.initMapaRenderer(
 			this.camera,
 			this.assetManager,
 			this.layer1,
@@ -274,18 +274,18 @@ class Renderer {
 	}
 
 	updateBeforeMovementBegins(dir, entities) {
-		this.mapaRenderer.updateTilesMov(dir);
+		MapaRenderer.updateTilesMov(this.mapaRendererState, dir);
 		this.entityRenderer.updateEntitiesMov(dir, entities);
 	}
 
 	cambiarMapa(mapa) {
-		this.mapaRenderer.cambiarMapa(mapa);
+		MapaRenderer.cambiarMapa(this.mapaRendererState, mapa);
 	}
 
 	drawMapaIni(gridX, gridY, entities) {
 		this.resetCameraPosition(gridX, gridY, entities);
 		this._syncGamePosition();
-		this.mapaRenderer.drawMapaIni(gridX, gridY);
+		MapaRenderer.drawMapaIni(this.mapaRendererState, gridX, gridY);
 	}
 
 	resetCameraPosition(gridX, gridY, entities) {
