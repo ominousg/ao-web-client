@@ -7,7 +7,7 @@
 import Font from '../font';
 import { Container, Text } from 'pixi.js';
 import { removePixiChild } from './rendererutils';
-import GameTextStyle from './gametextstyle';
+import * as GameTextStyle from './gametextstyle';
 import { useConsoleMessagesStore } from '../stores';
 
 const initConsola = (escala = 1) => {
@@ -27,7 +27,7 @@ const initConsola = (escala = 1) => {
 
 const setEscala = (consola, escala) => {
 	consola.children.forEach((child, i) => {
-		child.style.setEscala(escala);
+		GameTextStyle.setEscala(child.style, escala);
 		child.y = consola.children[0].height * i;
 	});
 	consola.escala = escala;
@@ -65,7 +65,7 @@ const removerTexto = (consola, spriteTexto) => {
 };
 
 const agregarTexto = (consola, texto, font) => {
-	let estilo = new GameTextStyle(Font.CONSOLA_BASE_FONT, consola.escala, font);
+	let estilo = GameTextStyle.init(Font.CONSOLA_BASE_FONT, consola.escala, font);
 	estilo.wordWrap = true;
 	estilo.wordWrapWidth = 700 + (1000 - 700) * ((consola.escala - 1.387) / (1.968 - 1.387));
 

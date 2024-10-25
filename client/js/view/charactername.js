@@ -3,38 +3,34 @@
  * PixiJS migrations by ominousf: v4.0.3 to v6.4.2 on 03/25/2023
  * v6.4.2 to 7.4.0 on 24/02/2024
  */
-import { Enums } from '../enums';
 import { Text } from 'pixi.js';
 import Font from '../font';
-import GameTextStyle from './gametextstyle';
+import * as GameTextStyle from './gametextstyle';
 
-class CharacterName extends Text {
-	constructor(nombre, clan, font, escala) {
-		if (clan) {
-			nombre = nombre + '\n' + clan;
-		}
-
-		let style = new GameTextStyle(Font.NOMBRE_BASE_FONT, escala);
-		super(nombre, style);
-
-		this.anchor.set(0.5, 0);
-
-		escala = escala || 1;
-		this._escala = escala;
+const init = (nombre, clan, font, escala = 1) => {
+	if (clan) {
+		nombre = nombre + '\n' + clan;
 	}
 
-	setPosition(x, y) {
-		this.x = Math.round((x + 16) * this._escala);
-		this.y = Math.round((y + 32) * this._escala);
-	}
+	const style = GameTextStyle.init(Font.NOMBRE_BASE_FONT, escala);
+	const text = new Text(nombre, style);
 
-	setEscala(nuevaEscala) {
-		this.x = this.x * (nuevaEscala / this._escala);
-		this.y = this.y * (nuevaEscala / this._escala);
-		this.style.setEscala(nuevaEscala);
+	text.anchor.set(0.5, 0);
+	text._escala = escala;
 
-		this._escala = nuevaEscala;
-	}
-}
+	return text;
+};
 
-export default CharacterName;
+const setPosition = (text, x, y) => {
+	text.x = Math.round((x + 16) * text._escala);
+	text.y = Math.round((y + 32) * text._escala);
+};
+
+const setEscala = (text, nuevaEscala) => {
+	text.x = text.x * (nuevaEscala / text._escala);
+	text.y = text.y * (nuevaEscala / text._escala);
+	GameTextStyle.setEscala(text.style, nuevaEscala);
+	text._escala = nuevaEscala;
+};
+
+export { init, setPosition, setEscala };

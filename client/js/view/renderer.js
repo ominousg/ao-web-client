@@ -16,6 +16,7 @@ import EntityRenderer from './entityrenderer';
 import * as ClimaRenderer from './climarenderer';
 import * as MapaRenderer from './maparenderer';
 import * as CharacterText from './charactertext';
+import * as CharacterName from './charactername';
 import { removePixiChild } from './rendererutils';
 
 class Renderer {
@@ -200,7 +201,7 @@ class Renderer {
 			CharacterText.setEscala(this.gameChat.children[i], escala);
 		}
 		for (var name of this.gameNames.children) {
-			name.setEscala(escala);
+			CharacterName.setEscala(name, escala);
 		}
 		Consola.setEscala(this.consola, escala);
 

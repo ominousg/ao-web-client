@@ -6,11 +6,11 @@
 
 import Font from '../font';
 import { Container, Text } from 'pixi.js';
-import GameTextStyle from './gametextstyle';
+import * as GameTextStyle from './gametextstyle';
 
 const initCharacterText = (escala) => {
 	const container = new Container();
-	const estiloChat = new GameTextStyle(Font.TALK_BASE_FONT, escala);
+	const estiloChat = GameTextStyle.init(Font.TALK_BASE_FONT, escala);
 	container.estiloChat = estiloChat;
 	container.infos = [];
 	container._chat = null;
@@ -23,7 +23,7 @@ const initCharacterText = (escala) => {
 };
 
 const setEscala = (container, escala) => {
-	container.estiloChat.setEscala(escala);
+	GameTextStyle.setEscala(container.estiloChat, escala);
 
 	if (container._chat) {
 		container._chat.x = Math.round(container._chat.x * (escala / container._escala));
@@ -54,7 +54,7 @@ const setChat = (container, chat, color) => {
 };
 
 const addHoveringInfo = (container, value, font) => {
-	var estilo = new GameTextStyle(Font.HOVERING_BASE_FONT, container._escala, font);
+	var estilo = GameTextStyle.init(Font.HOVERING_BASE_FONT, container._escala, font);
 	var info = new Text(value, estilo);
 
 	info.tiempoPasado = 0;

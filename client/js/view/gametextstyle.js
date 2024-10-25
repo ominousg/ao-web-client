@@ -6,65 +6,55 @@
 
 import { TextStyle } from 'pixi.js';
 
-class GameTextStyle extends TextStyle {
-	constructor(baseFont, escala, font) {
-		if (font) {
-			$.extend(baseFont, baseFont, font);
-		}
-		super(baseFont);
-		this._font = baseFont;
-		escala = escala || 1;
-		if (escala !== 1) {
-			this.setEscala(escala);
-		}
-		this._escala = escala;
+const init = (baseFont, escala = 1, font) => {
+	if (font) {
+		baseFont = { ...baseFont, ...font };
 	}
-
-	setEscala(scale) {
-		//escala con respecto a base_font
-		this._escala = scale;
-
-		let resizeFunc = function (target) {
-			if (!isNaN(target)) {
-				target *= scale;
-			}
-			return target;
-		};
-
-		let font = this._font;
-		if (font.dropShadowBlur) {
-			this.dropShadowBlur = resizeFunc(font.dropShadowBlur);
-		}
-		if (font.dropShadowDistance) {
-			this.dropShadowDistance = resizeFunc(font.dropShadowDistance);
-		}
-		if (font.fontSize) {
-			this.fontSize = resizeFunc(font.fontSize);
-		}
-		if (font.letterSpacing) {
-			this.letterSpacing = resizeFunc(font.letterSpacing);
-		}
-		if (font.lineHeight) {
-			this.lineHeight = resizeFunc(font.lineHeight);
-		}
-		if (font.miterLimit) {
-			this.miterLimit = resizeFunc(font.miterLimit);
-		}
-		if (font.padding) {
-			this.padding = resizeFunc(font.padding);
-		}
-		if (font.strokeThickness) {
-			this.strokeThickness = resizeFunc(font.strokeThickness);
-		}
+	const _font = baseFont;
+	const style = new TextStyle(baseFont);
+	style._font = _font;
+	style._escala = escala;
+	if (escala !== 1) {
+		setEscala(style, escala);
 	}
+	return style;
+};
 
-	// setFont(font) {
-	//     if (this._font !== font) {
-	//         this._font = font;
-	//         $.extend(this._font, this._defaults, this._font, font);
-	//         Object.assign(this, this._font);
-	//         this.setEscala(this._escala);
-	//     }
-	// }
-}
-export default GameTextStyle;
+const setEscala = (style, scale) => {
+	style._escala = scale;
+
+	const resizeFunc = (target) => {
+		if (!isNaN(target)) {
+			target *= scale;
+		}
+		return target;
+	};
+
+	const font = style._font;
+	if (font.dropShadowBlur) {
+		style.dropShadowBlur = resizeFunc(font.dropShadowBlur);
+	}
+	if (font.dropShadowDistance) {
+		style.dropShadowDistance = resizeFunc(font.dropShadowDistance);
+	}
+	if (font.fontSize) {
+		style.fontSize = resizeFunc(font.fontSize);
+	}
+	if (font.letterSpacing) {
+		style.letterSpacing = resizeFunc(font.letterSpacing);
+	}
+	if (font.lineHeight) {
+		style.lineHeight = resizeFunc(font.lineHeight);
+	}
+	if (font.miterLimit) {
+		style.miterLimit = resizeFunc(font.miterLimit);
+	}
+	if (font.padding) {
+		style.padding = resizeFunc(font.padding);
+	}
+	if (font.strokeThickness) {
+		style.strokeThickness = resizeFunc(font.strokeThickness);
+	}
+};
+
+export { init, setEscala };

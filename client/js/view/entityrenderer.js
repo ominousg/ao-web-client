@@ -8,7 +8,7 @@ import { Enums } from '../enums';
 import Utils from '../utils/util';
 import Font from '../font';
 import CharacterSprites from './charactersprites';
-import CharacterName from './charactername';
+import * as CharacterName from './charactername';
 import * as CharacterText from './charactertext';
 import SpriteGrh from './spritegrh';
 import { posicionarRectEnTile, removePixiChild } from './rendererutils';
@@ -103,7 +103,7 @@ class EntityRenderer {
 			var fontColor = color ? Font.NickColor[Font.NickColorIndex[color]] : Font.NickColor.CIUDADANO;
 			var font = Font.NOMBRE_BASE_FONT;
 			font.fill = fontColor;
-			var nuevoNombre = new CharacterName(nombre, clan, font, self.escala);
+			var nuevoNombre = CharacterName.init(nombre, clan, font, self.escala);
 			self.entityNamesContainer.addChild(nuevoNombre);
 			char.spriteNombre = nuevoNombre;
 		};
@@ -127,7 +127,7 @@ class EntityRenderer {
 
 			this.sprite.setPosition(spriteX, spriteY);
 			if (this.spriteNombre) {
-				this.spriteNombre.setPosition(spriteX, spriteY);
+				CharacterName.setPosition(this.spriteNombre, spriteX, spriteY);
 			}
 			if (this.texto) {
 				CharacterText.setPosition(char.texto, spriteX, spriteY);
