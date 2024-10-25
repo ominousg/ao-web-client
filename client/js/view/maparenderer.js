@@ -9,6 +9,7 @@ import Utils from '../utils/util';
 import { Graphics } from 'pixi.js';
 import SpriteGrh from './spritegrh';
 import { posicionarRectEnTile, removePixiChild } from './rendererutils';
+import * as Camera from './camera';
 
 // posiciones extra que se analizan para ver si lo que hay en ellas es visible o no
 // (si es algo visible pero tan grande que cuando esta lejos no entra en estas posiciones no se ve)
@@ -206,59 +207,23 @@ const _drawSpritesIni = (mapaRendererState) => {
 	_removeChilds(mapaRendererState.layer2, mapaRendererState._spritesLayer2);
 	_removeChilds(mapaRendererState.layer3, mapaRendererState._spritesLayer3);
 	_removeChilds(mapaRendererState.layer4, mapaRendererState._spritesLayer4);
-	for (let k = 0; k <= 100; k++) {
-		mapaRendererState._spritesLayer2[k] = [];
-		mapaRendererState._spritesLayer3[k] = [];
-		mapaRendererState._spritesLayer4[k] = [];
+
+	for (let x = 0; x <= 100; x++) {
+		mapaRendererState._spritesLayer2[x] = [];
+		mapaRendererState._spritesLayer3[x] = [];
+		mapaRendererState._spritesLayer4[x] = [];
 	}
 
-	mapaRendererState.camera.forEachVisiblePosition((i, j) => {
-		const screenX = i * mapaRendererState.tilesize;
-		const screenY = j * mapaRendererState.tilesize;
-		const grh2 = mapaRendererState.mapa.getGrh2(i, j);
-		const grh3 = mapaRendererState.mapa.getGrh3(i, j);
-		const grh4 = mapaRendererState.mapa.getGrh4(i, j);
-		if (grh2) {
-			mapaRendererState._spritesLayer2[i][j] = _crearSprite(
-				mapaRendererState.layer2,
-				mapaRendererState.assetManager.getGrh(grh2),
-				screenX,
-				screenY,
-				mapaRendererState
-			);
-		}
-		if (grh3) {
-			mapaRendererState._spritesLayer3[i][j] = _crearSprite(
-				mapaRendererState.layer3,
-				mapaRendererState.assetManager.getGrh(grh3),
-				screenX,
-				screenY,
-				mapaRendererState
-			);
-		}
-		if (grh4) {
-			mapaRendererState._spritesLayer4[i][j] = _crearSprite(
-				mapaRendererState.layer4,
-				mapaRendererState.assetManager.getGrh(grh4),
-				screenX,
-				screenY,
-				mapaRendererState
-			);
-		}
-	}, POSICIONES_EXTRA_RENDER);
-};
-
-const _updateLayersMov = (mapaRendererState, dir) => {
-	mapaRendererState.camera.forEachVisibleNextLinea(
-		dir,
-		(i, j) => {
-			const screenX = i * mapaRendererState.tilesize;
-			const screenY = j * mapaRendererState.tilesize;
-			const grh2 = mapaRendererState.mapa.getGrh2(i, j);
-			const grh3 = mapaRendererState.mapa.getGrh3(i, j);
-			const grh4 = mapaRendererState.mapa.getGrh4(i, j);
-			if (grh2 && !mapaRendererState._spritesLayer2[i][j]) {
-				mapaRendererState._spritesLayer2[i][j] = _crearSprite(
+	Camera.forEachVisiblePosition(
+		mapaRendererState.camera,
+		(gridX, gridY) => {
+			const screenX = gridX * mapaRendererState.tilesize;
+			const screenY = gridY * mapaRendererState.tilesize;
+			const grh2 = mapaRendererState.mapa.getGrh2(gridX, gridY);
+			const grh3 = mapaRendererState.mapa.getGrh3(gridX, gridY);
+			const grh4 = mapaRendererState.mapa.getGrh4(gridX, gridY);
+			if (grh2) {
+				mapaRendererState._spritesLayer2[gridX][gridY] = _crearSprite(
 					mapaRendererState.layer2,
 					mapaRendererState.assetManager.getGrh(grh2),
 					screenX,
@@ -266,8 +231,8 @@ const _updateLayersMov = (mapaRendererState, dir) => {
 					mapaRendererState
 				);
 			}
-			if (grh3 && !mapaRendererState._spritesLayer3[i][j]) {
-				mapaRendererState._spritesLayer3[i][j] = _crearSprite(
+			if (grh3) {
+				mapaRendererState._spritesLayer3[gridX][gridY] = _crearSprite(
 					mapaRendererState.layer3,
 					mapaRendererState.assetManager.getGrh(grh3),
 					screenX,
@@ -275,8 +240,50 @@ const _updateLayersMov = (mapaRendererState, dir) => {
 					mapaRendererState
 				);
 			}
-			if (grh4 && !mapaRendererState._spritesLayer4[i][j]) {
-				mapaRendererState._spritesLayer4[i][j] = _crearSprite(
+			if (grh4) {
+				mapaRendererState._spritesLayer4[gridX][gridY] = _crearSprite(
+					mapaRendererState.layer4,
+					mapaRendererState.assetManager.getGrh(grh4),
+					screenX,
+					screenY,
+					mapaRendererState
+				);
+			}
+		},
+		POSICIONES_EXTRA_RENDER
+	);
+};
+
+const _updateLayersMov = (mapaRendererState, dir) => {
+	Camera.forEachVisibleNextLinea(
+		mapaRendererState.camera,
+		dir,
+		(gridX, gridY) => {
+			const screenX = gridX * mapaRendererState.tilesize;
+			const screenY = gridY * mapaRendererState.tilesize;
+			const grh2 = mapaRendererState.mapa.getGrh2(gridX, gridY);
+			const grh3 = mapaRendererState.mapa.getGrh3(gridX, gridY);
+			const grh4 = mapaRendererState.mapa.getGrh4(gridX, gridY);
+			if (grh2 && !mapaRendererState._spritesLayer2[gridX][gridY]) {
+				mapaRendererState._spritesLayer2[gridX][gridY] = _crearSprite(
+					mapaRendererState.layer2,
+					mapaRendererState.assetManager.getGrh(grh2),
+					screenX,
+					screenY,
+					mapaRendererState
+				);
+			}
+			if (grh3 && !mapaRendererState._spritesLayer3[gridX][gridY]) {
+				mapaRendererState._spritesLayer3[gridX][gridY] = _crearSprite(
+					mapaRendererState.layer3,
+					mapaRendererState.assetManager.getGrh(grh3),
+					screenX,
+					screenY,
+					mapaRendererState
+				);
+			}
+			if (grh4 && !mapaRendererState._spritesLayer4[gridX][gridY]) {
+				mapaRendererState._spritesLayer4[gridX][gridY] = _crearSprite(
 					mapaRendererState.layer4,
 					mapaRendererState.assetManager.getGrh(grh4),
 					screenX,
@@ -288,36 +295,41 @@ const _updateLayersMov = (mapaRendererState, dir) => {
 		POSICIONES_EXTRA_RENDER
 	);
 
-	mapaRendererState.camera.forEachVisibleLastLinea(
+	Camera.forEachVisibleLastLinea(
+		mapaRendererState.camera,
 		dir,
-		(i, j) => {
-			if (mapaRendererState._spritesLayer2[i][j]) {
-				removePixiChild(mapaRendererState.layer2, mapaRendererState._spritesLayer2[i][j]);
-				mapaRendererState._spritesLayer2[i][j] = null;
+		(gridX, gridY) => {
+			if (mapaRendererState._spritesLayer2[gridX][gridY]) {
+				removePixiChild(mapaRendererState.layer2, mapaRendererState._spritesLayer2[gridX][gridY]);
+				mapaRendererState._spritesLayer2[gridX][gridY] = null;
 			}
-			if (mapaRendererState._spritesLayer3[i][j]) {
-				removePixiChild(mapaRendererState.layer3, mapaRendererState._spritesLayer3[i][j]);
-				mapaRendererState._spritesLayer3[i][j] = null;
+			if (mapaRendererState._spritesLayer3[gridX][gridY]) {
+				removePixiChild(mapaRendererState.layer3, mapaRendererState._spritesLayer3[gridX][gridY]);
+				mapaRendererState._spritesLayer3[gridX][gridY] = null;
 			}
-			if (mapaRendererState._spritesLayer4[i][j]) {
-				removePixiChild(mapaRendererState.layer4, mapaRendererState._spritesLayer4[i][j]);
-				mapaRendererState._spritesLayer4[i][j] = null;
+			if (mapaRendererState._spritesLayer4[gridX][gridY]) {
+				removePixiChild(mapaRendererState.layer4, mapaRendererState._spritesLayer4[gridX][gridY]);
+				mapaRendererState._spritesLayer4[gridX][gridY] = null;
 			}
 		},
 		POSICIONES_EXTRA_RENDER
 	);
 
-	mapaRendererState.camera.forEachVisiblePosition((i, j) => {
-		if (mapaRendererState._spritesLayer2[i][j]) {
-			_setSpriteClipping(mapaRendererState, mapaRendererState._spritesLayer2[i][j]);
-		}
-		if (mapaRendererState._spritesLayer3[i][j]) {
-			_setSpriteClipping(mapaRendererState, mapaRendererState._spritesLayer3[i][j]);
-		}
-		if (mapaRendererState._spritesLayer4[i][j]) {
-			_setSpriteClipping(mapaRendererState, mapaRendererState._spritesLayer4[i][j]);
-		}
-	}, POSICIONES_EXTRA_RENDER);
+	Camera.forEachVisiblePosition(
+		mapaRendererState.camera,
+		(gridX, gridY) => {
+			if (mapaRendererState._spritesLayer2[gridX][gridY]) {
+				_setSpriteClipping(mapaRendererState, mapaRendererState._spritesLayer2[gridX][gridY]);
+			}
+			if (mapaRendererState._spritesLayer3[gridX][gridY]) {
+				_setSpriteClipping(mapaRendererState, mapaRendererState._spritesLayer3[gridX][gridY]);
+			}
+			if (mapaRendererState._spritesLayer4[gridX][gridY]) {
+				_setSpriteClipping(mapaRendererState, mapaRendererState._spritesLayer4[gridX][gridY]);
+			}
+		},
+		POSICIONES_EXTRA_RENDER
+	);
 };
 
 const _crearSprite = (parentLayer, grh, x, y, mapaRendererState) => {
@@ -337,7 +349,7 @@ const _setSpriteClipping = (mapaRendererState, sprite) => {
 	spriteRect.height = sprite.height;
 
 	posicionarRectEnTile(spriteRect);
-	sprite.visible = mapaRendererState.camera.rectVisible(spriteRect);
+	sprite.visible = Camera.rectVisible(mapaRendererState.camera, spriteRect);
 };
 
 const _removeChilds = (padre, gridHijos) => {

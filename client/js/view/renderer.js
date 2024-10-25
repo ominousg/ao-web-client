@@ -7,7 +7,7 @@ import {
 	MIPMAP_MODES,
 	TextureGCSystem
 } from 'pixi.js-legacy';
-import Camera from './camera';
+import * as Camera from './camera';
 import * as Consola from './consola';
 import * as ContainerOrdenado from './containerordenado';
 import * as IndicadorMapa from './indicadormapa';
@@ -33,7 +33,7 @@ class Renderer {
 		this.fxs = assetManager.getFxs();
 
 		this.tilesize = 32;
-		this.camera = new Camera(this.tilesize);
+		this.camera = Camera.init(this.tilesize);
 
 		this.entityRenderer = null;
 		this.mapaRendererState = null;
@@ -290,7 +290,7 @@ class Renderer {
 	}
 
 	resetCameraPosition(gridX, gridY, entities) {
-		this.camera.lookAtGridPos(gridX, gridY);
+		Camera.lookAtGridPos(this.camera, gridX, gridY);
 		this.entityRenderer.updateEntitiesClipping(entities);
 	}
 
@@ -300,7 +300,7 @@ class Renderer {
 	}
 
 	moverPosition(x, y) {
-		this.camera.mover(x, y);
+		Camera.mover(this.camera, x, y);
 		this._syncGamePosition();
 	}
 

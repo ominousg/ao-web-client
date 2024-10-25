@@ -6,6 +6,7 @@ import Protocolo from './protocol';
 import ByteQueue from './bytequeue';
 import Websock from '../lib/websock';
 import { usePlayerStatsStore } from '../stores';
+import * as Camera from '../view/camera';
 
 class GameClient {
 	constructor(game, uiManager, gameUI) {
@@ -257,7 +258,7 @@ class GameClient {
 	}
 
 	handlePlayWave(WaveID, X, Y) {
-		if (X < 0 || Y < 0 || this.game.renderer.camera.isVisiblePosition(X, Y, this.game.POSICIONES_EXTRA_SONIDO)) {
+		if (X < 0 || Y < 0 || Camera.isVisiblePosition(this.game.renderer.camera, X, Y, this.game.POSICIONES_EXTRA_SONIDO)) {
 			this.game.assetManager.audio.playSound(WaveID);
 		}
 	}

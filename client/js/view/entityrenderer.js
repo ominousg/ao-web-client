@@ -12,6 +12,7 @@ import * as CharacterName from './charactername';
 import * as CharacterText from './charactertext';
 import SpriteGrh from './spritegrh';
 import { posicionarRectEnTile, removePixiChild } from './rendererutils';
+import * as Camera from '../view/camera';
 
 class EntityRenderer {
 	constructor(escala, entityContainer, entityNamesContainer, entityChatContainer, camera, assetManager) {
@@ -264,7 +265,7 @@ class EntityRenderer {
 		entityRect.height = sprite.height;
 
 		posicionarRectEnTile(entityRect);
-		return this.camera.rectVisible(entityRect, extraPositions);
+		return Camera.rectVisible(this.camera, entityRect, extraPositions);
 	}
 
 	setCharacterChat(char, chat, r, g, b) {

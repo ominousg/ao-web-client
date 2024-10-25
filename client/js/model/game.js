@@ -12,6 +12,7 @@ import World from './world';
 import WorldState from './worldstate';
 import GameText from './gametext';
 import { Ticker } from 'pixi.js';
+import * as Camera from '../view/camera';
 
 class Game {
 	constructor(assetManager) {
@@ -547,7 +548,9 @@ class Game {
 
 		this.playerMovement.setOnMoverseUpdate(
 			function (x, y) {
-				this.renderer.moverPosition(x - this.renderer.camera.centerPosX, y - this.renderer.camera.centerPosY);
+				const centerX = Camera.getCenterPosX(this.renderer.camera);
+				const centerY = Camera.getCenterPosY(this.renderer.camera);
+				this.renderer.moverPosition(x - centerX, y - centerY);
 			}.bind(this)
 		);
 

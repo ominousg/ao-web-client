@@ -21,6 +21,7 @@ const init = (baseFont, escala = 1, font) => {
 };
 
 const setEscala = (style, scale) => {
+	//escala con respecto a base_font
 	style._escala = scale;
 
 	const resizeFunc = (target) => {
@@ -55,6 +56,15 @@ const setEscala = (style, scale) => {
 	if (font.strokeThickness) {
 		style.strokeThickness = resizeFunc(font.strokeThickness);
 	}
+
+	// setFont(font) {
+	//     if (this._font !== font) {
+	//         this._font = font;
+	//         $.extend(this._font, this._defaults, this._font, font);
+	//         Object.assign(this, this._font);
+	//         this.setEscala(this._escala);
+	//     }
+	// }
 };
 
 export { init, setEscala };
