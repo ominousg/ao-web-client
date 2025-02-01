@@ -2,7 +2,7 @@
  * Created by horacio on 7/3/16.
  */
 
-define([], function () {
+define(['../view/charactersprites'], function (CharacterSprites) {
 	class PlayerMovement {
 		constructor(game) {
 			/*this.game.player = null;*/
@@ -81,7 +81,7 @@ define([], function () {
 			} else {
 				if (this.game.player.heading !== this.getDirMov()) {
 					this.game.player.heading = this.getDirMov();
-					this.game.player.sprite.stopAnimations();
+					CharacterSprites.stopAnimations(this.game.player.sprite);
 					this.cambioHeadingCallback(this.game.player.heading);
 				}
 				return false;

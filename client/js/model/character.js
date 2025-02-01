@@ -4,6 +4,7 @@ import PIXI from 'pixi.js';
 import { Enums } from '../enums';
 import CharacterMovement from './charactermovement';
 import * as CharacterText from '../view/charactertext';
+import * as CharacterSprites from '../view/charactersprites';
 
 class Character extends Entity {
 	constructor(
@@ -56,7 +57,7 @@ class Character extends Entity {
 
 	setSpeed(speed) {
 		this.moveSpeed = speed;
-		this.sprite.setSpeed(speed);
+		CharacterSprites.setSpeed(this.sprite, speed);
 	}
 
 	update(delta) {
@@ -92,14 +93,14 @@ class Character extends Entity {
 
 	_animarMovimiento() {
 		if (this.sprite) {
-			this.sprite.loop(true);
-			this.sprite.play();
+			CharacterSprites.loop(this.sprite, true);
+			CharacterSprites.play(this.sprite);
 		}
 	}
 
 	_finAnimarMovimiento() {
 		if (this.sprite) {
-			this.sprite.loop(false);
+			CharacterSprites.loop(this.sprite, false);
 		}
 	}
 

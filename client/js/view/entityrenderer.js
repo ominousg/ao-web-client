@@ -7,7 +7,7 @@
 import { Enums } from '../enums';
 import Utils from '../utils/util';
 import Font from '../font';
-import CharacterSprites from './charactersprites';
+import * as CharacterSprites from './charactersprites';
 import * as CharacterName from './charactername';
 import * as CharacterText from './charactertext';
 import * as SpriteGrh from './spritegrh';
@@ -114,7 +114,7 @@ class EntityRenderer {
 		char.emit('nameChanged');
 
 		var sprite = this._crearCharacterSprites(this.entityContainer, char.x, char.y, -30);
-		sprite.setSpeed(char.moveSpeed); // ANIMACIONES char se setean a misma velocidad que su movimiento !!
+		CharacterSprites.setSpeed(sprite, char.moveSpeed); // ANIMACIONES char se setean a misma velocidad que su movimiento !!
 
 		char.sprite = sprite;
 
@@ -126,7 +126,7 @@ class EntityRenderer {
 			var spriteX = this.x;
 			var spriteY = this.y;
 
-			this.sprite.setPosition(spriteX, spriteY);
+			CharacterSprites.setPosition(sprite, spriteX, spriteY);
 			if (this.spriteNombre) {
 				CharacterName.setPosition(this.spriteNombre, spriteX, spriteY);
 			}
@@ -142,7 +142,7 @@ class EntityRenderer {
 		char.emit('positionChanged');
 
 		char.on('headingChanged', function () {
-			char.sprite.cambiarHeading(char.heading);
+			CharacterSprites.cambiarHeading(char.sprite, char.heading);
 		});
 
 		char.emit('headingChanged');
@@ -156,7 +156,7 @@ class EntityRenderer {
 				headOffX = self.cuerpos[Body].offHeadX;
 				headOffY = self.cuerpos[Body].offHeadY;
 			}
-			char.sprite.setBodys(bodys, headOffX, headOffY);
+			CharacterSprites.setBodys(char.sprite, bodys, headOffX, headOffY);
 		});
 
 		char.emit('bodyChanged');
@@ -164,7 +164,7 @@ class EntityRenderer {
 		char.on('headChanged', function () {
 			var Head = char.head;
 			var heads = self._getHeadingsGrhs(self.cabezas, Head);
-			char.sprite.setHeads(heads);
+			CharacterSprites.setHeads(char.sprite, heads);
 		});
 
 		char.emit('headChanged');
@@ -172,7 +172,7 @@ class EntityRenderer {
 		char.on('weaponChanged', function () {
 			var Weapon = char.weapon;
 			var weapons = self._getHeadingsGrhs(self.armas, Weapon);
-			char.sprite.setWeapons(weapons);
+			CharacterSprites.setWeapons(char.sprite, weapons);
 		});
 
 		char.emit('weaponChanged');
@@ -180,7 +180,7 @@ class EntityRenderer {
 		char.on('shieldChanged', function () {
 			var Shield = char.shield;
 			var shields = self._getHeadingsGrhs(self.escudos, Shield);
-			char.sprite.setShields(shields);
+			CharacterSprites.setShields(char.sprite, shields);
 		});
 
 		char.emit('shieldChanged');
@@ -188,7 +188,7 @@ class EntityRenderer {
 		char.on('helmetChanged', function () {
 			var Helmet = char.helmet;
 			var helmets = self._getHeadingsGrhs(self.cascos, Helmet);
-			char.sprite.setHelmets(helmets);
+			CharacterSprites.setHelmets(char.sprite, helmets);
 		});
 
 		char.emit('helmetChanged');
@@ -216,10 +216,10 @@ class EntityRenderer {
 	}
 
 	_crearCharacterSprites(parentLayer, x, y, zIndex) {
-		let sprite = new CharacterSprites();
-		sprite.setSombraSprite(this.assetManager.getGrh(23651));
+		let sprite = CharacterSprites.init();
+		CharacterSprites.setSombraSprite(sprite, this.assetManager.getGrh(23651));
 		parentLayer.addChild(sprite);
-		sprite.setPosition(x, y);
+		CharacterSprites.setPosition(sprite, x, y);
 		this._setSpriteClipping(sprite);
 		sprite.zOffset = zIndex;
 		return sprite;
@@ -278,7 +278,7 @@ class EntityRenderer {
 	}
 
 	setCharVisible(char, visible) {
-		char.sprite.setCharVisible(visible);
+		CharacterSprites.setCharVisible(char.sprite, visible);
 		if (char.spriteNombre) {
 			char.spriteNombre.visible = visible;
 		}
@@ -292,7 +292,7 @@ class EntityRenderer {
 
 	setCharacterFX(char, FX, FXLoops) {
 		var grh = this.assetManager.getGrh(this.fxs[FX].animacion);
-		char.sprite.setFX(grh, this.fxs[FX].offX, this.fxs[FX].offY, FXLoops);
+		CharacterSprites.setFX(char.sprite, grh, this.fxs[FX].offX, this.fxs[FX].offY, FXLoops);
 	}
 
 	entityEnTileVisible(entity) {

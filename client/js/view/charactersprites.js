@@ -7,310 +7,338 @@ import { Enums } from '../enums';
 import { Container } from 'pixi.js';
 import * as SpriteGrh from './spritegrh';
 
-class CharacterSprites extends Container {
-	constructor() {
-		/*
-              Body, Head,Weapon,Shield,Helmet: vector con los grhs de los 4 headings. Cada uno de los headings puede contener un solo numero de grh frames de grhs + vel
-              */
-		super();
+const init = () => {
+	/*
+    	Body, Head,Weapon,Shield,Helmet: vector con los grhs de los 4 headings.
+		Cada uno de los headings puede contener un solo numero de grh frames de grhs + vel
+	*/
+	const container = new Container();
+	// charVisible solo incluye al personaje, la clase esta ademas incluye a los fxs, etc
+	container._charVisible = true;
+	container.OFFSET_HEAD = -34;
+	container._fxsInfinitos = [];
 
-		// charVisible solo incluye al personaje, la clase esta ademas incluye a los fxs, etc
-		this._charVisible = true;
-		this.OFFSET_HEAD = -34;
-		this._fxsInfinitos = [];
+	return container;
+};
+
+const getWidth = (container) => {
+	// ignoro tamaño de la cabeza, ver si hace diferencia
+	if (container.bodySprite) {
+		return container.bodySprite.width;
 	}
+	return 0;
+};
 
-	get width() {
-		// ignoro tamaño de la cabeza, ver si hace diferencia
-		if (this.bodySprite) {
-			return this.bodySprite.width;
-		}
-		return 0;
+const getHeight = (container) => {
+	if (container.bodySprite) {
+		return container.bodySprite.height;
 	}
+	return 0;
+};
 
-	get height() {
-		if (this.bodySprite) {
-			return this.bodySprite.height;
-		}
-		return 0;
+const setFX = (container, grh, offX, offY, loops) => {
+	const nuevoSprite = SpriteGrh.init(grh, loops);
+	container.addChild(nuevoSprite);
+	SpriteGrh.setPosition(nuevoSprite, offX, offY);
+	nuevoSprite.zIndex = 7;
+
+	if (loops > 0) {
+		SpriteGrh.play(nuevoSprite);
+		SpriteGrh.setOnComplete(nuevoSprite, () => {
+			container.removeChild(nuevoSprite);
+		});
+	} else {
+		nuevoSprite.zIndex--; // asi los fxs salen arriba de los infinitos (como meditar)
+		container._fxsInfinitos.push(nuevoSprite);
 	}
+};
 
-	setFX(grh, offX, offY, loops) {
-		var nuevoSprite = SpriteGrh.init(grh, loops);
-		this.addChild(nuevoSprite);
-		SpriteGrh.setPosition(nuevoSprite, offX, offY);
-		nuevoSprite.zIndex = 7;
-		if (loops > 0) {
-			SpriteGrh.play(nuevoSprite);
-			var self = this;
-			SpriteGrh.setOnComplete(nuevoSprite, function () {
-				self.removeChild(nuevoSprite);
-			});
+const setSombraSprite = (container, grh) => {
+	if (container._sombraSprite) {
+		return;
+	}
+	container._sombraSprite = SpriteGrh.init(grh);
+	container.addChild(container._sombraSprite);
+	container._sombraSprite.zIndex = -1;
+	_updateOrdenHijos(container);
+	_updateSombraSpriteSize(container);
+};
+
+const _updateSombraSpriteSize = (container) => {
+	if (container._sombraSprite) {
+		let w;
+		if (container.bodySprite) {
+			w = container.bodySprite.width < 32 ? 32 : container.bodySprite.width;
 		} else {
-			nuevoSprite.zIndex--; // asi los fxs salen arriba de los infinitos (como meditar)
-			this._fxsInfinitos.push(nuevoSprite);
+			w = 32;
+		}
+		if (w !== container._sombraSprite.width) {
+			SpriteGrh.setSize(container._sombraSprite, w, w);
 		}
 	}
+};
 
-	setSombraSprite(grh) {
-		if (this._sombraSprite) {
-			return;
-		}
-		this._sombraSprite = SpriteGrh.init(grh);
-		this.addChild(this._sombraSprite);
-		this._sombraSprite.zIndex = -1;
-		this._updateOrdenHijos();
-		this._updateSombraSpriteSize();
+const removerFxsInfinitos = (container) => {
+	for (let i = 0; i < container._fxsInfinitos.length; i++) {
+		container.removeChild(container._fxsInfinitos[i]);
 	}
+	container._fxsInfinitos = [];
+};
 
-	_updateSombraSpriteSize() {
-		if (this._sombraSprite) {
-			var w;
-			if (this.bodySprite) {
-				w = this.bodySprite.width < 32 ? 32 : this.bodySprite.width;
-			} else {
-				w = 32;
-			}
-			if (w !== this._sombraSprite.width) {
-				SpriteGrh.setSize(this._sombraSprite, w, w);
-			}
-		}
-	}
+const setGridPositionChangeCallback = (container, callback) => {
+	container._onGridPositionChange = callback;
+};
 
-	removerFxsInfinitos() {
-		for (var i = 0; i < this._fxsInfinitos.length; i++) {
-			this.removeChild(this._fxsInfinitos[i]);
-		}
-		this._fxsInfinitos = [];
-	}
-
-	setGridPositionChangeCallback(callback) {
-		this._onGridPositionChange = callback;
-	}
-
-	setPosition(x, y) {
-		this.x = Math.round(x);
-		this.y = Math.round(y);
-		var gridX = Math.round(x / 32);
-		var gridY = Math.round(y / 32);
-		if (gridX !== this._gridX || gridY !== this._gridY) {
-			this._gridX = gridX;
-			this._gridY = gridY;
-			if (this._onGridPositionChange) {
-				this._onGridPositionChange();
-			}
+const setPosition = (container, x, y) => {
+	container.x = Math.round(x);
+	container.y = Math.round(y);
+	const gridX = Math.round(x / 32);
+	const gridY = Math.round(y / 32);
+	if (gridX !== container._gridX || gridY !== container._gridY) {
+		container._gridX = gridX;
+		container._gridY = gridY;
+		if (container._onGridPositionChange) {
+			container._onGridPositionChange();
 		}
 	}
+};
 
-	setSpeed(vel) {
-		this._velocidad = vel;
-		this._forEachHeadingSprite(function (sprite) {
-			SpriteGrh.setSpeed(sprite, vel);
-		});
+const setSpeed = (container, vel) => {
+	container._velocidad = vel;
+	_forEachHeadingSprite(container, (sprite) => {
+		SpriteGrh.setSpeed(sprite, vel);
+	});
+};
+
+const play = (container) => {
+	_forEachHeadingSprite(container, (sprite) => {
+		sprite.play();
+	});
+};
+
+const loop = (container, loopVal) => {
+	_forEachHeadingSprite(container, (sprite) => {
+		sprite.loop = loopVal;
+	});
+};
+
+const cambiarHeading = (container, heading) => {
+	if (container.heading === heading) {
+		return;
 	}
 
-	play() {
-		this._forEachHeadingSprite(function (sprite) {
-			sprite.play();
-		});
-	}
+	container.heading = heading;
+	setBodys(container, container.bodys, container.headOffX, container.headOffY, true);
+	setHeads(container, container.heads);
+	setWeapons(container, container.weapons);
+	setShields(container, container.shields);
+	setHelmets(container, container.helmets);
 
-	loop(loop) {
-		this._forEachHeadingSprite(function (sprite) {
-			sprite.loop = loop;
-		});
-	}
+	_updateOrdenHijos(container);
+	_updateSombraSpriteSize(container);
+};
 
-	cambiarHeading(heading) {
-		if (this.heading === heading) {
-			return;
+const setBodys = (container, bodys, headOffX, headOffY) => {
+	container.bodys = bodys;
+	_setHeadOffset(container, headOffX, headOffY);
+
+	container.bodySprite = _setHeadingSprite(container, container.bodySprite, bodys);
+
+	if (container.bodySprite) {
+		switch (container.heading) {
+			case Enums.Heading.norte:
+				container.bodySprite.zIndex = 3;
+				break;
+			case Enums.Heading.sur:
+				container.bodySprite.zIndex = 1;
+				break;
+			case Enums.Heading.este:
+				container.bodySprite.zIndex = 2;
+				break;
+			case Enums.Heading.oeste:
+				container.bodySprite.zIndex = 1;
+				break;
+			default:
+				console.log('character heading invalido');
+				break;
 		}
-
-		this.heading = heading;
-		this.setBodys(this.bodys, this.headOffX, this.headOffY, true);
-		this.setHeads(this.heads);
-		this.setWeapons(this.weapons);
-		this.setShields(this.shields);
-		this.setHelmets(this.helmets);
-
-		this._updateOrdenHijos();
-		this._updateSombraSpriteSize();
+		_updateSombraSpriteSize(container);
 	}
+};
 
-	setBodys(bodys, headOffX, headOffY) {
-		this.bodys = bodys;
-		this._setHeadOffset(headOffX, headOffY);
-
-		this.bodySprite = this._setHeadingSprite(this.bodySprite, bodys);
-
-		if (this.bodySprite) {
-			switch (this.heading) {
-				case Enums.Heading.norte:
-					this.bodySprite.zIndex = 3;
-					break;
-				case Enums.Heading.sur:
-					this.bodySprite.zIndex = 1;
-					break;
-				case Enums.Heading.este:
-					this.bodySprite.zIndex = 2;
-					break;
-				case Enums.Heading.oeste:
-					this.bodySprite.zIndex = 1;
-					break;
-				default:
-					console.log('character heading invalido');
-					break;
-			}
-			this._updateSombraSpriteSize();
-		}
+const setHeads = (container, heads) => {
+	container.heads = heads;
+	container.headSprite = _setHeadingSprite(container, container.headSprite, heads);
+	if (container.headSprite) {
+		container.headSprite.zIndex = 4;
+		SpriteGrh.setPosition(container.headSprite, container.headOffX, container.headOffY);
 	}
+};
 
-	setHeads(heads) {
-		this.heads = heads;
-		this.headSprite = this._setHeadingSprite(this.headSprite, heads);
-		if (this.headSprite) {
-			this.headSprite.zIndex = 4;
-			SpriteGrh.setPosition(this.headSprite, this.headOffX, this.headOffY);
-		}
-	}
-
-	setWeapons(weapons) {
-		this.weapons = weapons;
-		this.weaponSprite = this._setHeadingSprite(this.weaponSprite, weapons);
-		if (this.weaponSprite) {
-			switch (this.heading) {
-				case Enums.Heading.norte:
-					this.weaponSprite.zIndex = 2;
-					break;
-				case Enums.Heading.sur:
-					this.weaponSprite.zIndex = 2;
-					break;
-				case Enums.Heading.este:
-					this.weaponSprite.zIndex = 3;
-					break;
-				case Enums.Heading.oeste:
-					this.weaponSprite.zIndex = 2;
-					break;
-				default:
-					console.log('character heading invalido');
-					break;
-			}
-		}
-	}
-
-	setShields(shields) {
-		this.shields = shields;
-		this.shieldSprite = this._setHeadingSprite(this.shieldSprite, shields);
-		if (this.shieldSprite) {
-			switch (this.heading) {
-				case Enums.Heading.norte:
-					this.shieldSprite.zIndex = 1;
-					break;
-				case Enums.Heading.sur:
-					this.shieldSprite.zIndex = 3;
-					break;
-				case Enums.Heading.este:
-					this.shieldSprite.zIndex = 1;
-					break;
-				case Enums.Heading.oeste:
-					this.shieldSprite.zIndex = 3;
-					break;
-				default:
-					console.log('character heading invalido');
-					break;
-			}
+const setWeapons = (container, weapons) => {
+	container.weapons = weapons;
+	container.weaponSprite = _setHeadingSprite(container, container.weaponSprite, weapons);
+	if (container.weaponSprite) {
+		switch (container.heading) {
+			case Enums.Heading.norte:
+				container.weaponSprite.zIndex = 2;
+				break;
+			case Enums.Heading.sur:
+				container.weaponSprite.zIndex = 2;
+				break;
+			case Enums.Heading.este:
+				container.weaponSprite.zIndex = 3;
+				break;
+			case Enums.Heading.oeste:
+				container.weaponSprite.zIndex = 2;
+				break;
+			default:
+				console.log('character heading invalido');
+				break;
 		}
 	}
+};
 
-	setHelmets(helmets) {
-		this.helmets = helmets;
-		this.helmetSprite = this._setHeadingSprite(this.helmetSprite, helmets);
-		if (this.helmetSprite) {
-			this.helmetSprite.zIndex = 5;
-			SpriteGrh.setPosition(this.helmetSprite, this.headOffX, this.headOffY + this.OFFSET_HEAD);
+const setShields = (container, shields) => {
+	container.shields = shields;
+	container.shieldSprite = _setHeadingSprite(container, container.shieldSprite, shields);
+	if (container.shieldSprite) {
+		switch (container.heading) {
+			case Enums.Heading.norte:
+				container.shieldSprite.zIndex = 1;
+				break;
+			case Enums.Heading.sur:
+				container.shieldSprite.zIndex = 3;
+				break;
+			case Enums.Heading.este:
+				container.shieldSprite.zIndex = 1;
+				break;
+			case Enums.Heading.oeste:
+				container.shieldSprite.zIndex = 3;
+				break;
+			default:
+				console.log('character heading invalido');
+				break;
 		}
 	}
+};
 
-	setCharVisible(visible) {
-		this._charVisible = visible;
-		this._forEachHeadingSprite(function (sprite) {
-			sprite.visible = visible;
-		});
-		this._sombraSprite.visible = visible;
-		if (this._nombre) {
-			this._nombre.visible = visible;
-		}
+const setHelmets = (container, helmets) => {
+	container.helmets = helmets;
+	container.helmetSprite = _setHeadingSprite(container, container.helmetSprite, helmets);
+	if (container.helmetSprite) {
+		container.helmetSprite.zIndex = 5;
+		SpriteGrh.setPosition(
+			container.helmetSprite,
+			container.headOffX,
+			container.headOffY + container.OFFSET_HEAD
+		);
 	}
+};
 
-	_setHeadingSprite(varSprite, grhs) {
-		if (!grhs) {
-			if (varSprite) {
-				this.removeChild(varSprite);
-			}
-			return null;
-		}
+const setCharVisible = (container, visible) => {
+	container._charVisible = visible;
+	_forEachHeadingSprite(container, (sprite) => {
+		sprite.visible = visible;
+	});
+	container._sombraSprite.visible = visible;
+	if (container._nombre) {
+		container._nombre.visible = visible;
+	}
+};
+
+const _setHeadingSprite = (container, varSprite, grhs) => {
+	if (!grhs) {
 		if (varSprite) {
-			SpriteGrh.cambiarGrh(varSprite, grhs[this.heading]);
-			return varSprite;
+			container.removeChild(varSprite);
 		}
-		var nuevoSprite = SpriteGrh.init(grhs[this.heading], 1);
-		this.addChild(nuevoSprite);
-		if (this._velocidad) {
-			SpriteGrh.setSpeed(nuevoSprite, this._velocidad);
-		}
-		nuevoSprite.visible = this._charVisible;
-		return nuevoSprite;
+		return null;
 	}
+	if (varSprite) {
+		SpriteGrh.cambiarGrh(varSprite, grhs[container.heading]);
+		return varSprite;
+	}
+	const nuevoSprite = SpriteGrh.init(grhs[container.heading], 1);
+	container.addChild(nuevoSprite);
+	if (container._velocidad) {
+		SpriteGrh.setSpeed(nuevoSprite, container._velocidad);
+	}
+	nuevoSprite.visible = container._charVisible;
+	return nuevoSprite;
+};
 
-	_setHeadOffset(headOffX, headOffY) {
-		if (this.headOffX) {
-			if (this.headOffX === headOffX && this.headOffY === headOffY) {
-				return;
-			}
-		}
-
-		this.headOffX = headOffX || 0;
-		this.headOffY = headOffY || 0;
-		if (this.headSprite) {
-			SpriteGrh.setPosition(this.headSprite, this.headOffX, this.headOffY);
-		}
-		if (this.helmetSprite) {
-			SpriteGrh.setPosition(this.helmetSprite, this.headOffX, this.headOffY + this.OFFSET_HEAD);
+const _setHeadOffset = (container, headOffX, headOffY) => {
+	if (container.headOffX) {
+		if (container.headOffX === headOffX && container.headOffY === headOffY) {
+			return;
 		}
 	}
 
-	_updateOrdenHijos() {
-		// TODO: al agregar en vez de esto hacer insercion por busqueda binaria con lso z index
-		this.children.sort(function (a, b) {
-			a.zIndex = a.zIndex || 0;
-			b.zIndex = b.zIndex || 0;
-			return a.zIndex - b.zIndex;
-		});
+	container.headOffX = headOffX || 0;
+	container.headOffY = headOffY || 0;
+	if (container.headSprite) {
+		SpriteGrh.setPosition(container.headSprite, container.headOffX, container.headOffY);
 	}
-
-	_forEachHeadingSprite(callback) {
-		if (this.bodySprite) {
-			callback(this.bodySprite);
-		}
-		if (this.headSprite) {
-			callback(this.headSprite);
-		}
-		if (this.weaponSprite) {
-			callback(this.weaponSprite);
-		}
-		if (this.shieldSprite) {
-			callback(this.shieldSprite);
-		}
-		if (this.helmetSprite) {
-			callback(this.helmetSprite);
-		}
+	if (container.helmetSprite) {
+		SpriteGrh.setPosition(
+			container.helmetSprite,
+			container.headOffX,
+			container.headOffY + container.OFFSET_HEAD
+		);
 	}
+};
 
-	stopAnimations() {
-		this._forEachHeadingSprite((child) => {
-			child.gotoAndStop(0);
-		});
+const _updateOrdenHijos = (container) => {
+	// TODO: al agregar en vez de esto hacer insercion por busqueda binaria con lso z index
+	container.children.sort((a, b) => {
+		a.zIndex = a.zIndex || 0;
+		b.zIndex = b.zIndex || 0;
+		return a.zIndex - b.zIndex;
+	});
+};
+
+const _forEachHeadingSprite = (container, callback) => {
+	if (container.bodySprite) {
+		callback(container.bodySprite);
 	}
-}
+	if (container.headSprite) {
+		callback(container.headSprite);
+	}
+	if (container.weaponSprite) {
+		callback(container.weaponSprite);
+	}
+	if (container.shieldSprite) {
+		callback(container.shieldSprite);
+	}
+	if (container.helmetSprite) {
+		callback(container.helmetSprite);
+	}
+};
 
-export default CharacterSprites;
+const stopAnimations = (container) => {
+	_forEachHeadingSprite(container, (child) => {
+		child.gotoAndStop(0);
+	});
+};
+
+export {
+	init,
+	getWidth,
+	getHeight,
+	setFX,
+	setSombraSprite,
+	removerFxsInfinitos,
+	setGridPositionChangeCallback,
+	setPosition,
+	setSpeed,
+	play,
+	loop,
+	cambiarHeading,
+	setBodys,
+	setHeads,
+	setWeapons,
+	setShields,
+	setHelmets,
+	setCharVisible,
+	stopAnimations
+};

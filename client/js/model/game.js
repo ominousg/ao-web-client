@@ -13,6 +13,7 @@ import WorldState from './worldstate';
 import GameText from './gametext';
 import { Ticker } from 'pixi.js';
 import * as Camera from '../view/camera';
+import * as CharacterSprites from '../view/charactersprites';
 
 class Game {
 	constructor(assetManager) {
@@ -645,7 +646,7 @@ class Game {
 		}
 		if (FX === 0) {
 			if (c.sprite) {
-				c.sprite.removerFxsInfinitos();
+				CharacterSprites.removerFxsInfinitos(c.sprite);
 			}
 			return;
 		}
