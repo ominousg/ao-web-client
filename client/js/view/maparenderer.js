@@ -10,6 +10,7 @@ import { Graphics } from 'pixi.js';
 import SpriteGrh from './spritegrh';
 import { posicionarRectEnTile, removePixiChild } from './rendererutils';
 import * as Camera from './camera';
+import * as Mapa from '../model/mapa';
 
 // posiciones extra que se analizan para ver si lo que hay en ellas es visible o no
 // (si es algo visible pero tan grande que cuando esta lejos no entra en estas posiciones no se ve)
@@ -97,7 +98,7 @@ const _drawTerrenoIni = (mapaRendererState) => {
 			const screenY = (gridYIni + j) * mapaRendererState.tilesize;
 			mapaRendererState.terreno[i][j].setPosition(screenX, screenY);
 
-			const grh = mapaRendererState.mapa.getGrh1(gridXIni + i, gridYIni + j);
+			const grh = Mapa.getGrh1(mapaRendererState.mapa, gridXIni + i, gridYIni + j);
 			if (grh) {
 				mapaRendererState.terreno[i][j].cambiarGrh(mapaRendererState.assetManager.getTerrenoGrh(grh));
 			}
@@ -121,7 +122,8 @@ const _updateTerrenoMov = (mapaRendererState, dir) => {
 						mapaRendererState.terreno[i][j].x,
 						mapaRendererState.terreno[i][j].y - rows * mapaRendererState.tilesize
 					);
-					const grh = mapaRendererState.mapa.getGrh1(
+					const grh = Mapa.getGrh1(
+						mapaRendererState.mapa,
 						gridXIni + Utils.modulo(i - mapaRendererState._lowestColTerreno, cols),
 						gridYIni - 1
 					);
@@ -142,7 +144,8 @@ const _updateTerrenoMov = (mapaRendererState, dir) => {
 						mapaRendererState.terreno[i][j].x - cols * mapaRendererState.tilesize,
 						mapaRendererState.terreno[i][j].y
 					);
-					const grh = mapaRendererState.mapa.getGrh1(
+					const grh = Mapa.getGrh1(
+						mapaRendererState.mapa,
 						gridXIni - 1,
 						gridYIni + Utils.modulo(j - mapaRendererState._lowestRowTerreno, rows)
 					);
@@ -163,7 +166,8 @@ const _updateTerrenoMov = (mapaRendererState, dir) => {
 						mapaRendererState.terreno[i][j].x,
 						mapaRendererState.terreno[i][j].y + rows * mapaRendererState.tilesize
 					);
-					const grh = mapaRendererState.mapa.getGrh1(
+					const grh = Mapa.getGrh1(
+						mapaRendererState.mapa,
 						gridXIni + Utils.modulo(i - mapaRendererState._lowestColTerreno, cols),
 						gridYIni + rows
 					);
@@ -184,7 +188,8 @@ const _updateTerrenoMov = (mapaRendererState, dir) => {
 						mapaRendererState.terreno[i][j].x + cols * mapaRendererState.tilesize,
 						mapaRendererState.terreno[i][j].y
 					);
-					const grh = mapaRendererState.mapa.getGrh1(
+					const grh = Mapa.getGrh1(
+						mapaRendererState.mapa,
 						gridXIni + cols,
 						gridYIni + Utils.modulo(j - mapaRendererState._lowestRowTerreno, rows)
 					);
@@ -219,9 +224,9 @@ const _drawSpritesIni = (mapaRendererState) => {
 		(gridX, gridY) => {
 			const screenX = gridX * mapaRendererState.tilesize;
 			const screenY = gridY * mapaRendererState.tilesize;
-			const grh2 = mapaRendererState.mapa.getGrh2(gridX, gridY);
-			const grh3 = mapaRendererState.mapa.getGrh3(gridX, gridY);
-			const grh4 = mapaRendererState.mapa.getGrh4(gridX, gridY);
+			const grh2 = Mapa.getGrh2(mapaRendererState.mapa, gridX, gridY);
+			const grh3 = Mapa.getGrh3(mapaRendererState.mapa, gridX, gridY);
+			const grh4 = Mapa.getGrh4(mapaRendererState.mapa, gridX, gridY);
 			if (grh2) {
 				mapaRendererState._spritesLayer2[gridX][gridY] = _crearSprite(
 					mapaRendererState.layer2,
@@ -261,9 +266,9 @@ const _updateLayersMov = (mapaRendererState, dir) => {
 		(gridX, gridY) => {
 			const screenX = gridX * mapaRendererState.tilesize;
 			const screenY = gridY * mapaRendererState.tilesize;
-			const grh2 = mapaRendererState.mapa.getGrh2(gridX, gridY);
-			const grh3 = mapaRendererState.mapa.getGrh3(gridX, gridY);
-			const grh4 = mapaRendererState.mapa.getGrh4(gridX, gridY);
+			const grh2 = Mapa.getGrh2(mapaRendererState.mapa, gridX, gridY);
+			const grh3 = Mapa.getGrh3(mapaRendererState.mapa, gridX, gridY);
+			const grh4 = Mapa.getGrh4(mapaRendererState.mapa, gridX, gridY);
 			if (grh2 && !mapaRendererState._spritesLayer2[gridX][gridY]) {
 				mapaRendererState._spritesLayer2[gridX][gridY] = _crearSprite(
 					mapaRendererState.layer2,

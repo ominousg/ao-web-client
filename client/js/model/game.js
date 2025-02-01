@@ -1,4 +1,4 @@
-import Mapa from './mapa';
+import * as Mapa from './mapa';
 import Updater from '../updater';
 import Item from './item';
 import Character from './character';
@@ -30,7 +30,7 @@ class Game {
 		this.initPlayerMovementCallbacks();
 		this.playerState = new PlayerState();
 		this.atributos = new Atributos(this);
-		this.map = new Mapa();
+		this.map = Mapa.init();
 		this.assetManager = assetManager;
 
 		this.ready = false;
@@ -112,8 +112,8 @@ class Game {
 	}
 
 	actualizarBajoTecho() {
-		this.map.onceLoaded((mapa) => {
-			this.worldState.bajoTecho = this.map.isBajoTecho(this.player.gridX, this.player.gridY);
+		Mapa.onceLoaded(this.map, (mapa) => {
+			this.worldState.bajoTecho = Mapa.isBajoTecho(mapa, this.player.gridX, this.player.gridY);
 		});
 	}
 
@@ -330,7 +330,7 @@ class Game {
 			this.resetPosCharacter(this.player.id, X, Y, true);
 			this.renderer.drawMapaIni(this.player.gridX, this.player.gridY, this.world.getEntities());
 		};
-		this.map.onceLoaded((mapa) => {
+		Mapa.onceLoaded(this.map, (mapa) => {
 			f();
 		});
 	}
@@ -412,21 +412,21 @@ class Game {
 
 	cambiarMapa(numeroMapa) {
 		if (!this.map.isLoaded) {
-			this.map.removeCallbacks();
+			Mapa.removeCallbacks(this.map);
 		}
-		this.map = new Mapa(numeroMapa);
+		this.map = Mapa.init(numeroMapa);
 		this.renderer.cambiarMapa(this.map);
 
 		this.assetManager.getMapaASync(numeroMapa, (mapData) => {
 			if (this.map.numero === numeroMapa) {
-				this.map.setData(mapData);
+				Mapa.setData(this.map, mapData);
 			}
 		});
 
 		this.playerMovement.disable();
-		this.map.onceLoaded((mapa) => {
+		Mapa.onceLoaded(this.map, (mapa) => {
 			this.playerMovement.enable();
-			this.worldState.outdoor = this.map.mapaOutdoor();
+			this.worldState.outdoor = Mapa.mapaOutdoor(mapa);
 		});
 		this._removeAllEntities();
 	}
@@ -523,11 +523,11 @@ class Game {
 						throw new Error('Direccion invalida!');
 				}
 
-				if (this.map.isBlocked(x, y)) {
+				if (Mapa.isBlocked(this.map, x, y)) {
 					return false;
 				}
 
-				if (this.map.hayAgua(x, y) !== this.playerState.navegando) {
+				if (Mapa.hayAgua(this.map, x, y) !== this.playerState.navegando) {
 					return false;
 				}
 
@@ -537,7 +537,9 @@ class Game {
 						return false;
 					} else {
 						// tienen que estar o ambos en agua o ambos en tierra (player y casper)
-						if (this.map.hayAgua(x, y) !== this.map.hayAgua(this.player.gridX, this.player.gridY)) {
+						if (
+							Mapa.hayAgua(this.map, x, y) !== Mapa.hayAgua(this.map, this.player.gridX, this.player.gridY)
+						) {
 							return false;
 						}
 					}

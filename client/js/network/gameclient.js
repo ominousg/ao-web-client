@@ -7,6 +7,7 @@ import ByteQueue from './bytequeue';
 import Websock from '../lib/websock';
 import { usePlayerStatsStore } from '../stores';
 import * as Camera from '../view/camera';
+import * as Mapa from '../model/mapa';
 
 class GameClient {
 	constructor(game, uiManager, gameUI) {
@@ -250,7 +251,7 @@ class GameClient {
 	}
 
 	handleBlockPosition(X, Y, Blocked) {
-		this.game.map.setBlockPosition(X, Y, Blocked);
+		Mapa.setBlockPosition(this.game.map, X, Y, Blocked);
 	}
 
 	handlePlayMidi(MidiID, Loops) {
