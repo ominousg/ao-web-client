@@ -5,7 +5,7 @@
  */
 
 import { ParticleContainer } from 'pixi.js';
-import SpriteGrh from './spritegrh';
+import * as SpriteGrh from './spritegrh';
 
 const createParticleContainer = () => new ParticleContainer();
 
@@ -43,7 +43,7 @@ const createLluvia = (climaRenderer) => {
 	}
 
 	for (let i = 0; i < cantidadGotas; ++i) {
-		let gota = new SpriteGrh(climaRenderer.assetManager.getGrh(23652), climaRenderer.escala);
+		let gota = SpriteGrh.init(climaRenderer.assetManager.getGrh(23652), climaRenderer.escala);
 
 		gota.x = Math.random() * climaRenderer.pixiRenderer.width;
 		gota.y = Math.random() * climaRenderer.pixiRenderer.height;

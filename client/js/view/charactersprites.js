@@ -5,7 +5,7 @@
  */
 import { Enums } from '../enums';
 import { Container } from 'pixi.js';
-import SpriteGrh from './spritegrh';
+import * as SpriteGrh from './spritegrh';
 
 class CharacterSprites extends Container {
 	constructor() {
@@ -36,14 +36,14 @@ class CharacterSprites extends Container {
 	}
 
 	setFX(grh, offX, offY, loops) {
-		var nuevoSprite = new SpriteGrh(grh, loops);
+		var nuevoSprite = SpriteGrh.init(grh, loops);
 		this.addChild(nuevoSprite);
-		nuevoSprite.setPosition(offX, offY);
+		SpriteGrh.setPosition(nuevoSprite, offX, offY);
 		nuevoSprite.zIndex = 7;
 		if (loops > 0) {
-			nuevoSprite.play();
+			SpriteGrh.play(nuevoSprite);
 			var self = this;
-			nuevoSprite.setOnComplete(function () {
+			SpriteGrh.setOnComplete(nuevoSprite, function () {
 				self.removeChild(nuevoSprite);
 			});
 		} else {
@@ -56,7 +56,7 @@ class CharacterSprites extends Container {
 		if (this._sombraSprite) {
 			return;
 		}
-		this._sombraSprite = new SpriteGrh(grh);
+		this._sombraSprite = SpriteGrh.init(grh);
 		this.addChild(this._sombraSprite);
 		this._sombraSprite.zIndex = -1;
 		this._updateOrdenHijos();
@@ -72,7 +72,7 @@ class CharacterSprites extends Container {
 				w = 32;
 			}
 			if (w !== this._sombraSprite.width) {
-				this._sombraSprite.setSize(w, w);
+				SpriteGrh.setSize(this._sombraSprite, w, w);
 			}
 		}
 	}
@@ -105,7 +105,7 @@ class CharacterSprites extends Container {
 	setSpeed(vel) {
 		this._velocidad = vel;
 		this._forEachHeadingSprite(function (sprite) {
-			sprite.setSpeed(vel);
+			SpriteGrh.setSpeed(sprite, vel);
 		});
 	}
 
@@ -170,7 +170,7 @@ class CharacterSprites extends Container {
 		this.headSprite = this._setHeadingSprite(this.headSprite, heads);
 		if (this.headSprite) {
 			this.headSprite.zIndex = 4;
-			this.headSprite.setPosition(this.headOffX, this.headOffY);
+			SpriteGrh.setPosition(this.headSprite, this.headOffX, this.headOffY);
 		}
 	}
 
@@ -227,7 +227,7 @@ class CharacterSprites extends Container {
 		this.helmetSprite = this._setHeadingSprite(this.helmetSprite, helmets);
 		if (this.helmetSprite) {
 			this.helmetSprite.zIndex = 5;
-			this.helmetSprite.setPosition(this.headOffX, this.headOffY + this.OFFSET_HEAD);
+			SpriteGrh.setPosition(this.helmetSprite, this.headOffX, this.headOffY + this.OFFSET_HEAD);
 		}
 	}
 
@@ -250,13 +250,13 @@ class CharacterSprites extends Container {
 			return null;
 		}
 		if (varSprite) {
-			varSprite.cambiarGrh(grhs[this.heading]);
+			SpriteGrh.cambiarGrh(varSprite, grhs[this.heading]);
 			return varSprite;
 		}
-		var nuevoSprite = new SpriteGrh(grhs[this.heading], 1);
+		var nuevoSprite = SpriteGrh.init(grhs[this.heading], 1);
 		this.addChild(nuevoSprite);
 		if (this._velocidad) {
-			nuevoSprite.setSpeed(this._velocidad);
+			SpriteGrh.setSpeed(nuevoSprite, this._velocidad);
 		}
 		nuevoSprite.visible = this._charVisible;
 		return nuevoSprite;
@@ -272,10 +272,10 @@ class CharacterSprites extends Container {
 		this.headOffX = headOffX || 0;
 		this.headOffY = headOffY || 0;
 		if (this.headSprite) {
-			this.headSprite.setPosition(this.headOffX, this.headOffY);
+			SpriteGrh.setPosition(this.headSprite, this.headOffX, this.headOffY);
 		}
 		if (this.helmetSprite) {
-			this.helmetSprite.setPosition(this.headOffX, this.headOffY + this.OFFSET_HEAD);
+			SpriteGrh.setPosition(this.helmetSprite, this.headOffX, this.headOffY + this.OFFSET_HEAD);
 		}
 	}
 

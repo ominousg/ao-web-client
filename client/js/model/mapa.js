@@ -78,7 +78,7 @@ const getGrh = (mapa, numGrh, gridX, gridY) => {
 	return 0;
 };
 
-const getGrh1 = (mapa, gridX, gridY) => getGrh(mapa, 1, gridX, gridY);
+const getGrh1 = (mapa, gridX, gridY) => getGrh(mapa, 1, gridX, gridY); // devuelve indice de grafico de la primer capa/layer
 const getGrh2 = (mapa, gridX, gridY) => getGrh(mapa, 2, gridX, gridY);
 const getGrh3 = (mapa, gridX, gridY) => getGrh(mapa, 3, gridX, gridY);
 const getGrh4 = (mapa, gridX, gridY) => getGrh(mapa, 4, gridX, gridY);

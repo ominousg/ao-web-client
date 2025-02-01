@@ -10,7 +10,7 @@ import Font from '../font';
 import CharacterSprites from './charactersprites';
 import * as CharacterName from './charactername';
 import * as CharacterText from './charactertext';
-import SpriteGrh from './spritegrh';
+import * as SpriteGrh from './spritegrh';
 import { posicionarRectEnTile, removePixiChild } from './rendererutils';
 import * as Camera from '../view/camera';
 
@@ -207,10 +207,10 @@ class EntityRenderer {
 	}
 
 	_crearSprite(parentLayer, grh, x, y, zIndex) {
-		let nuevoSprite = new SpriteGrh(this.assetManager.getGrh(grh));
+		let nuevoSprite = SpriteGrh.init(this.assetManager.getGrh(grh));
 		nuevoSprite.zOffset = zIndex || 0;
 		parentLayer.addChild(nuevoSprite); // ojo tiene que estar en este orden sino no anda el z-index(TODO)
-		nuevoSprite.setPosition(x, y);
+		SpriteGrh.setPosition(nuevoSprite, x, y);
 		this._setSpriteClipping(nuevoSprite);
 		return nuevoSprite;
 	}

@@ -5,13 +5,14 @@
  */
 
 import { Container } from 'pixi.js';
+import * as SpriteGrh from './spritegrh';
 
 const initContainerOrdenado = (mapWidth) => {
 	const container = new Container();
 	container.mapWidth = mapWidth;
 
 	container.addChild = (spriteGrh) => {
-		spriteGrh.setGridPositionChangeCallback(() => {
+		SpriteGrh.setGridPositionChangeCallback(spriteGrh, () => {
 			ordenarChild(container, spriteGrh);
 		});
 		Container.prototype.addChild.call(container, spriteGrh);

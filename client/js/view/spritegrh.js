@@ -5,138 +5,140 @@
  */
 import { AnimatedSprite, Texture, RenderTexture } from 'pixi.js';
 
-class SpriteGrh extends AnimatedSprite {
-	constructor(grh, cantLoops) {
-		const placeholderTexture = RenderTexture.create({ width: 32, height: 32 });
-		let nullFrames = [];
-		nullFrames[0] = { texture: placeholderTexture };
-		super(nullFrames);
+const createPlaceholderSprite = () => {
+	const placeholderTexture = RenderTexture.create({ width: 32, height: 32 });
+	let nullFrames = [];
+	nullFrames[0] = { texture: placeholderTexture };
+	return new AnimatedSprite(nullFrames);
+};
 
-		cantLoops = cantLoops || 0;
+const init = (grh, cantLoops = 0) => {
+	const sprite = createPlaceholderSprite();
 
-		this._velocidadSeteada = false;
-		this._playedLoops = 0;
-		this._cantLoops = cantLoops;
-		this._realOnComplete = null;
+	sprite._velocidadSeteada = false;
+	sprite._playedLoops = 0;
+	sprite._cantLoops = cantLoops;
+	sprite._realOnComplete = null;
+	sprite.loop = cantLoops <= 0; // OJO; si loopea por default hace play apenas lo creas
 
-		this.loop = cantLoops <= 0; // OJO; si loopea por default hace play apenas lo creas
-
-		this.cambiarGrh(grh);
-
-		var self = this;
-		this.onComplete = function () {
-			if (self._playedLoops < self._cantLoops) {
-				self._playedLoops++;
-				self.gotoAndStop(0);
-				self.play();
-			} else {
-				self.gotoAndStop(0);
-				if (this._realOnComplete) {
-					this._realOnComplete();
-				}
-			}
-		};
-
-		this._posicionarGrafico();
-	}
-
-	setSize(w, h) {
-		this.width = w;
-		this.height = h;
-		this._posicionarGrafico();
-	}
-
-	play() {
-		if (this.textures && this.textures.length > 1) {
-			this._playedLoops = 1;
-			this._play();
-		}
-	}
-
-	_play() {
-		super.play();
-	}
-
-	setOnComplete(cb) {
-		this._realOnComplete = cb;
-	}
-
-	_setSpeed(velocidad) {
-		var duracion;
-		if (this._velocidadSeteada) {
-			duracion = this._velocidadSeteada;
+	sprite.onComplete = () => {
+		if (sprite._playedLoops < sprite._cantLoops) {
+			sprite._playedLoops++;
+			sprite.gotoAndStop(0);
+			sprite.play();
 		} else {
-			duracion = velocidad;
-		}
-		if (this.textures && this.textures.length > 0) {
-			var fps = (this.textures.length / duracion) * 1000;
-			this.animationSpeed = fps / 60;
-		} else {
-			this.animationSpeed = 0;
-		}
-	}
-
-	setSpeed(vel) {
-		this._velocidadSeteada = vel;
-		this._setSpeed();
-	}
-
-	setGridPositionChangeCallback(callback) {
-		this._onGridPositionChange = callback;
-	}
-
-	setPosition(x, y) {
-		this.x = x;
-		this.y = y;
-		var gridX = Math.round(x / 32);
-		var gridY = Math.round(y / 32);
-		if (gridX !== this._gridX || gridY !== this._gridY) {
-			this._gridX = gridX;
-			this._gridY = gridY;
-			if (this._onGridPositionChange) {
-				this._onGridPositionChange();
+			sprite.gotoAndStop(0);
+			if (sprite._realOnComplete) {
+				sprite._realOnComplete();
 			}
 		}
+	};
+
+	cambiarGrh(sprite, grh);
+	posicionarGrafico(sprite);
+
+	return sprite;
+};
+
+const setSize = (sprite, w, h) => {
+	sprite.width = w;
+	sprite.height = h;
+	posicionarGrafico(sprite);
+};
+
+const play = (sprite) => {
+	if (sprite.textures && sprite.textures.length > 1) {
+		sprite._playedLoops = 1;
+		sprite.play();
+	}
+};
+
+const setOnComplete = (sprite, cb) => {
+	sprite._realOnComplete = cb;
+};
+
+const setSpeed = (sprite, velocidad) => {
+	sprite._velocidadSeteada = velocidad;
+	setSpeedInternal(sprite);
+};
+
+const setSpeedInternal = (sprite, velocidad) => {
+	const duracion = sprite._velocidadSeteada || velocidad;
+
+	if (sprite.textures && sprite.textures.length > 0) {
+		const fps = (sprite.textures.length / duracion) * 1000;
+		sprite.animationSpeed = fps / 60;
+	} else {
+		sprite.animationSpeed = 0;
+	}
+};
+
+const setGridPositionChangeCallback = (sprite, callback) => {
+	sprite._onGridPositionChange = callback;
+};
+
+const setPosition = (sprite, x, y) => {
+	sprite.x = x;
+	sprite.y = y;
+	const gridX = Math.round(x / 32);
+	const gridY = Math.round(y / 32);
+
+	if (gridX !== sprite._gridX || gridY !== sprite._gridY) {
+		sprite._gridX = gridX;
+		sprite._gridY = gridY;
+		if (sprite._onGridPositionChange) {
+			sprite._onGridPositionChange();
+		}
+	}
+};
+
+const posicionarGrafico = (sprite) => {
+	const x = (sprite.width - 32) / 2 / sprite.width;
+	const y = (sprite.height - 32) / sprite.height;
+	sprite.anchor.set(x, y);
+};
+
+const cambiarGrh = (sprite, grh) => {
+	if (sprite._grh === grh) {
+		return;
+	}
+	sprite._grh = grh;
+
+	if (!grh) {
+		sprite.gotoAndStop(0);
+		return;
 	}
 
-	_posicionarGrafico() {
-		var x = (this.width - 32) / 2 / this.width;
-		var y = (this.height - 32) / this.height;
-		this.anchor.set(x, y);
+	const grhAnimacion = !!grh.frames;
+
+	if (grhAnimacion) {
+		sprite.textures = grh.frames;
+		setSpeedInternal(sprite, grh.velocidad);
+	} else {
+		sprite.textures = [grh];
 	}
 
-	cambiarGrh(grh) {
-		if (this._grh === grh) {
-			return;
-		}
-		this._grh = grh;
-
-		if (!grh) {
-			this.gotoAndStop(0);
-			return;
-		}
-
-		let grhAnimacion = !!grh.frames;
-
-		if (grhAnimacion) {
-			this.textures = grh.frames;
-			this._setSpeed(grh.velocidad);
-		} else {
-			var aux = [];
-			aux.push(grh);
-			this.textures = aux;
-		}
-		if (!this.playing) {
-			this.gotoAndStop(0);
-		} else {
-			this.gotoAndStop(this.currentFrame);
-			super.play();
-		}
-		this._posicionarGrafico();
-		if (grhAnimacion && this.loop) {
-			this.play();
-		}
+	if (!sprite.playing) {
+		sprite.gotoAndStop(0);
+	} else {
+		sprite.gotoAndStop(sprite.currentFrame);
+		sprite.play();
 	}
-}
 
-export default SpriteGrh;
+	posicionarGrafico(sprite);
+
+	if (grhAnimacion && sprite.loop) {
+		play(sprite);
+	}
+};
+
+export {
+	init,
+	setSize,
+	play,
+	setOnComplete,
+	setSpeed,
+	setGridPositionChangeCallback,
+	setPosition,
+	cambiarGrh
+};
