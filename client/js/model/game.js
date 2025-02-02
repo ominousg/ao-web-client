@@ -10,7 +10,7 @@ import PlayerMovement from './playermovement';
 import { Enums } from '../enums';
 import World from './world';
 import WorldState from './worldstate';
-import GameText from './gametext';
+import * as GameText from './gametext';
 import { Ticker } from 'pixi.js';
 import * as Camera from '../view/camera';
 import * as CharacterSprites from '../view/charactersprites';
@@ -64,7 +64,7 @@ class Game {
 		this.renderer = renderer;
 		this.world = new World(renderer);
 		this.worldState = new WorldState(renderer, audio);
-		this.gameText = new GameText(renderer);
+		this.gameText = GameText.init(this.renderer);
 	}
 
 	setUpdater(updater) {
@@ -72,43 +72,43 @@ class Game {
 	}
 
 	recibirDanioCriatura(parteCuerpo, danio) {
-		this.gameText.playerHitByMob(this.player, parteCuerpo, danio);
+		GameText.playerHitByMob(this.gameText, this.player, parteCuerpo, danio);
 	}
 
 	recibirDanioUser(parteCuerpo, danio, attackerIndex) {
 		let attackerName = this.world.getCharacter(attackerIndex).nombre;
-		this.gameText.playerHitByUser(this.player, parteCuerpo, danio, attackerName);
+		GameText.playerHitByUser(this.gameText, this.player, parteCuerpo, danio, attackerName);
 	}
 
 	realizarDanioCriatura(danio) {
 		let char = this.playerState.lastAttackedTarget;
-		this.gameText.playerHitMob(char, danio);
+		GameText.playerHitMob(this.gameText, char, danio);
 	}
 
 	realizarDanioPlayer(danio, parteCuerpo, victimIndex) {
 		let victim = this.world.getCharacter(victimIndex);
-		this.gameText.playerHitUser(victim, parteCuerpo, danio);
+		GameText.playerHitUser(this.gameText, victim, parteCuerpo, danio);
 	}
 
 	escribirMsgConsola(texto, font) {
-		this.gameText.consoleMsg(texto, font);
+		GameText.consoleMsg(this.gameText, texto, font);
 	}
 
 	escribirChat(chat, charIndex, r, g, b) {
 		let c = this.world.getCharacter(charIndex);
-		this.gameText.chat(c, chat, r, g, b);
+		GameText.chat(this.gameText, c, chat, r, g, b);
 	}
 
 	sacarChatCharacterByID(charID) {
 		let char = this.world.getCharacter(charID);
 		if (char) {
-			this.gameText.removeCharacterChat(char);
+			GameText.removeCharacterChat(this.gameText, char);
 		}
 	}
 
 	sacarAllCharacterChats() {
 		this.world.forEachCharacter((char) => {
-			this.gameText.removeCharacterChat(char);
+			GameText.removeCharacterChat(this.gameText, char);
 		});
 	}
 
@@ -239,7 +239,7 @@ class Game {
 				//"cambio de mapa", TODO: ver bien esto
 				// setear cosas que pueden cambiar al cambiar mapa (color nombre, sacar chat,pos)
 				this.player.setName(nombre, clan, NickColor);
-				this.gameText.removeCharacterChat(this.player);
+				GameText.removeCharacterChat(this.gameText, this.player);
 				this.resetPosCharacter(this.player.id, X, Y, true);
 				return;
 			}
