@@ -14,290 +14,294 @@ import * as SpriteGrh from './spritegrh';
 import { posicionarRectEnTile, removePixiChild } from './rendererutils';
 import * as Camera from '../view/camera';
 
-class EntityRenderer {
-	constructor(escala, entityContainer, entityNamesContainer, entityChatContainer, camera, assetManager) {
-		this.CLIPPING_EXTRA_POSITIONS = {
-			norte: 0,
-			sur: 2,
-			este: 1,
-			oeste: 1
+const CLIPPING_EXTRA_POSITIONS = {
+	norte: 0,
+	sur: 2,
+	este: 1,
+	oeste: 1
+};
+
+const init = (escala, entityContainer, entityNamesContainer, entityChatContainer, camera, assetManager) => ({
+	escala,
+	entityContainer,
+	entityNamesContainer,
+	entityChatContainer,
+	camera,
+	assetManager,
+	tilesize: 32,
+	grhs: assetManager.grhs,
+	indices: assetManager.getIndices(),
+	armas: assetManager.getArmas(),
+	cabezas: assetManager.getCabezas(),
+	cascos: assetManager.getCascos(),
+	cuerpos: assetManager.getCuerpos(),
+	escudos: assetManager.getEscudos(),
+	fxs: assetManager.getFxs()
+});
+
+const getHeadingsGrhs = (assetManager, varIndice, num) => {
+	if (!num || !varIndice[num] || !varIndice[num].down) {
+		return null;
+	}
+	const res = [];
+	res[Enums.Heading.norte] = assetManager.getGrh(varIndice[num].up);
+	res[Enums.Heading.este] = assetManager.getGrh(varIndice[num].right);
+	res[Enums.Heading.sur] = assetManager.getGrh(varIndice[num].down);
+	res[Enums.Heading.oeste] = assetManager.getGrh(varIndice[num].left);
+	return res;
+};
+
+const crearSprite = (state, parentLayer, grh, x, y, zIndex) => {
+	const nuevoSprite = SpriteGrh.init(state.assetManager.getGrh(grh));
+	nuevoSprite.zOffset = zIndex || 0;
+	parentLayer.addChild(nuevoSprite); // ojo tiene que estar en este orden sino no anda el z-index(TODO)
+	SpriteGrh.setPosition(nuevoSprite, x, y);
+	setSpriteClipping(state, nuevoSprite);
+	return nuevoSprite;
+};
+
+const crearCharacterSprites = (state, parentLayer, x, y, zIndex) => {
+	const sprite = CharacterSprites.init();
+	CharacterSprites.setSombraSprite(sprite, state.assetManager.getGrh(23651));
+	parentLayer.addChild(sprite);
+	CharacterSprites.setPosition(sprite, x, y);
+	setSpriteClipping(state, sprite);
+	sprite.zOffset = zIndex;
+	return sprite;
+};
+
+const spriteVisiblePorCamara = (state, sprite, extraPositions) => {
+	const entityRect = {
+		x: sprite.x,
+		y: sprite.y,
+		width: sprite.width,
+		height: sprite.height
+	};
+
+	posicionarRectEnTile(entityRect);
+	return Camera.rectVisible(state.camera, entityRect, extraPositions);
+};
+
+const setSpriteClipping = (state, sprite) => {
+	sprite.visible = spriteVisiblePorCamara(state, sprite, CLIPPING_EXTRA_POSITIONS);
+};
+
+const entityVisiblePorCamara = (state, entity, extraPositions) => {
+	if (!entity.sprite) {
+		return false;
+	}
+	let finalExtraPositions;
+	if (extraPositions) {
+		finalExtraPositions = {
+			norte: extraPositions.norte + CLIPPING_EXTRA_POSITIONS.norte,
+			sur: extraPositions.sur + CLIPPING_EXTRA_POSITIONS.sur,
+			este: extraPositions.este + CLIPPING_EXTRA_POSITIONS.este,
+			oeste: extraPositions.oeste + CLIPPING_EXTRA_POSITIONS.oeste
 		};
-		this.escala = escala;
-		this.entityContainer = entityContainer;
-		this.entityNamesContainer = entityNamesContainer;
-		this.entityChatContainer = entityChatContainer;
-		this.camera = camera;
-		this.assetManager = assetManager;
-
-		this.tilesize = 32;
-
-		this.grhs = assetManager.grhs;
-		this.indices = assetManager.getIndices();
-		this.armas = assetManager.getArmas();
-		this.cabezas = assetManager.getCabezas();
-		this.cascos = assetManager.getCascos();
-		this.cuerpos = assetManager.getCuerpos();
-		this.escudos = assetManager.getEscudos();
-		this.fxs = assetManager.getFxs();
+	} else {
+		finalExtraPositions = CLIPPING_EXTRA_POSITIONS;
 	}
+	return spriteVisiblePorCamara(state, entity.sprite, finalExtraPositions);
+};
 
-	rescale(escala) {
-		//TEMPORAL
-		this.escala = escala;
+const agregarItem = (state, item, numGrh) => {
+	if (!state.assetManager.getGrh(numGrh)) {
+		console.error('grh de item invalido: ' + numGrh.toString());
+		return;
 	}
+	item.sprite = crearSprite(
+		state,
+		state.entityContainer,
+		numGrh,
+		Math.round(item.x),
+		Math.round(item.y),
+		-50
+	);
+};
 
-	_getHeadingsGrhs(varIndice, num) {
-		if (!num) {
-			return null;
-		}
-		if (!varIndice[num]) {
-			return null;
-		}
-		if (!varIndice[num].down) {
-			return null;
-		}
-		var res = [];
-		res[Enums.Heading.norte] = this.assetManager.getGrh(varIndice[num].up);
-		res[Enums.Heading.este] = this.assetManager.getGrh(varIndice[num].right);
-		res[Enums.Heading.sur] = this.assetManager.getGrh(varIndice[num].down);
-		res[Enums.Heading.oeste] = this.assetManager.getGrh(varIndice[num].left);
-		return res;
+const sacarItem = (state, item) => {
+	if (!item.sprite) {
+		return;
 	}
+	removePixiChild(state.entityContainer, item.sprite);
+	item.sprite = null;
+};
 
-	agregarItem(item, numGrh) {
-		if (!this.assetManager.getGrh(numGrh)) {
-			console.error('grh de item invalido: ' + numGrh.toString());
-			return;
-		}
-		item.sprite = this._crearSprite(
-			this.entityContainer,
-			numGrh,
-			Math.round(item.x),
-			Math.round(item.y),
-			-50
-		);
-	}
-
-	sacarItem(item) {
-		if (!item.sprite) {
-			return;
-		}
-		removePixiChild(this.entityContainer, item.sprite);
-		item.sprite = null;
-	}
-
-	agregarCharacter(char) {
-		var self = this;
-
-		let f = function () {
-			var char = this;
-			var nombre = char.nombre;
-			var clan = char.clan;
-			var color = char.nickColor;
-			if (char.spriteNombre) {
-				removePixiChild(self.entityNamesContainer, char.spriteNombre);
-				char.spriteNombre = null;
-			}
-			if (!nombre.trim()) {
-				return;
-			}
-			var fontColor = color ? Font.NickColor[Font.NickColorIndex[color]] : Font.NickColor.CIUDADANO;
-			var font = Font.NOMBRE_BASE_FONT;
-			font.fill = fontColor;
-			var nuevoNombre = CharacterName.init(nombre, clan, font, self.escala);
-			self.entityNamesContainer.addChild(nuevoNombre);
-			char.spriteNombre = nuevoNombre;
-		};
-
-		char.on('nameChanged', f);
-
-		char.emit('nameChanged');
-
-		var sprite = this._crearCharacterSprites(this.entityContainer, char.x, char.y, -30);
-		CharacterSprites.setSpeed(sprite, char.moveSpeed); // ANIMACIONES char se setean a misma velocidad que su movimiento !!
-
-		char.sprite = sprite;
-
-		// TODO! nombre clippping y textos de chat clipping !
-		char.texto = CharacterText.initCharacterText(this.escala);
-		this.entityChatContainer.addChild(char.texto);
-
-		char.on('positionChanged', function () {
-			var spriteX = this.x;
-			var spriteY = this.y;
-
-			CharacterSprites.setPosition(sprite, spriteX, spriteY);
-			if (this.spriteNombre) {
-				CharacterName.setPosition(this.spriteNombre, spriteX, spriteY);
-			}
-			if (this.texto) {
-				CharacterText.setPosition(char.texto, spriteX, spriteY);
-			}
-		});
-
-		char.on('gridPositionChanged', function () {
-			self._setSpriteClipping(this.sprite);
-		});
-
-		char.emit('positionChanged');
-
-		char.on('headingChanged', function () {
-			CharacterSprites.cambiarHeading(char.sprite, char.heading);
-		});
-
-		char.emit('headingChanged');
-
-		char.on('bodyChanged', function () {
-			var Body = char.body;
-			var bodys = self._getHeadingsGrhs(self.cuerpos, Body);
-			var headOffX = 0;
-			var headOffY = 0;
-			if (self.cuerpos[Body]) {
-				headOffX = self.cuerpos[Body].offHeadX;
-				headOffY = self.cuerpos[Body].offHeadY;
-			}
-			CharacterSprites.setBodys(char.sprite, bodys, headOffX, headOffY);
-		});
-
-		char.emit('bodyChanged');
-
-		char.on('headChanged', function () {
-			var Head = char.head;
-			var heads = self._getHeadingsGrhs(self.cabezas, Head);
-			CharacterSprites.setHeads(char.sprite, heads);
-		});
-
-		char.emit('headChanged');
-
-		char.on('weaponChanged', function () {
-			var Weapon = char.weapon;
-			var weapons = self._getHeadingsGrhs(self.armas, Weapon);
-			CharacterSprites.setWeapons(char.sprite, weapons);
-		});
-
-		char.emit('weaponChanged');
-
-		char.on('shieldChanged', function () {
-			var Shield = char.shield;
-			var shields = self._getHeadingsGrhs(self.escudos, Shield);
-			CharacterSprites.setShields(char.sprite, shields);
-		});
-
-		char.emit('shieldChanged');
-
-		char.on('helmetChanged', function () {
-			var Helmet = char.helmet;
-			var helmets = self._getHeadingsGrhs(self.cascos, Helmet);
-			CharacterSprites.setHelmets(char.sprite, helmets);
-		});
-
-		char.emit('helmetChanged');
-	}
-
-	sacarCharacter(char) {
-		removePixiChild(this.entityContainer, char.sprite);
-		char.sprite = null;
-		removePixiChild(this.entityChatContainer, char.texto);
-		char.texto = null;
-
+const agregarCharacter = (state, char) => {
+	const nameChangedHandler = function () {
+		const nombre = char.nombre;
+		const clan = char.clan;
+		const color = char.nickColor;
 		if (char.spriteNombre) {
-			removePixiChild(this.entityNamesContainer, char.spriteNombre);
+			removePixiChild(state.entityNamesContainer, char.spriteNombre);
 			char.spriteNombre = null;
 		}
-	}
-
-	_crearSprite(parentLayer, grh, x, y, zIndex) {
-		let nuevoSprite = SpriteGrh.init(this.assetManager.getGrh(grh));
-		nuevoSprite.zOffset = zIndex || 0;
-		parentLayer.addChild(nuevoSprite); // ojo tiene que estar en este orden sino no anda el z-index(TODO)
-		SpriteGrh.setPosition(nuevoSprite, x, y);
-		this._setSpriteClipping(nuevoSprite);
-		return nuevoSprite;
-	}
-
-	_crearCharacterSprites(parentLayer, x, y, zIndex) {
-		let sprite = CharacterSprites.init();
-		CharacterSprites.setSombraSprite(sprite, this.assetManager.getGrh(23651));
-		parentLayer.addChild(sprite);
-		CharacterSprites.setPosition(sprite, x, y);
-		this._setSpriteClipping(sprite);
-		sprite.zOffset = zIndex;
-		return sprite;
-	}
-
-	updateEntitiesMov(direccion, entities) {
-		this.updateEntitiesClipping(entities);
-	}
-
-	updateEntitiesClipping(entities) {
-		for (var i = 0; i < entities.length; i++) {
-			this._setSpriteClipping(entities[i].sprite);
+		if (!nombre.trim()) {
+			return;
 		}
-	}
+		const fontColor = color ? Font.NickColor[Font.NickColorIndex[color]] : Font.NickColor.CIUDADANO;
+		const font = Font.NOMBRE_BASE_FONT;
+		font.fill = fontColor;
+		const nuevoNombre = CharacterName.init(nombre, clan, font, state.escala);
+		state.entityNamesContainer.addChild(nuevoNombre);
+		char.spriteNombre = nuevoNombre;
+	};
 
-	_setSpriteClipping(sprite) {
-		sprite.visible = this._spriteVisiblePorCamara(sprite, this.CLIPPING_EXTRA_POSITIONS);
-	}
+	char.on('nameChanged', nameChangedHandler);
+	char.emit('nameChanged');
 
-	entityVisiblePorCamara(entity, extraPositions) {
-		if (!entity.sprite) {
-			return false;
+	const sprite = crearCharacterSprites(state, state.entityContainer, char.x, char.y, -30);
+	CharacterSprites.setSpeed(sprite, char.moveSpeed); // ANIMACIONES char se setean a misma velocidad que su movimiento !!
+
+	char.sprite = sprite;
+	// TODO! nombre clippping y textos de chat clipping !
+	char.texto = CharacterText.initCharacterText(state.escala);
+	state.entityChatContainer.addChild(char.texto);
+
+	char.on('positionChanged', function () {
+		const spriteX = this.x;
+		const spriteY = this.y;
+
+		CharacterSprites.setPosition(sprite, spriteX, spriteY);
+		if (this.spriteNombre) {
+			CharacterName.setPosition(this.spriteNombre, spriteX, spriteY);
 		}
-		let finalExtraPositions;
-		if (extraPositions) {
-			finalExtraPositions = {};
-			finalExtraPositions.norte = extraPositions.norte + this.CLIPPING_EXTRA_POSITIONS.norte;
-			finalExtraPositions.sur = extraPositions.sur + this.CLIPPING_EXTRA_POSITIONS.sur;
-			finalExtraPositions.este = extraPositions.este + this.CLIPPING_EXTRA_POSITIONS.este;
-			finalExtraPositions.oeste = extraPositions.oeste + this.CLIPPING_EXTRA_POSITIONS.oeste;
-		} else {
-			finalExtraPositions = this.CLIPPING_EXTRA_POSITIONS;
+		if (this.texto) {
+			CharacterText.setPosition(char.texto, spriteX, spriteY);
 		}
-		return this._spriteVisiblePorCamara(entity.sprite, finalExtraPositions);
-	}
+	});
 
-	_spriteVisiblePorCamara(sprite, extraPositions) {
-		let entityRect = {};
+	char.on('gridPositionChanged', function () {
+		setSpriteClipping(state, this.sprite);
+	});
 
-		entityRect.x = sprite.x;
-		entityRect.y = sprite.y;
-		entityRect.width = sprite.width;
-		entityRect.height = sprite.height;
+	char.emit('positionChanged');
 
-		posicionarRectEnTile(entityRect);
-		return Camera.rectVisible(this.camera, entityRect, extraPositions);
-	}
+	char.on('headingChanged', function () {
+		CharacterSprites.cambiarHeading(char.sprite, char.heading);
+	});
 
-	setCharacterChat(char, chat, r, g, b) {
-		const color = `rgb(${r},${g},${b})`;
-		CharacterText.setChat(char.texto, chat, color);
-	}
+	char.emit('headingChanged');
 
-	removerChat(char) {
-		CharacterText.removerChat(char.texto);
-	}
-
-	setCharVisible(char, visible) {
-		CharacterSprites.setCharVisible(char.sprite, visible);
-		if (char.spriteNombre) {
-			char.spriteNombre.visible = visible;
+	char.on('bodyChanged', function () {
+		const Body = char.body;
+		const bodys = getHeadingsGrhs(state.assetManager, state.cuerpos, Body);
+		let headOffX = 0;
+		let headOffY = 0;
+		if (state.cuerpos[Body]) {
+			headOffX = state.cuerpos[Body].offHeadX;
+			headOffY = state.cuerpos[Body].offHeadY;
 		}
-	}
+		CharacterSprites.setBodys(char.sprite, bodys, headOffX, headOffY);
+	});
 
-	agregarCharacterHoveringInfo(char, valor, font) {
-		if (char.texto) {
-			CharacterText.addHoveringInfo(char.texto, valor, font);
-		}
-	}
+	char.emit('bodyChanged');
 
-	setCharacterFX(char, FX, FXLoops) {
-		var grh = this.assetManager.getGrh(this.fxs[FX].animacion);
-		CharacterSprites.setFX(char.sprite, grh, this.fxs[FX].offX, this.fxs[FX].offY, FXLoops);
-	}
+	char.on('headChanged', function () {
+		const Head = char.head;
+		const heads = getHeadingsGrhs(state.assetManager, state.cabezas, Head);
+		CharacterSprites.setHeads(char.sprite, heads);
+	});
 
-	entityEnTileVisible(entity) {
-		// puede que no este en un tile visible pero si sea visible la entidad (para eso usar el de arriba)
-		return this.camera.isVisiblePosition(entity.gridX, entity.gridY);
+	char.emit('headChanged');
+
+	char.on('weaponChanged', function () {
+		const Weapon = char.weapon;
+		const weapons = getHeadingsGrhs(state.assetManager, state.armas, Weapon);
+		CharacterSprites.setWeapons(char.sprite, weapons);
+	});
+
+	char.emit('weaponChanged');
+
+	char.on('shieldChanged', function () {
+		const Shield = char.shield;
+		const shields = getHeadingsGrhs(state.assetManager, state.escudos, Shield);
+		CharacterSprites.setShields(char.sprite, shields);
+	});
+
+	char.emit('shieldChanged');
+
+	char.on('helmetChanged', function () {
+		const Helmet = char.helmet;
+		const helmets = getHeadingsGrhs(state.assetManager, state.cascos, Helmet);
+		CharacterSprites.setHelmets(char.sprite, helmets);
+	});
+
+	char.emit('helmetChanged');
+};
+
+const sacarCharacter = (state, char) => {
+	removePixiChild(state.entityContainer, char.sprite);
+	char.sprite = null;
+	removePixiChild(state.entityChatContainer, char.texto);
+	char.texto = null;
+
+	if (char.spriteNombre) {
+		removePixiChild(state.entityNamesContainer, char.spriteNombre);
+		char.spriteNombre = null;
 	}
-}
-export default EntityRenderer;
+};
+
+const updateEntitiesMov = (state, direccion, entities) => {
+	updateEntitiesClipping(state, entities);
+};
+
+const updateEntitiesClipping = (state, entities) => {
+	for (let i = 0; i < entities.length; i++) {
+		setSpriteClipping(state, entities[i].sprite);
+	}
+};
+
+const setCharacterChat = (state, char, chat, r, g, b) => {
+	const color = `rgb(${r},${g},${b})`;
+	CharacterText.setChat(char.texto, chat, color);
+};
+
+const removerChat = (state, char) => {
+	CharacterText.removerChat(char.texto);
+};
+
+const setCharVisible = (state, char, visible) => {
+	CharacterSprites.setCharVisible(char.sprite, visible);
+	if (char.spriteNombre) {
+		char.spriteNombre.visible = visible;
+	}
+};
+
+const agregarCharacterHoveringInfo = (state, char, valor, font) => {
+	if (char.texto) {
+		CharacterText.addHoveringInfo(char.texto, valor, font);
+	}
+};
+
+const setCharacterFX = (state, char, FX, FXLoops) => {
+	const grh = state.assetManager.getGrh(state.fxs[FX].animacion);
+	CharacterSprites.setFX(char.sprite, grh, state.fxs[FX].offX, state.fxs[FX].offY, FXLoops);
+};
+
+const entityEnTileVisible = (state, entity) => {
+	return state.camera.isVisiblePosition(entity.gridX, entity.gridY);
+};
+
+// TEMPORAL
+const rescale = (state, escala) => {
+	state.escala = escala;
+};
+
+export {
+	init,
+	agregarItem,
+	sacarItem,
+	agregarCharacter,
+	sacarCharacter,
+	updateEntitiesMov,
+	updateEntitiesClipping,
+	setCharacterChat,
+	removerChat,
+	setCharVisible,
+	agregarCharacterHoveringInfo,
+	setCharacterFX,
+	entityVisiblePorCamara,
+	entityEnTileVisible,
+	rescale
+};

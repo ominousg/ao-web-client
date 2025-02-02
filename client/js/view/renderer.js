@@ -12,7 +12,7 @@ import * as Consola from './consola';
 import * as ContainerOrdenado from './containerordenado';
 import * as IndicadorMapa from './indicadormapa';
 import * as IndicadorFPS from './indicadorFPS';
-import EntityRenderer from './entityrenderer';
+import * as EntityRenderer from './entityrenderer';
 import * as ClimaRenderer from './climarenderer';
 import * as MapaRenderer from './maparenderer';
 import * as CharacterText from './charactertext';
@@ -86,7 +86,7 @@ class Renderer {
 		this.gameStage.addChild(this.layer4);
 		this.gameStage.addChild(this.gameChat);
 
-		this.entityRenderer = new EntityRenderer(
+		this.entityRendererState = EntityRenderer.init(
 			this.escala,
 			this.layer3,
 			this.gameNames,
@@ -131,48 +131,48 @@ class Renderer {
 	}
 
 	agregarItem(item, numGrh) {
-		this.entityRenderer.agregarItem(item, numGrh);
+		EntityRenderer.agregarItem(this.entityRendererState, item, numGrh);
 	}
 
 	sacarItem(item) {
-		this.entityRenderer.sacarItem(item);
+		EntityRenderer.sacarItem(this.entityRendererState, item);
 	}
 
 	agregarCharacter(char) {
-		this.entityRenderer.agregarCharacter(char);
+		EntityRenderer.agregarCharacter(this.entityRendererState, char);
 	}
 
 	sacarCharacter(char) {
-		this.entityRenderer.sacarCharacter(char);
+		EntityRenderer.sacarCharacter(this.entityRendererState, char);
 	}
 
 	setCharacterChat(char, chat, r, g, b) {
-		this.entityRenderer.setCharacterChat(char, chat, r, g, b);
+		EntityRenderer.setCharacterChat(this.entityRendererState, char, chat, r, g, b);
 	}
 
 	removerChat(char) {
-		this.entityRenderer.removerChat(char);
+		EntityRenderer.removerChat(this.entityRendererState, char);
 	}
 
 	setCharVisible(char, visible) {
-		this.entityRenderer.setCharVisible(char, visible);
+		EntityRenderer.setCharVisible(this.entityRendererState, char, visible);
 	}
 
 	agregarCharacterHoveringInfo(char, valor, font) {
-		this.entityRenderer.agregarCharacterHoveringInfo(char, valor, font);
+		EntityRenderer.agregarCharacterHoveringInfo(this.entityRendererState, char, valor, font);
 	}
 
 	setCharacterFX(char, FX, FXLoops) {
-		this.entityRenderer.setCharacterFX(char, FX, FXLoops);
+		EntityRenderer.setCharacterFX(this.entityRendererState, char, FX, FXLoops);
 	}
 
 	entityVisiblePorCamara(entity, extraPositions) {
-		return this.entityRenderer.entityVisiblePorCamara(entity, extraPositions);
+		return EntityRenderer.entityVisiblePorCamara(this.entityRendererState, entity, extraPositions);
 	}
 
 	entityEnTileVisible(entity) {
 		// puede que no este en un tile visible pero si sea visible la entidad (para eso usar el de arriba)
-		return this.entityRenderer.entityEnTileVisible(entity);
+		return EntityRenderer.entityEnTileVisible(this.entityRendererState, entity);
 	}
 
 	rescale(escala) {
@@ -212,8 +212,8 @@ class Renderer {
 		this.indicadorFPS.y = Math.floor((1 * 32 - 32) * escala);
 
 		/* TEMPORAL */
-		if (this.entityRenderer) {
-			this.entityRenderer.rescale(escala);
+		if (this.entityRendererState) {
+			EntityRenderer.rescale(this.entityRendererState, escala);
 		}
 		if (this.climaRendererState) {
 			this.climaRendererState.escala = escala;
@@ -276,7 +276,7 @@ class Renderer {
 
 	updateBeforeMovementBegins(dir, entities) {
 		MapaRenderer.updateTilesMov(this.mapaRendererState, dir);
-		this.entityRenderer.updateEntitiesMov(dir, entities);
+		EntityRenderer.updateEntitiesMov(this.entityRendererState, dir, entities);
 	}
 
 	cambiarMapa(mapa) {
@@ -291,7 +291,7 @@ class Renderer {
 
 	resetCameraPosition(gridX, gridY, entities) {
 		Camera.lookAtGridPos(this.camera, gridX, gridY);
-		this.entityRenderer.updateEntitiesClipping(entities);
+		EntityRenderer.updateEntitiesClipping(this.entityRendererState, entities);
 	}
 
 	_syncGamePosition() {
