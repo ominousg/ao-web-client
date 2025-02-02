@@ -2,7 +2,7 @@ const $ = require('jquery');
 const jQuery = require('jquery');
 const jQueryUI = require('jquery-ui');
 import GameManager from './model/gamemanager';
-import Renderer from './view/renderer';
+import * as Renderer from './view/renderer';
 import GameClient from './network/gameclient';
 
 class App {
@@ -61,7 +61,7 @@ class App {
 	}
 
 	inicializarGame() {
-		var renderer = new Renderer(this.assetManager, this.uiManager.escala);
+		var renderer = Renderer.init(this.assetManager, this.uiManager.escala);
 		this.gameManager = new GameManager(this.assetManager, renderer);
 
 		var gameUI = this.uiManager.inicializarGameUI(this.gameManager, this.settings);

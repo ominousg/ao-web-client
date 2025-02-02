@@ -4,4 +4,6 @@ dist
 .env.test
 .env.production
 
+anotaciones.md
+
 client/graficos/css/to_upscale/*

@@ -14,6 +14,7 @@ import * as GameText from './gametext';
 import { Ticker } from 'pixi.js';
 import * as Camera from '../view/camera';
 import * as CharacterSprites from '../view/charactersprites';
+import * as Renderer from '../view/renderer';
 
 class Game {
 	constructor(assetManager) {
@@ -152,13 +153,13 @@ class Game {
 				return;
 			}
 			var dir = c.esPosAdyacente(gridX, gridY);
-			if (dir && this.renderer.entityVisiblePorCamara(c)) {
+			if (dir && Renderer.entityVisiblePorCamara(this.renderer, c)) {
 				c.mover(dir);
 			} else {
 				// posicion no adyacente o fuera de camara, entonces resetear la posicion directamente (no hacerlo caminar)
 				this.resetPosCharacter(CharIndex, gridX, gridY);
 			}
-			if (dir && this.renderer.entityVisiblePorCamara(c, this.POSICIONES_EXTRA_SONIDO)) {
+			if (dir && Renderer.entityVisiblePorCamara(this.renderer, c, this.POSICIONES_EXTRA_SONIDO)) {
 				this.playSonidoPaso(c);
 			}
 
@@ -329,7 +330,7 @@ class Game {
 			}
 
 			this.resetPosCharacter(this.player.id, X, Y, true);
-			this.renderer.drawMapaIni(this.player.gridX, this.player.gridY, this.world.getEntities());
+			Renderer.drawMapaIni(this.renderer, this.player.gridX, this.player.gridY, this.world.getEntities());
 		};
 		Mapa.onceLoaded(this.map, (mapa) => {
 			f();
@@ -404,7 +405,7 @@ class Game {
 
 		if (c === this.player) {
 			if (!noReDraw) {
-				this.renderer.resetPos(gridX, gridY, this.world.getEntities());
+				Renderer.resetPos(this.renderer, gridX, gridY, this.world.getEntities());
 			}
 			this.actualizarBajoTecho();
 			this.actualizarIndicadorPosMapa();
@@ -416,7 +417,7 @@ class Game {
 			Mapa.removeCallbacks(this.map);
 		}
 		this.map = Mapa.init(numeroMapa);
-		this.renderer.cambiarMapa(this.map);
+		Renderer.cambiarMapa(this.renderer, this.map);
 
 		this.assetManager.getMapaASync(numeroMapa, (mapData) => {
 			if (this.map.numero === numeroMapa) {
@@ -433,11 +434,11 @@ class Game {
 	}
 
 	actualizarIndicadorPosMapa() {
-		this.renderer.actualizarIndicadorMapa(this.map.numero, this.player.gridX, this.player.gridY);
+		Renderer.actualizarIndicadorMapa(this.renderer, this.map.numero, this.player.gridX, this.player.gridY);
 	}
 
 	actualizarIndicadorFPS() {
-		this.renderer.actualizarIndicadorFPS(this._fps);
+		Renderer.actualizarIndicadorFPS(this.renderer, this._fps);
 	}
 
 	cambiarArea(gridX, gridY) {
@@ -479,7 +480,7 @@ class Game {
 					this.playSonidoPaso(this.player);
 				}
 
-				this.renderer.updateBeforeMovementBegins(direccion, this.world.getEntities());
+				Renderer.updateBeforeMovementBegins(this.renderer, direccion, this.world.getEntities());
 			}.bind(this)
 		);
 
@@ -553,7 +554,7 @@ class Game {
 			function (x, y) {
 				const centerX = Camera.getCenterPosX(this.renderer.camera);
 				const centerY = Camera.getCenterPosY(this.renderer.camera);
-				this.renderer.moverPosition(x - centerX, y - centerY);
+				Renderer.moverPosition(this.renderer, x - centerX, y - centerY);
 			}.bind(this)
 		);
 
@@ -651,7 +652,7 @@ class Game {
 			return;
 		}
 		FXLoops = FXLoops + 1;
-		this.renderer.setCharacterFX(c, FX, FXLoops);
+		Renderer.setCharacterFX(this.renderer, c, FX, FXLoops);
 	}
 
 	inicializar(username) {
@@ -667,7 +668,7 @@ class Game {
 
 	_gameTick() {
 		if (this.started && !this.isStopped) {
-			this.renderer.renderFrame();
+			Renderer.renderFrame(this.renderer);
 
 			// calculating FPS
 			this._fpsCounter++;
@@ -739,7 +740,7 @@ class Game {
 	}
 
 	resize(escala) {
-		this.renderer.rescale(escala);
+		Renderer.rescale(this.renderer, escala);
 	}
 }
 

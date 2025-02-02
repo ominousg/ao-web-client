@@ -5,6 +5,7 @@ import Game from './game';
 import Intervalos from './intervalos';
 import Acciones from './acciones';
 import ComandosChat from './comandoschat';
+import * as Renderer from '../view/renderer';
 
 class GameManager {
 	constructor(assetManager, renderer) {
@@ -22,7 +23,7 @@ class GameManager {
 	}
 
 	resetGame(escala) {
-		this.renderer.clean(escala);
+		Renderer.clean(this.renderer, escala);
 		var ui = this.game.gameUI;
 		var client = this.game.client;
 

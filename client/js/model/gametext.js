@@ -3,8 +3,15 @@
  */
 import { Enums } from '../enums';
 import Font from '../font';
+import * as Renderer from '../view/renderer';
 
-const init = (renderer) => renderer;
+const init = (renderer) => ({
+	agregarTextoConsola: (texto, font) => Renderer.agregarTextoConsola(renderer, texto, font),
+	agregarCharacterHoveringInfo: (char, valor, font) =>
+		Renderer.agregarCharacterHoveringInfo(renderer, char, valor, font),
+	setCharacterChat: (char, chat, r, g, b) => Renderer.setCharacterChat(renderer, char, chat, r, g, b),
+	removerChat: (char) => Renderer.removerChat(renderer, char)
+});
 
 const playerHitByUser = (gameText, player, parteCuerpo, danio, attackerName) => {
 	let bodyPartMessage;

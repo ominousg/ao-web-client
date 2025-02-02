@@ -2,6 +2,7 @@
  * Created by horacio on 7/26/16.
  */
 import { Enums } from '../enums';
+import * as Renderer from '../view/renderer';
 
 class World {
 	constructor(renderer) {
@@ -24,27 +25,27 @@ class World {
 
 	addCharacter(char) {
 		this.characters.push(char);
-		this.renderer.agregarCharacter(char);
+		Renderer.agregarCharacter(this.renderer, char);
 	}
 
 	sacarCharacter(c) {
 		let index = this.characters.indexOf(c);
 		if (index > -1) {
-			this.renderer.sacarCharacter(c);
+			Renderer.sacarCharacter(this.renderer, c);
 			this.characters.splice(index, 1);
 		}
 	}
 
 	addItem(item, grhIndex) {
 		this.items.push(item);
-		this.renderer.agregarItem(item, grhIndex);
+		Renderer.agregarItem(this.renderer, item, grhIndex);
 	}
 
 	sacarItem(item) {
 		let index = this.items.indexOf(item);
 		if (index > -1) {
 			this.items.splice(index, 1);
-			this.renderer.sacarItem(item);
+			Renderer.sacarItem(this.renderer, item);
 		}
 	}
 

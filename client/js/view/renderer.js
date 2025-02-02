@@ -19,306 +19,346 @@ import * as CharacterText from './charactertext';
 import * as CharacterName from './charactername';
 import { removePixiChild } from './rendererutils';
 
-class Renderer {
-	constructor(assetManager, escala) {
-		this.MAPA_WIDTH = 100; // todo: usarlo desde mapa
-		this.assetManager = assetManager;
-		this.grhs = assetManager.grhs;
-		this.indices = assetManager.getIndices();
-		this.armas = assetManager.getArmas();
-		this.cabezas = assetManager.getCabezas();
-		this.cascos = assetManager.getCascos();
-		this.cuerpos = assetManager.getCuerpos();
-		this.escudos = assetManager.getEscudos();
-		this.fxs = assetManager.getFxs();
+const createState = (assetManager, escala) => {
+	const state = {
+		MAPA_WIDTH: 100, // todo: usarlo desde mapa
+		assetManager,
+		grhs: assetManager.grhs,
+		indices: assetManager.getIndices(),
+		armas: assetManager.getArmas(),
+		cabezas: assetManager.getCabezas(),
+		cascos: assetManager.getCascos(),
+		cuerpos: assetManager.getCuerpos(),
+		escudos: assetManager.getEscudos(),
+		fxs: assetManager.getFxs(),
+		tilesize: 32,
+		camera: Camera.init(32),
+		entityRenderer: null,
+		mapaRendererState: null,
+		climaRendererState: null,
+		fadeInterval: null,
+		escala
+	};
 
-		this.tilesize = 32;
-		this.camera = Camera.init(this.tilesize);
+	return state;
+};
 
-		this.entityRenderer = null;
-		this.mapaRendererState = null;
-		this.climaRendererState = null;
-		this.fadeInterval = null;
+const inicializarPixi = (state) => {
+	BaseTexture.defaultOptions.scaleMode = SCALE_MODES.NEAREST;
+	BaseTexture.defaultOptions.mipmap = MIPMAP_MODES.OFF;
+	TextureGCSystem.defaultMode = GC_MODES.MANUAL;
 
-		this.escala = escala;
-		this._inicializarPixi();
-		this.rescale(escala);
+	const pixiRenderer = new autoDetectRenderer(
+		state.camera.gridW * state.tilesize,
+		state.camera.gridH * state.tilesize
+	);
+
+	$(pixiRenderer.view).css('position', 'relative');
+	$(pixiRenderer.view).css('display', 'block');
+	$('#gamecanvas').append(pixiRenderer.view);
+
+	return pixiRenderer;
+};
+
+const initStage = (state, pixiRenderer) => {
+	const stage = new Container();
+	const gameStage = new Container();
+	const climaContainer = new Container();
+	const layer1 = new Container();
+	const layer2 = new Container();
+	const gameNames = new Container();
+	const layer3 = ContainerOrdenado.initContainerOrdenado(state.MAPA_WIDTH);
+	layer3.ordenado = true;
+	const layer4 = new Container();
+	const gameChat = new Container();
+	const consola = Consola.initConsola(state.escala);
+	const indicadorMapa = IndicadorMapa.initIndicadorMapa(state.escala);
+	const indicadorFPS = IndicadorFPS.initIndicadorFPS(state.escala);
+
+	stage.addChild(gameStage);
+	stage.addChild(climaContainer);
+	stage.addChild(consola);
+	stage.addChild(indicadorMapa);
+	stage.addChild(indicadorFPS);
+	gameStage.addChild(layer1);
+	gameStage.addChild(layer2);
+	gameStage.addChild(gameNames);
+	gameStage.addChild(layer3);
+	gameStage.addChild(layer4);
+	gameStage.addChild(gameChat);
+
+	const entityRendererState = EntityRenderer.init(
+		state.escala,
+		layer3,
+		gameNames,
+		gameChat,
+		state.camera,
+		state.assetManager,
+		gameStage
+	);
+
+	const climaRendererState = ClimaRenderer.initClimaRenderer(
+		state.escala,
+		climaContainer,
+		state.assetManager,
+		pixiRenderer
+	);
+
+	const mapaRendererState = MapaRenderer.initMapaRenderer(
+		state.camera,
+		state.assetManager,
+		layer1,
+		layer2,
+		layer3,
+		layer4
+	);
+
+	return {
+		stage,
+		gameStage,
+		climaContainer,
+		layer1,
+		layer2,
+		gameNames,
+		layer3,
+		layer4,
+		gameChat,
+		consola,
+		indicadorMapa,
+		indicadorFPS,
+		entityRendererState,
+		climaRendererState,
+		mapaRendererState
+	};
+};
+
+const init = (assetManager, escala) => {
+	const state = createState(assetManager, escala);
+	const pixiRenderer = inicializarPixi(state);
+	const stageState = initStage(state, pixiRenderer);
+	const fullState = {
+		...state,
+		...stageState,
+		pixiRenderer
+	};
+
+	rescale(fullState, escala);
+
+	return fullState;
+};
+
+const update = (state, delta) => {
+	//this.entityRenderer.update(delta);
+	ClimaRenderer.update(state.climaRendererState, delta);
+	//this.mapaRenderer.update(delta);
+	Consola.update(state.consola, delta);
+};
+
+const agregarTextoConsola = (state, texto, font) => {
+	Consola.agregarTexto(state.consola, texto, font);
+};
+
+const actualizarIndicadorMapa = (state, numMap, x, y) => {
+	IndicadorMapa.actualizar(state.indicadorMapa, numMap, x, y);
+};
+
+const actualizarIndicadorFPS = (state, fps) => {
+	IndicadorFPS.actualizar(state.indicadorFPS, fps);
+};
+
+const syncGamePosition = (state) => {
+	state.gameStage.x = -Math.round(state.camera.x * state.escala);
+	state.gameStage.y = -Math.round(state.camera.y * state.escala);
+};
+
+const rescale = (state, escala) => {
+	// calcular escala que no haga quedar a los tiles en posiciones no enteras:
+	let newTilesize = Math.floor(escala * state.tilesize);
+	escala = newTilesize / state.tilesize;
+
+	state.escala = escala;
+
+	state.pixiRenderer.resize(
+		Math.round(state.camera.gridW * state.tilesize * escala),
+		Math.round(state.camera.gridH * state.tilesize * escala)
+	);
+
+	state.gameStage.scale.x = escala;
+	state.gameStage.scale.y = escala;
+
+	state.gameChat.scale.x = 1 / escala;
+	state.gameChat.scale.y = 1 / escala;
+
+	state.gameNames.scale.x = 1 / escala;
+	state.gameNames.scale.y = 1 / escala;
+
+	syncGamePosition(state);
+
+	for (let i = 0; i < state.gameChat.children.length; i++) {
+		CharacterText.setEscala(state.gameChat.children[i], escala);
 	}
 
-	_inicializarPixi() {
-		BaseTexture.defaultOptions.scaleMode = SCALE_MODES.NEAREST;
-		BaseTexture.defaultOptions.mipmap = MIPMAP_MODES.OFF;
-		TextureGCSystem.defaultMode = GC_MODES.MANUAL;
-
-		this.pixiRenderer = new autoDetectRenderer(
-			this.camera.gridW * this.tilesize,
-			this.camera.gridH * this.tilesize
-		);
-		$(this.pixiRenderer.view).css('position', 'relative');
-		$(this.pixiRenderer.view).css('display', 'block');
-		$('#gamecanvas').append(this.pixiRenderer.view);
-		this._initStage();
+	for (var name of state.gameNames.children) {
+		CharacterName.setEscala(name, escala);
 	}
 
-	_initStage() {
-		this.stage = new Container();
-		this.gameStage = new Container();
-		this.climaContainer = new Container();
-		this.layer1 = new Container();
-		this.layer2 = new Container();
-		this.gameNames = new Container();
-		this.layer3 = ContainerOrdenado.initContainerOrdenado(this.MAPA_WIDTH);
-		this.layer3.ordenado = true;
-		this.layer4 = new Container();
-		this.gameChat = new Container();
-		this.consola = Consola.initConsola(this.escala);
-		this.indicadorMapa = IndicadorMapa.initIndicadorMapa(this.escala);
-		this.indicadorFPS = IndicadorFPS.initIndicadorFPS(this.escala);
-		this.stage.addChild(this.gameStage);
-		this.stage.addChild(this.climaContainer);
-		this.stage.addChild(this.consola);
-		this.stage.addChild(this.indicadorMapa);
-		this.stage.addChild(this.indicadorFPS);
-		this.gameStage.addChild(this.layer1);
-		this.gameStage.addChild(this.layer2);
-		this.gameStage.addChild(this.gameNames);
-		this.gameStage.addChild(this.layer3);
-		this.gameStage.addChild(this.layer4);
-		this.gameStage.addChild(this.gameChat);
+	Consola.setEscala(state.consola, escala);
 
-		this.entityRendererState = EntityRenderer.init(
-			this.escala,
-			this.layer3,
-			this.gameNames,
-			this.gameChat,
-			this.camera,
-			this.assetManager,
-			this.gameStage
-		);
-		this.climaRendererState = ClimaRenderer.initClimaRenderer(
-			this.escala,
-			this.climaContainer,
-			this.assetManager,
-			this.pixiRenderer
-		);
-		this.mapaRendererState = new MapaRenderer.initMapaRenderer(
-			this.camera,
-			this.assetManager,
-			this.layer1,
-			this.layer2,
-			this.layer3,
-			this.layer4
-		);
+	state.indicadorMapa.x = Math.round(518 * escala - 120);
+	state.indicadorMapa.y = Math.floor((13 * 32 - 10) * escala);
+
+	state.indicadorFPS.x = Math.round(539 * escala - 63);
+	state.indicadorFPS.y = Math.floor((1 * 32 - 32) * escala);
+
+	/* TEMPORAL */
+	if (state.entityRendererState) {
+		EntityRenderer.rescale(state.entityRendererState, escala);
+	}
+	if (state.climaRendererState) {
+		state.climaRendererState.escala = escala;
+	}
+	/* TEMPORAL */
+};
+
+const clean = (state, escala) => {
+	while (state.stage.children.length > 0) {
+		var child = state.stage.getChildAt(0);
+		removePixiChild(state.stage, child);
 	}
 
-	update(delta) {
-		//this.entityRenderer.update(delta);
-		ClimaRenderer.update(this.climaRendererState, delta);
-		//this.mapaRenderer.update(delta);
-		Consola.update(this.consola, delta);
-	}
+	const newStageState = initStage(state, state.pixiRenderer);
+	Object.assign(state, newStageState);
+	rescale(state, escala);
+};
 
-	agregarTextoConsola(texto, font) {
-		Consola.agregarTexto(this.consola, texto, font);
-	}
-
-	actualizarIndicadorMapa(numMap, x, y) {
-		IndicadorMapa.actualizar(this.indicadorMapa, numMap, x, y);
-	}
-
-	actualizarIndicadorFPS(fps) {
-		IndicadorFPS.actualizar(this.indicadorFPS, fps);
-	}
-
-	agregarItem(item, numGrh) {
-		EntityRenderer.agregarItem(this.entityRendererState, item, numGrh);
-	}
-
-	sacarItem(item) {
-		EntityRenderer.sacarItem(this.entityRendererState, item);
-	}
-
-	agregarCharacter(char) {
-		EntityRenderer.agregarCharacter(this.entityRendererState, char);
-	}
-
-	sacarCharacter(char) {
-		EntityRenderer.sacarCharacter(this.entityRendererState, char);
-	}
-
-	setCharacterChat(char, chat, r, g, b) {
-		EntityRenderer.setCharacterChat(this.entityRendererState, char, chat, r, g, b);
-	}
-
-	removerChat(char) {
-		EntityRenderer.removerChat(this.entityRendererState, char);
-	}
-
-	setCharVisible(char, visible) {
-		EntityRenderer.setCharVisible(this.entityRendererState, char, visible);
-	}
-
-	agregarCharacterHoveringInfo(char, valor, font) {
-		EntityRenderer.agregarCharacterHoveringInfo(this.entityRendererState, char, valor, font);
-	}
-
-	setCharacterFX(char, FX, FXLoops) {
-		EntityRenderer.setCharacterFX(this.entityRendererState, char, FX, FXLoops);
-	}
-
-	entityVisiblePorCamara(entity, extraPositions) {
-		return EntityRenderer.entityVisiblePorCamara(this.entityRendererState, entity, extraPositions);
-	}
-
-	entityEnTileVisible(entity) {
-		// puede que no este en un tile visible pero si sea visible la entidad (para eso usar el de arriba)
-		return EntityRenderer.entityEnTileVisible(this.entityRendererState, entity);
-	}
-
-	rescale(escala) {
-		// calcular escala que no haga quedar a los tiles en posiciones no enteras:
-		let newTilesize = Math.floor(escala * this.tilesize);
-		escala = newTilesize / this.tilesize;
-
-		this.escala = escala;
-
-		this.pixiRenderer.resize(
-			Math.round(this.camera.gridW * this.tilesize * escala),
-			Math.round(this.camera.gridH * this.tilesize * escala)
-		);
-		this.gameStage.scale.x = escala;
-		this.gameStage.scale.y = escala;
-
-		this.gameChat.scale.x = 1 / escala;
-		this.gameChat.scale.y = 1 / escala;
-
-		this.gameNames.scale.x = 1 / escala;
-		this.gameNames.scale.y = 1 / escala;
-
-		this._syncGamePosition();
-
-		for (let i = 0; i < this.gameChat.children.length; i++) {
-			CharacterText.setEscala(this.gameChat.children[i], escala);
-		}
-		for (var name of this.gameNames.children) {
-			CharacterName.setEscala(name, escala);
-		}
-		Consola.setEscala(this.consola, escala);
-
-		this.indicadorMapa.x = Math.round(518 * escala - 120);
-		this.indicadorMapa.y = Math.floor((13 * 32 - 10) * escala);
-
-		this.indicadorFPS.x = Math.round(539 * escala - 63);
-		this.indicadorFPS.y = Math.floor((1 * 32 - 32) * escala);
-
-		/* TEMPORAL */
-		if (this.entityRendererState) {
-			EntityRenderer.rescale(this.entityRendererState, escala);
-		}
-		if (this.climaRendererState) {
-			this.climaRendererState.escala = escala;
-		}
-		/* TEMPORAL */
-	}
-
-	clean(escala) {
-		while (this.stage.children.length > 0) {
-			var child = this.stage.getChildAt(0);
-			removePixiChild(this.stage, child);
-		}
-
-		this._initStage();
-		this.rescale(escala);
-	}
-
-	setBajoTecho(bajoT) {
-		if (this.fadeInterval) clearInterval(this.fadeInterval);
-		this.layer4.visible = true;
-		let targetAlpha = bajoT ? 0 : 1;
-		let currentAlpha = this.layer4.alpha;
-		let alphaDelta = (targetAlpha - currentAlpha) / 10;
-		let count = 0;
-		this.fadeInterval = setInterval(() => {
-			if (this.layer4.alpha !== targetAlpha) {
-				this.layer4.alpha += alphaDelta;
-				if (count === 10) {
-					this.layer4.alpha = targetAlpha;
-					this.layer4.visible = true;
-					clearInterval(this.fadeInterval);
-				}
-				count++;
+const setBajoTecho = (state, bajoT) => {
+	if (state.fadeInterval) clearInterval(state.fadeInterval);
+	state.layer4.visible = true;
+	let targetAlpha = bajoT ? 0 : 1;
+	let currentAlpha = state.layer4.alpha;
+	let alphaDelta = (targetAlpha - currentAlpha) / 10;
+	let count = 0;
+	state.fadeInterval = setInterval(() => {
+		if (state.layer4.alpha !== targetAlpha) {
+			state.layer4.alpha += alphaDelta;
+			if (count === 10) {
+				state.layer4.alpha = targetAlpha;
+				state.layer4.visible = true;
+				clearInterval(state.fadeInterval);
 			}
-		}, 50);
-	}
+			count++;
+		}
+	}, 50);
+};
 
-	shieldBlockAnimation() {
-		const duration = 200;
-		const magnitude = 2.5;
-		const originalPosition = { x: this.stage.x, y: this.stage.y };
-		const startTime = Date.now();
+const shieldBlockAnimation = (state) => {
+	const duration = 200;
+	const magnitude = 2.5;
+	const originalPosition = { x: state.stage.x, y: state.stage.y };
+	const startTime = Date.now();
 
-		const shake = () => {
-			const elapsed = Date.now() - startTime;
-			const remaining = duration - elapsed;
+	const shake = () => {
+		const elapsed = Date.now() - startTime;
+		const remaining = duration - elapsed;
 
-			if (remaining > 0) {
-				this.stage.x = originalPosition.x + (Math.random() - 0.5) * magnitude;
-				this.stage.y = originalPosition.y + (Math.random() - 0.5) * magnitude;
-				requestAnimationFrame(shake);
-			} else {
-				this.stage.x = originalPosition.x;
-				this.stage.y = originalPosition.y;
-			}
-		};
+		if (remaining > 0) {
+			state.stage.x = originalPosition.x + (Math.random() - 0.5) * magnitude;
+			state.stage.y = originalPosition.y + (Math.random() - 0.5) * magnitude;
+			requestAnimationFrame(shake);
+		} else {
+			state.stage.x = originalPosition.x;
+			state.stage.y = originalPosition.y;
+		}
+	};
 
-		shake();
-	}
+	shake();
+};
 
-	updateBeforeMovementBegins(dir, entities) {
-		MapaRenderer.updateTilesMov(this.mapaRendererState, dir);
-		EntityRenderer.updateEntitiesMov(this.entityRendererState, dir, entities);
-	}
+const updateBeforeMovementBegins = (state, dir, entities) => {
+	MapaRenderer.updateTilesMov(state.mapaRendererState, dir);
+	EntityRenderer.updateEntitiesMov(state.entityRendererState, dir, entities);
+};
 
-	cambiarMapa(mapa) {
-		MapaRenderer.cambiarMapa(this.mapaRendererState, mapa);
-	}
+const cambiarMapa = (state, mapa) => {
+	MapaRenderer.cambiarMapa(state.mapaRendererState, mapa);
+};
 
-	drawMapaIni(gridX, gridY, entities) {
-		this.resetCameraPosition(gridX, gridY, entities);
-		this._syncGamePosition();
-		MapaRenderer.drawMapaIni(this.mapaRendererState, gridX, gridY);
-	}
+const drawMapaIni = (state, gridX, gridY, entities) => {
+	resetCameraPosition(state, gridX, gridY, entities);
+	syncGamePosition(state);
+	MapaRenderer.drawMapaIni(state.mapaRendererState, gridX, gridY);
+};
 
-	resetCameraPosition(gridX, gridY, entities) {
-		Camera.lookAtGridPos(this.camera, gridX, gridY);
-		EntityRenderer.updateEntitiesClipping(this.entityRendererState, entities);
-	}
+const resetCameraPosition = (state, gridX, gridY, entities) => {
+	Camera.lookAtGridPos(state.camera, gridX, gridY);
+	EntityRenderer.updateEntitiesClipping(state.entityRendererState, entities);
+};
 
-	_syncGamePosition() {
-		this.gameStage.x = -Math.round(this.camera.x * this.escala);
-		this.gameStage.y = -Math.round(this.camera.y * this.escala);
-	}
+const entityVisiblePorCamara = (state, entity, extraPositions = null) => {
+	return EntityRenderer.entityVisiblePorCamara(state.entityRendererState, entity, extraPositions);
+};
 
-	moverPosition(x, y) {
-		Camera.mover(this.camera, x, y);
-		this._syncGamePosition();
-	}
+const entityEnTileVisible = (state, entity) => {
+	// puede que no este en un tile visible pero si sea visible la entidad (para eso usar el de arriba)
+	return EntityRenderer.entityEnTileVisible(state.entityRendererState, entity);
+};
 
-	resetPos(gridX, gridY, entities) {
-		this.drawMapaIni(gridX, gridY, entities);
-	}
+const agregarItem = (state, item, numGrh) => {
+	EntityRenderer.agregarItem(state.entityRendererState, item, numGrh);
+};
 
-	removeLluvia() {
-		ClimaRenderer.removeLluvia(this.climaRendererState);
-	}
+const sacarItem = (state, item) => {
+	EntityRenderer.sacarItem(state.entityRendererState, item);
+};
 
-	createLluvia() {
-		ClimaRenderer.createLluvia(this.climaRendererState);
-	}
+const agregarCharacter = (state, char) => {
+	EntityRenderer.agregarCharacter(state.entityRendererState, char);
+};
 
-	renderFrame() {
-		this.pixiRenderer.render(this.stage);
-		/*
+const sacarCharacter = (state, char) => {
+	EntityRenderer.sacarCharacter(state.entityRendererState, char);
+};
+
+const setCharacterChat = (state, char, chat, r, g, b) => {
+	EntityRenderer.setCharacterChat(state.entityRendererState, char, chat, r, g, b);
+};
+
+const removerChat = (state, char) => {
+	EntityRenderer.removerChat(state.entityRendererState, char);
+};
+
+const setCharVisible = (state, char, visible) => {
+	EntityRenderer.setCharVisible(state.entityRendererState, char, visible);
+};
+
+const agregarCharacterHoveringInfo = (state, char, valor, font) => {
+	EntityRenderer.agregarCharacterHoveringInfo(state.entityRendererState, char, valor, font);
+};
+
+const setCharacterFX = (state, char, FX, FXLoops) => {
+	EntityRenderer.setCharacterFX(state.entityRendererState, char, FX, FXLoops);
+};
+
+const moverPosition = (state, x, y) => {
+	Camera.mover(state.camera, x, y);
+	syncGamePosition(state);
+};
+
+const resetPos = (state, gridX, gridY, entities) => {
+	drawMapaIni(state, gridX, gridY, entities);
+};
+
+const removeLluvia = (state) => {
+	ClimaRenderer.removeLluvia(state.climaRendererState);
+};
+
+const createLluvia = (state) => {
+	ClimaRenderer.createLluvia(state.climaRendererState);
+};
+
+const renderFrame = (state) => {
+	state.pixiRenderer.render(state.stage);
+	/*
                  let testPosEnteras = (c) => {
                  if ( (Math.round(c.x) !== c.x) || (Math.round(c.y) !== c.y) ){
                  log.error(c._grh);
@@ -328,6 +368,36 @@ class Renderer {
                  };
                  testPosEnteras(this.stage);
                  */
-	}
-}
-export default Renderer;
+};
+
+export {
+	init,
+	update,
+	agregarTextoConsola,
+	actualizarIndicadorMapa,
+	actualizarIndicadorFPS,
+	rescale,
+	clean,
+	setBajoTecho,
+	shieldBlockAnimation,
+	updateBeforeMovementBegins,
+	cambiarMapa,
+	drawMapaIni,
+	resetCameraPosition,
+	entityVisiblePorCamara,
+	entityEnTileVisible,
+	agregarItem,
+	sacarItem,
+	agregarCharacter,
+	sacarCharacter,
+	setCharacterChat,
+	removerChat,
+	setCharVisible,
+	agregarCharacterHoveringInfo,
+	setCharacterFX,
+	moverPosition,
+	resetPos,
+	renderFrame,
+	removeLluvia,
+	createLluvia
+};

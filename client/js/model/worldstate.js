@@ -3,6 +3,7 @@
  */
 
 import { Enums } from '../enums';
+import * as Renderer from '../view/renderer';
 
 class WorldState {
 	constructor(renderer, audio) {
@@ -24,10 +25,10 @@ class WorldState {
 		}
 		if (lloviendo) {
 			this.audio.clima.iniciarLluvia(this.bajoTecho);
-			this.renderer.createLluvia();
+			Renderer.createLluvia(this.renderer);
 		} else {
 			this.audio.clima.finalizarLluvia(this.bajoTecho);
-			this.renderer.removeLluvia();
+			Renderer.removeLluvia(this.renderer);
 		}
 	}
 
@@ -39,12 +40,12 @@ class WorldState {
 		if (this._outdoor) {
 			if (this._lloviendo) {
 				this.audio.clima.playLoopLluvia(this.bajoTecho);
-				this.renderer.createLluvia();
+				Renderer.createLluvia(this.renderer);
 			}
 		} else {
 			if (this._lloviendo) {
 				this.audio.clima.finalizarLluvia(this.bajoTecho);
-				this.renderer.removeLluvia();
+				Renderer.removeLluvia(this.renderer);
 			}
 		}
 	}
@@ -54,7 +55,7 @@ class WorldState {
 			return;
 		}
 		this._bajoTecho = bajoTecho;
-		this.renderer.setBajoTecho(bajoTecho);
+		Renderer.setBajoTecho(this.renderer, bajoTecho);
 		if (this.lloviendo && this.outdoor) {
 			this.audio.clima.playLoopLluvia(bajoTecho);
 		}

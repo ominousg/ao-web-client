@@ -8,6 +8,7 @@ import Websock from '../lib/websock';
 import { usePlayerStatsStore } from '../stores';
 import * as Camera from '../view/camera';
 import * as Mapa from '../model/mapa';
+import * as Renderer from '../view/renderer';
 
 class GameClient {
 	constructor(game, uiManager, gameUI) {
@@ -424,7 +425,7 @@ class GameClient {
 	handleSetInvisible(charIndex, invisible) {
 		var char = this.game.world.getCharacter(charIndex);
 		if (char) {
-			this.game.renderer.setCharVisible(char, !invisible);
+			Renderer.setCharVisible(this.game.renderer, char, !invisible);
 		}
 	}
 
@@ -761,7 +762,7 @@ class GameClient {
 
 	handleBlockedWithShieldUser() {
 		this.game.escribirMsgConsola(Enums.MensajeConsola.RECHAZO_ATAQUE_ESCUDO, Font.FIGHT);
-		this.game.renderer.shieldBlockAnimation();
+		Renderer.shieldBlockAnimation(this.game.renderer);
 	}
 
 	handleBlockedWithShieldOther() {
