@@ -5,73 +5,69 @@
 import { Enums } from '../enums';
 import * as Renderer from '../view/renderer';
 
-class WorldState {
-	constructor(renderer, audio) {
-		this.renderer = renderer;
-		this.audio = audio;
+const init = (renderer, audio) => ({
+	renderer,
+	audio,
+	_lloviendo: null,
+	_bajoTecho: null,
+	_outdoor: null
+});
 
-		this._lloviendo = null;
-		this._bajoTecho = null;
-		this._outdoor = null;
+const setLloviendo = (state, lloviendo) => {
+	if (state._lloviendo === lloviendo) {
+		return;
 	}
 
-	set lloviendo(lloviendo) {
-		if (this._lloviendo === lloviendo) {
-			return;
-		}
-		this._lloviendo = lloviendo;
-		if (!this.outdoor) {
-			return;
-		}
-		if (lloviendo) {
-			this.audio.clima.iniciarLluvia(this.bajoTecho);
-			Renderer.createLluvia(this.renderer);
-		} else {
-			this.audio.clima.finalizarLluvia(this.bajoTecho);
-			Renderer.removeLluvia(this.renderer);
-		}
+	state._lloviendo = lloviendo;
+
+	if (!state._outdoor) {
+		return;
 	}
 
-	set outdoor(outdoor) {
-		if (this._outdoor === outdoor) {
-			return;
+	if (lloviendo) {
+		state.audio.clima.iniciarLluvia(state._bajoTecho);
+		Renderer.createLluvia(state.renderer);
+	} else {
+		state.audio.clima.finalizarLluvia(state._bajoTecho);
+		Renderer.removeLluvia(state.renderer);
+	}
+};
+
+const setOutdoor = (state, outdoor) => {
+	if (state._outdoor === outdoor) {
+		return;
+	}
+
+	state._outdoor = outdoor;
+
+	if (state._outdoor) {
+		if (state._lloviendo) {
+			state.audio.clima.playLoopLluvia(state._bajoTecho);
+			Renderer.createLluvia(state.renderer);
 		}
-		this._outdoor = outdoor;
-		if (this._outdoor) {
-			if (this._lloviendo) {
-				this.audio.clima.playLoopLluvia(this.bajoTecho);
-				Renderer.createLluvia(this.renderer);
-			}
-		} else {
-			if (this._lloviendo) {
-				this.audio.clima.finalizarLluvia(this.bajoTecho);
-				Renderer.removeLluvia(this.renderer);
-			}
+	} else {
+		if (state._lloviendo) {
+			state.audio.clima.finalizarLluvia(state._bajoTecho);
+			Renderer.removeLluvia(state.renderer);
 		}
 	}
+};
 
-	set bajoTecho(bajoTecho) {
-		if (this._bajoTecho === bajoTecho) {
-			return;
-		}
-		this._bajoTecho = bajoTecho;
-		Renderer.setBajoTecho(this.renderer, bajoTecho);
-		if (this.lloviendo && this.outdoor) {
-			this.audio.clima.playLoopLluvia(bajoTecho);
-		}
+const setBajoTecho = (state, bajoTecho) => {
+	if (state._bajoTecho === bajoTecho) {
+		return;
 	}
 
-	get lloviendo() {
-		return this._lloviendo;
-	}
+	state._bajoTecho = bajoTecho;
+	Renderer.setBajoTecho(state.renderer, bajoTecho);
 
-	get bajoTecho() {
-		return this._bajoTecho;
+	if (state._lloviendo && state._outdoor) {
+		state.audio.clima.playLoopLluvia(bajoTecho);
 	}
+};
 
-	get outdoor() {
-		return this._outdoor;
-	}
-}
+const getLloviendo = (state) => state._lloviendo;
+const getBajoTecho = (state) => state._bajoTecho;
+const getOutdoor = (state) => state._outdoor;
 
-export default WorldState;
+export { init, setLloviendo, setOutdoor, setBajoTecho, getLloviendo, getBajoTecho, getOutdoor };

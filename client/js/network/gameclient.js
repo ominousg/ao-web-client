@@ -9,6 +9,7 @@ import { usePlayerStatsStore } from '../stores';
 import * as Camera from '../view/camera';
 import * as Mapa from '../model/mapa';
 import * as Renderer from '../view/renderer';
+import * as WorldState from '../model/worldstate';
 
 class GameClient {
 	constructor(game, uiManager, gameUI) {
@@ -279,7 +280,7 @@ class GameClient {
 	}
 
 	handleRainToggle() {
-		this.game.worldState.lloviendo = !this.game.worldState.lloviendo;
+		WorldState.setLloviendo(this.game.worldState, !WorldState.getLloviendo(this.game.worldState));
 	}
 
 	handleCreateFX(CharIndex, FX, FXLoops) {

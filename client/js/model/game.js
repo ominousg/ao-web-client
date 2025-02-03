@@ -9,7 +9,7 @@ import PlayerState from './playerstate';
 import PlayerMovement from './playermovement';
 import { Enums } from '../enums';
 import World from './world';
-import WorldState from './worldstate';
+import * as WorldState from '../model/worldstate';
 import * as GameText from './gametext';
 import { Ticker } from 'pixi.js';
 import * as Camera from '../view/camera';
@@ -64,7 +64,7 @@ class Game {
 		this.gameUI = gameUI;
 		this.renderer = renderer;
 		this.world = new World(renderer);
-		this.worldState = new WorldState(renderer, audio);
+		this.worldState = WorldState.init(renderer, audio);
 		this.gameText = GameText.init(this.renderer);
 	}
 
@@ -115,7 +115,7 @@ class Game {
 
 	actualizarBajoTecho() {
 		Mapa.onceLoaded(this.map, (mapa) => {
-			this.worldState.bajoTecho = Mapa.isBajoTecho(mapa, this.player.gridX, this.player.gridY);
+			WorldState.setBajoTecho(this.worldState, Mapa.isBajoTecho(mapa, this.player.gridX, this.player.gridY));
 		});
 	}
 
@@ -428,7 +428,7 @@ class Game {
 		this.playerMovement.disable();
 		Mapa.onceLoaded(this.map, (mapa) => {
 			this.playerMovement.enable();
-			this.worldState.outdoor = Mapa.mapaOutdoor(mapa);
+			WorldState.setOutdoor(this.worldState, Mapa.mapaOutdoor(mapa));
 		});
 		this._removeAllEntities();
 	}
