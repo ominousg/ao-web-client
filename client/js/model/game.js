@@ -8,7 +8,7 @@ import Skills from './skills';
 import PlayerState from './playerstate';
 import PlayerMovement from './playermovement';
 import { Enums } from '../enums';
-import World from './world';
+import * as World from './world';
 import * as WorldState from '../model/worldstate';
 import * as GameText from './gametext';
 import { Ticker } from 'pixi.js';
@@ -63,7 +63,7 @@ class Game {
 		this.client = client;
 		this.gameUI = gameUI;
 		this.renderer = renderer;
-		this.world = new World(renderer);
+		this.world = World.init(renderer);
 		this.worldState = WorldState.init(renderer, audio);
 		this.gameText = GameText.init(this.renderer);
 	}
@@ -77,7 +77,7 @@ class Game {
 	}
 
 	recibirDanioUser(parteCuerpo, danio, attackerIndex) {
-		let attackerName = this.world.getCharacter(attackerIndex).nombre;
+		let attackerName = World.getCharacter(this.world, attackerIndex).nombre;
 		GameText.playerHitByUser(this.gameText, this.player, parteCuerpo, danio, attackerName);
 	}
 
@@ -87,7 +87,7 @@ class Game {
 	}
 
 	realizarDanioPlayer(danio, parteCuerpo, victimIndex) {
-		let victim = this.world.getCharacter(victimIndex);
+		let victim = World.getCharacter(this.world, victimIndex);
 		GameText.playerHitUser(this.gameText, victim, parteCuerpo, danio);
 	}
 
@@ -96,19 +96,19 @@ class Game {
 	}
 
 	escribirChat(chat, charIndex, r, g, b) {
-		let c = this.world.getCharacter(charIndex);
+		let c = World.getCharacter(this.world, charIndex);
 		GameText.chat(this.gameText, c, chat, r, g, b);
 	}
 
 	sacarChatCharacterByID(charID) {
-		let char = this.world.getCharacter(charID);
+		let char = World.getCharacter(this.world, charID);
 		if (char) {
 			GameText.removeCharacterChat(this.gameText, char);
 		}
 	}
 
 	sacarAllCharacterChats() {
-		this.world.forEachCharacter((char) => {
+		World.forEachCharacter(this.world, (char) => {
 			GameText.removeCharacterChat(this.gameText, char);
 		});
 	}
@@ -121,7 +121,7 @@ class Game {
 
 	_removeAllEntities() {
 		var self = this;
-		this.world.forEachEntity(function (entity) {
+		World.forEachEntity(this.world, function (entity) {
 			if (entity.id !== self.player.id) {
 				self.sacarEntity(entity);
 			}
@@ -133,9 +133,9 @@ class Game {
 			if (entity === this.player) {
 				return;
 			}
-			this.world.sacarCharacter(entity);
+			World.sacarCharacter(this.world, entity);
 		} else if (entity instanceof Item) {
-			this.world.sacarItem(entity);
+			World.sacarItem(this.world, entity);
 		} else {
 			console.log('Error: Tipo de entity desconocido!');
 		}
@@ -147,7 +147,7 @@ class Game {
 				this.resetPosCharacter(CharIndex, X, Y);
 			}
 		} else {
-			var c = this.world.getCharacter(CharIndex);
+			var c = World.getCharacter(this.world, CharIndex);
 			if (!c) {
 				// console.log("mover character inexistente: " + CharIndex);
 				return;
@@ -192,7 +192,7 @@ class Game {
 	}
 
 	cambiarCharacter(CharIndex, Body, Head, Heading, Weapon, Shield, Helmet, FX, FXLoops) {
-		var c = this.world.getCharacter(CharIndex);
+		var c = World.getCharacter(this.world, CharIndex);
 
 		if (!c) {
 			console.log('cambiar character inexistente');
@@ -235,7 +235,7 @@ class Game {
 			clan = null;
 		}
 
-		if (this.world.getCharacter(CharIndex)) {
+		if (World.getCharacter(this.world, CharIndex)) {
 			if (CharIndex === this.player.id) {
 				//"cambio de mapa", TODO: ver bien esto
 				// setear cosas que pueden cambiar al cambiar mapa (color nombre, sacar chat,pos)
@@ -263,7 +263,7 @@ class Game {
 			FXLoops,
 			NickColor
 		);
-		this.world.addCharacter(c);
+		World.addCharacter(this.world, c);
 		this.setCharacterFX(CharIndex, FX, FXLoops);
 
 		if (!this.player && this.username.toUpperCase() === nombre.toUpperCase()) {
@@ -274,16 +274,16 @@ class Game {
 	}
 
 	agregarItem(grhIndex, gridX, gridY) {
-		let viejoItem = this.world.getItemInGridPos(gridX, gridY);
+		let viejoItem = World.getItemInGridPos(this.world, gridX, gridY);
 		if (viejoItem) {
 			this.sacarEntity(viejoItem);
 		}
 		var item = new Item(gridX, gridY);
-		this.world.addItem(item, grhIndex);
+		World.addItem(this.world, item, grhIndex);
 	}
 
 	sacarItem(gridX, gridY) {
-		let item = this.world.getItemInGridPos(gridX, gridY);
+		let item = World.getItemInGridPos(this.world, gridX, gridY);
 		if (item) {
 			this.sacarEntity(item);
 		}
@@ -292,7 +292,7 @@ class Game {
 	changePlayerIndex(CharIndex) {
 		if (this.player.id !== CharIndex) {
 			var prevPlayerCharacter = this.player;
-			this.player = this.world.getCharacter(CharIndex);
+			this.player = World.getCharacter(this.world, CharIndex);
 			this.sacarEntity(prevPlayerCharacter);
 		}
 		this.inicializarPlayerEnMapa();
@@ -330,7 +330,12 @@ class Game {
 			}
 
 			this.resetPosCharacter(this.player.id, X, Y, true);
-			Renderer.drawMapaIni(this.renderer, this.player.gridX, this.player.gridY, this.world.getEntities());
+			Renderer.drawMapaIni(
+				this.renderer,
+				this.player.gridX,
+				this.player.gridY,
+				World.getEntities(this.world)
+			);
 		};
 		Mapa.onceLoaded(this.map, (mapa) => {
 			f();
@@ -395,7 +400,7 @@ class Game {
 	}
 
 	resetPosCharacter(charIndex, gridX, gridY, noReDraw) {
-		let c = this.world.getCharacter(charIndex);
+		let c = World.getCharacter(this.world, charIndex);
 		if (!c) {
 			return;
 		}
@@ -405,7 +410,7 @@ class Game {
 
 		if (c === this.player) {
 			if (!noReDraw) {
-				Renderer.resetPos(this.renderer, gridX, gridY, this.world.getEntities());
+				Renderer.resetPos(this.renderer, gridX, gridY, World.getEntities(this.world));
 			}
 			this.actualizarBajoTecho();
 			this.actualizarIndicadorPosMapa();
@@ -449,7 +454,7 @@ class Game {
 		var MaxLimiteY = MinLimiteY + 26;
 
 		var self = this;
-		this.world.forEachEntity(function (entity, index) {
+		World.forEachEntity(this.world, function (entity, index) {
 			if (
 				entity.gridY < MinLimiteY ||
 				entity.gridY > MaxLimiteY ||
@@ -480,7 +485,7 @@ class Game {
 					this.playSonidoPaso(this.player);
 				}
 
-				Renderer.updateBeforeMovementBegins(this.renderer, direccion, this.world.getEntities());
+				Renderer.updateBeforeMovementBegins(this.renderer, direccion, World.getEntities(this.world));
 			}.bind(this)
 		);
 
@@ -533,7 +538,7 @@ class Game {
 					return false;
 				}
 
-				let charInPos = this.world.getCharacterInGridPos(x, y);
+				let charInPos = World.getCharacterInGridPos(this.world, x, y);
 				if (charInPos) {
 					if (!charInPos.muerto) {
 						return false;
@@ -641,7 +646,7 @@ class Game {
 	}
 
 	setCharacterFX(CharIndex, FX, FXLoops) {
-		let c = this.world.getCharacter(CharIndex);
+		let c = World.getCharacter(this.world, CharIndex);
 		if (!c) {
 			return;
 		}

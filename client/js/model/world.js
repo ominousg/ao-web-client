@@ -4,80 +4,79 @@
 import { Enums } from '../enums';
 import * as Renderer from '../view/renderer';
 
-class World {
-	constructor(renderer) {
-		this.renderer = renderer;
-		this.characters = [];
-		this.items = [];
-	}
+const init = (renderer) => ({
+	renderer,
+	characters: [],
+	items: []
+});
 
-	getCharacter(CharIndex) {
-		return this.characters.find((char) => {
-			return char.id === CharIndex;
-		});
-	}
+const getCharacter = (world, CharIndex) => world.characters.find((char) => char.id === CharIndex);
 
-	getCharacterInGridPos(gridX, gridY) {
-		return this.characters.find((char) => {
-			return char.gridX === gridX && char.gridY === gridY;
-		});
-	}
+const getCharacterInGridPos = (world, gridX, gridY) =>
+	world.characters.find((char) => char.gridX === gridX && char.gridY === gridY);
 
-	addCharacter(char) {
-		this.characters.push(char);
-		Renderer.agregarCharacter(this.renderer, char);
-	}
+const addCharacter = (world, char) => {
+	world.characters.push(char);
+	Renderer.agregarCharacter(world.renderer, char);
+};
 
-	sacarCharacter(c) {
-		let index = this.characters.indexOf(c);
-		if (index > -1) {
-			Renderer.sacarCharacter(this.renderer, c);
-			this.characters.splice(index, 1);
-		}
+const sacarCharacter = (world, c) => {
+	const index = world.characters.indexOf(c);
+	if (index > -1) {
+		Renderer.sacarCharacter(world.renderer, c);
+		world.characters.splice(index, 1);
 	}
+};
 
-	addItem(item, grhIndex) {
-		this.items.push(item);
-		Renderer.agregarItem(this.renderer, item, grhIndex);
+const addItem = (world, item, grhIndex) => {
+	world.items.push(item);
+	Renderer.agregarItem(world.renderer, item, grhIndex);
+};
+
+const sacarItem = (world, item) => {
+	const index = world.items.indexOf(item);
+	if (index > -1) {
+		world.items.splice(index, 1);
+		Renderer.sacarItem(world.renderer, item);
 	}
+};
 
-	sacarItem(item) {
-		let index = this.items.indexOf(item);
-		if (index > -1) {
-			this.items.splice(index, 1);
-			Renderer.sacarItem(this.renderer, item);
-		}
+const getItemInGridPos = (world, gridX, gridY) =>
+	world.items.find((item) => item.gridX === gridX && item.gridY === gridY);
+
+const forEachCharacter = (world, callback) => {
+	// loopeo al revez asi permite remover items en callback
+	let i;
+	for (i = world.characters.length - 1; i >= 0; i--) {
+		callback(world.characters[i], i);
 	}
+};
 
-	getItemInGridPos(gridX, gridY) {
-		return this.items.find((item) => {
-			return item.gridX === gridX && item.gridY === gridY;
-		});
+const forEachItem = (world, callback) => {
+	let i;
+	for (i = world.items.length - 1; i >= 0; i--) {
+		callback(world.items[i], i);
 	}
+};
 
-	forEachCharacter(callback) {
-		// loopeo al revez asi permite remover items en callback
-		let i;
-		for (i = this.characters.length - 1; i >= 0; i--) {
-			callback(this.characters[i], i);
-		}
-	}
+const forEachEntity = (world, callback) => {
+	forEachCharacter(world, callback);
+	forEachItem(world, callback);
+};
 
-	forEachItem(callback) {
-		let i;
-		for (i = this.items.length - 1; i >= 0; i--) {
-			callback(this.items[i], i);
-		}
-	}
+const getEntities = (world) => world.characters.concat(world.items);
 
-	forEachEntity(callback) {
-		this.forEachCharacter(callback);
-		this.forEachItem(callback);
-	}
-
-	getEntities() {
-		return this.characters.concat(this.items);
-	}
-}
-
-export default World;
+export {
+	init,
+	getCharacter,
+	getCharacterInGridPos,
+	addCharacter,
+	sacarCharacter,
+	addItem,
+	sacarItem,
+	getItemInGridPos,
+	forEachCharacter,
+	forEachItem,
+	forEachEntity,
+	getEntities
+};

@@ -4,6 +4,7 @@
 import { Enums } from '../enums';
 import Font from '../font';
 import Macros from './macros';
+import * as World from './world';
 
 class Acciones {
 	constructor(game, intervalos) {
@@ -87,7 +88,7 @@ class Acciones {
 				default:
 					console.log(' Direccion de player invalida!');
 			}
-			this.game.playerState.lastAttackedTarget = this.game.world.getCharacterInGridPos(x, y);
+			this.game.playerState.lastAttackedTarget = World.getCharacterInGridPos(this.game.world, x, y);
 		}
 	}
 

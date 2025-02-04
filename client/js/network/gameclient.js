@@ -10,6 +10,7 @@ import * as Camera from '../view/camera';
 import * as Mapa from '../model/mapa';
 import * as Renderer from '../view/renderer';
 import * as WorldState from '../model/worldstate';
+import * as World from '../model/world';
 
 class GameClient {
 	constructor(game, uiManager, gameUI) {
@@ -220,7 +221,7 @@ class GameClient {
 	}
 
 	handleCharacterRemove(CharIndex) {
-		let c = this.game.world.getCharacter(CharIndex);
+		let c = World.getCharacter(this.game.world, CharIndex);
 		if (!c) {
 			console.log('trato de sacar character inexistente');
 		} else {
@@ -424,7 +425,7 @@ class GameClient {
 	}
 
 	handleSetInvisible(charIndex, invisible) {
-		var char = this.game.world.getCharacter(charIndex);
+		var char = World.getCharacter(this.game.world, charIndex);
 		if (char) {
 			Renderer.setCharVisible(this.game.renderer, char, !invisible);
 		}
@@ -596,7 +597,7 @@ class GameClient {
 
 	handleUpdateTagAndStatus(CharIndex, NickColor, Tag) {
 		// TODO: arreglar en el server, siempre manda charIndex = 1
-		var char = this.game.world.getCharacter(CharIndex);
+		var char = World.getCharacter(this.game.world, CharIndex);
 		if (!char) {
 			return;
 		}
@@ -679,7 +680,7 @@ class GameClient {
 	}
 
 	handleUserAttackedSwing(attackerIndex) {
-		let attackerName = this.game.world.getCharacter(attackerIndex).nombre;
+		let attackerName = World.getCharacter(this.game.world, attackerIndex).nombre;
 		let text = Enums.MensajeConsola.MENSAJE_1 + attackerName + Enums.MensajeConsola.ATAQUE_FALLO;
 		this.game.escribirMsgConsola(text, Font.FIGHT);
 	}
@@ -725,7 +726,7 @@ class GameClient {
 	}
 
 	handleHaveKilledUser(victimIndex, exp) {
-		let victimName = this.game.world.getCharacter(victimIndex).nombre;
+		let victimName = World.getCharacter(this.game.world, victimIndex).nombre;
 		this.game.escribirMsgConsola(Enums.MensajeConsola.HAS_MATADO_A + victimName + Enums.MensajeConsola.MENSAJE_22, Font.FIGHT);
 		this.game.escribirMsgConsola(Enums.MensajeConsola.HAS_GANADO_EXPE_1 + exp + Enums.MensajeConsola.HAS_GANADO_EXPE_2, Font.FIGHT);
 	}
@@ -749,7 +750,7 @@ class GameClient {
 	}
 
 	handleUserKill(attackerIndex) {
-		let attackerName = this.game.world.getCharacter(attackerIndex).nombre;
+		let attackerName = World.getCharacter(this.game.world, attackerIndex).nombre;
 		this.game.escribirMsgConsola(attackerName + Enums.MensajeConsola.TE_HA_MATADO, Font.FIGHT);
 	}
 

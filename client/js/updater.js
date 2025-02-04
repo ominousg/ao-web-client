@@ -1,4 +1,5 @@
 import * as Renderer from './view/renderer';
+import * as World from './model/world';
 
 class Updater {
 	constructor(game) {
@@ -20,7 +21,7 @@ class Updater {
 	}
 
 	updateCharacters(delta) {
-		this.game.world.forEachCharacter((character) => {
+		World.forEachCharacter(this.game.world, (character) => {
 			character.update(delta);
 		});
 	}
