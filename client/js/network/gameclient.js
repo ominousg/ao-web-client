@@ -12,6 +12,7 @@ import * as Renderer from '../view/renderer';
 import * as WorldState from '../model/worldstate';
 import * as World from '../model/world';
 import * as Skills from '../model/skills';
+import * as Atributos from '../model/atributos';
 
 class GameClient {
 	constructor(game, uiManager, gameUI) {
@@ -162,19 +163,19 @@ class GameClient {
 	}
 
 	handleUpdateSta(Value) {
-		this.game.atributos.setStamina(Value);
+		Atributos.setStamina(this.game.atributos, Value);
 	}
 
 	handleUpdateMana(Value) {
-		this.game.atributos.setMana(Value);
+		Atributos.setMana(this.game.atributos, Value);
 	}
 
 	handleUpdateHP(Value) {
-		this.game.atributos.setVida(Value);
+		Atributos.setVida(this.game.atributos, Value);
 	}
 
 	handleUpdateGold(Value) {
-		this.game.atributos.setOro(Value);
+		Atributos.setOro(this.game.atributos, Value);
 	}
 
 	handleUpdateBankGold(Value) {
@@ -182,7 +183,7 @@ class GameClient {
 	}
 
 	handleUpdateExp(Value) {
-		this.game.atributos.setExp(Value);
+		Atributos.setExp(this.game.atributos, Value);
 	}
 
 	handleChangeMap(Map, Version) {
@@ -290,12 +291,12 @@ class GameClient {
 	}
 
 	handleUpdateUserStats(MaxHp, MinHp, MaxMan, MinMan, MaxSta, MinSta, Gld, Elv, Elu, Exp) {
-		this.game.atributos.setVida(MinHp, MaxHp);
-		this.game.atributos.setMana(MinMan, MaxMan);
-		this.game.atributos.setStamina(MinSta, MaxSta);
-		this.game.atributos.setExp(Exp, Elu);
-		this.game.atributos.setOro(Gld);
-		this.game.atributos.setNivel(Elv);
+		Atributos.setVida(this.game.atributos, MinHp, MaxHp);
+		Atributos.setMana(this.game.atributos, MinMan, MaxMan);
+		Atributos.setStamina(this.game.atributos, MinSta, MaxSta);
+		Atributos.setExp(this.game.atributos, Exp, Elu);
+		Atributos.setOro(this.game.atributos, Gld);
+		Atributos.setNivel(this.game.atributos, Elv);
 	}
 
 	handleChangeInventorySlot(Slot, ObjIndex, ObjName, Amount, Equiped, GrhIndex, ObjType, MaxHit, MinHit, MaxDef, MinDef, ObjSalePrice) {
@@ -386,8 +387,8 @@ class GameClient {
 	}
 
 	handleUpdateHungerAndThirst(MaxAgu, MinAgu, MaxHam, MinHam) {
-		this.game.atributos.setAgua(MinAgu, MaxAgu);
-		this.game.atributos.setHambre(MinHam, MaxHam);
+		Atributos.setAgua(this.game.atributos, MinAgu, MaxAgu);
+		Atributos.setHambre(this.game.atributos, MinHam, MaxHam);
 	}
 
 	handleFame(Asesino, Bandido, Burgues, Ladron, Noble, Plebe, Promedio) {

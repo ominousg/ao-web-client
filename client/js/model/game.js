@@ -2,7 +2,7 @@ import * as Mapa from './mapa';
 import Updater from '../updater';
 import Item from './item';
 import Character from './character';
-import Atributos from './atributos';
+import * as Atributos from './atributos';
 import Inventario from './inventario';
 import PlayerState from './playerstate';
 import PlayerMovement from './playermovement';
@@ -31,7 +31,7 @@ class Game {
 		this.playerMovement = new PlayerMovement(this);
 		this.initPlayerMovementCallbacks();
 		this.playerState = new PlayerState();
-		this.atributos = new Atributos(this);
+		this.atributos = Atributos.init(this);
 		this.map = Mapa.init();
 		this.assetManager = assetManager;
 

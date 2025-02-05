@@ -254,7 +254,7 @@ class Acciones {
 			return;
 		}
 		if (this.game.atributos.mana === this.game.atributos.maxMana) {
-			this.game.escribirMsgConsola('Tu mana ya esta llena', Font.NOTIFICATION);
+			this.game.escribirMsgConsola('Tu mana ya está llena', Font.NOTIFICATION);
 		} else {
 			this.game.client.sendMeditate();
 		}
