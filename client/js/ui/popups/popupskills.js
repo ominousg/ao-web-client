@@ -3,6 +3,7 @@
  */
 
 import PopUp from './popup';
+import * as Skills from '../../model/skills';
 
 const htmlString = `
 <!DOCTYPE html>
@@ -51,7 +52,7 @@ class popUpSkills extends PopUp {
 		super($element, options);
 		this.game = game;
 		this.initCallbacks();
-		this.skills = null;
+		this.skills = Skills.init();
 		this.skillsInicializados = false;
 	}
 
@@ -121,7 +122,7 @@ class popUpSkills extends PopUp {
 		$botonMas.data('numSkill', numSkill);
 		$botonMas.on('click', function () {
 			var numSkill = $(this).data('numSkill');
-			if (self.skills.asignarSkill(numSkill)) {
+			if (Skills.asignarSkill(self.skills, numSkill)) {
 				self._updateSkill(numSkill);
 				self._updatePuntosLibres();
 			}
@@ -131,10 +132,10 @@ class popUpSkills extends PopUp {
 		$botonMenos.data('numSkill', numSkill);
 		$botonMenos.on('click', function () {
 			var numSkill = $(this).data('numSkill');
-			if (self.skills.getPuntosSkill(numSkill) <= self.game.skills.getPuntosSkill(numSkill)) {
+			if (Skills.getPuntosSkill(self.skills, numSkill) <= Skills.getPuntosSkill(self.game.skills, numSkill)) {
 				return;
 			}
-			self.skills.desAsignarSkill(numSkill);
+			Skills.desAsignarSkill(self.skills, numSkill);
 			self._updateSkill(numSkill);
 			self._updatePuntosLibres();
 		});
@@ -145,8 +146,8 @@ class popUpSkills extends PopUp {
 	}
 
 	_updateSkill(numSkill, nombre, puntos) {
-		nombre = nombre || this.skills.getNombreSkill(numSkill);
-		puntos = puntos || this.skills.getPuntosSkill(numSkill);
+		nombre = nombre || Skills.getNombreSkill(this.skills, numSkill);
+		puntos = puntos || Skills.getPuntosSkill(this.skills, numSkill);
 		var id = this._getSkillTextDOMid(numSkill);
 		let puntosid = this._getSkillPointsDOMid(numSkill);
 		$('#' + id).text(nombre.toUpperCase());
@@ -155,17 +156,16 @@ class popUpSkills extends PopUp {
 
 	_updateSkillsPoints() {
 		var self = this;
-		this.skills.forEachSkill(function (numSkill, puntos, porcentaje, nombre) {
+		Skills.forEachSkill(this.skills, function (numSkill, puntos, porcentaje, nombre) {
 			self._updateSkill(numSkill, nombre.puntos);
 		});
 	}
 
 	updateSkillsData() {
 		var self = this;
-		//this.skills = $.extend(true, {}, this.game.skills);
-		this.skills = $.extend(true, Object.create(Object.getPrototypeOf(this.game.skills)), this.game.skills); // clonar
+		this.skills = $.extend(true, Object.create(Object.getPrototypeOf(this.game.skills)), this.game.skills);
 		if (!this.skillsInicializados) {
-			this.skills.forEachSkill(function (numSkill, puntos, porcentaje, nombre) {
+			Skills.forEachSkill(this.skills, function (numSkill, puntos, porcentaje, nombre) {
 				self._createSkill(numSkill, nombre, puntos, porcentaje);
 			});
 			this.skillsInicializados = true;
@@ -178,8 +178,8 @@ class popUpSkills extends PopUp {
 		var modificados = false;
 		var res = [];
 		var self = this;
-		this.skills.forEachSkill(function (numSkill, puntos, porcentaje, nombre) {
-			var puntosAdicionales = puntos - self.game.skills.getPuntosSkill(numSkill);
+		Skills.forEachSkill(this.skills, function (numSkill, puntos, porcentaje, nombre) {
+			var puntosAdicionales = puntos - Skills.getPuntosSkill(self.game.skills, numSkill);
 			res.push(puntosAdicionales);
 			if (puntosAdicionales) {
 				modificados = true;

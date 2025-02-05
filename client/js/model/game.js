@@ -4,7 +4,6 @@ import Item from './item';
 import Character from './character';
 import Atributos from './atributos';
 import Inventario from './inventario';
-import Skills from './skills';
 import PlayerState from './playerstate';
 import PlayerMovement from './playermovement';
 import { Enums } from '../enums';
@@ -15,6 +14,7 @@ import { Ticker } from 'pixi.js';
 import * as Camera from '../view/camera';
 import * as CharacterSprites from '../view/charactersprites';
 import * as Renderer from '../view/renderer';
+import * as Skills from './skills';
 
 class Game {
 	constructor(assetManager) {
@@ -48,7 +48,7 @@ class Game {
 		this.inventario = new Inventario();
 		this.inventarioShop = new Inventario();
 		this.bankShop = new Inventario();
-		this.skills = new Skills();
+		this.skills = Skills.init();
 		this.hechizos = [];
 
 		this.mouse = { x: 0, y: 0 };

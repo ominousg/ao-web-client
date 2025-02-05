@@ -6128,10 +6128,10 @@ function ServerPacketDecodeAndDispatch(buffer, handler) {
 
 		case 71: {
 			var i;
-			var Skills = [];
-			for (i = 0; i < 40; ++i) Skills[i] = buffer.ReadByte();
+			var SkillsData = [];
+			for (i = 0; i < 40; ++i) SkillsData[i] = buffer.ReadByte();
 
-			handler.handleSendSkills(Skills);
+			handler.handleSendSkills(SkillsData);
 
 			break;
 		}

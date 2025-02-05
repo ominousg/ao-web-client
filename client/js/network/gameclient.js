@@ -11,6 +11,7 @@ import * as Mapa from '../model/mapa';
 import * as Renderer from '../view/renderer';
 import * as WorldState from '../model/worldstate';
 import * as World from '../model/world';
+import * as Skills from '../model/skills';
 
 class GameClient {
 	constructor(game, uiManager, gameUI) {
@@ -413,7 +414,7 @@ class GameClient {
 	}
 
 	handleLevelUp(SkillPoints) {
-		this.game.skills.agregarSkillsLibres(SkillPoints);
+		Skills.agregarSkillsLibres(this.game.skills, SkillPoints);
 	}
 
 	handleAddForumMsg(ForumType, Title, Author, Message) {
@@ -447,8 +448,8 @@ class GameClient {
 		console.log('TODO: handleDumbNoMore ');
 	}
 
-	handleSendSkills(Skills) {
-		this.game.skills.setSkills(Skills);
+	handleSendSkills(SkillsData) {
+		Skills.setSkills(this.game.skills, SkillsData);
 		this.uiManager.gameUI.updateSkillsData();
 	}
 
