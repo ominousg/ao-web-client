@@ -7,146 +7,144 @@ import { Enums } from '../enums';
 import Transition from '../transition';
 import PIXI from 'pixi.js';
 
-class CharacterMovement {
-	constructor(character) {
-		this.movementTransition = new Transition();
-		this.character = character;
+const init = (character) => ({
+	movementTransition: new Transition(),
+	character
+});
+
+const update = (movement, delta) => {
+	if (estaMoviendose(movement)) {
+		movement.movementTransition.step(delta);
+	}
+};
+
+const mover = (movement, dir, movimientoCallback, finMovimientoCallback) => {
+	const { character } = movement;
+
+	switch (
+		dir // Se setea la pos del grid nomas porque la (x,y) la usa para la animacion el character ( y la va actualizando)
+	) {
+		case Enums.Heading.oeste:
+			character.setGridPositionOnly(character.gridX - 1, character.gridY);
+			break;
+		case Enums.Heading.este:
+			character.setGridPositionOnly(character.gridX + 1, character.gridY);
+			break;
+		case Enums.Heading.norte:
+			character.setGridPositionOnly(character.gridX, character.gridY - 1);
+			break;
+		case Enums.Heading.sur:
+			character.setGridPositionOnly(character.gridX, character.gridY + 1);
+			break;
+		default:
+			throw new Error(' Direccion de movimiento invalida!');
 	}
 
-	update(delta) {
-		if (this.estaMoviendose()) {
-			this.movementTransition.step(delta);
+	resetMovement(movement);
+	character.heading = dir;
+	_crearMovimiento(movement, movimientoCallback, finMovimientoCallback);
+};
+
+const _crearMovimiento = (movement, callback_mov, finMovimientoCallback) => {
+	const { character, movementTransition } = movement;
+	const distPrimerFrame = 0;
+
+	if (character.heading === Enums.Heading.oeste) {
+		movementTransition.start(
+			(x) => {
+				character.setPosition(x, character.y);
+				if (callback_mov) {
+					callback_mov(character.x, character.y);
+				}
+			},
+			() => {
+				character.setPosition(movementTransition.endValue, character.y);
+				if (callback_mov) {
+					callback_mov(character.x, character.y);
+				}
+				if (finMovimientoCallback) {
+					finMovimientoCallback();
+				}
+			},
+			character.x - distPrimerFrame,
+			character.x - 32,
+			character.moveSpeed
+		);
+	} else if (character.heading === Enums.Heading.este) {
+		movementTransition.start(
+			(x) => {
+				character.setPosition(x, character.y);
+				if (callback_mov) {
+					callback_mov(character.x, character.y);
+				}
+			},
+			() => {
+				character.setPosition(movementTransition.endValue, character.y);
+				if (callback_mov) {
+					callback_mov(character.x, character.y);
+				}
+				if (finMovimientoCallback) {
+					finMovimientoCallback();
+				}
+			},
+			character.x + distPrimerFrame,
+			character.x + 32,
+			character.moveSpeed
+		);
+	} else if (character.heading === Enums.Heading.norte) {
+		movementTransition.start(
+			(y) => {
+				character.setPosition(character.x, y);
+				if (callback_mov) {
+					callback_mov(character.x, character.y);
+				}
+			},
+			() => {
+				character.setPosition(character.x, movementTransition.endValue);
+				if (callback_mov) {
+					callback_mov(character.x, character.y);
+				}
+				if (finMovimientoCallback) {
+					finMovimientoCallback();
+				}
+			},
+			character.y - distPrimerFrame,
+			character.y - 32,
+			character.moveSpeed
+		);
+	} else if (character.heading === Enums.Heading.sur) {
+		movementTransition.start(
+			(y) => {
+				character.setPosition(character.x, y);
+				if (callback_mov) {
+					callback_mov(character.x, character.y);
+				}
+			},
+			() => {
+				character.setPosition(character.x, movementTransition.endValue);
+				if (callback_mov) {
+					callback_mov(character.x, character.y);
+				}
+				if (finMovimientoCallback) {
+					finMovimientoCallback();
+				}
+			},
+			character.y + distPrimerFrame,
+			character.y + 32,
+			character.moveSpeed
+		);
+	}
+};
+
+const estaMoviendose = (movement) => movement.movementTransition.inProgress;
+
+const resetMovement = (movement) => {
+	if (estaMoviendose(movement)) {
+		movement.movementTransition.stop();
+		if (movement.movementTransition.stopFunction) {
+			movement.movementTransition.stopFunction();
 		}
 	}
+};
 
-	mover(dir, movimientoCallback, finMovimientoCallback) {
-		switch (
-			dir // Se setea la pos del grid nomas porque la (x,y) la usa para la animacion el character ( y la va actualizando)
-		) {
-			case Enums.Heading.oeste:
-				this.character.setGridPositionOnly(this.character.gridX - 1, this.character.gridY);
-				break;
-			case Enums.Heading.este:
-				this.character.setGridPositionOnly(this.character.gridX + 1, this.character.gridY);
-				break;
-			case Enums.Heading.norte:
-				this.character.setGridPositionOnly(this.character.gridX, this.character.gridY - 1);
-				break;
-			case Enums.Heading.sur:
-				this.character.setGridPositionOnly(this.character.gridX, this.character.gridY + 1);
-				break;
-			default:
-				throw new Error(' Direccion de movimiento invalida!');
-		}
-
-		this.resetMovement();
-		this.character.heading = dir;
-		this._crearMovimiento(movimientoCallback, finMovimientoCallback);
-	}
-
-	_crearMovimiento(callback_mov, finMovimientoCallback) {
-		var self = this;
-		var distPrimerFrame = 0;
-
-		if (self.character.heading === Enums.Heading.oeste) {
-			self.movementTransition.start(
-				function (x) {
-					self.character.setPosition(x, self.character.y);
-					if (callback_mov) {
-						callback_mov(self.character.x, self.character.y);
-					}
-				},
-				function () {
-					self.character.setPosition(self.movementTransition.endValue, self.character.y);
-					if (callback_mov) {
-						callback_mov(self.character.x, self.character.y);
-					}
-					if (finMovimientoCallback) {
-						finMovimientoCallback();
-					}
-				},
-				self.character.x - distPrimerFrame,
-				self.character.x - 32,
-				self.character.moveSpeed
-			);
-		} else if (self.character.heading === Enums.Heading.este) {
-			self.movementTransition.start(
-				function (x) {
-					self.character.setPosition(x, self.character.y);
-					if (callback_mov) {
-						callback_mov(self.character.x, self.character.y);
-					}
-				},
-				function () {
-					self.character.setPosition(self.movementTransition.endValue, self.character.y);
-					if (callback_mov) {
-						callback_mov(self.character.x, self.character.y);
-					}
-					if (finMovimientoCallback) {
-						finMovimientoCallback();
-					}
-				},
-				self.character.x + distPrimerFrame,
-				self.character.x + 32,
-				self.character.moveSpeed
-			);
-		} else if (self.character.heading === Enums.Heading.norte) {
-			self.movementTransition.start(
-				function (y) {
-					self.character.setPosition(self.character.x, y);
-					if (callback_mov) {
-						callback_mov(self.character.x, self.character.y);
-					}
-				},
-				function () {
-					self.character.setPosition(self.character.x, self.movementTransition.endValue);
-					if (callback_mov) {
-						callback_mov(self.character.x, self.character.y);
-					}
-					if (finMovimientoCallback) {
-						finMovimientoCallback();
-					}
-				},
-				self.character.y - distPrimerFrame,
-				self.character.y - 32,
-				self.character.moveSpeed
-			);
-		} else if (self.character.heading === Enums.Heading.sur) {
-			self.movementTransition.start(
-				function (y) {
-					self.character.setPosition(self.character.x, y);
-					if (callback_mov) {
-						callback_mov(self.character.x, self.character.y);
-					}
-				},
-				function () {
-					self.character.setPosition(self.character.x, self.movementTransition.endValue);
-					if (callback_mov) {
-						callback_mov(self.character.x, self.character.y);
-					}
-					if (finMovimientoCallback) {
-						finMovimientoCallback();
-					}
-				},
-				self.character.y + distPrimerFrame,
-				self.character.y + 32,
-				self.character.moveSpeed
-			);
-		}
-	}
-
-	estaMoviendose() {
-		return this.movementTransition.inProgress;
-	}
-
-	resetMovement() {
-		if (this.estaMoviendose()) {
-			this.movementTransition.stop();
-			if (this.movementTransition.stopFunction) {
-				this.movementTransition.stopFunction();
-			}
-		}
-	}
-}
-
-export default CharacterMovement;
+export { init, update, mover, estaMoviendose, resetMovement };

@@ -2,7 +2,7 @@ import Entity from './entity';
 import Transition from '../transition';
 import PIXI from 'pixi.js';
 import { Enums } from '../enums';
-import CharacterMovement from './charactermovement';
+import * as CharacterMovement from './charactermovement';
 import * as CharacterText from '../view/charactertext';
 import * as CharacterSprites from '../view/charactersprites';
 
@@ -42,7 +42,7 @@ class Character extends Entity {
 		this.spriteNombre = null;
 		this.texto = null;
 
-		this.movement = new CharacterMovement(this);
+		this.movement = CharacterMovement.init(this);
 		this._nombre = Name;
 		this._clan = clan;
 		this._body = Body;
@@ -61,7 +61,7 @@ class Character extends Entity {
 	}
 
 	update(delta) {
-		this.movement.update(delta);
+		CharacterMovement.update(this.movement, delta);
 
 		//this.sprite.update(delta);
 		//if (this.spriteNombre){
@@ -80,15 +80,15 @@ class Character extends Entity {
 				finMovimientoCallback();
 			}
 		};
-		return this.movement.mover(dir, movimientoCallback, finCb);
+		return CharacterMovement.mover(this.movement, dir, movimientoCallback, finCb);
 	}
 
 	estaMoviendose() {
-		return this.movement.estaMoviendose();
+		return CharacterMovement.estaMoviendose(this.movement);
 	}
 
 	resetMovement() {
-		return this.movement.resetMovement();
+		return CharacterMovement.resetMovement(this.movement);
 	}
 
 	_animarMovimiento() {
