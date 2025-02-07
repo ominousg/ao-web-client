@@ -2,7 +2,7 @@
  * Created by horacio on 5/3/16.
  */
 import Game from './game';
-import Intervalos from './intervalos';
+import * as Intervalos from './intervalos';
 import Acciones from './acciones';
 import ComandosChat from './comandoschat';
 import * as Renderer from '../view/renderer';
@@ -13,8 +13,8 @@ class GameManager {
 		this.assetManaget = assetManager;
 		this.game = new Game(assetManager);
 
-		this.intervalos = new Intervalos();
-		this.acciones = new Acciones(this.game, this.intervalos);
+		this.intervalosState = Intervalos.init();
+		this.acciones = new Acciones(this.game, this.intervalosState);
 		this.comandosChat = new ComandosChat(this.game, this.acciones);
 	}
 

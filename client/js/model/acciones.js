@@ -5,13 +5,14 @@ import { Enums } from '../enums';
 import Font from '../font';
 import Macros from './macros';
 import * as World from './world';
+import * as Intervalos from './intervalos';
 
 class Acciones {
 	constructor(game, intervalos) {
 		this.game = game;
-		this.intervalos = intervalos;
+		this.intervalosState = intervalos;
 		this.MAX_CANTIDAD_ITEM = 10000;
-		this.macros = new Macros(this.game, this.intervalos, this);
+		this.macros = new Macros(this.game, this.intervalosState, this);
 	}
 
 	agarrar() {
@@ -31,7 +32,7 @@ class Acciones {
 	}
 
 	requestPosUpdate() {
-		if (this.intervalos.requestPosUpdate()) {
+		if (Intervalos.requestPosUpdate(this.intervalosState)) {
 			this.game.client.sendRequestPositionUpdate();
 		}
 	}
@@ -48,7 +49,7 @@ class Acciones {
 		if (!slot) {
 			return;
 		}
-		if (this.intervalos.requestUsarConU()) {
+		if (Intervalos.requestUsarConU(this.intervalosState)) {
 			this.game.client.sendUseItem(slot);
 		}
 	}
@@ -57,13 +58,13 @@ class Acciones {
 		if (!slot) {
 			return;
 		}
-		if (this.intervalos.requestUsarConDobleClick()) {
+		if (Intervalos.requestUsarConDobleClick(this.intervalosState)) {
 			this.game.client.sendUseItem(slot);
 		}
 	}
 
 	atacar() {
-		if (this.intervalos.requestAtacar()) {
+		if (Intervalos.requestAtacar(this.intervalosState)) {
 			this.game.client.sendAttack();
 			let x, y;
 			switch (
@@ -150,7 +151,7 @@ class Acciones {
 
 	lanzarHechizo() {
 		/*todo: slot por parametro*/
-		if (!this.intervalos.requestLanzarHechizo()) {
+		if (!Intervalos.requestLanzarHechizo(this.intervalosState)) {
 			return;
 		}
 		var slot = this.game.gameUI.interfaz.getSelectedSlotHechizo();
@@ -162,14 +163,14 @@ class Acciones {
 	}
 
 	domar() {
-		if (!this.intervalos.requestDomar()) {
+		if (!Intervalos.requestDomar(this.intervalosState)) {
 			return;
 		}
 		this.game.client.sendWork(Enums.Skill.domar);
 	}
 
 	robar() {
-		if (!this.intervalos.requestRobar()) {
+		if (!Intervalos.requestRobar(this.intervalosState)) {
 			return;
 		}
 		this.game.client.sendWork(Enums.Skill.robar);
