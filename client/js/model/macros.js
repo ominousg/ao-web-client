@@ -6,109 +6,123 @@
 import { Enums } from '../enums';
 import Font from '../font';
 import { Ticker } from 'pixi.js';
+import * as Intervalos from './intervalos';
 
-class Macros {
-	constructor(game, intervalos, acciones) {
-		this.game = game;
-		this.intervalos = intervalos;
-		this.acciones = acciones;
+const init = (game, intervalosState, acciones) => {
+	const state = {
+		game,
+		intervalosState,
+		acciones,
+		trabajando: false,
+		lanzandoHechizo: false,
+		boundUpdateTrabajar: null,
+		boundUpdateHechizos: null
+	};
+	return state;
+};
 
-		this.trabajando = false;
-		this.lanzandoHechizo = false;
+const toggleTrabajo = (state) => {
+	if (state.trabajando) {
+		terminarTrabajar(state);
+	} else {
+		comenzarTrabajar(state);
 	}
+};
 
-	toggleTrabajo() {
-		if (this.trabajando) {
-			this.terminarTrabajar();
-		} else {
-			this.comenzarTrabajar();
-		}
+const toggleHechizos = (state) => {
+	if (state.lanzandoHechizo) {
+		terminarLanzarHechizo(state);
+	} else {
+		comenzarLanzarHechizo(state);
 	}
+};
 
-	toggleHechizos() {
-		if (this.lanzandoHechizo) {
-			this.terminarLanzarHechizo();
-		} else {
-			this.comenzarLanzarHechizo();
-		}
+const comenzarTrabajar = (state) => {
+	if (state.trabajando) {
+		return;
 	}
-
-	comenzarTrabajar() {
-		if (this.trabajando) {
-			return;
-		}
-		if (!this.game.gameUI.interfaz.getSelectedSlotInventario()) {
-			this.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_TABAJO_REQUIERE_EQUIPAR, Font.WARNING);
-			return;
-		}
-		this.game.gameUI.interfaz.setMacroTrabajo(true);
-		this.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_TRABAJO_ACTIVADO, Font.WARNING);
-
-		Ticker.shared.add(this._updateTrabajar, this);
-		this.trabajando = true;
+	if (!state.game.gameUI.interfaz.getSelectedSlotInventario()) {
+		state.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_TABAJO_REQUIERE_EQUIPAR, Font.WARNING);
+		return;
 	}
+	state.game.gameUI.interfaz.setMacroTrabajo(true);
+	state.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_TRABAJO_ACTIVADO, Font.WARNING);
+	state.boundUpdateTrabajar = () => updateTrabajar(state);
+	Ticker.shared.add(state.boundUpdateTrabajar, state);
+	state.trabajando = true;
+};
 
-	terminarTrabajar() {
-		if (!this.trabajando) {
-			return;
-		}
-
-		this.game.gameUI.interfaz.setMacroTrabajo(false);
-		this.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_TRABAJO_DESACTIVADO, Font.WARNING);
-
-		Ticker.shared.remove(this._updateTrabajar, this);
-		this.trabajando = false;
+const terminarTrabajar = (state) => {
+	if (!state.trabajando) {
+		return;
 	}
+	state.game.gameUI.interfaz.setMacroTrabajo(false);
+	state.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_TRABAJO_DESACTIVADO, Font.WARNING);
+	Ticker.shared.remove(state.boundUpdateTrabajar, state);
+	state.boundUpdateTrabajar = null;
+	state.trabajando = false;
+};
 
-	_updateTrabajar() {
-		if (!this.intervalos.requestMacroTrabajo()) {
-			return;
-		}
-		if (this.game.trabajoPendiente) {
-			this.acciones.click(true);
-		} else {
-			this.acciones.usarConU();
-		}
+const updateTrabajar = (state) => {
+	if (!Intervalos.requestMacroTrabajo(state.intervalosState)) {
+		return;
 	}
+	if (state.game.trabajoPendiente) {
+		state.acciones.click(true);
+	} else {
+		state.acciones.usarConU();
+	}
+};
 
-	comenzarLanzarHechizo() {
-		if (this.lanzandoHechizo) {
-			return;
-		}
-		if (!this.game.gameUI.interfaz.getSelectedSlotHechizo()) {
-			this.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_HECHIZOS_REQUIRE_SELECCIONAR, Font.WARNING);
-			return;
-		}
-		this.game.gameUI.interfaz.setMacroHechizos(true);
-		this.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_HECHIZOS_ACTIVADO, Font.WARNING);
-		Ticker.shared.add(this._updateHechizos, this);
-		this.lanzandoHechizo = true;
+const comenzarLanzarHechizo = (state) => {
+	if (state.lanzandoHechizo) {
+		return;
 	}
+	if (!state.game.gameUI.interfaz.getSelectedSlotHechizo()) {
+		state.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_HECHIZOS_REQUIRE_SELECCIONAR, Font.WARNING);
+		return;
+	}
+	state.game.gameUI.interfaz.setMacroHechizos(true);
+	state.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_HECHIZOS_ACTIVADO, Font.WARNING);
+	state.boundUpdateHechizos = () => updateHechizos(state);
+	Ticker.shared.add(state.boundUpdateHechizos, state);
+	state.lanzandoHechizo = true;
+};
 
-	terminarLanzarHechizo() {
-		if (!this.lanzandoHechizo) {
-			return;
-		}
-		this.game.gameUI.interfaz.setMacroHechizos(false);
-		this.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_HECHIZOS_DESACTIVADO, Font.WARNING);
-		Ticker.shared.remove(this._updateHechizos, this);
-		this.lanzandoHechizo = false;
+const terminarLanzarHechizo = (state) => {
+	if (!state.lanzandoHechizo) {
+		return;
 	}
+	state.game.gameUI.interfaz.setMacroHechizos(false);
+	state.game.escribirMsgConsola(Enums.MensajeConsola.MACRO_HECHIZOS_DESACTIVADO, Font.WARNING);
+	Ticker.shared.remove(state.boundUpdateHechizos, state);
+	state.boundUpdateHechizos = null;
+	state.lanzandoHechizo = false;
+};
 
-	_updateHechizos() {
-		if (!this.intervalos.requestMacroHechizo()) {
-			return;
-		}
-		if (this.game.trabajoPendiente) {
-			this.acciones.click(true);
-		} else {
-			this.acciones.lanzarHechizo();
-		}
+const updateHechizos = (state) => {
+	if (!Intervalos.requestMacroHechizo(state.intervalosState)) {
+		return;
 	}
+	if (state.game.trabajoPendiente) {
+		state.acciones.click(true);
+	} else {
+		state.acciones.lanzarHechizo();
+	}
+};
 
-	desactivarMacros() {
-		this.terminarTrabajar();
-		this.terminarLanzarHechizo();
-	}
-}
-export default Macros;
+const desactivarMacros = (state) => {
+	terminarTrabajar(state);
+	terminarLanzarHechizo(state);
+};
+
+export {
+	init,
+	toggleTrabajo,
+	toggleHechizos,
+	comenzarTrabajar,
+	terminarTrabajar,
+	comenzarLanzarHechizo,
+	terminarLanzarHechizo,
+	desactivarMacros
+};

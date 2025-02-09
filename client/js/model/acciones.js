@@ -3,7 +3,7 @@
  */
 import { Enums } from '../enums';
 import Font from '../font';
-import Macros from './macros';
+import * as Macros from './macros';
 import * as World from './world';
 import * as Intervalos from './intervalos';
 
@@ -12,7 +12,7 @@ class Acciones {
 		this.game = game;
 		this.intervalosState = intervalos;
 		this.MAX_CANTIDAD_ITEM = 10000;
-		this.macros = new Macros(this.game, this.intervalosState, this);
+		this.macrosState = Macros.init(this.game, this.intervalosState, this);
 	}
 
 	agarrar() {
@@ -262,15 +262,15 @@ class Acciones {
 	}
 
 	toggleMacroHechizos() {
-		this.macros.toggleHechizos();
+		Macros.toggleHechizos(this.macrosState);
 	}
 
 	toggleMacroTrabajo() {
-		this.macros.toggleTrabajo();
+		Macros.toggleTrabajo(this.macrosState);
 	}
 
 	desactivarMacros() {
-		this.macros.desactivarMacros();
+		Macros.desactivarMacros(this.macrosState);
 	}
 
 	mostrarMenu() {
